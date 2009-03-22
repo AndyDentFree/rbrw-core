@@ -2,7 +2,6 @@
 Begin Window ReportExampleWindow
    BackColor       =   16777215
    Backdrop        =   0
-   BalloonHelp     =   ""
    CloseButton     =   True
    Composite       =   False
    Frame           =   0
@@ -46,8 +45,7 @@ Begin Window ReportExampleWindow
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Choose different reports from the Test menu.\r\rSome are prebuilt reports, others allow you to edit the data presented, to get a better idea of rbrw capabilities."
+      Text            =   "Choose different reports from the Preview or Print  menus.\r\rAll these reports are created by methods in the App class, such as:\rReportDemoApp.ReportSimpleFixedHeader"
       TextAlign       =   0
       TextColor       =   0
       TextFont        =   "System"
@@ -56,12 +54,20 @@ Begin Window ReportExampleWindow
       Underline       =   False
       Visible         =   True
       Width           =   694
-      BehaviorIndex   =   0
    End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			Quit
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Note, Name = About
 		advice - see ReportDemoApp for the menu handlers and methods doing the reports.
 		

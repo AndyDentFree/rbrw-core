@@ -16,7 +16,6 @@
    <SourceLine>Sub Constructor(inSurname as string, inOtherName as string, inRank as integer)</SourceLine>
    <SourceLine>Surname = inSurname</SourceLine>
    <SourceLine>Othername = inOtherName</SourceLine>
-   <SourceLineBreakpoint>2</SourceLineBreakpoint>
    <SourceLine>Rank = inRank</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>

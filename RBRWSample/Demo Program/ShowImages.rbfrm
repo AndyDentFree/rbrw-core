@@ -29,11 +29,12 @@ Begin Window ShowImages
       AcceptTabs      =   ""
       AutoDeactivate  =   True
       Backdrop        =   ""
+      DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
       Height          =   643
       HelpTag         =   ""
-      Index           =   2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LockBottom      =   True
@@ -49,14 +50,22 @@ Begin Window ShowImages
       UseFocusRing    =   True
       Visible         =   True
       Width           =   466
-      BehaviorIndex   =   0
    End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h0
-		Sub Constructor(p as Picture, newTitle as string="")
+		Sub Constructor(p as Picture, newTitle as string = "")
 		  ImageToDisplay = p
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
