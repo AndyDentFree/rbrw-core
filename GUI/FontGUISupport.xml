@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<RBProject version="2008r1">
+<block type="Module" ID="-1112077071">
+ <ObjName>FontGUISupport</ObjName>
+ <ObjContainerID>-1137593125</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Setup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Setup(inPreferredDefaultFontName as string)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>' load fonts, using very crude filter to ignore standard bitmap Windows fonts</SourceLine>
+   <SourceLine>' and also filter those that have names starting with "@"</SourceLine>
+   <SourceLine>dim i, lastFont As Integer</SourceLine>
+   <SourceLine>lastFont = FontCount - 1</SourceLine>
+   <SourceLine>#if TargetWin32</SourceLine>
+   <SourceLine>dim fname as string</SourceLine>
+   <SourceLine>dim fontsToIgnore() as String = Array("System", "Terminal", "Fixedsys", "Roman", "Script", "Modern", "Small Fonts")</SourceLine>
+   <SourceLine>dim numToIgnore as integer = UBound(fontsToIgnore)</SourceLine>
+   <SourceLine>dim ignoringFonts as Boolean = true</SourceLine>
+   <SourceLine>For i = 0 To lastFont</SourceLine>
+   <SourceLine>fname = Font(i)</SourceLine>
+   <SourceLine>if ignoringFonts then</SourceLine>
+   <SourceLine>if i=numToIgnore then</SourceLine>
+   <SourceLine>ignoringFonts = false '  stop ignoringFonts at next one</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if fname&lt;&gt;fontsToIgnore(i) then '  stop ignoring when no match sequence</SourceLine>
+   <SourceLine>ignoringFonts = false</SourceLine>
+   <SourceLine>if left(fname, 1)&lt;&gt;"@" then gFontNames.Append fname</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>if left(fname, 1)&lt;&gt;"@" then gFontNames.Append fname</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>Next</SourceLine>
+   <SourceLine>if ignoringFonts then '  can't do crude filter, just append the lot</SourceLine>
+   <SourceLine>For i = 0 To lastFont</SourceLine>
+   <SourceLine>fname = Font(i)</SourceLine>
+   <SourceLine>if left(fname, 1)&lt;&gt;"@" then gFontNames.Append fname</SourceLine>
+   <SourceLine>Next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>#else</SourceLine>
+   <SourceLine>For i = 0 To lastFont</SourceLine>
+   <SourceLine>gFontNames.Append Font(i)</SourceLine>
+   <SourceLine>Next</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>gFontNames.Sort</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>gDefaultFontIndex = gFontNames.IndexOf(inPreferredDefaultFontName)</SourceLine>
+   <SourceLine>if gDefaultFontIndex = -1 then gDefaultFontIndex = 0</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPreferredDefaultFontName as string</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DefaultFontIndex</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function DefaultFontIndex() As integer</SourceLine>
+   <SourceLine>return gDefaultFontIndex</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DefaultFontName</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function DefaultFontName() As String</SourceLine>
+   <SourceLine>return gFontNames(gDefaultFontIndex)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Property Flags="1" Compatibility="">gFontNames(-1) As string</Property>
+ <Property Flags="33" Compatibility="">gDefaultFontIndex As integer</Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

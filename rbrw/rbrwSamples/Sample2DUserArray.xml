@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<RBProject version="2009r1">
+<block type="Module" ID="-1074988834">
+ <ObjName>Sample2DUserArray</ObjName>
+ <ObjContainerID>2056130415</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Interfaces> rbrwIterableSource, rbrwFieldFacadeWithIterator, rbrwFieldFacade</Interfaces>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inSource() as SampleUserClass)</SourceLine>
+   <SourceLine>mPresentedClass = inSource</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inSource() as SampleUserClass</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>inc</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub inc()</SourceLine>
+   <SourceLine>// part of rbrwIterableSource interface</SourceLine>
+   <SourceLine>mIter = mIter + 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>start</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub start()</SourceLine>
+   <SourceLine>// part of rbrwIterableSource interface</SourceLine>
+   <SourceLine>mIter = 0</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>listFields</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function listFields() As string()</SourceLine>
+   <SourceLine>' as our fixed class wrapping SampleUserClass just return its members</SourceLine>
+   <SourceLine>return Array("Surname", "Rank")</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fieldValue</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fieldValue(name as string) As string</SourceLine>
+   <SourceLine>// part of rbrwFieldFacade interface</SourceLine>
+   <SourceLine>if name="Surname" then</SourceLine>
+   <SourceLine>return mPresentedClass(mIter).Surname</SourceLine>
+   <SourceLine>elseif name="Othername" then</SourceLine>
+   <SourceLine>return mPresentedClass(mIter).Othername</SourceLine>
+   <SourceLine>elseif name = "Rank" then</SourceLine>
+   <SourceLine>return Format(mPresentedClass(mIter).Rank, "###0")</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>raise new OutOfBoundsException</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>name as string</ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>iterator</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function iterator() As rbrwIterableSource</SourceLine>
+   <SourceLine>// part of  rbrwFieldFacadeWithIterator interface, allowing a single class to provide data set iteration and fields across the data set</SourceLine>
+   <SourceLine>return self</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwIterableSource</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>facade</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function facade() As rbrwFieldFacade</SourceLine>
+   <SourceLine>// part of  rbrwFieldFacadeWithIterator interface, allowing a single class to provide data set iteration and fields across the data set</SourceLine>
+   <SourceLine>return self</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwFieldFacade</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>more</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function more() As Boolean</SourceLine>
+   <SourceLine>// part of rbrwIterableSource interface</SourceLine>
+   <SourceLine>return mIter &lt;= UBound(mPresentedClass)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fieldValue</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fieldValue(zeroBasedIndex as integer) As string</SourceLine>
+   <SourceLine>// part of rbrwFieldFacade interface</SourceLine>
+   <SourceLine>select case zeroBasedIndex</SourceLine>
+   <SourceLine>case 0 </SourceLine>
+   <SourceLine>return mPresentedClass(mIter).Surname</SourceLine>
+   <SourceLine>case 1</SourceLine>
+   <SourceLine>return Format(mPresentedClass(mIter).Rank, "###0")</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>raise new OutOfBoundsException</SourceLine>
+   <SourceLine>end select</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>zeroBasedIndex as integer</ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>count</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function count() As integer</SourceLine>
+   <SourceLine>// part of rbrwFieldFacade interface</SourceLine>
+   <SourceLine>return 2</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>value</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function value() As String</SourceLine>
+   <SourceLine>// part of rbrwSource interface</SourceLine>
+   <SourceLine>return mPresentedClass(mIter).Surname + chr(9) +  Format(mPresentedClass(mIter).Rank, "###0")</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Property>
+  <ItemName>mPresentedClass()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPresentedClass() As SampleUserClass</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPresentedClass() As SampleUserClass</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mIter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mIter As integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mIter As integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

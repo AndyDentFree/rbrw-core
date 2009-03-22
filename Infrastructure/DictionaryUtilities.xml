@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<RBProject version="2008r1">
+<block type="Module" ID="-1102320048">
+ <ObjName>DictionaryUtilities</ObjName>
+ <ObjContainerID>-1137593125</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function clone(extends lhs as Dictionary) As Dictionary</SourceLine>
+   <SourceLine>dim ret as new Dictionary</SourceLine>
+   <SourceLine>dim i, lastKey as integer</SourceLine>
+   <SourceLine>lastKey = lhs.Count - 1</SourceLine>
+   <SourceLine>dim aKey as Variant</SourceLine>
+   <SourceLine>for i = 0 to lastKey</SourceLine>
+   <SourceLine>aKey = lhs.Key(i)</SourceLine>
+   <SourceLine>ret.value(aKey) = lhs.Value(aKey)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends lhs as Dictionary</ItemParams>
+  <ItemResult>Dictionary</ItemResult>
+ </Method>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

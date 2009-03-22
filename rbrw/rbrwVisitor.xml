@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="1275579608">
+ <ObjName>rbrwVisitor</ObjName>
+ <ObjContainerID>1074776017</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>VisitFirstPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitFirstPageHeaders(inBands as rbrwBandList)</SourceLine>
+   <SourceLine>VisitBandList inBands</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBands as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBandList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBandList(inBands as rbrwBandList)</SourceLine>
+   <SourceLine>EnterLevel</SourceLine>
+   <SourceLine>for each theBand as rbrwBand in inBands.bands</SourceLine>
+   <SourceLine>VisitTypedBand theBand</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>LeaveLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBands as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>EnterLevel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub EnterLevel()</SourceLine>
+   <SourceLine>// empty default</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>LeaveLevel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub LeaveLevel()</SourceLine>
+   <SourceLine>// empty level</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitFirstPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitFirstPageFooters(inBands as rbrwBandList)</SourceLine>
+   <SourceLine>VisitBandList inBands</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBands as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitPageHeaders(inBands as rbrwBandList)</SourceLine>
+   <SourceLine>VisitBandList inBands</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBands as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitPageFooters(inBands as rbrwBandList)</SourceLine>
+   <SourceLine>VisitBandList inBands</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBands as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitAdorner</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitAdorner(inAdorner as rbrwAdorner)</SourceLine>
+   <SourceLine>// empty default </SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inAdorner as rbrwAdorner</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitDrawable</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitDrawable(inDrawable as rbrwDrawable)</SourceLine>
+   <SourceLine>// empty default </SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inDrawable as rbrwDrawable</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBand</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBand(inBand as rbrwBand)</SourceLine>
+   <SourceLine>VisitDrawable inBand</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBand as rbrwBand</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitAdornerList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitAdornerList(inAdorners() as rbrwAdorner)</SourceLine>
+   <SourceLine>if ubound(inAdorners) = -1 then return</SourceLine>
+   <SourceLine>EnterLevel</SourceLine>
+   <SourceLine>for each ad as rbrwAdorner in inAdorners</SourceLine>
+   <SourceLine>VisitAdorner ad</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>LeaveLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inAdorners() as rbrwAdorner</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBlock</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBlock(inBlock as rbrwBlock)</SourceLine>
+   <SourceLine>VisitDrawable inBlock</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBlock as rbrwBlock</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBlockList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBlockList(inBlocks as rbrwBlockList)</SourceLine>
+   <SourceLine>EnterLevel</SourceLine>
+   <SourceLine>for each b as rbrwBlock in inBlocks.blocks</SourceLine>
+   <SourceLine>VisitBlock b</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>LeaveLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBlocks as rbrwBlockList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBody(inBand as rbrwBand)</SourceLine>
+   <SourceLine>EnterLevel</SourceLine>
+   <SourceLine>VisitTypedBand inBand</SourceLine>
+   <SourceLine>LeaveLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBand as rbrwBand</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBandHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBandHeaders(inBands as rbrwBandList)</SourceLine>
+   <SourceLine>VisitBandList inBands</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBands as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBandFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBandFooters(inBands as rbrwBandList)</SourceLine>
+   <SourceLine>VisitBandList inBands</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBands as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBreakList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBreakList(inBreaks() as rbrwBreak)</SourceLine>
+   <SourceLine>if ubound(inBreaks) = -1 then return</SourceLine>
+   <SourceLine>EnterLevel</SourceLine>
+   <SourceLine>for each b as rbrwBreak in inBreaks</SourceLine>
+   <SourceLine>dim aBand as rbrwBand = b.band</SourceLine>
+   <SourceLine>if not (aBand is nil) then</SourceLine>
+   <SourceLine>VisitTypedBand aBand</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>LeaveLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBreaks() as rbrwBreak</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>visit</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub visit(inRep as rbrwReport)</SourceLine>
+   <SourceLine>mRep = inRep</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// we test the count of lists because the overridden visit methods</SourceLine>
+   <SourceLine>// may not want to be entered for an empty list - easier to keep that</SourceLine>
+   <SourceLine>// test here to save user having to bother</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'if inRep-&gt;isMultiReport then</SourceLine>
+   <SourceLine>'oofRepMulti* multiRep = (oofRepMulti*)inRep;  // safe downcast</SourceLine>
+   <SourceLine>'const unsigned long numSections = multiRep-&gt;count();</SourceLine>
+   <SourceLine>'for (unsigned long i=0; i&lt;numSections; i++) {</SourceLine>
+   <SourceLine>'oofRepSection* theSection = multiRep-&gt;section(i);</SourceLine>
+   <SourceLine>'assert(theSection);</SourceLine>
+   <SourceLine>'visit(theSection);  // recurse each section!</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else {  // case for single report</SourceLine>
+   <SourceLine>inRep.becomeCurrent  // set horrible static pointer</SourceLine>
+   <SourceLine>inRep.resetIteratingBandLevel</SourceLine>
+   <SourceLine>if inRep.firstPageHeaders.count &gt; 0 then VisitFirstPageHeaders inRep.firstPageHeaders</SourceLine>
+   <SourceLine>if inRep.firstPageFooters.count &gt; 0 then VisitFirstPageFooters inRep.firstPageFooters</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inRep.pageHeaders.count &gt; 0 then VisitPageHeaders inRep.pageHeaders</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inRep.pageFooters.count &gt; 0 then VisitPageFooters inRep.pageFooters</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim bodyBand as rbrwBand = inRep.body</SourceLine>
+   <SourceLine>if not (bodyBand is nil) then</SourceLine>
+   <SourceLine>VisitTypedBand bodyBand</SourceLine>
+   <SourceLine>inRep.resetIteratingBandLevel</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>' end if  // single report</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inRep as rbrwReport</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBandHeaderBreaks</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBandHeaderBreaks(inBreaks() as rbrwBreak)</SourceLine>
+   <SourceLine>VisitBreakList inBreaks</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBreaks() as rbrwBreak</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitBandFooterBreaks</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitBandFooterBreaks(inBreaks() as rbrwBreak)</SourceLine>
+   <SourceLine>VisitBreakList inBreaks</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBreaks() as rbrwBreak</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitTypedBand</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitTypedBand(inBand as rbrwBand)</SourceLine>
+   <SourceLine>if inBand isa rbrwIterableTreeBand then</SourceLine>
+   <SourceLine>VisitTreeBand rbrwIterableTreeBand(inBand)</SourceLine>
+   <SourceLine>ElseIf inBand isa rbrwLayoutBand then</SourceLine>
+   <SourceLine>VisitLayoutBand rbrwLayoutBand(inBand)  // safe downcast</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>VisitBand inBand</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBand as rbrwBand</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitIterableBandBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitIterableBandBody(inBand as rbrwBand)</SourceLine>
+   <SourceLine>// Isolates these bands so more complex visitors can optimise their querying.</SourceLine>
+   <SourceLine>// Default case just treats as normal band.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>VisitBand iNBand</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBand as rbrwBand</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitLayoutBand</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitLayoutBand(inBand as rbrwLayoutBand)</SourceLine>
+   <SourceLine>VisitBlockList inBand.blocks</SourceLine>
+   <SourceLine>VisitBand inBand  // don't forget we are a band in our own right!</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBand as rbrwLayoutBand</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>VisitTreeBand</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub VisitTreeBand(inBand as rbrwIterableTreeBand)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mRep.incrementViewLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inBand.headers.count &gt; 0 then VisitBandHeaders inBand.headers</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inBand.headerBreaks.Ubound &gt; -1 then VisitBandHeaderBreaks inBand.headerBreaks</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>VisitBand inBand  // later may abstract out to equivalent of VisitViewBandBody</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inBand.footerBreaks.Ubound &gt; -1 then VisitBandFooterBreaks inBand.footerBreaks</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inBand.footers.count &gt; 0 then VisitBandFooters inBand.footers</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mRep.decrementViewLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBand as rbrwIterableTreeBand</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>based on oofRepVisitor</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>mRep</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mRep As rbrwReport</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mRep As rbrwReport</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

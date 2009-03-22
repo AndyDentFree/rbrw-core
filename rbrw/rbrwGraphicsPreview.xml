@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<RBProject version="2009r1">
+<block type="Module" ID="872191665">
+ <ObjName>rbrwGraphicsPreview</ObjName>
+ <ObjContainerID>541461239</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>rbrwPagedGraphicsEnv</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>drawPage</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawPage(inG as Graphics, pageIndex as integer, inRect as rbrwRect = nil)</SourceLine>
+   <SourceLine>// note original has lot of stuff here about non-printing environment, setting scaling</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>//oofCurrentDraw::setCurrentDC(inDC);</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'if (!isPrintingEnvironment()) {</SourceLine>
+   <SourceLine>'// 99/02/15 adapt to external scaling</SourceLine>
+   <SourceLine>'CSize clientSize;</SourceLine>
+   <SourceLine>'oofRect pageRect = pageRectPts();</SourceLine>
+   <SourceLine>'const long inWidth = inRect.width();</SourceLine>
+   <SourceLine>'const int pixelsX = ::GetDeviceCaps(inDC, LOGPIXELSX);</SourceLine>
+   <SourceLine>'const long inWidthPts = ::MulDiv(inWidth, 72, pixelsX);</SourceLine>
+   <SourceLine>'const double scaleDivisor = double(inWidthPts) / pageRect.width();</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'// emulate the setting that's just occurred in the call to setCurrentDC</SourceLine>
+   <SourceLine>'// but with scaling</SourceLine>
+   <SourceLine>'const int horzres = ::GetDeviceCaps(inDC, HORZRES);</SourceLine>
+   <SourceLine>'const int horzsize = ::GetDeviceCaps(inDC, HORZSIZE);  // always mm</SourceLine>
+   <SourceLine>'const int vertres = ::GetDeviceCaps(inDC, VERTRES);</SourceLine>
+   <SourceLine>'const int vertsize = ::GetDeviceCaps(inDC, VERTSIZE);</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'const double devHorDPI = 25.4*horzres/horzsize;</SourceLine>
+   <SourceLine>'const double devVertDPI = 25.4*vertres/vertsize;</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'const int horDP10i = int(10 * devHorDPI);</SourceLine>
+   <SourceLine>'const int vertDP10i = int(10 * devVertDPI);</SourceLine>
+   <SourceLine>'assert(horDP10i&lt;32767);  // safe for Win95</SourceLine>
+   <SourceLine>'assert(vertDP10i&lt;32767);  // safe for Win95</SourceLine>
+   <SourceLine>'SIZE oldViewExtent, oldWindowExtent;</SourceLine>
+   <SourceLine>'::SetMapMode(inDC, MM_ANISOTROPIC);</SourceLine>
+   <SourceLine>'::SetViewportExtEx(inDC, horDP10i, vertDP10i, &amp;oldViewExtent);</SourceLine>
+   <SourceLine>'const int horizontalAndVertExt = 720/scaleDivisor;</SourceLine>
+   <SourceLine>'::SetWindowExtEx(inDC, horizontalAndVertExt, horizontalAndVertExt, &amp;oldWindowExtent);</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>pages.page(pageIndex).draw inRect</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mCurrentPage = pageIndex</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inG as Graphics, pageIndex as integer, inRect as rbrwRect = nil</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>loosely based on oofRepWinGUIPreviewMFC</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>PROPERTIES NOT IMPLEMENTED</NoteLine>
+   <NoteLine>mParentWnd</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

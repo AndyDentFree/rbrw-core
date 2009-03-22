@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5">
+<block type="Module" ID="1318577968">
+ <ObjName>rbrwSettings</ObjName>
+ <ObjContainerID>914855210</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor()</SourceLine>
+   <SourceLine>mOverrides = new Dictionary</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>operator_lookup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function operator_lookup(Name as String) As double</SourceLine>
+   <SourceLine>if mOverrides.HasKey(name) then</SourceLine>
+   <SourceLine>return mOverrides.Value(name).DoubleValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>// do this explicit check to catch ugly stack-filling loops </SourceLine>
+   <SourceLine>// if a lookup is performed for something that wasn't stashed in the singleton </SourceLine>
+   <SourceLine>// by rbrwDefaultSettings.setDefaultsInto</SourceLine>
+   <SourceLine>if not rbrwDefaultSettings.settings.mOverrides.HasKey(name) then</SourceLine>
+   <SourceLine>break  // to catch stack traces</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>return rbrwDefaultSettings.settings.operator_lookup(Name)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>Name as String</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>operator_lookup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub operator_lookup(Name as String, assigns value as double)</SourceLine>
+   <SourceLine>mOverrides.Value(name) = value</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>Name as String, assigns value as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>LookupBandList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function LookupBandList(Name as String) As rbrwBandList</SourceLine>
+   <SourceLine>if mOverrides.HasKey(name) then</SourceLine>
+   <SourceLine>dim ret as Object = mOverrides.Value(name).ObjectValue</SourceLine>
+   <SourceLine>if ret isa rbrwBandList then</SourceLine>
+   <SourceLine>return rbrwBandList(ret)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return nil</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return rbrwDefaultSettings.settings.LookupBandList(Name)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>Name as String</ItemParams>
+  <ItemResult>rbrwBandList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>LookupStyle</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function LookupStyle(Name as String) As rbrwTextStyle</SourceLine>
+   <SourceLine>// method used by defaultTextStyle but centralised because may have others returning styles</SourceLine>
+   <SourceLine>if mOverrides.HasKey(name) then</SourceLine>
+   <SourceLine>dim ret as Object = mOverrides.Value(name).ObjectValue</SourceLine>
+   <SourceLine>if ret isa rbrwTextStyle then</SourceLine>
+   <SourceLine>return rbrwTextStyle(ret)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return nil</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return rbrwDefaultSettings.settings.LookupStyle(Name)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>Name as String</ItemParams>
+  <ItemResult>rbrwTextStyle</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>defaultPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function defaultPageHeaders() As rbrwBandList</SourceLine>
+   <SourceLine>return LookupBandList("defaultPageHeaders")</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBandList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>defaultPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub defaultPageHeaders(assigns value as rbrwBandList)</SourceLine>
+   <SourceLine>mOverrides.Value("defaultPageHeaders") = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>assigns value as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>defaultPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub defaultPageFooters(assigns value as rbrwBandList)</SourceLine>
+   <SourceLine>mOverrides.Value("defaultPageFooters") = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>assigns value as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>defaultPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function defaultPageFooters() As rbrwBandList</SourceLine>
+   <SourceLine>return LookupBandList("defaultPageFooters")</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBandList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>defaultTextStyle</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function defaultTextStyle() As rbrwTextStyle</SourceLine>
+   <SourceLine>//return LookupStyle("defaultTextStyle")</SourceLine>
+   <SourceLine>if mDefaultTextStyle is nil then</SourceLine>
+   <SourceLine>return rbrwDefaultSettings.settings.mDefaultTextStyle</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return mDefaultTextStyle</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwTextStyle</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>defaultTextStyle</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub defaultTextStyle(assigns value as rbrwTextStyle)</SourceLine>
+   <SourceLine>//mOverrides.Value("defaultTextStyle") = value</SourceLine>
+   <SourceLine>mDefaultTextStyle = value  // store typed pointer for this one as it's hit a LOT</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>assigns value as rbrwTextStyle</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>based on oofRepSettings</NoteLine>
+   <NoteLine>Settings object for overriding behaviours of an instance of oofRep.</NoteLine>
+   <NoteLine>@see oofRepDefaultSettings for the defaults you override</NoteLine>
+   <NoteLine>by setting anything with our members.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Uses a flexible lookup system based on a dictionary and use of operatorLookup to </NoteLine>
+   <NoteLine>be extensible and lots easier to code!</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>mOverrides</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mOverrides As Dictionary</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mOverrides As Dictionary</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mDefaultTextStyle</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mDefaultTextStyle As rbrwTextStyle</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mDefaultTextStyle As rbrwTextStyle</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

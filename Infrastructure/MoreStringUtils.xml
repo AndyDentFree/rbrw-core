@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5">
+<block type="Module" ID="-1078691053">
+ <ObjName>MoreStringUtils</ObjName>
+ <ObjContainerID>-1075940245</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>tailTrimmed</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function tailTrimmed(extends inString as string, startAt as integer, strLen as integer) As String</SourceLine>
+   <SourceLine>' trims trailing strings from a substring defined by a start point and length</SourceLine>
+   <SourceLine>' then returns that substring or an empty string</SourceLine>
+   <SourceLine>dim i, lastChar as integer</SourceLine>
+   <SourceLine>for i = startAt+strLen-1 downto startAt</SourceLine>
+   <SourceLine>lastChar  = asc( inString.Mid(i, 1) )</SourceLine>
+   <SourceLine>if lastChar&lt;&gt;32 and lastChar&lt;&gt;13 and lastChar&lt;&gt;10 and lastChar&lt;&gt;9 then</SourceLine>
+   <SourceLine>return inString.Mid(startAt, i - startAt + 1)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>return "" '  entire string was whitespace</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends inString as string, startAt as integer, strLen as integer</ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>isspace</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function isspace(aChar as string) As Boolean</SourceLine>
+   <SourceLine>if aChar is nil or aChar.Len &lt;&gt; 1 then return False</SourceLine>
+   <SourceLine>return isspace(aChar.asc)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>aChar as string</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>isspace</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function isspace(aChar as integer) As Boolean</SourceLine>
+   <SourceLine>// test in decreasing order of likely encountering: space, linefeed, CR, tab, formfeed, vertical tab</SourceLine>
+   <SourceLine>return aChar=&amp;h20 or aChar=&amp;h0A or aChar=&amp;h0D or aChar=&amp;h09  or aChar=&amp;h0C  or aChar=&amp;h0B</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>aChar as integer</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

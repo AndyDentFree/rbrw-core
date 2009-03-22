@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<RBProject version="2009r1">
+<block type="Module" ID="-1075899899">
+ <ObjName>SampleUserClass</ObjName>
+ <ObjContainerID>-1075899702</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inSurname as string, inOtherName as string, inRank as integer)</SourceLine>
+   <SourceLine>Surname = inSurname</SourceLine>
+   <SourceLine>Othername = inOtherName</SourceLine>
+   <SourceLineBreakpoint>2</SourceLineBreakpoint>
+   <SourceLine>Rank = inRank</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inSurname as string, inOtherName as string, inRank as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>FillSampleUsers</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Sub FillSampleUsers(samples() as SampleUserClass)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Abdullah", "Jennifer", 89)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Alarcon", "Steven", 127)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Albers", "Joy", 149)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Amador", "Willie", 31)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Amick", "Gertrude", 32)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Andre", "Sheri", 77)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Argento", "Carmella", 26)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Atwell", "Molly", 118)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Bach", "Patrick", 96)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Bainbridge", "Jeanie", 3)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Beane", "Harold", 66)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Beaumont", "Penny", 69)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Beeman", "Antonio", 133)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Bergstrom", "Jill", 132)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Birdwell", "Carlos", 101)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Blanks", "Kevin", 56)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Borges", "Candice", 157)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Botello", "Bruce", 151)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Bourassa", "Rosa", 175)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Bretz", "Lula", 67)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Cagle", "Jeffery", 92)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Carder", "Jimmy", 120)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Chadwell", "Rodney", 39)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Chartrand", "Roslyn", 10)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Colwell", "Earl", 173)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Cooke", "Samuel", 164)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Cornish", "Bonnie", 156)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Coronado", "Jose", 139)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Crowder", "Todd", 148)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Damiano", "James", 91)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Dehaven", "Jacob", 119)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Derry", "Rodney", 155)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Deville", "Daisy", 47)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Dick", "Carlos", 142)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Dobbin", "Dona", 28)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Doxey", "Karina", 22)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Dufrene", "Blanche", 42)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Dunne", "Randy", 83)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Eicher", "Julie", 48)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Emanuel", "Naomi", 70)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Everhart", "Mike", 74)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Fagundes", "Neva", 16)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Favor", "Tia", 25)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Fike", "Jerry", 137)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Fleury", "Samuel", 59)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Fowlkes", "Candice", 110)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Fred", "Medeiros",  88)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Freshour", "Clinton", 11)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Frick", "Alan", 68)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Fruge", "Clinton", 24)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Fusco", "Sonya", 103)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Garron", "Louisa", 30)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Garry", "Paul", 38)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Gayman", "Kelly", 23)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Giguere", "Gary", 79)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Glasser", "Herman", 63)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Goodale", "Theresa", 176)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Grimes", "Beulah", 41)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Grogan", "Heidi", 125)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Grover", "Teresa", 135)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Guerin", "Rosa", 146)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hagerty", "Raymond", 104)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hardcastle", "Pearl", 112)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Harjo", "Lance", 21)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hatch", "Hazel", 82)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hauck", "Albert", 64)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hayward", "Jessica", 107)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Herzog", "Rachel", 34)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hetrick", "Vincent", 94)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hiatt", "Randy", 87)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hisle", "Max", 5)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hoelscher", "Tamara", 115)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hume", "Steve", 75)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Huss", "Antonio", 35)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Hylton", "Sean", 117)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Irby", "Marvin", 141)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Jeffery", "Eiland", 58)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Jeffries", "Brenda", 143)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Jordan", "Helen", 99)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Kendrick", "Brandi", 55)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Kilburn", "Marian", 172)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Killough", "Sarah", 36)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Kitchens", "Kay", 95)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Klenk", "Margery", 17)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Kline", "Mike", 163)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Kurtz", "Charles", 53)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Kyle", "Marie", 122)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Lair", "Carrie", 170)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Legrand", "Clarence", 126)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Lepore", "Sandra", 106)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Leverett", "Terri", 60)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Lex", "Max", 7)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Lovelady", "Marjorie", 71)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Macomber", "Dale", 109)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Madison", "Ada", 140)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Mahle", "Cody", 1)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Malinowski", "Elsie", 43)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Manwaring", "Hugh", 19)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Manzo", "Marian", 76)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Marlin", "Shelly", 160)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Mathewson", "Pam", 72)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Mcmichael", "Pat", 166)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Meisel", "Alejandra", 9)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Menjivar", "Ashlee", 29)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Michaud", "Jeremy", 168)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Miele", "Ernest", 49)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Million", "Rosemary", 169)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Mize", "John", 78)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Moorehead", "Juan", 57)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Moreno", "Laura", 46)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Naughton", "Danny", 44)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Nicely", "Allen", 121)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Noland", "Lynda", 50)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Nowlin", "Raymond", 150)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Oda", "Elnora", 20)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Ogletree", "Kristen", 134)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Oldenburg", "Benita", 2)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Omara", "Joe", 45)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Owens", "Joann", 154)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Pedigo", "Tammy", 102)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Peek", "Vicki", 93)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Penrod", "Amber", 84)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Prieto", "Cheryl", 138)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Quirk", "Edna", 62)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Quiroz", "Monique", 113)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Radtke", "Wendy", 131)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Reading", "Iris", 100)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Rendon", "Victor", 130)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Rossi", "Billy", 51)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Roundy", "Danny", 124)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Runion", "Gladys", 98)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Saechao", "Clinton", 8)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Scheffler", "Patrick", 40)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Schott", "Steven", 108)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Scott", "Dunn", 147)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Scoville", "Adam", 128)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Scruggs", "Travis", 114)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Seaton", "Manuel", 86)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Sedillo", "Nathan", 116)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Segura", "Howard", 111)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Shealey", "Ted", 27)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Sheehan", "Stephen", 162)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Shull", "Andrew", 129)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Simpler", "Sharron", 15)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Singer", "Michael", 145)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Smith", "Alan", 179)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Smith", "Bryan", 178)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Smith", "John", 177)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Snyder", "Claire", 85)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Soucy", "Johnny", 161)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Spinelli", "Randy", 167)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Stamm", "Wendy", 90)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Steven", "Lillie", 152)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Stillman", "Stephen", 136)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Stong", "Maricela", 6)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Strohm", "Hugh", 12)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Struck", "Victor", 37)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Stuart", "Peter", 174)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Sturgill", "Katrina", 73)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Tannenbaum", "Christian", 4)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Thatcher", "Anita", 52)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Thurber", "Alison", 158)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("True", "Suzanne", 171)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Truman", "Fred", 144)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Turk", "Michele", 61)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Ulmer", "Rebecca", 153)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Urbina", "Joyce", 105)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Vachon", "Simon", 80)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Valdez", "Juanita", 81)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Villegas", "Nathan", 165)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Vosburgh", "Jami", 14)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Waddell", "Curtis", 33)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Wenzel", "Frank", 54)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Westerfield", "Tara", 159)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Winder", "Brandon", 65)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Wyche", "Vince", 97)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Wydra", "Tammy", 13)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Zamora", "Lucy", 123)</SourceLine>
+   <SourceLine>samples.Append new SampleUserClass("Zona", "Pearlie", 18)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>samples() as SampleUserClass</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>About</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>About</NoteLine>
+   <NoteLine>A simple demonstration of a class which contains a "row" of data that would typically be drawn in a report.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>FillSampleUsers is here as a shared method just to make it easy to use this class in unit tests and report samples, populating a standard RB array.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Note that this class is completely standalone from the report-writer and data source abstractions - it just contains a few public properties.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>The sibling class Sample2DUserArray uses the data in an array of SampleUserClass to feed a report.</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>Surname</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Surname As string</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>Surname As string</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>Rank</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Rank As integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>Rank As integer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>Othername</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Othername As string</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>Othername As string</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Surname</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>string</ItemType>
+   <EditorType>MultiLineEditor</EditorType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Rank</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Othername</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>string</ItemType>
+   <EditorType>MultiLineEditor</EditorType>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

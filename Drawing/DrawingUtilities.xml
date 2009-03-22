@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="-1124356759">
+ <ObjName>DrawingUtilities</ObjName>
+ <ObjContainerID>-1075940245</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>MakeDottedRect</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function MakeDottedRect(inX as integer, inY as integer, inX2 as integer, inY2 as integer, lineColor as Color) As Group2D</SourceLine>
+   <SourceLine>' creates a dotted rectangle the size of our current specs</SourceLine>
+   <SourceLine>if inX = inX2 or inY=inY2 then return nil  ' empty rect</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim ret as new Group2D</SourceLine>
+   <SourceLine>' simple cases drawing horizontal and vertical lines</SourceLine>
+   <SourceLine>const dashlen = 4</SourceLine>
+   <SourceLine>const dashGap = 4</SourceLine>
+   <SourceLine>const totalDashLen = 8 ' dashLen + dashGap</SourceLine>
+   <SourceLine>dim i, numDashes, lastDashLen, runningX, runningY  as integer</SourceLine>
+   <SourceLine>dim x as integer = Min(inX, inX2)</SourceLine>
+   <SourceLine>dim y as integer = Min(inY, inY2)</SourceLine>
+   <SourceLine>dim x2 as integer = Max(inX, inX2)</SourceLine>
+   <SourceLine>dim y2 as integer = Max(inY, inY2)</SourceLine>
+   <SourceLine>dim w as integer = x2 - x</SourceLine>
+   <SourceLine>dim h as integer = y2 - y</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// set ret position up front so it doesn't translate things we add</SourceLine>
+   <SourceLine>ret.x = x+w/2</SourceLine>
+   <SourceLine>ret.y = y+h/2</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>' horizontal first</SourceLine>
+   <SourceLine>numDashes = w/totalDashLen - 2 ' will draw last one separately</SourceLine>
+   <SourceLine>lastDashLen = dashlen + w Mod totalDashLen</SourceLine>
+   <SourceLine>runningX = x</SourceLine>
+   <SourceLine>for i=0 to numDashes  ' add two parallel lines</SourceLine>
+   <SourceLine>AddLine ret, runningX, y, runningX+dashLen, y, lineColor</SourceLine>
+   <SourceLine>AddLine ret, runningX, y2, runningX+dashLen, y2, lineColor</SourceLine>
+   <SourceLine>runningX = runningX + totalDashLen</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>AddLine ret, runningX, y, runningX+lastDashLen, y, lineColor</SourceLine>
+   <SourceLine>AddLine ret, runningX, y2, runningX+lastDashLen, y2, lineColor</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>numDashes = h/totalDashLen - 2 ' will draw last one separately</SourceLine>
+   <SourceLine>lastDashLen = dashlen + h Mod totalDashLen</SourceLine>
+   <SourceLine>runningY = y</SourceLine>
+   <SourceLine>for i=0 to numDashes  ' add two parallel lines</SourceLine>
+   <SourceLine>AddLine ret, x, runningY, x, runningY+dashLen, lineColor</SourceLine>
+   <SourceLine>AddLine ret, x2, runningY, x2, runningY+dashLen, lineColor</SourceLine>
+   <SourceLine>runningY = runningY + totalDashLen</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>AddLine ret, x, runningY, x, runningY+lastDashLen, lineColor</SourceLine>
+   <SourceLine>AddLine ret, x2, runningY, x2, runningY+lastDashLen, lineColor</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inX as integer, inY as integer, inX2 as integer, inY2 as integer, lineColor as Color</ItemParams>
+  <ItemResult>Group2D</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AddLine</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub AddLine(toGroup as Group2D, x as integer, y as integer, x2 as integer, y2 as integer, lineColor as Color)</SourceLine>
+   <SourceLine>dim aLine as CurveShape</SourceLine>
+   <SourceLine>aLine = new CurveShape</SourceLine>
+   <SourceLine>aLine.x = x</SourceLine>
+   <SourceLine>aLine.y = y</SourceLine>
+   <SourceLine>aLine.BorderColor = lineColor</SourceLine>
+   <SourceLine>aLine.x2 = x2</SourceLine>
+   <SourceLine>aLine.y2 = y2</SourceLine>
+   <SourceLine>toGroup.Append aLine</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>toGroup as Group2D, x as integer, y as integer, x2 as integer, y2 as integer, lineColor as Color</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Clone(extends rhs as StringShape) As StringShape</SourceLine>
+   <SourceLine>dim ret as new StringShape</SourceLine>
+   <SourceLine>' copy  Object2D properties</SourceLine>
+   <SourceLine>ret.Border = rhs.Border</SourceLine>
+   <SourceLine>ret.BorderColor = rhs.BorderColor</SourceLine>
+   <SourceLine>ret.BorderWidth = rhs.BorderWidth</SourceLine>
+   <SourceLine>ret.Fill = rhs.Fill</SourceLine>
+   <SourceLine>ret.FillColor = rhs.FillColor</SourceLine>
+   <SourceLine>ret.Rotation = rhs.Rotation</SourceLine>
+   <SourceLine>ret.Scale = rhs.Scale</SourceLine>
+   <SourceLine>ret.X = rhs.X</SourceLine>
+   <SourceLine>ret.Y = rhs.Y</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>' copy StringShape properties</SourceLine>
+   <SourceLine>ret.Bold = rhs.Bold</SourceLine>
+   <SourceLine>ret.Italic = rhs.Italic</SourceLine>
+   <SourceLine>ret.Text = rhs.Text</SourceLine>
+   <SourceLine>ret.TextFont = rhs.TextFont</SourceLine>
+   <SourceLine>ret.TextSize = rhs.TextSize</SourceLine>
+   <SourceLine>ret.Underline = rhs.Underline</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rhs as StringShape</ItemParams>
+  <ItemResult>StringShape</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ClearAll</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub ClearAll(extends G as Graphics)</SourceLine>
+   <SourceLine>G.ClearRect 0,0, G.Width, G.Height</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends G as Graphics</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetObjectSize</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetObjectSize(extends obj as Object2D, w as double, h as double)</SourceLine>
+   <SourceLine>' do nothing in general case</SourceLine>
+   <SourceLine>if obj isa RectShape then</SourceLine>
+   <SourceLine>RectShape(obj).Width = w</SourceLine>
+   <SourceLine>RectShape(obj).Height = h</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>system.DebugLog "SetObjectSize(object2d) called with non Rect_Shape"</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends obj as Object2D, w as double, h as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetObjectSize</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetObjectSize(extends obj as Object2D, x as double, y as double, w as double, h as double)</SourceLine>
+   <SourceLine>' do nothing in general case</SourceLine>
+   <SourceLine>obj.x = x + w/2</SourceLine>
+   <SourceLine>obj.y = y + h/2</SourceLine>
+   <SourceLine>if obj isa RectShape then</SourceLine>
+   <SourceLine>RectShape(obj).Width = w</SourceLine>
+   <SourceLine>RectShape(obj).Height = h</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>system.DebugLog "SetObjectSize(object2d) called with non Rect_Shape"</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends obj as Object2D, x as double, y as double, w as double, h as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Erase</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Erase(extends g as Graphics, withColor as color = &amp;cFFFFFF)</SourceLine>
+   <SourceLine>dim saveColor as Color = g.ForeColor</SourceLine>
+   <SourceLine>g.ForeColor = withColor</SourceLine>
+   <SourceLine>g.FillRect(0, 0, g.Width, g.Height)</SourceLine>
+   <SourceLine>g.ForeColor = saveColor</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends g as Graphics, withColor as color = &amp;cFFFFFF</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DrawObjectCentred</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub DrawObjectCentred(extends g as Graphics, draws as Object2D)</SourceLine>
+   <SourceLine>g.DrawObject draws, g.Width/2, g.Height/2</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends g as Graphics, draws as Object2D</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DrawObject</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub DrawObject(extends g as Graphics, inObject as Object2D, dx as double, dy as double)</SourceLine>
+   <SourceLine>' hack to work around the fact that DrawObject takes INTEGER offset</SourceLine>
+   <SourceLine>if dx=0 and dy=0 then</SourceLine>
+   <SourceLine>g.DrawObject inObject</SourceLine>
+   <SourceLine>return</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim saveX,saveY as double</SourceLine>
+   <SourceLine>saveX = inObject.x</SourceLine>
+   <SourceLine>saveY = inObject.y</SourceLine>
+   <SourceLine>inObject.x = saveX + dx</SourceLine>
+   <SourceLine>inObject.y = saveY + dy</SourceLine>
+   <SourceLine>g.DrawObject inObject</SourceLine>
+   <SourceLine>inObject.x = saveX</SourceLine>
+   <SourceLine>inObject.y = saveY</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends g as Graphics, inObject as Object2D, dx as double, dy as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>MakeDashedLine</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function MakeDashedLine(inX as integer, inY as integer, inX2 as integer, inY2 as integer, lineColor as Color, dashLen as integer = 4, dashGap as integer = 4) As Group2D</SourceLine>
+   <SourceLine>if inX = inX2 and inY=inY2 then</SourceLine>
+   <SourceLine>return nil  ' empty line</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim ret as new Group2D</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim totalDashLen as integer = dashLen + dashGap</SourceLine>
+   <SourceLine>dim i, numDashes, lastDashLen, runningX, runningY  as integer</SourceLine>
+   <SourceLine>dim x as integer = Min(inX, inX2)</SourceLine>
+   <SourceLine>dim y as integer = Min(inY, inY2)</SourceLine>
+   <SourceLine>dim x2 as integer = Max(inX, inX2)</SourceLine>
+   <SourceLine>dim y2 as integer = Max(inY, inY2)</SourceLine>
+   <SourceLine>dim w as integer = x2 - x</SourceLine>
+   <SourceLine>dim h as integer = y2 - y</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// set ret position up front so it doesn't translate things we add</SourceLine>
+   <SourceLine>ret.x = x+w/2</SourceLine>
+   <SourceLine>ret.y = y+h/2</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if Abs(inY2 - inY) &lt; Abs(inX2 - inX) then ' horizontal</SourceLine>
+   <SourceLine>numDashes = w/totalDashLen - 2 ' will draw last one separately</SourceLine>
+   <SourceLine>lastDashLen = dashlen + w Mod totalDashLen</SourceLine>
+   <SourceLine>runningX = x</SourceLine>
+   <SourceLine>for i=0 to numDashes</SourceLine>
+   <SourceLine>AddLine ret, runningX, y, runningX+dashLen, y, lineColor</SourceLine>
+   <SourceLine>runningX = runningX + totalDashLen</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>numDashes = h/totalDashLen - 2 ' will draw last one separately</SourceLine>
+   <SourceLine>lastDashLen = dashlen + h Mod totalDashLen</SourceLine>
+   <SourceLine>runningY = y</SourceLine>
+   <SourceLine>for i=0 to numDashes  ' add two parallel lines</SourceLine>
+   <SourceLine>AddLine ret, x, runningY, x, runningY+dashLen, lineColor</SourceLine>
+   <SourceLine>runningY = runningY + totalDashLen</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inX as integer, inY as integer, inX2 as integer, inY2 as integer, lineColor as Color, dashLen as integer = 4, dashGap as integer = 4</ItemParams>
+  <ItemResult>Group2D</ItemResult>
+ </Method>
+ <Note>
+  <ItemName>About</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>About</NoteLine>
+   <NoteLine>Assorted drawing utilities</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>General Dotted Line sample</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>General Dotted Line sample</NoteLine>
+   <NoteLine>by Thomas Reed</NoteLine>
+   <NoteLine>note that I didn't use this but saved it as potentially useful in future</NoteLine>
+   <NoteLine>Sub DrawDashedLine(g as Graphics, x1 as integer, y1 as integer, x2 as </NoteLine>
+   <NoteLine>integer, y2 as integer, dashLen as integer)</NoteLine>
+   <NoteLine>dim lineLen,dx,dy,startX,startY,endX,endY,n as single</NoteLine>
+   <NoteLine>dim w,h as integer</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>w = x2-x1</NoteLine>
+   <NoteLine>h = y2-y1</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>lineLen = sqrt(w*w + h*h)</NoteLine>
+   <NoteLine>n = lineLen / dashLen</NoteLine>
+   <NoteLine>dx = w / n</NoteLine>
+   <NoteLine>dy = h / n</NoteLine>
+   <NoteLine>startX = x1</NoteLine>
+   <NoteLine>startY = y1</NoteLine>
+   <NoteLine>while endX &lt;&gt; x2</NoteLine>
+   <NoteLine>endX = startX + dx</NoteLine>
+   <NoteLine>endY = startY + dy</NoteLine>
+   <NoteLine>if abs(endX-x1) &gt; abs(w) then</NoteLine>
+   <NoteLine>endX = x2</NoteLine>
+   <NoteLine>end if</NoteLine>
+   <NoteLine>if abs(endY-y1) &gt; abs(h) then</NoteLine>
+   <NoteLine>endY = y2</NoteLine>
+   <NoteLine>end if</NoteLine>
+   <NoteLine>g.DrawLine(startX,startY,endX,endY)</NoteLine>
+   <NoteLine>startX = endX + dx</NoteLine>
+   <NoteLine>startY = endY + dy</NoteLine>
+   <NoteLine>wend</NoteLine>
+   <NoteLine>End Sub</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

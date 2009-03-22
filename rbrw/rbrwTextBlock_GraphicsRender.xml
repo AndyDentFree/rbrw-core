@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5">
+<block type="Module" ID="836599693">
+ <ObjName>rbrwTextBlock_GraphicsRender</ObjName>
+ <ObjContainerID>1963759756</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>rbrwTextBlock_Render</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function clone(newOwner as rbrwDrawable) As rbrwRender</SourceLine>
+   <SourceLine>return new rbrwTextBlock_GraphicsRender( rbrwTextBlock(newOwner) )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>newOwner as rbrwDrawable</ItemParams>
+  <ItemResult>rbrwRender</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>draw</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub draw()</SourceLine>
+   <SourceLine>rbrwReport.currentReport.changeTextStyle mOwner.textStyle</SourceLine>
+   <SourceLine>rbrwGraphicsTextDE.recordElement rbrwCurrentDraw.x, rbrwCurrentDraw.y, mOwner.text</SourceLine>
+   <SourceLine>// for position debugging useful to add this</SourceLine>
+   <SourceLine>// rbrwGraphicsLineDE.recordElement rbrwGraphicsEnv.x-5, rbrwGraphicsEnv.y, rbrwGraphicsEnv.x+20, rbrwGraphicsEnv.y</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>width</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function width() As double</SourceLine>
+   <SourceLine>return rbrwCurrentDraw.getTextExtent( mOwner.textStyle, mOwner.text )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

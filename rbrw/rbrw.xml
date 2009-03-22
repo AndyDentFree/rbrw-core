@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5">
+<block type="Module" ID="-1075940506">
+ <ObjName>rbrw</ObjName>
+ <ObjContainerID>-1075940312</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>SetupStatics</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetupStatics()</SourceLine>
+   <SourceLine>scnStatics.SetupStatics(1.0, points, 4.0)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about rbrwRenderT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about rbrwRenderT</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>added to mimif oofRepRenderT which was implemented as an integer mapped to local enums in each render heading, we will use pure enums for now</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>Porting oofRep - classes ignored</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>Porting oofRep - classes ignored</NoteLine>
+   <NoteLine>OOF_mixBandWithSubBands</NoteLine>
+   <NoteLine>OOF_mixIterableBand</NoteLine>
+   <NoteLine>OOF_mixBandWithTableWrappers</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>Porting oofRep -    Overview</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>Porting oofRep -    Overview</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>This version is intentionally a port of oofRep maintaining the design as closely as practical, using the oofDE-based drawing of the Windows renderer.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>The main reason for such a close port is to retain the complex nested drawing and page-break model which is well-debugged.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Some classes have been intentionally skipped as REALbasic is an easier language to work with, </NoteLine>
+   <NoteLine>My initial intent was to use the native RB arrays rather than specialised classes such as oofAdornerList as they offer similar extensible, iterable, type-safe arrays. </NoteLine>
+   <NoteLine>However, the smart cloning of oofAdornerList etc. may cause them to return.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Also note that most of the constructor work to initialise values to zero or false is skipped as these are the REALbasic defaults for all reference types.</NoteLine>
+   <NoteLine>However, automatic C++ constructors that copy values are NOT provided in RB - you have to write your own copy constructors.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>STYLE DIFFERENCES FROM C++ TO REALbasic</NoteLine>
+   <NoteLine>One of the simplifying things is that trivial constructors are not needed. If a constructor just takes parameters and passes them straight to the parent class </NoteLine>
+   <NoteLine>then RB will do that for you without you having to write a little "forwarding constructor".</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>Porting oofRep - Measurement</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>Porting oofRep - Measurement</NoteLine>
+   <NoteLine>The measurement UI is based on using some common "scn" classes developed some time ago to allow for dimensioned values to be specified in points, mm, inches</NoteLine>
+   <NoteLine>and to maintain an internal fine resolution as part of an imaging system (eg: rendering at 4x72dpi).</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>where classes have been ported over from oofRep, they typically are assuming 72dpi points but passing these around now as doubles rather than unsigned longs</NoteLine>
+   <NoteLine>so if you see a height as double, assume that is in 72dpi points</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>Porting oofRep - Data Sources</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>Porting oofRep - Data Sources</NoteLine>
+   <NoteLine>BACKGROUND</NoteLine>
+   <NoteLine>This is the biggest difference. The data for headers and text blocks etc. was fixed, passing in just strings. The dynamic data used in the oofRepViewBand</NoteLine>
+   <NoteLine>came from iterating an oofView which provides essentially a 2D set of data - fields and records that can be stepped through.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>This led in practice to people creating temporary databases in RAM just to feed a report. It worked and was relatively easy to code but didn't allow </NoteLine>
+   <NoteLine>you to just pass an arbitrary array into the reports. The world of oofrep assumed an application using oofile and so things like oofView were the</NoteLine>
+   <NoteLine>central data models used to supply reports and GUI controls alike.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>THE RBRW MODEL</NoteLine>
+   <NoteLine>rbrw uses an abstraction rbrwSource. It copes with simple strings being passed into objects like rbrwTextBlock by creating an</NoteLine>
+   <NoteLine>rbrwLiteral (subclass of rbrwSource), to be able to hold onto and supply the string.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Iteration horizontally across fields is provided separately by having a rbrwFieldFacade interface. In practice, an actual data source will provide both rbrwFieldFacade </NoteLine>
+   <NoteLine>and rbrwSource</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>about fieldT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about fieldT</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>based on OOF_fieldTypes but with simpler list as we don't care about distinguishing different kinds of integers</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>character strings and iteration</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>character strings and iteration</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Code used in the draw routines is based on the C-style address arithmetic where a base address has something added to it to yield a starting address</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>This allows for something very efficient - a single big string that is indexed and from which we only read a render a number of bytes</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>eg:sizedBody.text(i).chars() + lines[rownum] </NoteLine>
+   <NoteLine>gives a base address</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>In future it will probably be more efficient to do something like this using MemoryBlock but for now I will mimic this behaviour using copying and </NoteLine>
+   <NoteLine>Mid</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+ <Structure>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Point</ItemName>
+  <ItemFlags>1</ItemFlags>
+  <ItemName>Point</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>x as double</SourceLine>
+   <SourceLine>y as double</SourceLine>
+  </ItemSource>
+ </Structure>
+ <Enumeration>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rbrwRenderT</ItemName>
+  <ItemFlags>0</ItemFlags>
+  <ItemType>Integer</ItemType>
+  <ItemName>rbrwRenderT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>renderCSV</SourceLine>
+   <SourceLine>renderHTML</SourceLine>
+   <SourceLine>renderRTF</SourceLine>
+   <SourceLine>renderTab</SourceLine>
+   <SourceLine>renderGraphics</SourceLine>
+   <SourceLine>renderXML</SourceLine>
+   <SourceLine>renderUNDEFINED</SourceLine>
+  </ItemSource>
+ </Enumeration>
+ <Enumeration>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>blockAlignT</ItemName>
+  <ItemFlags>0</ItemFlags>
+  <ItemType>Integer</ItemType>
+  <ItemName>blockAlignT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>alignLeft</SourceLine>
+   <SourceLine>alignCentre</SourceLine>
+   <SourceLine>alignRight</SourceLine>
+  </ItemSource>
+ </Enumeration>
+ <Enumeration>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>fieldT</ItemName>
+  <ItemFlags>0</ItemFlags>
+  <ItemType>Integer</ItemType>
+  <ItemName>fieldT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>charField</SourceLine>
+   <SourceLine>textField</SourceLine>
+   <SourceLine>dateField</SourceLine>
+   <SourceLine>intField</SourceLine>
+   <SourceLine>realField</SourceLine>
+   <SourceLine>blobField</SourceLine>
+   <SourceLine>boolField</SourceLine>
+   <SourceLine>dateTimeField</SourceLine>
+  </ItemSource>
+ </Enumeration>
+</block>
+</RBProject>

@@ -1,0 +1,230 @@
+RBRW Design Decisions
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2006/01/01
+DATA CONNECTION - RELATIONSHIPS
+
+Context
+We want to have an abstraction for the data supplied to the report.
+
+This should be sufficiently flexible to cope with a wide range of typical reports including nesting bands with grouping clauses and filling in styled-text.
+
+In particular, therefore, we need to abstract how relationships between data sources are traversed and appropriate data iteration takes place in dependent sources.
+
+ALTERNATIVES
+1) This is not our problem - the dependent source is mapped by a user class which includes the relationship traversal from a primary object which HAS been iterated. 
+
+2) We provide dependency trackers that broadcast iteration, which user declares as one source depending on another.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2006/01/07
+DATA CONNECTION - LOADING REPEATED DATA
+
+The OOFILE approach is for the oofRep class to know that it has an oofRepViewBand as a top level band. It explicitly iterates the view, calling the draw method on the band each time.
+
+Whilst this seems at first blush to be an awkward factoring, it means the report layout and rendering classes have no knowledge of any iteration logic which is a good thing.
+
+This model has proved fairly robust with the slightly hacky approach of using a  view band with no associated dbView to render a single pass of the attached headers and footers.
+
+ALTERNATIVES
+1) Echo the OOFILE model where a single iterator is associated with the body and the rbrwReport class iterates that single top-level iterator.
+- may be awkward to explain why an iterable source
+- fairly robust model
+
+2) Extend the OOFILE model - have a body band list and body iterators called by the rbrwReport.
+- extends robust model
+- allows us to have top-level bands without iterators
+
+3) Event-driven iteration.
+Rather than specifically triggering iterators, have generalised event broadcasting and have data iterators as listeners.
+- lot of generalisation could be awkward, slow
+- hard to see immediate benefit
+
+DECISION - 2
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+DATA SOURCES VS RENDEREDR
+
+Context
+We want a pattern for putting things on the graphics context - mostly text but occasionally pictures or user-defined rendering.
+
+This relates to how we "advance" page position.
+
+To decide - with columnar layout is that 
+
+1) a different band type, 
+- using a different positioner?
+
+2) a standard band called repeatedly due to iterators 
+- how do we know which band to iterate?
+
+3) a composite wrapping a normal band?
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ADVANCING VERTICAL COORDS
+Context:
+Need to advance a vertical position.
+
+- for simple bands
+- for groups of simple bands
+- within something that repeatedly draws content (eg: columnar bands)
+
+Side-thoughts
+Is the model for ColumnarBand incorrect - should it be a generalisation of a composite model, as a thing that contains more than one thing to draw?
+
+That would make it a lot easier to cope with the idea of forcing things to be kept together and allows for nested break levels.
+
+Forces:
+1) We want a consistent way in the architecture for similar classes.
+
+ALTERNATIVES
+1) The caller maintains them and adds the height of each band
+
+2) Each band updates a yOffset
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+STUFF TO SORT
+Pairing an rbrwSource with a rbrwPositioner
+
+Future stuff to abstract
+- page matching model to abstract supplying page header/footer for a given page
+- eg: might have different ones for alternate, facing pages.
+
+
+-=-=-=-=-=-=-=-=-=-===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+INHERITING STYLES
+
+Context
+We want to establish overall style settings for a group of reports with the ability to easily customise specific overrides.
+
+Forces:
+1) flexibility of API
+
+2) easy to set global values for style
+
+3) easy to implement now and make more sophisticated later
+
+4) empower user!
+
+ALTERNATIVES
+1) simple 3 levels - local style in report object, report it's attached to or global default
+
+2) OOFILE style - as for 1) but also use styles from containers (eg: oofRepLayoutBand containing oofRepBlock)
+- very fast
+
+3) Abstract the job of looking up a style, passing a context description that can include positional items (can be extended later without any major change to report items)
+- still requires a given piece to know its container
+- can maybe pass the object as a key?
+- ability to vary according to page being rendered is very sophisticated, implies lookup style each time we render & may be impossible in RTF etc. output (do we care?)
+
+DECISION - 2 for ease of implementing now, leave fancy feature for later
+
+
+
+
+-=-=-=-=-=-=-=-=-=-===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+COLUMNAR BAND FLAVOURS
+
+TEXT RENDERING VS OTHER CONTENT
+Do I need pictures and other rendering alongside textual columns?
+
+For now - no, will do later once have working and have decided how to abstract
+
+ALTERNATIVES
+1) Have a simple Column class which takes a TextSource
+
+DECISION - 1
+
+
+
+-=-=-=-=-=-=-=-=-=-===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+WIDTHS
+Context
+When calculating column layouts or in other bands, centre or right-alignment, we need to know the width of the band.
+
+Overall page width is something that can vary depending on user choice of printer margins and paper type.
+
+ALTERNATIVES
+1) Width is passed down the calling chain to bands Render, like xOffset
+
+2) Width is available through querying a currentEnvironment call (the non-thread-safe approach used in oofRep)
+- limits us to a global or per-report value so doesn't allow bands to be indented or nested transparently
+
+3) Width is set on the band
+- doesn't cope with dynamic requirements
+- doesn't allow for band to be reused in different places in a report
+
+DECISION 1 - only way to get required flexibility
+
+
+-=-=-=-=-=-=-=-=-=-===-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+FEEDING A FIELD FACADE INTO COLUMNS
+
+Context
+Want to have an interface that allows us to feed a fieldFacade into a set of columns.
+
+ALTERNATIVES
+1) fieldFacade can list sources
+- ties fieldFacade to knowing about reports
+
+2) build sources in rbrwColumnList ctor loop that use column lookup by name
+- bit awkward but doesn't violate encapsulation
+
+DECISION - 2
+
+
+IDEA
+make the rbrwColumnarBand an iterator in its own right so it can intercept the reset of startIterator and advanceIterator and advance the running position (main reason).
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+HOW TO ITERATE SQL DATA AND GET RELATED GROUP INFO
+
+Context
+Want to iterate through a typical SQL result with a column to break and be able to provide related company data on each break.
+
+There are two aspects - triggering the break and 
+
+ALTERNATIVES
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+WHERE TO HANDLE SCALING
+
+Context:
+When you print in REALbasic, you need to scale 72dpi dimensions to match the printer. My previous printing work in RB used a universal scn measurement to cope with this and so just adjusted the scaling used by all scn-based rendering.
+
+The current rbrw is based on the OOFILE model for Windows printing where the drawing actions are all recorded into a series of rbrwDrawingElement objects, much like a Macintosh PICT recording. (Historical note - the Windows eqivalent of metafiles was too buggy so we had to write our own.)
+
+Considering the Windows model, oofRepWindow maintains mScalingFactor which is used by oofRepWindow::GetTransformedPageSize to size the rectangle which oofRepWindow::OnDraw passes into oofRepWindowGUIPreviewMFC::drawPage.
+
+So, in that case, the environment is managing scaling by using a bounding rectangle size to set the native Win32 horizontal and vertical scaling. The oofDE drawing elements draw at an arbitrary size and their output is scaled accordingly.
+
+Seeking an RB equivalent of this scaling:
+
+Forces:
+F1) Simplicity - want to change design as little as possible from OOFILE
+
+F2) Must provide scaling for both printing and preview window zooming/fit.
+
+F3) Avoid re-render. Don't want to have to recalculate a 200 page report just because have zoomed in.
+
+ALTERNATIVES
+1) implement global scaling for rbrwDrawingElement to be used on output
+- somewhat coarse but we have global scaling elsewhere
+- minimal code changes
+
+2) push the scaling into rbrwCurrentDraw and have that used for all the drawing actions by rbrwDrawingElement with methods mimicing 
+- keeps the drawing elements close to the Windows version
+- not a huge amount of work
+
+3) Create a ScaledGraphics subclass of Graphics which forwards instructions, managed by rbrwCurrentDraw
+- most transparent to everything else
+- need to be careful to reset it 
+- TRIED AND FAILED - can't redirect properties
+
+DECISION - 2

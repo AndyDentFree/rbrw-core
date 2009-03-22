@@ -1,0 +1,700 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="-1120693341">
+ <ObjName>scnStatics</ObjName>
+ <ObjContainerID>-1075940329</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>SetupStatics</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetupStatics(initialScaling as double = 1.0, initialUnit as integer = points, initialResMul as double = 4.0)</SourceLine>
+   <SourceLine>' MUST call this, equivalent of static var initialisers</SourceLine>
+   <SourceLine>gScaling = initialScaling</SourceLine>
+   <SourceLine>gCurrentUnit = initialUnit</SourceLine>
+   <SourceLine>gPoints72Mul = initialResMul</SourceLine>
+   <SourceLine>gDPI = gPoints72Mul * 72</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>initialScaling as double = 1.0, initialUnit as integer = points, initialResMul as double = 4.0</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>scnTextSize</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function scnTextSize(inPoints72 as integer) As double</SourceLine>
+   <SourceLine>' use to scale TextSize up by the same as dimensions</SourceLine>
+   <SourceLine>' shorter unscoped name because used heavily</SourceLine>
+   <SourceLine>return inPoints72 * gScaling</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPoints72 as integer</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ScaleToPrinter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ScaleToPrinter(p as PrinterSetup) As double</SourceLine>
+   <SourceLine>' returns previous scale</SourceLine>
+   <SourceLine>dim prevScale as double = gScaling</SourceLine>
+   <SourceLine>gScaling = p.HorizontalResolution/72</SourceLine>
+   <SourceLine>return prevScale</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>p as PrinterSetup</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetScale</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function SetScale(newScale as double) As double</SourceLine>
+   <SourceLine>' returns previous scale</SourceLine>
+   <SourceLine>dim prevScale as double = gScaling</SourceLine>
+   <SourceLine>gScaling = newScale</SourceLine>
+   <SourceLine>return prevScale</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>newScale as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetUnit</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function SetUnit(unitEnum as integer) As integer</SourceLine>
+   <SourceLine>' returns previous unit</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if unitEnum &lt;&gt; cm  and _</SourceLine>
+   <SourceLine>unitEnum &lt;&gt; mm and _</SourceLine>
+   <SourceLine>unitEnum &lt;&gt; inches and _</SourceLine>
+   <SourceLine>unitEnum &lt;&gt; points then MsgBox "scnSetUnit unkown unit enum: "+str(unitEnum)</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>dim prevUnit as Integer = gCurrentUnit</SourceLine>
+   <SourceLine>gCurrentUnit = unitEnum</SourceLine>
+   <SourceLine>return prevUnit</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>unitEnum as integer</ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ZoomOut</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ZoomOut(scaleBy as double = 0) As double</SourceLine>
+   <SourceLine>' returns previous scale</SourceLine>
+   <SourceLine>if scaleBy = 0 then scaleBy = kDefaultZoomFactor</SourceLine>
+   <SourceLine>dim prevScale as double = gScaling</SourceLine>
+   <SourceLine>gScaling =  gScaling  / scaleBy</SourceLine>
+   <SourceLine>return prevScale</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>scaleBy as double = 0</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ZoomIn</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ZoomIn(scaleBy as double = 0) As double</SourceLine>
+   <SourceLine>' returns previous scale</SourceLine>
+   <SourceLine>if scaleBy = 0 then scaleBy = kDefaultZoomFactor</SourceLine>
+   <SourceLine>dim prevScale as double = gScaling</SourceLine>
+   <SourceLine>gScaling = scaleBy * gScaling</SourceLine>
+   <SourceLine>return prevScale</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>scaleBy as double = 0</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>unitString2FineRes</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function unitString2FineRes(inStr as string) As double</SourceLine>
+   <SourceLine>' takes a string, typically from entry in edit field</SourceLine>
+   <SourceLine>' returns a value multiplied by the current unit scaling factor</SourceLine>
+   <SourceLine>dim inVal as double = CDbl(inStr)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if gCurrentUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>return inVal * gDPI</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif gCurrentUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>return inVal * gDPI / 2.54</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif gCurrentUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>return inVal * gDPI / 25.4</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return inVal * gPoints72Mul  ' ie: * scnStatics.gDPI / 72.0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inStr as string</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>unitString2Scaled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function unitString2Scaled(inStr as string) As double</SourceLine>
+   <SourceLine>' just like scn.scaled()</SourceLine>
+   <SourceLine>return unitString2FineRes(inStr) / scnStatics.gPoints72Mul * scnStatics.gScaling</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inStr as string</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ZoomPercent</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ZoomPercent(inPercent as double) As double</SourceLine>
+   <SourceLine>' returns previous scale</SourceLine>
+   <SourceLine>dim prevScale as double = gScaling</SourceLine>
+   <SourceLine>gScaling = inPercent / 100.0</SourceLine>
+   <SourceLine>return prevScale</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPercent as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>unitLabel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function unitLabel() As string</SourceLine>
+   <SourceLine>select case gCurrentUnit</SourceLine>
+   <SourceLine>case scnStatics.inches</SourceLine>
+   <SourceLine>return inchIndicator</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>case scnStatics.cm</SourceLine>
+   <SourceLine>return cmIndicator</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>case scnStatics.mm</SourceLine>
+   <SourceLine>return mmIndicator</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ptIndicator</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>end select</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>scale</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function scale() As double</SourceLine>
+   <SourceLine>return gScaling</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>unitFormat</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function unitFormat() As string</SourceLine>
+   <SourceLine>select case gCurrentUnit</SourceLine>
+   <SourceLine>case scnStatics.inches</SourceLine>
+   <SourceLine>return "0.0##"</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>case scnStatics.cm</SourceLine>
+   <SourceLine>return "0.0#"</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>case scnStatics.mm</SourceLine>
+   <SourceLine>return "0.0"</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return "0.0"  ' even points can have one decimal</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>end select</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetResMul</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function SetResMul(newMul as double) As double</SourceLine>
+   <SourceLine>' gDPI is used to convert fineRes values to real measurements</SourceLine>
+   <SourceLine>dim prevMul as double = gPoints72Mul</SourceLine>
+   <SourceLine>gPoints72Mul = newMul</SourceLine>
+   <SourceLine>gDPI = 72 * gPoints72Mul  // cache result</SourceLine>
+   <SourceLine>return prevMul</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>newMul as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>scaled2FineRes</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function scaled2FineRes(inPoints as double) As double</SourceLine>
+   <SourceLine>' typically convert a screen distance based on mouse coords</SourceLine>
+   <SourceLine>' and maybe the output from scaled() into something that can</SourceLine>
+   <SourceLine>' be added to mFineRes.</SourceLine>
+   <SourceLine>' like setScaled( fineRes() + dPoints)</SourceLine>
+   <SourceLine>' also useful when calculating fineRes coords for clipping, see scnShape.Overlaps</SourceLine>
+   <SourceLine>return inPoints * scnStatics.gPoints72Mul  / scnStatics.gScaling</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPoints as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>points2Screen</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function points2Screen(inPoints as double) As double</SourceLine>
+   <SourceLine>' typically convert a points constant into a</SourceLine>
+   <SourceLine>' screen distance based on mouse coords which would be affected</SourceLine>
+   <SourceLine>' by the current zoom level (but not ruler units)</SourceLine>
+   <SourceLine>' see scn.setPoints and scn.scaled, ie:</SourceLine>
+   <SourceLine>'mFineRes = inPoints * scnStatics.gPoints72Mul</SourceLine>
+   <SourceLine>' return mFineRes / scnStatics.gPoints72Mul * scnStatics.gScaling</SourceLine>
+   <SourceLine>return inPoints * scnStatics.gScaling</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPoints as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>screen2Points</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function screen2Points(inPixels as integer) As double</SourceLine>
+   <SourceLine>' typically convert a screen distance based on mouse coords</SourceLine>
+   <SourceLine>' to points, eg for comparison as in ADBaseShape.IsSloppyClick</SourceLine>
+   <SourceLine>return inPixels / scnStatics.gScaling</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPixels as integer</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ZoomPercent</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ZoomPercent() As double</SourceLine>
+   <SourceLine>' returns previous scale</SourceLine>
+   <SourceLine>dim prevScale as double = gScaling</SourceLine>
+   <SourceLine>return prevScale</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fineRes2Scaled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fineRes2Scaled(inFineRes as double) As double</SourceLine>
+   <SourceLine>' opposite static converter to scaled2FineRes</SourceLine>
+   <SourceLine>return inFineRes *  scnStatics.gScaling / scnStatics.gPoints72Mul</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inFineRes as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>unitValue2Scaled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function unitValue2Scaled(inVal as double) As double</SourceLine>
+   <SourceLine>' convert a double value the user might type in, like scn.set()</SourceLine>
+   <SourceLine>' opposite of scaled2UnitValue</SourceLine>
+   <SourceLine>if gCurrentUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>inVal = inVal * 72</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif gCurrentUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>inVal = inVal * 72  / 2.54</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif gCurrentUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>inVal = inVal * 72  / 25.4</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return inVal  * scnStatics.gScaling  ' scaled points, suitable for screen</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inVal as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>scaled2UnitValue</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function scaled2UnitValue(inVal as double) As double</SourceLine>
+   <SourceLine>' convert a screen (ie: scaled) points, like scn.get()</SourceLine>
+   <SourceLine>' opposite of unitValue2Scaled</SourceLine>
+   <SourceLine>if gCurrentUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>inVal = inVal / 72</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif gCurrentUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>inVal = inVal / 72  * 2.54</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif gCurrentUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>inVal = inVal / 72  * 25.4</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return inVal  / scnStatics.gScaling  ' double value, suitable for inspector (ie: in current units)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inVal as double</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Property>
+  <ItemName>gScaling</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>gScaling As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>gScaling As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>gCurrentUnit</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>gCurrentUnit As integer</SourceLine>
+   <SourceLine>enum indicating unit, eg: cm, points ...</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>gCurrentUnit As integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>gPoints72Mul</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>gPoints72Mul As double</SourceLine>
+   <SourceLine>internal res multiplier copied in template and document</SourceLine>
+   <SourceLine>to be set by each template</SourceLine>
+   <SourceLine>If we were working in 72dpi land, this would be 1.0</SourceLine>
+   <SourceLine>To work at sufficient precision, we commonly use 4.0 so the prog is</SourceLine>
+   <SourceLine>accurate to 284dpi</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>gPoints72Mul As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>gDPI</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>gDPI As double</SourceLine>
+   <SourceLine>cached result of 72 * gPoints72Mul</SourceLine>
+   <SourceLine>represents a nice visible global that is the actual DPI of our coords</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>gDPI As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+ <Constant>
+  <ItemName>inches</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>inches</ItemName>
+  <ItemType>1</ItemType>
+  <ItemDef>1</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>cm</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>cm</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>2</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>mm</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>mm</ItemName>
+  <ItemType>1</ItemType>
+  <ItemDef>3</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>points</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>points</ItemName>
+  <ItemType>1</ItemType>
+  <ItemDef>0</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>kDefaultZoomFactor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kDefaultZoomFactor</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>2.0</ItemDef>
+  <ItemFlags>1</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>inchIndicator</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>inchIndicator</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>"</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>cmIndicator</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>cmIndicator</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>cm</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>mmIndicator</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>mmIndicator</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>mm</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>ptIndicator</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>ptIndicator</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>pt</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>kScreenDPI</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kScreenDPI</ItemName>
+  <ItemType>1</ItemType>
+  <ItemDef>72</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>kCMPerInch</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kCMPerInch</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>2.54</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>kInchPerInch</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kInchPerInch</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>1.0</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+</block>
+</RBProject>

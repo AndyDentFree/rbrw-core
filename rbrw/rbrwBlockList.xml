@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="-1072991055">
+ <ObjName>rbrwBlockList</ObjName>
+ <ObjContainerID>-1075463008</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>LastBlock</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function LastBlock() As rbrwBlock</SourceLine>
+   <SourceLine>dim lastBlockIndex as integer = UBound(blocks)</SourceLine>
+   <SourceLine>if lastBlockIndex = -1 then return nil</SourceLine>
+   <SourceLine>return blocks(lastBlockIndex)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBlock</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Append</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Append(inBlock as rbrwBlock)</SourceLine>
+   <SourceLine>' default param literally to rbrw.layLeft</SourceLine>
+   <SourceLine>blocks.Append inBlock</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBlock as rbrwBlock</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HeightZZZ</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HeightZZZ(g as Graphics) As double</SourceLine>
+   <SourceLine>'' our positioners either stack after each other</SourceLine>
+   <SourceLine>'' or are absolute so may increase height requirements</SourceLine>
+   <SourceLine>'dim maxHeight as double</SourceLine>
+   <SourceLine>'dim b as rbrwBlock</SourceLine>
+   <SourceLine>'for each b in mBlocks</SourceLine>
+   <SourceLine>'maxHeight = Max(maxHeight, b.Height(g) )</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'return maxHeight</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function clone() As rbrwBlockList</SourceLine>
+   <SourceLine>dim ret as rbrwBlockList</SourceLine>
+   <SourceLine>redim ret.blocks(blocks.Ubound)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>for each b as rbrwBlock in blocks</SourceLine>
+   <SourceLine>ret.blocks(i) = b.clone</SourceLine>
+   <SourceLine>i = i + 1</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBlockList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fixedHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fixedHeight() As double</SourceLine>
+   <SourceLine>// sum of tallest blocks in each row</SourceLine>
+   <SourceLine>dim ret, maxHeightInRow as double</SourceLine>
+   <SourceLine>for each theBlock as rbrwBlock in blocks</SourceLine>
+   <SourceLine>dim bh as double = theBlock.fixedHeight</SourceLine>
+   <SourceLine>if bh &gt; maxHeightInRow then</SourceLine>
+   <SourceLine>maxHeightInRow = bh</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if theBlock.moveDownAfter then</SourceLine>
+   <SourceLine>ret = ret + maxHeightInRow</SourceLine>
+   <SourceLine>maxHeightInRow = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>return ret + maxHeightInRow    // add height of last row even if not a moveDownAfter</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>asString</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function asString() As string</SourceLine>
+   <SourceLine>dim ret() as string</SourceLine>
+   <SourceLine>for each b as rbrwBlock in blocks</SourceLine>
+   <SourceLine>ret.append b.asString</SourceLine>
+   <SourceLine>if b.moveDownAfter then</SourceLine>
+   <SourceLine>ret.Append EndOfLine</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>if ret.Ubound = -1 then return ""</SourceLine>
+   <SourceLine>ret.Append EndOfLine</SourceLine>
+   <SourceLine>return Join(ret, "")</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Property>
+  <ItemName>blocks()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>blocks() As rbrwBlock</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>blocks() As rbrwBlock</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>count</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>count As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>count As Integer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return blocks.Ubound + 1</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>count</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

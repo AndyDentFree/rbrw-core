@@ -1,0 +1,450 @@
+RBRW Code Changes
+- started whilst finishing rendering, partly because it has been a long
+time since I worked on this code
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2007/04/08
+RECONCILE CHANGES FROM MEDIAFOOD
+
+CLASS	CharacterStyle
+- mCachedAscent added
+
+Method	MutateStyleGridStyleIfDifferent
+		- added
+
+Method	TextAscent
+		- added caching
+		
+		
+CLASS	StyledLineBit
+Method	LoadIntoGrid
+		- use MutateStyleGridStyleIfDifferent and update style
+		- update row height
+
+		
+CLASS	StyledLineSet
+Method	LoadIntoGrid
+		- use MutateStyleGridStyleIfDifferent and update default style
+		
+		
+CLASS	ConcaveCirclePlacer
+Method	PlaceContatenated
+		- divide by 2.0 not 2
+
+CLASS	MeasuredStyledBits
+Method	Constructor(XMLElement)
+Method	FirstStyle
+		- added
+
+MODULE	scnStatics
+method	unitValue2Scaled		
+		- added
+
+Method	scaled2UnitValue
+		- added
+
+
+CLASS	scnShape
+Method	(classname)
+		- renamed Constructor
+
+Method	SetSize(x, y, w, h)
+		- factor to call SetSize(w, h)
+
+
+CLASS	scn
+Method	ctor(double)
+		- added param bool, to distinguish from calls with integer points value
+		
+method	ctor(no param)
+		- added
+
+
+CLASS	StyledLine
+Method	Constructor(XMLElement)
+		- pass true into scn being constructed from fineRes saved values
+
+
+MODULE	StyleGridExtensions
+- imported
+
+
+GLOBAL REPLACE
+new scn(0)
+with
+new scn
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2007/04/08
+MAKE COMPILABLE (FLAWS IN EXISTING)
+
+MODULE	rbrw
+- add gDefaultStyle
+
+Method	DefaultStyle
+		- added
+		
+
+MODULE	CharacterStyleStatics
+- remove gDefaultStyle
+
+Method	DefaultStyle
+		- added
+		
+
+
+WIND	ReportExampleWindow
+Method	SimpleFixedHeader
+		- rearrange code because of 2007r2 not allowing method calls on new object
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2007/04/08
+ADD ACTUAL PRINTING		
+
+WIND	rbrwPreviewWindow
+Method	UpdateOutlineCanvai
+		- renamed UpdateOutlineCanvasai so doesn't look like simple last-letter typo
+
+
+Method	HandlePrint		
+		- added
+
+MenuH	FilePrint
+		- added
+
+
+WIND	ReportExampleWindow
+Moved all methods, properties, events, menu handlers to ReportExampleApp		
+
+
+CLASS	stPushScnScale
+- added
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2007/04/08
+FIX PRINTING SIZE BUG
+
+MODULE	rbrwDebug
+- added
+
+
+CLASS	rbrwStylable
+- mDescription added
+
+Method	SetGraphicsStyleIfOverride
+		- for now, always set style
+		- Use SetStyleFromScaling instead of setStyleFrom		
+
+Method	Description
+		- added
+		
+Method	MakeDescription
+		- added
+
+
+CLASS	rbrwTextBlock
+		rbrwPictureBlock
+		rbrwSimpleBlock
+		rbrwBand
+		rbrwColumnarBand
+		rbrwReport
+		rbrwBandList
+		rbrwColumn
+		rbrwColumnList
+Method	MakeDescription
+		- added
+
+MODULE	rbrw
+Method	SetupStatics
+		- add call CharacterStyleStatics.SetupStatics
+		
+  
+CLASS	rbrwReport
+Method	Render
+		- Use SetStyleFromScaling instead of setStyleFrom		
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/03/17 Mon
+USING CHARACTER STYLE IN REPORT TESTER
+
+CLASS	CharacterStyle
+Method	MutateStyleGridStyleIfDifferent
+		SetStyleGridStyle
+		- factored out to new module CharacterStyle2StyleGrid
+		
+WIND	ReportExampleWindow
+- when try to make external as XML, ends up with error
+
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/03/21 Fri
+FIXING REPORT TESTER SO IT WILL BUILD
+
+MODULE	CharacterStyleStatics
+- added gDefaultStyle
+
+Method DefaultStyle
+		- added
+		
+
+
+MODULE	CharacterStylingXMLConstants
+		XMLDocSupport
+		StyleGridExtensions
+		- added
+
+CLASS	Placer
+		RenderTarget
+		CharacterStyling
+		- added
+		
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/03/23 Sun
+REMOVING STYLEGRID DEPENDENCIES
+
+PROJ	ReportTesterWithStyleGrid.xml
+- saved a copy
+
+PROJ	ReportTesterW.xml
+MODULE	StyleGridExtensions
+		- removed
+		
+MODULE	CharacterStyleStatics
+Method	asCharacterStyle
+		asLineSet
+		asStyledLine
+		- moved to CharacterStyle2StyleGrid
+		
+Method	StyleSetSingleton
+		- added accessor for gStyleSet
+
+
+CLASS	StyledLineBit
+Method	LoadIntoGrid
+		- moved to CharacterStyle2StyleGrid as extends method
+
+Method	Style
+		- changed into computer property getter so not virtual
+		
+CompP	Text
+		- added getter computed property for mText
+		
+
+CLASS	StyledLine
+Method	LoadIntoGrid
+		- moved to CharacterStyle2StyleGrid as extends method
+
+CompP	OrdinalNumber
+		- added getter computed property for mOrdinalNumber
+		
+
+CLASS	StyledLineSet
+CompP	Lines
+		- added getter computed property for mLines
+		
+
+MODULE	CharacterStyle2StyleGrid
+Method	asStyledLine
+		- use StyleSetSingleton
+		
+Method	LoadIntoGrid(StyledLineSet...)
+		- use StyledLineSet.Lines getter
+		- check if there is a first style, don't assume (Potential bug?)
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/10/03 Fri
+FIX FAILURE TO ADVANCE
+
+CLASS	rbrwAbstractBand
+Method	Render
+		- cange yOffset to a ByRef param so increments within Render are accumulated
+		
+
+CLASS	rbrwColumnList
+Method	Height
+		- don't accumulate col heights, use Max of them
+		
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/10/12 Sun
+MERGE BACK CHANGES FROM INFORGE
+
+
+rbrwLineBand.Render
+- don't render if height zero
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/11/24 -26 Wed
+DIAGNOSE AND FIX CRASH ON QUIT WHEN RENDERING MANY REPORTS
+rbrwReport.SimpleTitleStore
+rbrwReport.SimpleTitle
+rbrwBandList.asString
+rbrwLayoutBand.asString
+rbrwBlockList.asString
+- added so can change preview to show a title derived from content if not overriden, to help debug
+
+rbrwPreviewWindow.UpdateCanvas
+set current environment graphics - this is the fix, rbrwGraphicsTextDE.draw expects a valid environment
+
+rbrwPage.draw
+- clear current environment graphics so will force nil errors earlier
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/11/26-27 Thu
+FIX ADORNERS AND DRAWABLE RENDERING
+
+CLASS	rbrwDrawable
+- adorners - added simple array as public property rather than recreating oofAdornerList
+
+
+rbrw.count(extends adorners() as rbrwAdorner) As integer
+- added
+
+
+rbrwTreeBand_Render.CalcColWidths
+- uncomment allowing room for adorners
+
+rbrwIterableTreeBand.makeRender
+- call finishConstruction on the renderer
+
+rbrwSizedTextArray.CalculateWrapping
+- finish imp
+
+rbrwTextSizer.calculateWrapping
+- uncomment
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2008/11/29-12/01 Mon
+
+rbrwTreeBand_GraphicsRender
+- mColHeaders added
+
+rbrwSizedTextArray.initSizers
+- don't just resize mSizers but also assign members
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/01/14 Wed
+INFRASTRUCTURE FOR TESTING PURE PRINTING
+ExampleMenuBar
+- change Test into Preview and add Print menu with copy of most items
+
+rbrwGraphicsPrint
+- created
+
+
+ReportDemoApp.TestColumnsWithHeaderAndFooter
+ReportDemoApp.TestSimpleFixedHeader
+ReportDemoApp.TestFixedHeaderwithAlignedText
+ReportDemoApp.TestQuickbooksstyleStatement
+ReportDemoApp.TestSimpleColumnsonelevel
+ReportDemoApp.TestSingleLineHeader
+- copied menu handlers to Prt....
+- add param isPrinting to sample programs
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/13 Fri
+GETTING PURE PRINTING GOING 
+
+rbrwPagedGraphicsEnv
+- created as subclass of rbrwGraphicsEnv to contain much logic
+
+rbrwGraphicsPrint
+- changed parent to rbrwPagedGraphicsEnv
+
+rbrwGraphicsPreview
+- changed parent to rbrwPagedGraphicsEnv
+- moved up to rbrwPagedGraphicsEnv:
+  - drawWithTextStyle
+  - all properties
+  
+ReportDemoApp.JustPrint
+- added
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/18 Wed
+FIX CRASH ON MULTI-PAGE REPORTS
+
+rbrwPage.draw
+- don't clear rbrwCurrentDraw.CurrentGraphics
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/19 Thu
+PUT SCALING INTO CURRENT DRAW
+
+rbrwMeasureTests.CanCreateScaledGraphicsTest
+- added
+
+stCurrentDrawScaling
+- added
+
+
+rbrwGraphicsTextStyleDE.safeChangeStyle
+- call rbrwCurrentDraw.SetStyleFrom instead of graphics.SetStyleFrom
+
+rbrwGraphicsTextDE.draw
+- call rbrwCurrentDraw.DrawString instead of Graphics.DrawString
+- call rbrwCurrentDraw.TextAscent instead of Graphics.TextAscent
+
+rbrwGraphicsShadeDE.draw
+- call rbrwCurrentDraw.ForeColor instead of graphics.ForeColor
+- call rbrwCurrentDraw.FillRect instead of graphics.ForeColor
+
+rbrwGraphicsLineDE.draw
+- call rbrwCurrentDraw.DrawLine insted of graphics.DrawLine
+
+rbrwGraphicsRectDE.draw
+- call rbrwCurrentDraw.DrawRect instead of graphics.DrawRect
+
+rbrwCurrentDraw.SetStyleFrom
+- added
+
+rbrwCurrentDraw
+- added ENTIRE Graphics API so can do scaled operations
+
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/20 Fri
+ADDING DATABASE REPORTING
+
+ReportDemoApp.testDB
+- added in ReportTester
+
+rbrwDatabaseTests
+- added in rbrwUnitTests
+
+rbrwRecordSetSource
+- added
+
+
+ExampleMenuBar.PreviewMenu.TestSimpleColumnsDB
+ExampleMenuBar.PrintMenu.PrtTestSimpleColumnsDB
+- added menu items
+
+ReportDemoApp.PrtTestSimpleColumnsDB
+ReportDemoApp.TestSimpleColumnsDB
+- added menu handlers
+
+ReportDemoApp.ReportSimpleColumnsOneLevelDB
+- added to generate new minimal report from a recordset

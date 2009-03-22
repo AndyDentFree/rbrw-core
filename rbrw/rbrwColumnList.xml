@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<RBProject version="2008r4.1">
+<block type="Module" ID="-1072263059">
+ <ObjName>rbrwColumnList</ObjName>
+ <ObjContainerID>-1072263063</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>rbrwTextStylable</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>HeightZZZZ</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HeightZZZZ(g as Graphics) As double</SourceLine>
+   <SourceLine>'if mCachedHeight &lt;&gt; kHeightNotYetCached then return mCachedHeight</SourceLine>
+   <SourceLine>'SetGraphicsStyleIfOverride g</SourceLine>
+   <SourceLine>'dim runningHeight as double</SourceLine>
+   <SourceLine>'dim aCol as rbrwColumn</SourceLine>
+   <SourceLine>'dim maxHeightForRowInCol as double</SourceLine>
+   <SourceLine>'for Each aCol in mColumns</SourceLine>
+   <SourceLine>'maxHeightForRowInCol = Max(maxHeightForRowInCol, aCol.CurrentRowHeight(g) )</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'runningHeight = runningHeight + maxHeightForRowInCol</SourceLine>
+   <SourceLine>'return runningHeight</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>RenderZZZZ</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub RenderZZZZ(g as Graphics, xOffset as double, ByRef yOffset as double, rowWidth as double)</SourceLine>
+   <SourceLine>'SetGraphicsStyleIfOverride g</SourceLine>
+   <SourceLine>'// TODO reset to allow rerunning report</SourceLine>
+   <SourceLine>'if not mCachedColWidths then CalcColWidths g, rowWidth</SourceLine>
+   <SourceLine>'dim iCol as integer</SourceLine>
+   <SourceLine>'dim aCol as rbrwColumn</SourceLine>
+   <SourceLine>'for Each aCol in mColumns</SourceLine>
+   <SourceLine>'aCol.Render g, xOffset, yOffset</SourceLine>
+   <SourceLine>'xOffset = xOffset + mCalculatedColWidths(iCol)</SourceLine>
+   <SourceLine>'iCol = iCol + 1</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'yOffset = yOffset + Height(g)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics, xOffset as double, ByRef yOffset as double, rowWidth as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inFields as rbrwFieldFacade)</SourceLine>
+   <SourceLine>mCachedHeight = kHeightNotYetCached</SourceLine>
+   <SourceLine>dim aFldName as string</SourceLine>
+   <SourceLine>for each aFldName in inFields.listFields()</SourceLine>
+   <SourceLine>' build sources in this loop that use column lookup by name</SourceLine>
+   <SourceLine>mColumns.Append new rbrwColumn( new rbrwFieldSource(inFields, aFldName) )</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inFields as rbrwFieldFacade</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>CalcColWidths</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub CalcColWidths(g as Graphics, rowWidth as double)</SourceLine>
+   <SourceLine>mCachedColWidths = true</SourceLine>
+   <SourceLine>dim numCols as integer = uBound(mColumns) + 1</SourceLine>
+   <SourceLine>if numCols = 0 then return</SourceLine>
+   <SourceLine>dim fixedWidth as double = rowWidth / numCols</SourceLine>
+   <SourceLine>// TODO actually calculate</SourceLine>
+   <SourceLine>dim aCol as rbrwColumn</SourceLine>
+   <SourceLine>for Each aCol in mColumns</SourceLine>
+   <SourceLine>mCalculatedColWidths.Append fixedWidth</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics, rowWidth as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Property>
+  <ItemName>mColumns()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColumns() As rbrwColumn</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColumns() As rbrwColumn</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mCachedHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCachedHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCachedHeight As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mCachedColWidths</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCachedColWidths As boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCachedColWidths As boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mCalculatedColWidths()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCalculatedColWidths() As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCalculatedColWidths() As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+ <Constant>
+  <ItemName>kHeightNotYetCached</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kHeightNotYetCached</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>-1</ItemDef>
+  <ItemFlags>1</ItemFlags>
+ </Constant>
+</block>
+</RBProject>

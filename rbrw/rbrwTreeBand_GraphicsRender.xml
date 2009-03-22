@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="50483742">
+ <ObjName>rbrwTreeBand_GraphicsRender</ObjName>
+ <ObjContainerID>1963759756</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>rbrwTreeBand_Render</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function clone(newOwner as rbrwDrawable) As rbrwRender</SourceLine>
+   <SourceLine>return new rbrwTreeBand_GraphicsRender( rbrwIterableTreeBand(newOwner) )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>newOwner as rbrwDrawable</ItemParams>
+  <ItemResult>rbrwRender</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>draw</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub draw()</SourceLine>
+   <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
+   <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
+   <SourceLine>dim bandIndenting as double = currSettings.bandIndenting</SourceLine>
+   <SourceLine>dim colSepWidth as double = currSettings.colSepWidth</SourceLine>
+   <SourceLine>dim currentVerticalPos as double = curRep.currentVerticalPos</SourceLine>
+   <SourceLine>dim leftMargin as double =  currSettings.leftMargin</SourceLine>
+   <SourceLine>dim bodyWidth as double = curRep.bodyWidth</SourceLine>
+   <SourceLine>dim bodyEnd as double = curRep.bodyEnd</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim style as rbrwTextStyle = mOwner.textStyle</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>curRep.changeTextStyle style  // ESSENTIAL PREREQ FOR CalculateWrapping before </SourceLine>
+   <SourceLine>//    int charHeight = style-&gt;calcCharHeight();</SourceLine>
+   <SourceLine>//    int charHeight = style-&gt;fixedHeight();</SourceLine>
+   <SourceLine>//    int descent    = style-&gt;calcDescent();</SourceLine>
+   <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
+   <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Setup for adorners</SourceLine>
+   <SourceLine>dim adornCount as integer // = mOwner-&gt;adorners().count();</SourceLine>
+   <SourceLine>'unsigned long cellY;</SourceLine>
+   <SourceLine>'if( adornCount ) {</SourceLine>
+   <SourceLine>'// Calculate the current record number we're drawing</SourceLine>
+   <SourceLine>'cellY = view-&gt;recordNumber();</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else</SourceLine>
+   <SourceLine>'cellY = 0;</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Get the field text and calculate the wrapping and height</SourceLine>
+   <SourceLine>dim sizedBody as new rbrwSizedTextArray(lastFieldIndex+1)</SourceLine>
+   <SourceLine>dim hasCustomDrawers as Boolean</SourceLine>
+   <SourceLine>'unsigned long maxCustomDrawerHeight = 0;</SourceLine>
+   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
+   <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i);</SourceLine>
+   <SourceLine>'if (theDrawer) {</SourceLine>
+   <SourceLine>'hasCustomDrawers = true;</SourceLine>
+   <SourceLine>'unsigned long wrappedHeight;</SourceLine>
+   <SourceLine>'theDrawer-&gt;calculateWrapping(&amp;view-&gt;field(i), mColSizer-&gt;width(i), wrappedHeight);</SourceLine>
+   <SourceLine>'if (wrappedHeight&gt;maxCustomDrawerHeight)</SourceLine>
+   <SourceLine>'maxCustomDrawerHeight = wrappedHeight;</SourceLine>
+   <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else {</SourceLine>
+   <SourceLine>sizedBody.text(i) = fields.fieldValue(i)</SourceLine>
+   <SourceLine>sizedBody.CalculateWrapping i, mColSizer.width(i)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim colHeaderHeight as integer</SourceLine>
+   <SourceLine>if not mDrawnColHeadersThisPage then</SourceLine>
+   <SourceLine>colHeaderHeight = mColHeaders.maxRows()*lineHeight    // add in col headers when deciding if room on page</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim rowDrawHeight as double = sizedBody.maxRows * lineHeight</SourceLine>
+   <SourceLine>'if maxCustomDrawerHeight&gt;rowDrawHeight then</SourceLine>
+   <SourceLine>'rowDrawHeight = maxCustomDrawerHeight</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>dim DrawHeight as double = rowDrawHeight + colHeaderHeight</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Render the Fields</SourceLine>
+   <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if (DrawHeight + curRep.currentVerticalPos) &gt; bodyEnd then</SourceLine>
+   <SourceLine>// We don't fit, and we'll need to cope with this!</SourceLine>
+   <SourceLine>DrawContinuingOverPage 0, DrawHeight, sizedBody, hasCustomDrawers</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>'if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>'xPos = xPos + colSepWidth/2.0</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>if not mDrawnColHeadersThisPage then</SourceLine>
+   <SourceLine>///////// mOwner.drawColumnHeaders</SourceLine>
+   <SourceLine>// restore the style - col headers may have changed this</SourceLine>
+   <SourceLine>curRep.changeTextStyle mOwner.textStyle</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
+   <SourceLine>dim alignment as rbrwColSizer.colAlignT = mColSizer.alignment(i)</SourceLine>
+   <SourceLine>// Cope with natural alignment</SourceLine>
+   <SourceLine>'if (alignment==oofColSizer::alignNatural) then</SourceLine>
+   <SourceLine>'alignment = oofColSizer::naturalAlignmentForField(view-&gt;field(i).fieldType());</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>// Windows different vertical motion!</SourceLine>
+   <SourceLine>'  ANDY CONFUSED - skip this?</SourceLine>
+   <SourceLine>dim ybase as double = curRep.currentVerticalPos - style.leading</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Adorner information for the cell</SourceLine>
+   <SourceLine>dim cellWidth as double = mColSizer.width(i) + colSepWidth</SourceLine>
+   <SourceLine>dim cellHeight as double = rowDrawHeight</SourceLine>
+   <SourceLine>dim  cellHorizontalPos as double = xPos - (colSepWidth/2.0)</SourceLine>
+   <SourceLine>dim cellVerticalPos as double = curRep.currentVerticalPos - 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if i = numFlds-1 then</SourceLine>
+   <SourceLine>cellWidth = bodyWidth - bandIndenting + leftMargin + (colSepWidth/2.0) - xPos</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>'// call before adorners for cell</SourceLine>
+   <SourceLine>'mOwner-&gt;adorners().start();</SourceLine>
+   <SourceLine>'for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
+   <SourceLine>'oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
+   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawBefore ) {</SourceLine>
+   <SourceLine>'oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
+   <SourceLine>'currentAdorner-&gt;drawcell(i,cellY,mOwner,cellHeight,cellWidth);</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'mOwner-&gt;adorners().next();</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>// draw the contents of the cell</SourceLine>
+   <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i)</SourceLine>
+   <SourceLine>'if (theDrawer) {</SourceLine>
+   <SourceLine>'oofDE::appendElement(theDrawer-&gt;makeDrawDE(xPos, ybase));</SourceLine>
+   <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed style</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else {  // draw normal text</SourceLine>
+   <SourceLine>dim numrows as integer =sizedBody.GetNumRows(i)</SourceLine>
+   <SourceLine>dim lines() as integer = sizedBody.GetLineStarts(i)</SourceLine>
+   <SourceLine>dim lengths() as integer = sizedBody.GetLineLengths(i)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim bytes as integer</SourceLine>
+   <SourceLine>for rownum as integer = 0 to numRows - 1</SourceLine>
+   <SourceLine>if lengths(rownum) &gt; 0 then</SourceLine>
+   <SourceLine>dim drawPos as double</SourceLine>
+   <SourceLine>if alignment = rbrwColSizer.colAlignT.alignRight then</SourceLine>
+   <SourceLine>drawPos=xPos+mColSizer.width(i)-lengths(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCentre then</SourceLine>
+   <SourceLine>drawPos=xPos+ ( mColSizer.width(i)-lengths(rownum) )/2.0</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine> drawPos=xPos</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if rownum = (numrows-1)    then</SourceLine>
+   <SourceLine>// all the bytes in the string minus the start of the last line</SourceLine>
+   <SourceLine>bytes=sizedBody.text(i).Len-lines(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>bytes=lines(rownum+1) - lines(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// bit of a hack to avoid CRLF at end of line</SourceLine>
+   <SourceLine>'dim lastLine as string = lines(rownum) + sizedBody.text(i)</SourceLine>
+   <SourceLine>'if (bytes&gt;0)  then</SourceLine>
+   <SourceLine>'dim lastCharAt as integer = bytes - 1</SourceLine>
+   <SourceLine>'char lastChar = lastLine[lastCharAt];</SourceLine>
+   <SourceLine>'while(lastCharAt &gt;0 &amp;&amp; (lastChar=='\r' || lastChar=='\n')) {</SourceLine>
+   <SourceLine>'lastCharAt--;</SourceLine>
+   <SourceLine>'lastChar = lastLine[lastCharAt];</SourceLine>
+   <SourceLine>'wend</SourceLine>
+   <SourceLine>'bytes = lastCharAt+1;</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if bytes &gt; 0 then</SourceLine>
+   <SourceLine>rbrwGraphicsTextDE.recordElement drawPos, ybase+rownum * lineHeight, sizedBody.text(i).mid( lines(rownum)+1, bytes)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if  // if any length in this row</SourceLine>
+   <SourceLine>next  // loop through rows of report</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'if( adornCount ) then</SourceLine>
+   <SourceLine>'// call after adorners for cell</SourceLine>
+   <SourceLine>'mOwner-&gt;adorners().start();</SourceLine>
+   <SourceLine>'for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
+   <SourceLine>'oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
+   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawAfter ) then</SourceLine>
+   <SourceLine>'oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
+   <SourceLine>'currentAdorner-&gt;drawcell(i,cellY,mOwner,cellHeight,cellWidth);</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>'mOwner-&gt;adorners().next();</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>curRep.incVerticalPos  rowDrawHeight</SourceLine>
+   <SourceLine>end if  // had to call DrawContinuingOverPage or draw here because it fitted</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>finishConstruction</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub finishConstruction()</SourceLine>
+   <SourceLine>super.finishConstruction</SourceLine>
+   <SourceLine>if not mDrawnColHeadersThisPage then // indicates will be drawing them</SourceLine>
+   <SourceLine>dim numCols as integer = mOwner.fields.count</SourceLine>
+   <SourceLine>if mColHeaders is nil then mColHeaders = new rbrwSizedTextArray(numCols)</SourceLine>
+   <SourceLine>mColHeaders.initSizers numCols</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DrawContinuingOverPage</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub DrawContinuingOverPage(startRow as integer,  heightLeft as double, sizedBody as rbrwSizedTextArray,  hasCustomDrawers as boolean)</SourceLine>
+   <SourceLine>// NOTE heightLeft will include the height of the column headers if they are still to be printed</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
+   <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
+   <SourceLine>dim bandIndenting as double = currSettings.bandIndenting</SourceLine>
+   <SourceLine>dim colSepWidth as double = currSettings.colSepWidth</SourceLine>
+   <SourceLine>dim currentVerticalPos as double = curRep.currentVerticalPos</SourceLine>
+   <SourceLine>dim leftMargin as double =  currSettings.leftMargin</SourceLine>
+   <SourceLine>dim bodyWidth as double = curRep.bodyWidth</SourceLine>
+   <SourceLine>dim bodyEnd as double = curRep.bodyEnd</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim style as rbrwTextStyle = mOwner.textStyle</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim adornCount as integer // = mOwner-&gt;adorners().count();</SourceLine>
+   <SourceLine>'unsigned long cellY;</SourceLine>
+   <SourceLine>'if( adornCount ) {</SourceLine>
+   <SourceLine>'// Calculate the current record number we're drawing</SourceLine>
+   <SourceLine>'cellY = view-&gt;recordNumber();</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else</SourceLine>
+   <SourceLine>'cellY = 0;</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
+   <SourceLine>dim   lastpage as Boolean</SourceLine>
+   <SourceLine>dim  DrawHeight, rowDrawHeight as double</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// draw whatever fits on the page, or the remaining portion of the record</SourceLine>
+   <SourceLine>dim roomLeftOnPage as double = bodyEnd - curRep.currentVerticalPos</SourceLine>
+   <SourceLine>if roomLeftOnPage &lt; 0 then</SourceLine>
+   <SourceLine>roomLeftOnPage = 0     // even one line won't fit, so force to next page</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if heightLeft &gt; roomLeftOnPage then</SourceLine>
+   <SourceLine>DrawHeight = roomLeftOnPage        // WARNING may be less than one line room left!!!</SourceLine>
+   <SourceLine> else </SourceLine>
+   <SourceLine>DrawHeight=heightLeft</SourceLine>
+   <SourceLine>lastpage=true</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>curRep.changeTextStyle style  // ESSENTIAL PREREQ FOR CalculateWrapping before</SourceLine>
+   <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim possiblerows as integer</SourceLine>
+   <SourceLine>if Not(mDrawnColHeadersThisPage) then</SourceLine>
+   <SourceLine>dim  colHeaderHeight as double = mColHeaders.maxRows * lineHeight</SourceLine>
+   <SourceLine>// colHeaderHeight will only be non-zero if we are drawing headers and haven't yet drawn them</SourceLine>
+   <SourceLine>rowDrawHeight = DrawHeight-colHeaderHeight</SourceLine>
+   <SourceLine>if DrawHeight &gt; colHeaderHeight then</SourceLine>
+   <SourceLine>possiblerows = rowDrawHeight/lineHeight    // must be truncation divide - don't draw half rows</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>possiblerows = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>possiblerows=DrawHeight/lineHeight    // could be zero rows if a single line too tall</SourceLine>
+   <SourceLine>rowDrawHeight = DrawHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'dim maxCustomDrawerHeight as double  // largest chunk drawn by a custom drawer</SourceLine>
+   <SourceLine>// helps define total height drawn if a custom drawer is a few pixels higher than adjacent rows of uniform text</SourceLine>
+   <SourceLine>'dim maxCustomDrawerHeightLeft as double  // our total left - allows for custom drawers to take more room</SourceLine>
+   <SourceLine>// drawing in chunks than in the original estimate of a single chunk, so our incoming heightLeft may be too low</SourceLine>
+   <SourceLine>// if we have a page break this page - see the correction before recursing below</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'if hasCustomDrawers then</SourceLine>
+   <SourceLine>'// repeat a loop to calc height each page because we don't assume that N rows are</SourceLine>
+   <SourceLine>'// consumed, unlike the plain text, as we know NOTHING about what is drawn and</SourceLine>
+   <SourceLine>'// a custom drawer is free to consume more height over multiple pages than it</SourceLine>
+   <SourceLine>'// said its unbroken total height would be</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'for (unsigned int i=0; i&lt;numFlds; i++) {</SourceLine>
+   <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i);</SourceLine>
+   <SourceLine>'if (theDrawer) {</SourceLine>
+   <SourceLine>'unsigned long drawnHeight;</SourceLine>
+   <SourceLine>'const unsigned long heightLeftToDraw = theDrawer-&gt;calcNextDrawHeight(rowDrawHeight, drawnHeight);</SourceLine>
+   <SourceLine>'if (drawnHeight &gt; maxCustomDrawerHeight)</SourceLine>
+   <SourceLine>'maxCustomDrawerHeight = drawnHeight;</SourceLine>
+   <SourceLine>'assert(drawnHeight&lt;=rowDrawHeight);</SourceLine>
+   <SourceLine>'if (heightLeftToDraw&gt;0) {</SourceLine>
+   <SourceLine>'lastpage=false;  // correction to calc above, in case the custom draw broke in a way</SourceLine>
+   <SourceLine>'// that changed the remaining height we've been passing through. We might have thought</SourceLine>
+   <SourceLine>'// this is the last page because other columns fit, but this could correct that.</SourceLine>
+   <SourceLine>'if (heightLeftToDraw &gt; maxCustomDrawerHeightLeft)</SourceLine>
+   <SourceLine>'maxCustomDrawerHeightLeft = heightLeftToDraw;</SourceLine>
+   <SourceLine>'}  // height to draw</SourceLine>
+   <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed</SourceLine>
+   <SourceLine>'}  // custom drawer</SourceLine>
+   <SourceLine>'} // loop fields to see if have custom draw</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'end if   // if has custom draw</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim rowsDrawn as integer</SourceLine>
+   <SourceLine>if lastpage or possiblerows &gt; 1 then // don't allow a widow left on page if more than one row to draw</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>xPos = xPos + colSepWidth/2</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// we know we have made room for the col headers if not drawn on this page</SourceLine>
+   <SourceLine>if Not(mDrawnColHeadersThisPage) then</SourceLine>
+   <SourceLine>//////// mOwner.drawColumnHeaders</SourceLine>
+   <SourceLine>// restore the style - headers may have changed</SourceLine>
+   <SourceLine>curRep.changeTextStyle(style)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>&#32;&#32;&#32;&#32;</SourceLine>
+   <SourceLine>dim lastFld as integer = numFlds-1</SourceLine>
+   <SourceLine>for  i as integer=0 to lastFld</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim alignment as rbrwColSizer.colAlignT = mColSizer.alignment(i)</SourceLine>
+   <SourceLine>// Cope with natural alignment</SourceLine>
+   <SourceLine>'if alignment = rbrwColSizer.colAlignT.alignNatural then</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'alignment = oofColSizer::naturalAlignmentForField(view-&gt;field(i).fieldType());</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Windows different vertical motion!</SourceLine>
+   <SourceLine>dim ybase as double = curRep.currentVerticalPos - style.leading</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Adorner information for the cell</SourceLine>
+   <SourceLine>dim cellWidth as double = mColSizer.width(i) + colSepWidth</SourceLine>
+   <SourceLine>dim cellHeight as double = rowDrawHeight</SourceLine>
+   <SourceLine>dim  cellHorizontalPos as double = xPos - (colSepWidth/2.0)</SourceLine>
+   <SourceLine>dim cellVerticalPos as double = curRep.currentVerticalPos - 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if i = lastFld then // resize the last cell to right edge</SourceLine>
+   <SourceLine>cellWidth = bodyWidth - bandIndenting + leftMargin + (colSepWidth/2.0) - xPos</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>  '            if (adornCount) {</SourceLine>
+   <SourceLine>'                // call before adorners for cell</SourceLine>
+   <SourceLine>'                mOwner-&gt;adorners().start();</SourceLine>
+   <SourceLine>'                for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
+   <SourceLine>'                    oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
+   <SourceLine>'                    if( currentAdorner-&gt;drawWhen() == oofAdorner::drawBefore ) {</SourceLine>
+   <SourceLine>'                        oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
+   <SourceLine>'                        // draw the correct style for draw overrun cells</SourceLine>
+   <SourceLine>'                        if( lastpage ) {</SourceLine>
+   <SourceLine>'                            if( startRow ) {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::continueStop );</SourceLine>
+   <SourceLine>'                            } else {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::startStop );</SourceLine>
+   <SourceLine>'                            }</SourceLine>
+   <SourceLine>'                        } else {</SourceLine>
+   <SourceLine>'                            if( !startRow ) {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::startContinue );</SourceLine>
+   <SourceLine>'                            } else {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::continueContinue );</SourceLine>
+   <SourceLine>'                            }</SourceLine>
+   <SourceLine>'                        }</SourceLine>
+   <SourceLine>'                    }</SourceLine>
+   <SourceLine>'                    mOwner-&gt;adorners().next();</SourceLine>
+   <SourceLine>'                }</SourceLine>
+   <SourceLine>'            }</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'            oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i);</SourceLine>
+   <SourceLine>'            if (theDrawer) {</SourceLine>
+   <SourceLine>'                oofDE::appendElement(theDrawer-&gt;makeDrawDE(xPos, ybase));</SourceLine>
+   <SourceLine>'                curRep-&gt;changeTextStyle(style);  // in case custom drawer changed style</SourceLine>
+   <SourceLine>'            }</SourceLine>
+   <SourceLine>' else</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim rowsToEndField as integer = sizedBody.GetNumRows(i) - startRow</SourceLine>
+   <SourceLine>dim numRowsFldOnPage as integer</SourceLine>
+   <SourceLine>if rowsToEndField &lt; 0 then // This field might not have any more rows to draw</SourceLine>
+   <SourceLine>numRowsFldOnPage = 0</SourceLine>
+   <SourceLine>rowsToEndField = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if rowsToEndField &gt; possiblerows then</SourceLine>
+   <SourceLine>numRowsFldOnPage = possiblerows</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>numRowsFldOnPage = rowsToEndField</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim lines() as integer = sizedBody.GetLineStarts(i)</SourceLine>
+   <SourceLine>dim lengths() as integer = sizedBody.GetLineLengths(i)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim bytes as integer</SourceLine>
+   <SourceLine>// OK - for clarity:</SourceLine>
+   <SourceLine>// * rownum is always 0-based here, but is offset by startRow from the actual textSizer row</SourceLine>
+   <SourceLine>// * numRowsFldOnPage is the number of rows we can fit on this page</SourceLine>
+   <SourceLine>// So we always use these values unmodified for calculating position, BUT</SourceLine>
+   <SourceLine>// we use them offset for any calculations on the sizer info...</SourceLine>
+   <SourceLine>for rownum as integer=0 to numRowsFldOnPage-1</SourceLine>
+   <SourceLine>dim actualRow as integer = rownum+startRow</SourceLine>
+   <SourceLine>if lengths(actualRow) &gt; 0 then</SourceLine>
+   <SourceLine>dim drawPos as double</SourceLine>
+   <SourceLine>if alignment = rbrwColSizer.colAlignT.alignRight then</SourceLine>
+   <SourceLine>drawPos=xPos+mColSizer.width(i)-lengths(actualRow)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCentre then</SourceLine>
+   <SourceLine>drawPos=xPos+ ( mColSizer.width(i)-lengths(actualRow) )/2.0</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>drawPos=xPos</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if  actualRow = (sizedBody.GetNumRows(i)-1)  then</SourceLine>
+   <SourceLine>if rowsToEndField&gt;numRowsFldOnPage then // more in this field than on this page</SourceLine>
+   <SourceLine>bytes = lines(actualRow+1) - lines(actualRow)  // so safe to measure to line on next page</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>bytes = sizedBody.text(i).len - lines(actualRow) // remaining text in string is this line</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>bytes = lines(actualRow+1) - lines(actualRow)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>'    // bit of a hack to avoid CRLF at end of line</SourceLine>
+   <SourceLine>'                        {</SourceLine>
+   <SourceLine>'                            const char* lastLine = sizedBody.text(i).chars() + lines[actualRow];</SourceLine>
+   <SourceLine>'                            if (bytes&gt;0) {</SourceLine>
+   <SourceLine>'                                unsigned long lastCharAt = bytes -1;</SourceLine>
+   <SourceLine>'                                char lastChar = lastLine[lastCharAt];</SourceLine>
+   <SourceLine>'                                while(lastCharAt &gt;0 &amp;&amp; (lastChar=='\r' || lastChar=='\n')) {</SourceLine>
+   <SourceLine>'                                    lastCharAt--;</SourceLine>
+   <SourceLine>'                                    lastChar = lastLine[lastCharAt];</SourceLine>
+   <SourceLine>'                                }</SourceLine>
+   <SourceLine>'                                bytes = lastCharAt+1;</SourceLine>
+   <SourceLine>'                            }</SourceLine>
+   <SourceLine>'                        }</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if bytes &gt; 0 then</SourceLine>
+   <SourceLine>rbrwGraphicsTextDE.recordElement drawPos, ybase+rownum * lineHeight, sizedBody.text(i).mid( lines(actualRow)+1, bytes)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>end if  // if any length in this row</SourceLine>
+   <SourceLine>next  // loop through rows of report</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'end if   // draw custom or normal</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'            if (adornCount) {</SourceLine>
+   <SourceLine>'                // call after adorners for cell</SourceLine>
+   <SourceLine>'                mOwner-&gt;adorners().start();</SourceLine>
+   <SourceLine>'                for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
+   <SourceLine>'                    oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
+   <SourceLine>'                    if( currentAdorner-&gt;drawWhen() == oofAdorner::drawAfter ) {</SourceLine>
+   <SourceLine>'                        oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
+   <SourceLine>'                        //::MoveTo(cellHorizontalPos, cellVerticalPos);</SourceLine>
+   <SourceLine>'                        // draw the correct style for draw overrun cells</SourceLine>
+   <SourceLine>'                        if( lastpage ) {</SourceLine>
+   <SourceLine>'                            if( startRow ) {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::continueStop );</SourceLine>
+   <SourceLine>'                            } else {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::startStop );</SourceLine>
+   <SourceLine>'                            }</SourceLine>
+   <SourceLine>'                        } else {</SourceLine>
+   <SourceLine>'                            if( !startRow ) {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::startContinue );</SourceLine>
+   <SourceLine>'                            } else {</SourceLine>
+   <SourceLine>'                                currentAdorner-&gt;drawcell( i, cellY, mOwner, cellHeight, cellWidth, oofAdorner::continueContinue );</SourceLine>
+   <SourceLine>'                            }</SourceLine>
+   <SourceLine>'                        }</SourceLine>
+   <SourceLine>'                    }</SourceLine>
+   <SourceLine>'                    mOwner-&gt;adorners().next();</SourceLine>
+   <SourceLine>'                }</SourceLine>
+   <SourceLine>'            }</SourceLine>
+   <SourceLine>xPos = xPos + cellWidth</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>rowsDrawn = possiblerows</SourceLine>
+   <SourceLine>dim heightDrawn as double = rowsDrawn*lineHeight</SourceLine>
+   <SourceLine>'if maxCustomDrawerHeight &gt; heightDrawn then</SourceLine>
+   <SourceLine>'heightDrawn = maxCustomDrawerHeight  // may have custom draw go a few pixels past the rows</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>'assert (heightDrawn &lt;= DrawHeight);    // difference is fractional row that didn't fit</SourceLine>
+   <SourceLine>heightLeft = heightLeft - heightDrawn</SourceLine>
+   <SourceLine>'if maxCustomDrawerHeightLeft &gt; heightLeft then</SourceLine>
+   <SourceLine>'heightLeft = maxCustomDrawerHeightLeft  // may have custom draw extend the earlier total</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>// fitted at least 2 rows</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>// heightLeft stays the same as on entry - ie: we've called overrun from draw because row didn't fit entirely on original page</SourceLine>
+   <SourceLine>rowsDrawn = 0</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if  Not(lastpage) then</SourceLine>
+   <SourceLine>dim theEnv as rbrwEnvironment = curRep.environment</SourceLine>
+   <SourceLine>theEnv.splitBandOverPage</SourceLine>
+   <SourceLine>curRep.drawPageBreak</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// unconditionally draw headers - we KNOW we haven't drawn them</SourceLine>
+   <SourceLine>//////mOwner.drawColumnHeaders  // NOT YET IMPLEMENTED - setting to say that we don't draw these on subsequent pages</SourceLine>
+   <SourceLine>theEnv.resumeBandOverPage</SourceLine>
+   <SourceLine>curRep.changeTextStyle mOwner.textStyle  // In case the page break or col headers changed styles</SourceLine>
+   <SourceLine>DrawContinuingOverPage(startRow+rowsDrawn, heightLeft, sizedBody, hasCustomDrawers)</SourceLine>
+   <SourceLine> else</SourceLine>
+   <SourceLine>curRep.incVerticalPos DrawHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>startRow as integer,  heightLeft as double, sizedBody as rbrwSizedTextArray,  hasCustomDrawers as boolean</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about - column sizing</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about - column sizing</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>rbrwTreeBand_GraphicsRender descends from rbrwTreeBand_Render which provides mOwner as rbrwIterableTreeBand </NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>mOwner.view.count in the original should be replaced by mOwner.fields.count</NoteLine>
+   <NoteLine>instead of expecting a dbView to provide an oofColSizer, we keep that down at this level, having an rbrwColSizer member</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>mColHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColHeaders As rbrwSizedTextArray</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColHeaders As rbrwSizedTextArray</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

@@ -1,0 +1,1752 @@
+<?xml version="1.0"?>
+<RBProject version="2009r1">
+<block type="Module" ID="-1075898055">
+ <ObjName>rbrwReport</ObjName>
+ <ObjContainerID>-1075892825</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>ZZZZZRender</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub ZZZZZRender(g as Graphics, xOffset as double = 0, yOffset as double = 0)</SourceLine>
+   <SourceLine>'g.SetStyleFrom defaultTextStyle '  in case none of our parts override</SourceLine>
+   <SourceLine>'dim pageWidth as double = g.Width</SourceLine>
+   <SourceLine>'dim pageHeight as double = g.Height</SourceLine>
+   <SourceLine>'dim footersHeight, footersY as double </SourceLine>
+   <SourceLine>'if not (mPageFooters is nil) then </SourceLine>
+   <SourceLine>'footersHeight = mPageFooters.Height(g)</SourceLine>
+   <SourceLine>'footersY = pageHeight - footersHeight</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>'if not(mpageHeaders is nil) then mpageHeaders.Render g, xOffset, yOffset, pageWidth</SourceLine>
+   <SourceLine>'if not (mBody is nil) then</SourceLine>
+   <SourceLine>'mBody.startIterators</SourceLine>
+   <SourceLine>'RenderPageBody g, xOffset, yOffset '  within its loop may render other mpageHeaders</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>'yOffset = footersY</SourceLine>
+   <SourceLine>'if footersHeight &gt; 0 then mPageFooters.Render g, xOffset, yOffset, pageWidth</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics, xOffset as double = 0, yOffset as double = 0</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ZZZZRenderPageBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub ZZZZRenderPageBody(g as Graphics, xOffset as double = 0, yOffset as double = 0)</SourceLine>
+   <SourceLine>'' separate method in case someone wants to subclass  a report and override</SourceLine>
+   <SourceLine>'dim pageWidth as double = g.Width</SourceLine>
+   <SourceLine>'do</SourceLine>
+   <SourceLine>'mBody.Render g, xOffset, yOffset, pageWidth '  may break pages</SourceLine>
+   <SourceLine>'if not mBody.advanceIterators then exit</SourceLine>
+   <SourceLine>'loop</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics, xOffset as double = 0, yOffset as double = 0</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>body</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function body(adoptedBody as rbrwIterableTreeBand) As rbrwIterableTreeBand</SourceLine>
+   <SourceLine>// Set the main band from which report hangs.</SourceLine>
+   <SourceLine>// @return same as adoptedBody so you can call with new oofRepIterableTreeBand</SourceLine>
+   <SourceLine>//and immediately get pointer back.</SourceLine>
+   <SourceLine>mLastRenderType = rbrwRenderT.renderUNDEFINED</SourceLine>
+   <SourceLine>mTopBand = adoptedBody</SourceLine>
+   <SourceLine>return adoptedBody</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>adoptedBody as rbrwIterableTreeBand</ItemParams>
+  <ItemResult>rbrwIterableTreeBand</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>becomeCurrent</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub becomeCurrent()</SourceLine>
+   <SourceLine>sCurrentReport = self</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>changeTextStyle</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub changeTextStyle(S as rbrwTextStyle)</SourceLine>
+   <SourceLine>mDrawingEnv.changeTextStyle S</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>S as rbrwTextStyle</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>decrementViewLevel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub decrementViewLevel()</SourceLine>
+   <SourceLine>mNestedViewLevel = mNestedViewLevel - 1</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>incrementViewLevel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub incrementViewLevel()</SourceLine>
+   <SourceLine>mNestedViewLevel = mNestedViewLevel + 1</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>body</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function body() As rbrwIterableTreeBand</SourceLine>
+   <SourceLine>return mTopBand</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwIterableTreeBand</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>draw</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub draw(inEnv as rbrwEnvironment)</SourceLine>
+   <SourceLine>sCurrentReport = self</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if not inEnv.canDraw() then</SourceLine>
+   <SourceLine>return    //****** early exit - unable to draw (probably cancel a Save As dialog)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// pickup defaults if we have none - BEFORE makeRender()</SourceLine>
+   <SourceLine>if mPageHeaders.count = 0 then</SourceLine>
+   <SourceLine>mPageHeaders = settings.defaultPageHeaders</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if mPageFooters.count = 0 then</SourceLine>
+   <SourceLine>mPageFooters = settings.defaultPageFooters</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>becomeCurrent()  // reports are NOT thread-safe, assume use of static sCurrentReport</SourceLine>
+   <SourceLine>mDrawingEnv = inEnv</SourceLine>
+   <SourceLine>resetIteratingBandLevel   // if re-running report which only draws headings at top levels, would see gradual vanishing</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mPageHeight = mDrawingEnv.calcPageHeight    // *after* we have set the mDrawingEnv</SourceLine>
+   <SourceLine>if mPageHeight = 0 then</SourceLine>
+   <SourceLine>return  //***** early exit - error condition getting page height</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mPageWidth = mDrawingEnv.calcPageWidth()       // *after* we have set the mDrawingEnv</SourceLine>
+   <SourceLine>mBodyWidth = mPageWidth - settings.leftMargin - settings.rightMargin</SourceLine>
+   <SourceLine>mFirstPageHeaderHeight = mFirstPageHeaders.fixedHeight</SourceLine>
+   <SourceLine>mFirstPageFooterHeight = mFirstPageFooters.fixedHeight</SourceLine>
+   <SourceLine>mPageHeaderHeight = mPageHeaders.fixedHeight</SourceLine>
+   <SourceLine>mPageFooterHeight = mPageFooters.fixedHeight</SourceLine>
+   <SourceLine>mHeadersStartAt = settings.topMargin</SourceLine>
+   <SourceLine>if mFirstPageFooters.count() &gt; 0  then</SourceLine>
+   <SourceLine>mFirstPageFootersStartAt = mPageHeight - (mFirstPageFooterHeight+settings.bottomMargin )</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>mFootersStartAt = mPageHeight - (mPageFooterHeight+settings.bottomMargin)</SourceLine>
+   <SourceLine>mFirstPage = true</SourceLine>
+   <SourceLine>if mFirstPageHeaders.count() &gt; 0  then</SourceLine>
+   <SourceLine>mFirstPageBodyStart = mHeadersStartAt + mFirstPageHeaderHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>mBodyStart = mHeadersStartAt + mPageHeaderHeight</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if not mFinishedConstruction then</SourceLine>
+   <SourceLine>// complete the report objects now that we have them all</SourceLine>
+   <SourceLine>// this happens ONCE regardless of how many times we draw and</SourceLine>
+   <SourceLine>// regardless of environment</SourceLine>
+   <SourceLine>mFinishedConstruction = true</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim theVisitor as new rbrwFinishConstructionVisitor</SourceLine>
+   <SourceLine>theVisitor.visit self</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'if reportAllowsEditing then</SourceLine>
+   <SourceLine>'oofRepVisitor* setupVisitor = settings()-&gt;reportEditor()-&gt;makeRepEditingSetupVisitor();</SourceLine>
+   <SourceLine>'assert(setupVisitor);</SourceLine>
+   <SourceLine>'setupVisitor-&gt;visit(this);</SourceLine>
+   <SourceLine>'delete setupVisitor;</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// make renderers each time we have a new environment</SourceLine>
+   <SourceLine>dim newRenderType as rbrwRenderT     = inEnv.renderType</SourceLine>
+   <SourceLine>if mLastRenderType &lt;&gt; newRenderType then</SourceLine>
+   <SourceLine>mLastRenderType = newRenderType</SourceLine>
+   <SourceLine>inEnv.makeRender</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim makerVisitor as new rbrwMakeRenderVisitor(inEnv)</SourceLine>
+   <SourceLine>makerVisitor.visit self</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// bit of a conceptual hack for now - restore the data context unconditionally on re-runs</SourceLine>
+   <SourceLine>'if (mRepData) then</SourceLine>
+   <SourceLine>'mRepData-&gt;useRepContext();</SourceLine>
+   <SourceLine>'else</SourceLine>
+   <SourceLine>'mRepData = new oofRepData(mTopBand-&gt;view());    // save context for later</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mPageNumber = mStartingPageNumber</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>inEnv.startEnvironment    // start whatever initial drawing state or precursor written out</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim drawPageHeadersAndFooters as boolean = not mDrawingEnv.preprocessesPageHeadersAndFooters</SourceLine>
+   <SourceLine>//mDrawingEnv-&gt;moveToVerticalPos(mHeadersStartAt);</SourceLine>
+   <SourceLine>mVerticalPos=mHeadersStartAt</SourceLine>
+   <SourceLine>if drawPageHeadersAndFooters then</SourceLine>
+   <SourceLine>if firstPageHeaders().count() &gt; 0  then</SourceLine>
+   <SourceLine>drawFirstPageHeaders</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>drawPageHeaders</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>//mDrawingEnv-&gt;moveToVerticalPos(mBodyStart);</SourceLine>
+   <SourceLine>if mFirstPageHeaders.count() &gt; 0 then</SourceLine>
+   <SourceLine>mVerticalPos = mFirstPageBodyStart</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>mVerticalPos = mBodyStart</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>DrawTreeBand mTopBand</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// NOT YET IMPLEMENTED - allow for having just finished a page exactly</SourceLine>
+   <SourceLine>// with the last band drawn</SourceLine>
+   <SourceLine>// so we would currently draw two lots of footers</SourceLine>
+   <SourceLine>//mDrawingEnv-&gt;moveToVerticalPos(mFootersStartAt);</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if drawPageHeadersAndFooters then</SourceLine>
+   <SourceLine>if firstPageFooters.count &gt; 0 and mFirstPage then</SourceLine>
+   <SourceLine>mVerticalPos=mFirstPageFootersStartAt</SourceLine>
+   <SourceLine>drawFirstPageFooters</SourceLine>
+   <SourceLine>mFirstPage = false</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>mVerticalPos=mFootersStartAt</SourceLine>
+   <SourceLine>drawPageFooters</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>inEnv.endEnvironment</SourceLine>
+   <SourceLine>sCurrentReport = nil</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'if not (mRepData is nil) then</SourceLine>
+   <SourceLine>'mRepData.restoreDataSelection</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inEnv as rbrwEnvironment</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>resetIteratingBandLevel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub resetIteratingBandLevel()</SourceLine>
+   <SourceLine>mNestedIteratingBandLevel = 0</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DrawBorderAndHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub DrawBorderAndHeaders(inHeaders as rbrwBandList)</SourceLine>
+   <SourceLine>if settings.borderType &gt; 0 then</SourceLine>
+   <SourceLine>// draw from outside the body section</SourceLine>
+   <SourceLine>//Rect borderInfo = { settings()-&gt;topMargin(),</SourceLine>
+   <SourceLine>//                    settings()-&gt;leftMargin(),</SourceLine>
+   <SourceLine>//                    pageHeight()-settings()-&gt;bottomMargin(),</SourceLine>
+   <SourceLine>//                    settings()-&gt;leftMargin()+bodyWidth()};</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim leftMargin as double = settings.leftMargin</SourceLine>
+   <SourceLine>mDrawingEnv.drawPageBorder _</SourceLine>
+   <SourceLine>settings.topMargin, _</SourceLine>
+   <SourceLine>leftMargin, _</SourceLine>
+   <SourceLine>pageHeight - settings.bottomMargin, _</SourceLine>
+   <SourceLine>leftMargin+bodyWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inHeaders.count &gt; 0 then</SourceLine>
+   <SourceLine>DrawBandList inHeaders, false</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inHeaders as rbrwBandList</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DrawBandList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub DrawBandList(inList as rbrwBandList, inBody as Boolean=true)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inList.count = 0 then return // TRIVIAL EXIT - empty bandlist</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inBody then  // check if band fits, breaks etc.</SourceLine>
+   <SourceLine>if inList.keepTogether then  // definitely not a view band in the list!</SourceLine>
+   <SourceLine>dim spaceLeft as double = bodyEnd -mVerticalPos</SourceLine>
+   <SourceLine>dim fixedHeight as double = inList.fixedHeight</SourceLine>
+   <SourceLine>dim  reduceBy as double</SourceLine>
+   <SourceLine>if fixedHeight &gt; spaceLeft then  // too large, maybe it can squeeze to fit</SourceLine>
+   <SourceLine>// if our min height allows us to fit then we calculate an amount</SourceLine>
+   <SourceLine>// by which we have to reduce from our normal fixedHeight, and ask</SourceLine>
+   <SourceLine>// each band in turn to whittle away at that reduceBy space.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Note: this is not a very good algorithm if you had several bands mixed</SourceLine>
+   <SourceLine>// which could all reduce but our common situation at present is that only</SourceLine>
+   <SourceLine>// one type of band (graph) will reduce and usually only one is mixed with</SourceLine>
+   <SourceLine>// other bands in a list</SourceLine>
+   <SourceLine>dim maxAvailHeight as double = bodyHeight</SourceLine>
+   <SourceLine>dim minHeight as double = inList.minHeight</SourceLine>
+   <SourceLine>if minHeight &lt;= spaceLeft or minHeight &gt; maxAvailHeight then</SourceLine>
+   <SourceLine>reduceBy = fixedHeight - spaceLeft // it thinks it can fit or we make it</SourceLine>
+   <SourceLine>// because it's bigger than the page</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>if fixedHeight&gt;maxAvailHeight then  // list is taller than page without shrinking</SourceLine>
+   <SourceLine>reduceBy = fixedHeight - maxAvailHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>drawPageBreak  // can't fit and fits within a page, so get a new one</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if  // might not fit</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for each mCurrentBand in inList.bands</SourceLine>
+   <SourceLine>if reduceBy &gt; 0 then</SourceLine>
+   <SourceLine>mCurrentBand.drawSquished reduceBy  // always reduces reduceBy</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>mCurrentBand.draw  // no need to see if things fit</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next // loop kept together bands</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else   // may contain view bands, may split across pages</SourceLine>
+   <SourceLine>for each theBand as rbrwBand in inList.bands</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if theBand isa rbrwIterableTreeBand then</SourceLine>
+   <SourceLine>DrawTreeBand theBand</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>mCurrentBand = theBand</SourceLine>
+   <SourceLine>dim bandFixedHeight as double = theBand.fixedHeight</SourceLine>
+   <SourceLine>dim reduceByForWholePage as double = bandFixedHeight - bodyHeight</SourceLine>
+   <SourceLine>if reduceByForWholePage &lt; 0 then</SourceLine>
+   <SourceLine>reduceByForWholePage = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if mVerticalPos &gt; mBodyStart then // only part page available</SourceLine>
+   <SourceLine>if bandFixedHeight &gt; (bodyEnd - mVerticalPos) then  // no space left</SourceLine>
+   <SourceLine>drawPageBreak  // break because more space next page</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>// either at top of new page, or top of original, and need to squish anyway, or we fitted</SourceLine>
+   <SourceLine>if reduceByForWholePage &gt; 0 then</SourceLine>
+   <SourceLine>theBand.drawSquished reduceByForWholePage  // squish - it's taller than a page</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>theBand.draw  // draw original height</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next  // loop bands</SourceLine>
+   <SourceLine>end if  // keep together or not</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else   // not in body so don't care about keeptogether etc.</SourceLine>
+   <SourceLine>for each  theBand as rbrwBand in inList.bands</SourceLine>
+   <SourceLine>if theBand isa rbrwIterableTreeBand then</SourceLine>
+   <SourceLine>DrawTreeBand theBand</SourceLine>
+   <SourceLine>else   // can't break if not in body</SourceLine>
+   <SourceLine>mCurrentBand = theBand</SourceLine>
+   <SourceLine>theBand.draw</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next  // loop bands</SourceLine>
+   <SourceLine>end if // inBody or not</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inList as rbrwBandList, inBody as Boolean=true</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>shouldDrawViewColumnHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function shouldDrawViewColumnHeaders() As boolean</SourceLine>
+   <SourceLine>return (settings.drawHeadingsDownToLevel &gt;= mNestedIteratingBandLevel)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>useEmptyBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function useEmptyBody() As rbrwIterableTreeBand</SourceLine>
+   <SourceLine>'dbView EmptyView;  // view with no table will iterate exacly one row</SourceLine>
+   <SourceLine>'EmptyView &lt;&lt; " ";  // single empty, owned field on this view</SourceLine>
+   <SourceLine>'oofRepViewBand* adoptedBody = new oofRepViewBand(EmptyView, false);</SourceLine>
+   <SourceLine>'getLocalSettings()-&gt;drawHeadingsDownToLevel(0);  // disable column headings</SourceLine>
+   <SourceLine>'return body(adoptedBody);</SourceLine>
+   <SourceLine>break  // NOT YET IMPLEMENTED</SourceLine>
+   <SourceLine>return nil</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwIterableTreeBand</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>drawPageBreak</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawPageBreak()</SourceLine>
+   <SourceLine>dim drawPageHeadersAndFooters as boolean = not mDrawingEnv.preprocessesPageHeadersAndFooters</SourceLine>
+   <SourceLine>//assert(mVerticalPos &lt;= mFootersStartAt);  // Debugging</SourceLine>
+   <SourceLine>//mDrawingEnv-&gt;moveToVerticalPos(mFootersStartAt);</SourceLine>
+   <SourceLine>if drawPageHeadersAndFooters then</SourceLine>
+   <SourceLine>if firstPageFooters.count &gt; 0 and mFirstPage then</SourceLine>
+   <SourceLine>mVerticalPos=mFirstPageFootersStartAt</SourceLine>
+   <SourceLine>drawFirstPageFooters</SourceLine>
+   <SourceLine>mFirstPage = false</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>mVerticalPos=mFootersStartAt</SourceLine>
+   <SourceLine>drawPageFooters</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mPageNumber = mPageNumber + 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mDrawingEnv.drawPageBreak</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>//mDrawingEnv-&gt;moveToVerticalPos(mHeadersStartAt);</SourceLine>
+   <SourceLine>mVerticalPos=mHeadersStartAt</SourceLine>
+   <SourceLine>if drawPageHeadersAndFooters then</SourceLine>
+   <SourceLine>drawPageHeaders</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>//mDrawingEnv-&gt;moveToVerticalPos(mBodyStart);</SourceLine>
+   <SourceLine>mVerticalPos=mBodyStart</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>drawFirstPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawFirstPageFooters()</SourceLine>
+   <SourceLine>DrawBandList mFirstPageFooters, false</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>drawPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawPageFooters()</SourceLine>
+   <SourceLine>DrawBandList mPageFooters, false</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>drawPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawPageHeaders()</SourceLine>
+   <SourceLine>DrawBorderAndHeaders mPageHeaders</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>drawFirstPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawFirstPageHeaders()</SourceLine>
+   <SourceLine>DrawBorderAndHeaders mFirstPageHeaders</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ProcessBreakList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub ProcessBreakList(inList() as rbrwBreak, beforeRecord as boolean)</SourceLine>
+   <SourceLine>dim newPage as boolean</SourceLine>
+   <SourceLine>dim triggeredBreaks() as rbrwBreak</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for each theBreak as rbrwBreak in inList</SourceLine>
+   <SourceLine>if theBreak.breaks then</SourceLine>
+   <SourceLine>if theBreak.newPage then</SourceLine>
+   <SourceLine>newPage = true</SourceLine>
+   <SourceLine>triggeredBreaks.append theBreak</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next    // loop all possible breaks</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if beforeRecord then</SourceLine>
+   <SourceLine>if newPage then</SourceLine>
+   <SourceLine>drawPageBreak</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>DrawBreakList triggeredBreaks</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>DrawBreakList triggeredBreaks</SourceLine>
+   <SourceLine>if newPage then</SourceLine>
+   <SourceLine>drawPageBreak</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inList() as rbrwBreak, beforeRecord as boolean</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DrawBreakList</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub DrawBreakList(inList() as rbrwBreak)</SourceLine>
+   <SourceLine>for each theBreak as rbrwBreak in inList</SourceLine>
+   <SourceLine>dim theBand as rbrwBand = theBreak.band</SourceLine>
+   <SourceLine>if not (theBand is nil) then </SourceLine>
+   <SourceLine>if theBand isa rbrwIterableTreeBand then</SourceLine>
+   <SourceLine>DrawTreeBand theBand</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>// Do we fit on the page..</SourceLine>
+   <SourceLine>if (theBand.fixedHeight + mVerticalPos) &gt; bodyEnd then</SourceLine>
+   <SourceLine>drawPageBreak</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>mCurrentBand = theBand</SourceLine>
+   <SourceLine>theBand.draw</SourceLine>
+   <SourceLine>end if  // break without band</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inList() as rbrwBreak</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>DrawTreeBand</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub DrawTreeBand(inBand as rbrwBand)</SourceLine>
+   <SourceLine>'Draw a single row of the oofRepViewBand. (now rbrwIterableTreeBand)</SourceLine>
+   <SourceLine>'\note it may seem a little weird that we draw a view band rather than simply calling it to draw itself</SourceLine>
+   <SourceLine>'but as you will see below, a view band *does* know how to draw itself - it just draws a single</SourceLine>
+   <SourceLine>'row of fields.</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'The control logic that knows how to process breaks resides up at the report level, as the report</SourceLine>
+   <SourceLine>'contains other bands (eg: page headers) and works out how they interact. The view band knows nothing</SourceLine>
+   <SourceLine>'of these complex interactions.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inBand is nil then return    // it *is* legal to have empty bands and a report with empty topBand may have headers or footers</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>incrementViewLevel    // so we know what level we're down to, for heading control</SourceLine>
+   <SourceLine>// remembering breaks and other bands on the following view may themselves be view bands</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mCurrentBand = inBand</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim treeBand as rbrwIterableTreeBand = rbrwIterableTreeBand(inBand)</SourceLine>
+   <SourceLine>'treeBand.startTableWrapper</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>DrawBandList treeBand.headers</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'treeBand.startTableBody</SourceLine>
+   <SourceLine>dim itering as rbrwIterableSource = treeBand.source</SourceLine>
+   <SourceLine>itering.start</SourceLine>
+   <SourceLine>while itering.more</SourceLine>
+   <SourceLine>ProcessBreakList treeBand.headerBreaks, true</SourceLine>
+   <SourceLine>treeBand.draw</SourceLine>
+   <SourceLine>ProcessBreakList treeBand.footerBreaks, false</SourceLine>
+   <SourceLine>itering.inc</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'treeBand.endTableBody</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>DrawBandList treeBand.footers</SourceLine>
+   <SourceLine>'treeBand.endTableWrapper</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>decrementViewLevel</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBand as rbrwBand</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inIterFields as rbrwFieldFacadeWithIterator, startingPageNumber as integer = 1)</SourceLine>
+   <SourceLine>mTopBand = new rbrwIterableTreeBand(inIterFields)</SourceLine>
+   <SourceLine>mStartingPageNumber = startingPageNumber</SourceLine>
+   <SourceLine>CommonConstructor</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inIterFields as rbrwFieldFacadeWithIterator, startingPageNumber as integer = 1</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inSourceIterator as rbrwIterableSource, inFields as rbrwFieldFacade, startingPageNumber as integer = 1)</SourceLine>
+   <SourceLine>mTopBand = new rbrwIterableTreeBand( inSourceIterator, inFields)</SourceLine>
+   <SourceLine>mStartingPageNumber = startingPageNumber</SourceLine>
+   <SourceLine>CommonConstructor</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inSourceIterator as rbrwIterableSource, inFields as rbrwFieldFacade, startingPageNumber as integer = 1</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(adoptedTopBand as rbrwIterableTreeBand = nil, startingPageNumber as integer = 1)</SourceLine>
+   <SourceLine>mTopBand = adoptedTopBand</SourceLine>
+   <SourceLine>mStartingPageNumber = startingPageNumber</SourceLine>
+   <SourceLine>CommonConstructor</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>adoptedTopBand as rbrwIterableTreeBand = nil, startingPageNumber as integer = 1</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>CommonConstructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub CommonConstructor()</SourceLine>
+   <SourceLine>// create members which were concrete objects in oofile and so are expected to exist</SourceLine>
+   <SourceLine>mFirstPageHeaders = new rbrwBandList</SourceLine>
+   <SourceLine>mFirstPageFooters = new rbrwBandList</SourceLine>
+   <SourceLine>mPageHeaders = new rbrwBandList</SourceLine>
+   <SourceLine>mPageFooters = new rbrwBandList</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>incVerticalPos</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub incVerticalPos(dy as double)</SourceLine>
+   <SourceLine>mVerticalPos = mVerticalPos + dy</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>dy as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>firstPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function firstPageFooters() As rbrwBandList</SourceLine>
+   <SourceLine>if mFirstPageFooters is nil then mFirstPageFooters = new rbrwBandList</SourceLine>
+   <SourceLine>return mFirstPageFooters</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBandList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>getLocalSettings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function getLocalSettings() As rbrwSettings</SourceLine>
+   <SourceLine>if mSettings is nil then</SourceLine>
+   <SourceLine>mSettings = new rbrwSettings</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return mSettings</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwSettings</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>firstPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function firstPageHeaders() As rbrwBandList</SourceLine>
+   <SourceLine>if mFirstPageHeaders is nil then mFirstPageHeaders = new rbrwBandList</SourceLine>
+   <SourceLine>return mFirstPageHeaders</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBandList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>pageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function pageHeaders() As rbrwBandList</SourceLine>
+   <SourceLine>// yes I know this looks like it could be a property but has side-effects</SourceLine>
+   <SourceLine>if mPageHeaders is nil then mPageHeaders = new rbrwBandList</SourceLine>
+   <SourceLine>return mPageHeaders</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBandList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>pageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function pageFooters() As rbrwBandList</SourceLine>
+   <SourceLine>if mPageFooters is nil then mPageFooters = new rbrwBandList</SourceLine>
+   <SourceLine>return mPageFooters</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwBandList</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>currentReport</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function currentReport() As rbrwReport</SourceLine>
+   <SourceLine>return sCurrentReport</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwReport</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>currentSettings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function currentSettings() As rbrwSettings</SourceLine>
+   <SourceLine>if sCurrentReport is nil then return rbrwDefaultSettings.settings</SourceLine>
+   <SourceLine>return sCurrentReport.settings</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwSettings</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>defaultSettings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function defaultSettings() As rbrwSettings</SourceLine>
+   <SourceLine>return rbrwDefaultSettings.settings</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwSettings</ItemResult>
+ </Method>
+ <Property>
+  <ItemName>mPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageHeaders As rbrwBandList</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageHeaders As rbrwBandList</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageFooters As rbrwBandList</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageFooters As rbrwBandList</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>sCurrentReport</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Shared sCurrentReport As rbrwReport</SourceLine>
+   <SourceLine>r</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>sCurrentReport As rbrwReport</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>1</Shared>
+ </Property>
+ <Property>
+  <ItemName>mDrawingEnv</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mDrawingEnv As rbrwEnvironment</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mDrawingEnv As rbrwEnvironment</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mVerticalPos</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mVerticalPos As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mVerticalPos As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>currentVerticalPos</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>currentVerticalPos As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>currentVerticalPos As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine>mVerticalPos = value</SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mVerticalPos</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mNestedViewLevel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mNestedViewLevel As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mNestedViewLevel As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>environment</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>environment As rbrwEnvironment</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>environment As rbrwEnvironment</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mDrawingEnv</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mFirstPageFooters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFirstPageFooters As rbrwBandList</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFirstPageFooters As rbrwBandList</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFirstPageHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFirstPageHeaders As rbrwBandList</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFirstPageHeaders As rbrwBandList</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mTopBand</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mTopBand As rbrwIterableTreeBand</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mTopBand As rbrwIterableTreeBand</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mLastRenderType</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mLastRenderType As rbrwRenderT</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mLastRenderType As rbrwRenderT</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFootersStartAt</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFootersStartAt As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFootersStartAt As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>bodyEnd</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>bodyEnd As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>bodyEnd As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mFootersStartAt</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mBodyStart</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mBodyStart As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mBodyStart As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>bodyHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>bodyHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>bodyHeight As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mFootersStartAt - mBodyStart</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>bodyStart</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>bodyStart As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>bodyStart As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mBodyStart</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>bodyWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>bodyWidth As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>bodyWidth As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mBodyWidth</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mSettings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mSettings As rbrwSettings</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mSettings As rbrwSettings</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>settings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>settings As rbrwSettings</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>settings As rbrwSettings</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>if mSettings is nil then</SourceLine>
+   <SourceLine>return defaultSettings</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return mSettings</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mNestedIteratingBandLevel</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mNestedIteratingBandLevel As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mNestedIteratingBandLevel As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mPageHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageHeight As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mPageWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageWidth As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageWidth As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mBodyWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mBodyWidth As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mBodyWidth As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFirstPageHeaderHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFirstPageHeaderHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFirstPageHeaderHeight As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFirstPageFooterHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFirstPageFooterHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFirstPageFooterHeight As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mPageHeaderHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageHeaderHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageHeaderHeight As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mHeadersStartAt</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mHeadersStartAt As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mHeadersStartAt As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mPageFooterHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageFooterHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageFooterHeight As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFirstPageFootersStartAt</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFirstPageFootersStartAt As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFirstPageFootersStartAt As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFirstPage</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFirstPage As boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFirstPage As boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFinishedConstruction</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFinishedConstruction As boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFinishedConstruction As boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFirstPageBodyStart</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFirstPageBodyStart As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFirstPageBodyStart As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mStartingPageNumber</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mStartingPageNumber As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mStartingPageNumber As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mPageNumber</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageNumber As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageNumber As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>pageHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>pageHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>pageHeight As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>Return mPageHeight</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mCurrentBand</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCurrentBand As rbrwBand</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCurrentBand As rbrwBand</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>defaultTextStyle</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>defaultTextStyle As rbrwTextStyle</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>defaultTextStyle As rbrwTextStyle</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine>settings.defaultTextStyle = value</SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return settings.defaultTextStyle</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>SimpleTitleStore</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>SimpleTitleStore As String</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>SimpleTitleStore As String</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>SimpleTitle</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>SimpleTitle As String</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>SimpleTitle As String</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine>SimpleTitleStore = value</SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>if SimpleTitleStore.LenB &gt; 0 then</SourceLine>
+   <SourceLine>return SimpleTitleStore</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>// work out a default title from the report content</SourceLine>
+   <SourceLine>dim ret as string = firstPageHeaders.asString</SourceLine>
+   <SourceLine>if ret.LenB = 0 then</SourceLine>
+   <SourceLine>ret = pageHeaders.asString</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>// don't try any further to get a title</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>currentVerticalPos</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>bodyEnd</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>bodyHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>bodyStart</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>bodyWidth</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>mFirstPageHeaderHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>pageHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>SimpleTitle</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>String</ItemType>
+   <EditorType>MultiLineEditor</EditorType>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

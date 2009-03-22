@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<RBProject version="2008r4.1">
+<block type="Module" ID="-1073040967">
+ <ObjName>rbrwRowPositioner</ObjName>
+ <ObjContainerID>-1073040389</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Interfaces>rbrwPositioner</Interfaces>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Height</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Height(g as Graphics) As Double</SourceLine>
+   <SourceLine>'return mBlocks.Height(g)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics</ItemParams>
+  <ItemResult>Double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>IsStacked</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function IsStacked() As Boolean</SourceLine>
+   <SourceLine>return true '  this is the basic stackable positioner</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor()</SourceLine>
+   <SourceLine>mBlocks = new rbrwBlockList</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Add</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Add(inBlock as rbrwBlock, alignBlock as integer = 900)</SourceLine>
+   <SourceLine>mBlocks.Append inBlock</SourceLine>
+   <SourceLine>' also append to simple arrays used to render in order</SourceLine>
+   <SourceLine>select case alignBlock</SourceLine>
+   <SourceLine>case rbrw.layLeft</SourceLine>
+   <SourceLine>mLeftBlocks.Append inBlock</SourceLine>
+   <SourceLine>case rbrw.layRight</SourceLine>
+   <SourceLine>mRightBlocks.Append inBlock</SourceLine>
+   <SourceLine>Else</SourceLine>
+   <SourceLine>mCentreBlocks.Append inBlock</SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inBlock as rbrwBlock, alignBlock as integer = 900</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Render</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Render(g as Graphics, xOffset as double, ByRef yOffset as double, rowWidth as double, ByRef runningY As Double)</SourceLine>
+   <SourceLine>'' TODO allow for vertical alignment as well, for now all on baseline</SourceLine>
+   <SourceLine>'' TODO cache render values (once we know content doesn't change!)</SourceLine>
+   <SourceLine>'dim maxHeight as double = Height(g)</SourceLine>
+   <SourceLine>'dim blockW as double</SourceLine>
+   <SourceLine>'dim b as rbrwBlock</SourceLine>
+   <SourceLine>'dim baselineY as double = runningY + maxHeight  ' we ignore yOffset as we're stackable, others may care</SourceLine>
+   <SourceLine>'dim runningX as double = xOffset</SourceLine>
+   <SourceLine>'for each b in mLeftBlocks</SourceLine>
+   <SourceLine>'blockW = b.Width(g)</SourceLine>
+   <SourceLine>'b.Render g, runningX, baselineY</SourceLine>
+   <SourceLine>'runningX = runningX + blockW</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'' calc width of all centred blocks so draw them aligned</SourceLine>
+   <SourceLine>'dim layWidth as double</SourceLine>
+   <SourceLine>'dim centreWidths() as double  ' local cache to speed second loop</SourceLine>
+   <SourceLine>'for each b in mCentreBlocks</SourceLine>
+   <SourceLine>'blockW = b.Width(g)</SourceLine>
+   <SourceLine>'centreWidths.Append blockW</SourceLine>
+   <SourceLine>'layWidth =  layWidth + blockW</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'runningX  = xOffset + rowWidth/2 - layWidth / 2</SourceLine>
+   <SourceLine>'dim i as integer</SourceLine>
+   <SourceLine>'for each b in mCentreBlocks</SourceLine>
+   <SourceLine>'b.Render g, runningX, baselineY</SourceLine>
+   <SourceLine>'runningX = runningX + centreWidths(i)</SourceLine>
+   <SourceLine>'i = i + 1</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'layWidth = 0</SourceLine>
+   <SourceLine>'dim rightWidths() as double  ' local cache to speed second loop</SourceLine>
+   <SourceLine>'for each b in mRightBlocks</SourceLine>
+   <SourceLine>'blockW = b.Width(g)</SourceLine>
+   <SourceLine>'rightWidths.Append blockW</SourceLine>
+   <SourceLine>'layWidth =  layWidth + blockW</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'runningX  = xOffset + rowWidth - layWidth</SourceLine>
+   <SourceLine>'i = 0</SourceLine>
+   <SourceLine>'for each b in mRightBlocks</SourceLine>
+   <SourceLine>'b.Render g, runningX, baselineY</SourceLine>
+   <SourceLine>'runningX = runningX + rightWidths(i)</SourceLine>
+   <SourceLine>'i = i + 1</SourceLine>
+   <SourceLine>'next</SourceLine>
+   <SourceLine>'runningY = baselineY ' update return value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>g as Graphics, xOffset as double, ByRef yOffset as double, rowWidth as double, ByRef runningY As Double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Property>
+  <ItemName>mBlocks</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mBlocks As rbrwBlockList</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mBlocks As rbrwBlockList</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mLeftBlocks()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mLeftBlocks() As rbrwBlock</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mLeftBlocks() As rbrwBlock</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mRightBlocks()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mRightBlocks() As rbrwBlock</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mRightBlocks() As rbrwBlock</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mCentreBlocks()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCentreBlocks() As rbrwBlock</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCentreBlocks() As rbrwBlock</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

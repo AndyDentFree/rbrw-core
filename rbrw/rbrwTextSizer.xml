@@ -1,0 +1,590 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="371684813">
+ <ObjName>rbrwTextSizer</ObjName>
+ <ObjContainerID>-1075463008</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>getLineLengths</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function getLineLengths() As integer()</SourceLine>
+   <SourceLine>return mLineLengths</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>integer()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>getLineStarts</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function getLineStarts() As integer()</SourceLine>
+   <SourceLine>return mLineStarts</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>integer()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>StoreLineStart</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub StoreLineStart(inLineStart as integer)</SourceLine>
+   <SourceLine>mNumRows = mNumRows+ 1</SourceLine>
+   <SourceLine>mLineStarts.Append inLineStart</SourceLine>
+   <SourceLine>mLineLengths.Append 0</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inLineStart as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>StoreLineLength</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub StoreLineLength(inLineLength as double)</SourceLine>
+   <SourceLine>if  mLineLengths.Ubound &lt; mLineStarts.Ubound then</SourceLine>
+   <SourceLine>// add protection that was just asserted in the oofile original</SourceLine>
+   <SourceLine>redim mLineLengths(mLineStarts.Ubound)</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>'assert mLineLengths.Ubound = mNumRows-1</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>mLineLengths(mNumRows-1) = inLineLength</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inLineLength as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SkipWhiteForward</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SkipWhiteForward(inValue as string, ByRef  ioWordStart as integer, ByRef  ioCharsLeft as integer)</SourceLine>
+   <SourceLine>if ioCharsLeft = 0 then return</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim ix as integer = ioWordStart</SourceLine>
+   <SourceLine>dim pastLastChar as integer = ix + ioCharsLeft</SourceLine>
+   <SourceLine>while ix &lt; pastLastChar and inValue.Mid(ix+1,1 )= " " </SourceLine>
+   <SourceLine>ix = ix + 1  // skip to start of partial word</SourceLine>
+   <SourceLine>if ix = pastLastChar then</SourceLine>
+   <SourceLine>ioCharsLeft = 0</SourceLine>
+   <SourceLine>ioWordStart = 0</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>ioCharsLeft = ioCharsLeft - (ix-ioWordStart)</SourceLine>
+   <SourceLine>ioWordStart = ix</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inValue as string, ByRef  ioWordStart as integer, ByRef  ioCharsLeft as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>TruncateTrailingWord</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function TruncateTrailingWord(inValue as String, inEndWord as integer,  ByRef outNextWordStart as integer) As integer</SourceLine>
+   <SourceLine>// should be private but public for unit tests</SourceLine>
+   <SourceLine>// trimming off a partial word if we do truncation</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim ix as integer = inEndWord  ' index of last character in the string</SourceLine>
+   <SourceLine>while ix &gt; 0 and not( isspace(inValue.Mid(ix+1,1).Asc) )</SourceLine>
+   <SourceLine>ix = ix - 1  // skip to start of partial word</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if ix = 0 then</SourceLine>
+   <SourceLine>outNextWordStart = inEndWord+1</SourceLine>
+   <SourceLine>return inEndWord    // were part-way through remaining word on line</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if ix &lt; inEndWord then  // were part-way through a word</SourceLine>
+   <SourceLine>outNextWordStart = ix+1</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>outNextWordStart = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>while ix &gt; 0 and isspace(inValue.Mid(ix+1,1).Asc)</SourceLine>
+   <SourceLine>ix = ix - 1  // skip preceding whitespace</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if ix &gt; 0 then  // was at least one word before partial word</SourceLine>
+   <SourceLine>inEndWord = ix+1</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>if isspace(inValue.Mid(ix+1,1).Asc) then // degenerate case "*&lt;space&gt;BLAH"</SourceLine>
+   <SourceLine>inEndWord = 1</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>return inEndWord</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>inValue as String, inEndWord as integer,  ByRef outNextWordStart as integer</ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>calculateWrapping</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub calculateWrapping(inValueStr as string,  inColWidth as integer, inWillTruncWords as boolean=true)</SourceLine>
+   <SourceLine>// ASSUMES CALLER HAS SET CORRECT TEXT STYLE IN rbrwCurrentDraw.CurrentGraphics</SourceLine>
+   <SourceLine>const  kMaxCharsInSingleLine = 500  // limit to avoid too much remeasuring</SourceLine>
+   <SourceLine>mNumRows = 0</SourceLine>
+   <SourceLine>if inValueStr is nil or inValueStr.LenB=0 then</SourceLine>
+   <SourceLine>return  // trivial case - 0 rows as set above</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim charsLeftInString as integer = inValueStr.Len</SourceLine>
+   <SourceLine>dim measureFrom as integer   </SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim inValue as MemoryBlock = inValueStr </SourceLine>
+   <SourceLine>SkipWhiteForward inValue, measureFrom, charsLeftInString // skip leading white space,</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if charsLeftInString = 0 then</SourceLine>
+   <SourceLine>return      // trivial case of totally empty line, just whitespace</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim g as Graphics = rbrwCurrentDraw.CurrentGraphics  // cache</SourceLine>
+   <SourceLine>dim  maxCharsToMeasure as integer</SourceLine>
+   <SourceLine>// maintain array used for pixel measurement</SourceLine>
+   <SourceLine>if charsLeftInString &gt; kMaxCharsInSingleLine then</SourceLine>
+   <SourceLine>maxCharsToMeasure = kMaxCharsInSingleLine</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>maxCharsToMeasure = charsLeftInString</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if mMeasureLen &lt;= maxCharsToMeasure  then</SourceLine>
+   <SourceLine>mMeasureLen = maxCharsToMeasure + 1</SourceLine>
+   <SourceLine>redim mMeasureArray(mMeasureLen)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>while charsLeftInString &gt; 0</SourceLine>
+   <SourceLine>// check if line starts with CR, CRLF etc. - is blank line</SourceLine>
+   <SourceLine>dim truncAtChar, termLen as integer</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if inValue.MidB(measureFrom,1).Asc = &amp;h0D  then // CR - for PC and Mac</SourceLine>
+   <SourceLine>if inValue.MidB(measureFrom+1,1).Asc = &amp;h0A then</SourceLine>
+   <SourceLine>termLen = 2</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>termLen = 1</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>if inValue.MidB(measureFrom,1 ).Asc = &amp;h0A then  // LF - for Unix</SourceLine>
+   <SourceLine>termLen = 1</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>StoreLineStart measureFrom    // we know it's not  white space so regardless of how we end, this is where we start</SourceLine>
+   <SourceLine>if termLen &gt; 0 then // processing a line terminator, maybe at the start of a blank line or after an earlier line</SourceLine>
+   <SourceLine>StoreLineLength 0</SourceLine>
+   <SourceLine>measureFrom = measureFrom + termLen</SourceLine>
+   <SourceLine>charsLeftInString = charsLeftInString - termLen</SourceLine>
+   <SourceLine>else   // some text on line</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// prescan forward to find terminator, to cut down on how much text we might measure</SourceLine>
+   <SourceLine>// (makes a big difference with many short lines in a block)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// reset maxCharsToMeasure otherwise stays at length of first short terminated line</SourceLine>
+   <SourceLine>if charsLeftInString &gt; kMaxCharsInSingleLine then</SourceLine>
+   <SourceLine>maxCharsToMeasure = kMaxCharsInSingleLine</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>maxCharsToMeasure = charsLeftInString</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim terminatorAt as integer</SourceLine>
+   <SourceLine>for preOffset as integer = 0 to maxCharsToMeasure-1</SourceLine>
+   <SourceLine>dim preCh as integer = inValue.MidB(preOffset+measureFrom, 1).Asc</SourceLine>
+   <SourceLine>if preCh=&amp;h0D or preCh=&amp;h0A then</SourceLine>
+   <SourceLine>maxCharsToMeasure = preOffset  // just shortens limit used below</SourceLine>
+   <SourceLine>terminatorAt = preOffset  // used as flag below for quick optimisation</SourceLine>
+   <SourceLine>exit for preOffset</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next  // loop pre-scanning for terminators</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// now measure the text on the line</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// WARNING -Win32 calls  get a width for the CR and LF characters (I suspect the width of</SourceLine>
+   <SourceLine>// the 'missing character' box) unlike the Mac where they have 0 width</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Provide equivalent of Mac API call MeasureText(), taking account of proportional fonts</SourceLine>
+   <SourceLine>// get cumulative widths each iteration, which takes advantage of font ligature measurement etc.</SourceLine>
+   <SourceLine>// the Mac call starts with a 0 cell - each cell is the accumulated length to its position</SourceLine>
+   <SourceLine>mMeasureArray(0) = 0</SourceLine>
+   <SourceLine>for cumChar as integer = 1 to maxCharsToMeasure</SourceLine>
+   <SourceLine>dim cumLen as integer = Round( g.StringWidth( inValue.StringValue(measureFrom, cumChar) )  ) // Mid is 1-based, so use StringValue</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if cumLen &lt; 1 then </SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>mMeasureArray(cumChar) = cumLen</SourceLine>
+   <SourceLine>if cumLen &gt; inColWidth then</SourceLine>
+   <SourceLine>maxCharsToMeasure = cumChar  // optimisation - shorten comparison loop below</SourceLine>
+   <SourceLine>truncAtChar = cumChar</SourceLine>
+   <SourceLine>exit  for cumChar  // EXIT LOOP - WE JUST EXCEEDED COL WIDTH</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next // loop string measuring cumulatively</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// quick optimisation - if we hit a terminator above it is quite likely that the entire line</SourceLine>
+   <SourceLine>// will fit the column, so just check the total length to see</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// in our measurement we will have stopped (on Windows) if we pass the limit, so may have adjusted maxCharsToMeasure</SourceLine>
+   <SourceLine>if terminatorAt = 0 or ((terminatorAt &lt;= maxCharsToMeasure) and (mMeasureArray(terminatorAt) &gt; inColWidth))  then</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// scan forward through text for line terminators</SourceLine>
+   <SourceLine>// checking to see if we pass the pixel length allowed</SourceLine>
+   <SourceLine>for  i as integer =0 to maxCharsToMeasure-1</SourceLine>
+   <SourceLine>if mMeasureArray(i) &gt; inColWidth then  // just went past allowed pixel length</SourceLine>
+   <SourceLine>truncAtChar = i</SourceLine>
+   <SourceLine>exit for i</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim nextCh as integer = inValue.MidB(i+measureFrom, 1).Asc</SourceLine>
+   <SourceLine>if nextCh = &amp;h0D or nextCh = &amp;h0A then</SourceLine>
+   <SourceLine>terminatorAt = i</SourceLine>
+   <SourceLine>exit for i</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next  // loop through text looking for terminators</SourceLine>
+   <SourceLine>end if // if hit terminator in prescan and entire line is wider than column</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if truncAtChar &gt; 0 then  // truncated within terminator or remainder of line, don't care which</SourceLine>
+   <SourceLine>// have to scan back from where we exceeded pixel length</SourceLine>
+   <SourceLine>// to find a word on which to wrap</SourceLine>
+   <SourceLine>truncAtChar = truncAtChar - 1</SourceLine>
+   <SourceLine>//assert(mMeasureArray[truncAtChar] &lt;= inColWidth  // because we stop just as we exceed</SourceLine>
+   <SourceLine>if inWillTruncWords then</SourceLine>
+   <SourceLine>// ANDY UGLY TRUTH 2008-12-06 I suspect this never works if inWillTruncWords is False, even in original OOFILE</SourceLine>
+   <SourceLine>// start truncation from one char past fitted string, in case</SourceLine>
+   <SourceLine>// word ended exactly at the boundary</SourceLine>
+   <SourceLine>dim nextWordStart as integer</SourceLine>
+   <SourceLine>truncAtChar = TruncateTrailingWord( inValue.StringValue(measureFrom, inValue.Size-measureFrom), truncAtChar, nextWordStart)  // ret is 1-based as used to index mMeasureArray</SourceLine>
+   <SourceLine>if nextWordStart = 0  then  // haven't calculated it yet as boundary was in white space</SourceLine>
+   <SourceLine>nextWordStart = truncAtChar + 1  // can assume at least one whitespace char exists</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>measureFrom = measureFrom + nextWordStart  // saves time skipping whitespace later</SourceLine>
+   <SourceLine>StoreLineLength mMeasureArray(truncAtChar)</SourceLine>
+   <SourceLine>charsLeftInString = charsLeftInString - (truncAtChar+1)</SourceLine>
+   <SourceLine>end if  // inWillTruncWords so had to find word boundary</SourceLine>
+   <SourceLine>SkipWhiteForward(inValue, measureFrom, charsLeftInString) // skip leading white space before next line</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif terminatorAt &gt;  0 then // hit terminator after at least one character before line was too long</SourceLine>
+   <SourceLine>StoreLineLength mMeasureArray(terminatorAt)</SourceLine>
+   <SourceLine>measureFrom =  measureFrom + terminatorAt</SourceLine>
+   <SourceLine>if termLen = 0 then</SourceLine>
+   <SourceLine>termLen = 1  // guaranteed a terminator due to checks above setting terminatorAt</SourceLine>
+   <SourceLine>if inValue.MidB(measureFrom,1).Asc =&amp;h0D and inValue.MidB(measureFrom+1,1).Asc = &amp;h0A then</SourceLine>
+   <SourceLine>termLen = 2</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine>measureFrom = measureFrom + termLen</SourceLine>
+   <SourceLine>charsLeftInString = charsLeftInString  - (terminatorAt+termLen)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else   // remainder of line fits</SourceLine>
+   <SourceLine>StoreLineLength mMeasureArray(maxCharsToMeasure)</SourceLine>
+   <SourceLine>charsLeftInString = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>end if // line with some text</SourceLine>
+   <SourceLine>wend   // loop lines</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inValueStr as string,  inColWidth as integer, inWillTruncWords as boolean=true</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>TruncateTrailingWord</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function TruncateTrailingWord(inValue as String, ByRef outNextWordStart as integer) As integer</SourceLine>
+   <SourceLine>return TruncateTrailingWord(Invalue, inValue.Len-1, outNextWordStart)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>inValue as String, ByRef outNextWordStart as integer</ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>based on oofTextSizer</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Cross-platform sizer which wraps to multiple rows.</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>NOT IMPLEMENTED:</NoteLine>
+   <NoteLine>virtual void     describe(std::ostream&amp;) const;</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>CalculateWrapping algorithm</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>CalculateWrapping algorithm</NoteLine>
+   <NoteLine>// wraps at the first character that fits in the current col width</NoteLine>
+   <NoteLine>// optionally trimming off a partial word if we do truncation</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>'Produce two arrays of line start (offset of character from start of string) and line length (pixels).</NoteLine>
+   <NoteLine>'</NoteLine>
+   <NoteLine>'Each line is terminated at an embedded CR or LF (CRLF counts as one break) or wraps at the nearest</NoteLine>
+   <NoteLine>'word boundary. Word gaps detected as spaces and tabs.</NoteLine>
+   <NoteLine>'</NoteLine>
+   <NoteLine>'Line separator characters (CR etc) are skipped by adjustment of the line start positions.</NoteLine>
+   <NoteLine>'An empty line will create an entry with a length of 0 and a line start of the terminator.</NoteLine>
+   <NoteLine>'</NoteLine>
+   <NoteLine>'Calling StoreLineStart will expand both arrays as suited, it must therefore be called first.</NoteLine>
+   <NoteLine>'This updates the mNumRows member which is used (via GetNumRows()) by all clients.</NoteLine>
+   <NoteLine>'</NoteLine>
+   <NoteLine>'Note that each time we start a line we must re-measure it as proportional fonts will vary</NoteLine>
+   <NoteLine>'width depending on context. We avoid remeasuring to the end of a very large block by making</NoteLine>
+   <NoteLine>'an assumption that a line will exceed a threshold of 500 characters in a single line.</NoteLine>
+   <NoteLine>'(kMaxCharsInSingleLine defined below)</NoteLine>
+   <NoteLine>'</NoteLine>
+   <NoteLine>'We also pre-scan for terminators as it is more likely that typical text will have lines</NoteLine>
+   <NoteLine>'much shorter than kMaxCharsInSingleLine.</NoteLine>
+   <NoteLine>'</NoteLine>
+   <NoteLine>'\todo Could make it smarter when we have to wrap inside a terminator by looping up until that terminator</NoteLine>
+   <NoteLine>'rather than going to the top of the main loop again.</NoteLine>
+   <NoteLine>'</NoteLine>
+   <NoteLine>'MAIN ALGORITHM</NoteLine>
+   <NoteLine>'Repeat</NoteLine>
+   <NoteLine>'    if starts with terminator</NoteLine>
+   <NoteLine>'        skip terminator</NoteLine>
+   <NoteLine>'        make entry for blank line</NoteLine>
+   <NoteLine>'    else</NoteLine>
+   <NoteLine>'        pre-scan forward for line terminators, up to kMaxCharsInSingleLine</NoteLine>
+   <NoteLine>'        if no terminators in this limit,</NoteLine>
+   <NoteLine>'            measure up to kMaxCharsInSingleLine</NoteLine>
+   <NoteLine>'        else</NoteLine>
+   <NoteLine>'            measure up to terminator</NoteLine>
+   <NoteLine>'        scan array of sizes to see if fits in fixed line length (pixels, not number of chars)</NoteLine>
+   <NoteLine>'        if line too long</NoteLine>
+   <NoteLine>'            scan backwards from stopping point to first word break</NoteLine>
+   <NoteLine>'        finish line entry</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>mLineStarts()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mLineStarts() As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mLineStarts() As Integer</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mLineLengths()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mLineLengths() As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mLineLengths() As Integer</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mMeasureArray()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mMeasureArray() As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mMeasureArray() As Integer</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mMeasureLen</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mMeasureLen As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mMeasureLen As Integer</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mNumRows</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mNumRows As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mNumRows As Integer</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mLineStartsUBound</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mLineStartsUBound As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mLineStartsUBound As Integer</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>getNumRows</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>getNumRows As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>getNumRows As Integer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mNumRows</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>getNumRows</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

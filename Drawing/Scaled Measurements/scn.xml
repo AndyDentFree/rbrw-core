@@ -1,0 +1,589 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="-1120693376">
+ <ObjName>scn</ObjName>
+ <ObjContainerID>-1075940329</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inFineRes as double, unusedDiscrim as boolean)</SourceLine>
+   <SourceLine>' has unused bool param just to avoid accidental calls where people presume is points</SourceLine>
+   <SourceLine>' due to earlier scn having a ctor taking a value in points</SourceLine>
+   <SourceLine>mFineRes = inFineRes</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inFineRes as double, unusedDiscrim as boolean</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setCM</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setCM(inCM as double)</SourceLine>
+   <SourceLine>#if enableDebugLog</SourceLine>
+   <SourceLine>system.DebugLog "scn.setCM from "+str(cm()) +" to "+str(inCM)+" on scn: "+DebugName</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>mFineRes = inCM * scnStatics.gDPI / 2.54</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inCM as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setInch</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setInch(inInch as double)</SourceLine>
+   <SourceLine>#if enableDebugLog</SourceLine>
+   <SourceLine>system.DebugLog "scn.setInch from "+str(inch()) +" to "+str(inInch)+" on scn: "+DebugName</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>mFineRes = inInch * scnStatics.gDPI</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inInch as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setPoints</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setPoints(inPoints as double)</SourceLine>
+   <SourceLine>#if enableDebugLog</SourceLine>
+   <SourceLine>system.DebugLog "scn.setPoints from "+str(points()) +" to "+str(inPoints)+" on scn: "+DebugName</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mFineRes = inPoints * scnStatics.gPoints72Mul  ' ie: * scnStatics.gDPI / 72.0</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPoints as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fineRes</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fineRes() As double</SourceLine>
+   <SourceLine>' use this and setFineRes when doing calcs with scn objects</SourceLine>
+   <SourceLine>' and not having to worry about scaling</SourceLine>
+   <SourceLine>return mFineRes</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>cm</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function cm() As double</SourceLine>
+   <SourceLine>return mFineRes * 2.54 / scnStatics.gDPI</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>inch</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function inch() As double</SourceLine>
+   <SourceLine>return mFineRes / scnStatics.gDPI</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>points</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function points() As double</SourceLine>
+   <SourceLine>return mFineRes / scnStatics.gPoints72Mul</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inScaled as double, scaleAsUnit as integer)</SourceLine>
+   <SourceLine>set inScaled, scaleAsUnit</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inScaled as double, scaleAsUnit as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>mm</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function mm() As double</SourceLine>
+   <SourceLine>return mFineRes * 25.4 / scnStatics.gDPI</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setMM</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setMM(inCM as double)</SourceLine>
+   <SourceLine>#if enableDebugLog</SourceLine>
+   <SourceLine>system.DebugLog "scn.setMM from "+str(mm()) +" to "+str(inCM)+" on scn: "+DebugName</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mFineRes = inCM * scnStatics.gDPI / 25.4</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inCM as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>operator_convert</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub operator_convert(inValStr as string)</SourceLine>
+   <SourceLine>' AD 2005-07-13 BUG setScaled  scnStatics.unitString2FineRes(inValStr)</SourceLine>
+   <SourceLine>mFineRes = scnStatics.unitString2FineRes(inValStr)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inValStr as string</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>get</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function get(scaleAsUnit as integer) As double</SourceLine>
+   <SourceLine>if scaleAsUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>return inch()</SourceLine>
+   <SourceLine>elseif scaleAsUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>return cm()</SourceLine>
+   <SourceLine>elseif scaleAsUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>return mm()</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return points()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>scaleAsUnit as integer</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>set</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub set(inValue as double, scaleAsUnit as integer)</SourceLine>
+   <SourceLine>if scaleAsUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>setInch inValue</SourceLine>
+   <SourceLine>elseif scaleAsUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>setCM inValue</SourceLine>
+   <SourceLine>elseif scaleAsUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>setMM inValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>setPoints inValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inValue as double, scaleAsUnit as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setFineRes</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setFineRes(inPoints as double)</SourceLine>
+   <SourceLine>#if enableDebugLog</SourceLine>
+   <SourceLine>system.DebugLog "scn.setFineRes from "+str(mFineRes) +" to "+str(inPoints)+" on scn: "+DebugName</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>mFineRes = inPoints</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPoints as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>changeScaled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub changeScaled(dPoints as double)</SourceLine>
+   <SourceLine>' convention of assuming clicks travel towards bottom right, so positive delta</SourceLine>
+   <SourceLine>' same as mFineRes = mFineRes + scnStatics.scaled2FineRes(dPoints)</SourceLine>
+   <SourceLine>mFineRes = mFineRes + dPoints / scnStatics.gScaling * scnStatics.gPoints72Mul</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>dPoints as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function clone() As scn</SourceLine>
+   <SourceLine>return new scn(mFineRes, true)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>scn</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>set</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub set(inValue as double)</SourceLine>
+   <SourceLine>' take a value as if typed by user regardless of current zoom level</SourceLine>
+   <SourceLine>if scnStatics.gCurrentUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>setInch inValue</SourceLine>
+   <SourceLine>elseif scnStatics.gCurrentUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>setCM inValue</SourceLine>
+   <SourceLine>elseif scnStatics.gCurrentUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>setMM inValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>setPoints inValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inValue as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>get</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function get() As double</SourceLine>
+   <SourceLine>if scnStatics.gCurrentUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>return inch()</SourceLine>
+   <SourceLine>elseif scnStatics.gCurrentUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>return cm()</SourceLine>
+   <SourceLine>elseif scnStatics.gCurrentUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>return mm()</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return points()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>operator_compare</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function operator_compare(rhs as scn) As integer</SourceLine>
+   <SourceLine>if mFineRes &lt; rhs.mFineRes then</SourceLine>
+   <SourceLine>return -1</SourceLine>
+   <SourceLine>elseif mFineRes &gt; rhs.mFineRes then</SourceLine>
+   <SourceLine>return 1</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>rhs as scn</ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>asString</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function asString() As string</SourceLine>
+   <SourceLine>' added because operator_convert to string not invoked by a line like</SourceLine>
+   <SourceLine>'  " at ("+ str(mXPos) which is a bug in RB</SourceLine>
+   <SourceLine>dim ret as double</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>' copy of get() code</SourceLine>
+   <SourceLine>if scnStatics.gCurrentUnit=scnStatics.inches then</SourceLine>
+   <SourceLine>ret = inch()</SourceLine>
+   <SourceLine>elseif scnStatics.gCurrentUnit=scnStatics.cm then</SourceLine>
+   <SourceLine>ret = cm()</SourceLine>
+   <SourceLine>elseif scnStatics.gCurrentUnit=scnStatics.mm then</SourceLine>
+   <SourceLine>ret = mm()</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>ret = points()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>return format(ret, kFormatSizes)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setScaled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setScaled(inScaledPoints as double)</SourceLine>
+   <SourceLine>' scale down the outside world if it is zoomed in</SourceLine>
+   <SourceLine>#if enableDebugLog</SourceLine>
+   <SourceLine>system.DebugLog "scn.setScaled from "+str(mFineRes) +" to "+str(inScaledPoints)+" on scn: "+DebugName</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>' same as setPoints (inScaled/gScaling)</SourceLine>
+   <SourceLine>mFineRes = inScaledPoints / scnStatics.gScaling * scnStatics.gPoints72Mul</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inScaledPoints as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>scaled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function scaled() As double</SourceLine>
+   <SourceLine>' scale up for the outside world if it is zoomed in</SourceLine>
+   <SourceLine>' same as return points() * gScaling</SourceLine>
+   <SourceLine>return mFineRes / scnStatics.gPoints72Mul * scnStatics.gScaling</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor()</SourceLine>
+   <SourceLine>mFineRes = 0</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Property>
+  <ItemName>mFineRes</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFineRes As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFineRes As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>DebugName</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>DebugName As string</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>DebugName As string</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>mFineRes</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>DebugName</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>string</ItemType>
+   <EditorType>MultiLineEditor</EditorType>
+  </ViewProperty>
+ </ViewBehavior>
+ <Constant>
+  <ItemName>kFormatSizes</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kFormatSizes</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>-###.00</ItemDef>
+  <ItemFlags>1</ItemFlags>
+ </Constant>
+</block>
+</RBProject>

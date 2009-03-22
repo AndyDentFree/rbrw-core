@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="-1123867816">
+ <ObjName>ColorUtilities</ObjName>
+ <ObjContainerID>-1075940245</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>ColorConstantString</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ColorConstantString(extends c as color) As String</SourceLine>
+   <SourceLine>dim ret as string = "&amp;c"+right("0"+hex(c.Red), 2)+right("0"+hex(c.Green), 2)+right("0"+hex(c.Blue), 2)</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends c as color</ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HTMLString</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HTMLString(extends c as color) As String</SourceLine>
+   <SourceLine>dim ret as string = "#"+right("0"+hex(c.Red), 2)+right("0"+hex(c.Green), 2)+right("0"+hex(c.Blue), 2)</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends c as color</ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HTMLColor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HTMLColor(extends s as string) As color</SourceLine>
+   <SourceLine>' assumes a string like "#00FFc4"</SourceLine>
+   <SourceLine>' TODO make this much more efficient using techniques as in StringUtils HexB</SourceLine>
+   <SourceLine>' the following is NOT a recommended technique!</SourceLine>
+   <SourceLine>dim ret as color = RGB( _</SourceLine>
+   <SourceLine>val("&amp;h"+s.MidB(2, 2)), _</SourceLine>
+   <SourceLine>val("&amp;h"+s.MidB(4, 2)), _</SourceLine>
+   <SourceLine>val("&amp;h"+s.MidB(6, 2)) )</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends s as string</ItemParams>
+  <ItemResult>color</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Luminance</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Luminance(extends c as Color) As double</SourceLine>
+   <SourceLine>'return c.red/255.0*0.30 + c.green/255.0*0.59 + c.blue/255.0*0.11</SourceLine>
+   <SourceLine>' premultiplied as don't think compiler does</SourceLine>
+   <SourceLine>return c.red * 0.001176470588 + c.green * 0.00231372549 + c.blue * 0.000431372549</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends c as Color</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+ <Constant>
+  <ItemName>rgbBlack</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbBlack</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c000000</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbWhite</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbWhite</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;cFFFFFF</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbBrown</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbBrown</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c996633</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbYellow</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbYellow</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;cFFFF00</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbRed</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbRed</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;cFF0000</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbBlue</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbBlue</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c0000FF</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbGreen</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbGreen</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c00FF00</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbPurple</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbPurple</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c800080</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbMagenta</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbMagenta</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;cFF00FF</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbCyan</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbCyan</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c00FFFF</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbOrange</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbOrange</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;cFF8000</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbCayenne</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbCayenne</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c800000</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbAsparagus</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbAsparagus</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c808000</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbLead</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbLead</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c191919</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbClover</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbClover</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c008000</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbTeal</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbTeal</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c008080</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>rgbMidnight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>rgbMidnight</ItemName>
+  <ItemType>4</ItemType>
+  <ItemDef>&amp;c000080</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+</block>
+</RBProject>

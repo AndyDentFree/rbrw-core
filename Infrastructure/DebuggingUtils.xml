@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<RBProject version="2008r1">
+<block type="Module" ID="-1110946446">
+ <ObjName>DebuggingUtils</ObjName>
+ <ObjContainerID>-1137593125</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>0</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>assert</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub assert(someCondition as boolean, msg as string = "")</SourceLine>
+   <SourceLine>if msg.LenB=0 then msg = "Unknown assertion "</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Dim myExp as RuntimeException</SourceLine>
+   <SourceLine>if not (someCondition) then</SourceLine>
+   <SourceLine>MsgBox msg</SourceLine>
+   <SourceLine>break '  so in debug mode we stop here</SourceLine>
+   <SourceLine>myExp = New RuntimeException</SourceLine>
+   <SourceLine>myExp.Message = msg</SourceLine>
+   <SourceLine>Raise myExp</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>someCondition as boolean, msg as string = ""</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>elapsedMS</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function elapsedMS() As string</SourceLine>
+   <SourceLine>dim diff as double = (Microseconds - lastMicroseconds)/1000</SourceLine>
+   <SourceLine>lastMicroseconds = Microseconds</SourceLine>
+   <SourceLine>return str( diff )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Property>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>lastMicroseconds As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Compatibility></Compatibility>
+  <Shared>0</Shared>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>lastMicroseconds As double</SourceLine>
+   <SourceLine>used to store last Microseconds</SourceLine>
+  </ItemSource>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>enableDebugLog</ItemName>
+  <ItemType>3</ItemType>
+  <ItemDef>false</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>enableCharDetailedDebugLog</ItemName>
+  <ItemType>3</ItemType>
+  <ItemDef>false</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>DEBUG_TEXT</ItemName>
+  <ItemType>3</ItemType>
+  <ItemDef>false</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+</block>
+</RBProject>

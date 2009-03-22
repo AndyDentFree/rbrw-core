@@ -1,0 +1,3 @@
+These are in some ways thoughts for the generic designer in ALM.
+
+Think about report layout. For bands we essentiallyh want to adjust a bunch of things horizontally. That could be done using a StyleGrid

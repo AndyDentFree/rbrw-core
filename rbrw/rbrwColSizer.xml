@@ -1,0 +1,508 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="622934382">
+ <ObjName>rbrwColSizer</ObjName>
+ <ObjContainerID>-1075463008</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(numCols as integer)</SourceLine>
+   <SourceLine>mNumCols = numCols</SourceLine>
+   <SourceLine>dim lastIndex as integer = numCols - 1</SourceLine>
+   <SourceLine>redim mColAlignments( lastIndex ) </SourceLine>
+   <SourceLine>redim mColCalcWidths( lastIndex )</SourceLine>
+   <SourceLine>redim mColFixedWidths( lastIndex )</SourceLine>
+   <SourceLine>redim mColPercentages( lastIndex )</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for i as integer = 0 to lastIndex</SourceLine>
+   <SourceLine>mColAlignments(i) = colAlignT.alignNatural</SourceLine>
+   <SourceLine>mColCalcWidths(i) = kNotSet</SourceLine>
+   <SourceLine>mColFixedWidths(i) = kNotSet</SourceLine>
+   <SourceLine>mColPercentages(i) = kNotSet</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>numCols as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>calculateWidths</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub calculateWidths( widthToDivide as double, colSepWidth as double)</SourceLine>
+   <SourceLine>// loop once setting those with fixed widths or percentages</SourceLine>
+   <SourceLine>// and flagging those that are defaulted</SourceLine>
+   <SourceLine>// then loop again to set the defaults</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mHaveCalculatedWidth = true</SourceLine>
+   <SourceLine>dim totalSepWidth as double = (mNumCols-1)*colSepWidth</SourceLine>
+   <SourceLine>if totalSepWidth &gt;= widthToDivide then</SourceLine>
+   <SourceLine>totalSepWidth = 0</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>widthToDivide = widthToDivide - totalSepWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim widthLeft as double = widthToDivide</SourceLine>
+   <SourceLine>dim numberNotSet as integer</SourceLine>
+   <SourceLine>dim skipColsAfter as integer = mNumCols        // model is, if a single col won't fit, we trunc at that col</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// try to use pre-specified fixed width or fixed percentage</SourceLine>
+   <SourceLine>for i as integer = 0 to skipColsAfter-1</SourceLine>
+   <SourceLine>dim calcColWidth as double</SourceLine>
+   <SourceLine>dim theFixedWidth as double = mColFixedWidths(i)</SourceLine>
+   <SourceLine>if theFixedWidth = kNotSet then</SourceLine>
+   <SourceLine>dim theFixedPercentage as double = mColPercentages(i)</SourceLine>
+   <SourceLine>if theFixedPercentage = kNotSet then</SourceLine>
+   <SourceLine>numberNotSet = numberNotSet + 1</SourceLine>
+   <SourceLine>mColCalcWidths(i) = kNotSet</SourceLine>
+   <SourceLine>continue   //*********** will calculate based on defaults later</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>calcColWidth = (widthToDivide*theFixedPercentage)/100.0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>calcColWidth = theFixedWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if calcColWidth &gt; widthLeft then</SourceLine>
+   <SourceLine>// allow for some slop here of a couple of pixels (ASSUMING in pixels)</SourceLine>
+   <SourceLine>// NOT YET IMPLEMENTED more sophisticated model of range and scalar type to determine amount of slop</SourceLine>
+   <SourceLine>if (calcColWidth - widthLeft) &lt;= 4 then     //****** SLOP OF 4 UNITS TRUNCATES COL TO FIT</SourceLine>
+   <SourceLine>calcColWidth = widthLeft</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>calcColWidth = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>widthLeft = 0</SourceLine>
+   <SourceLine>skipColsAfter = i    // so ALL columns after this one vanish</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>widthLeft = widthLeft - calcColWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>mColCalcWidths(i) = calcColWidth</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// if not all set by fixed amounts, or fixed amounts didn't fit, either apply defaults</SourceLine>
+   <SourceLine>// or clear remaining widths</SourceLine>
+   <SourceLine>if numberNotSet &gt; 0 then</SourceLine>
+   <SourceLine>if widthLeft &gt; 0 then</SourceLine>
+   <SourceLine>CalculateDefaultWidths widthLeft, numberNotSet</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>for j as integer = 0 to mNumCols-1</SourceLine>
+   <SourceLine>if mColCalcWidths(j) = kNotSet then</SourceLine>
+   <SourceLine>mColCalcWidths(j) = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams> widthToDivide as double, colSepWidth as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>CalculateDefaultWidths</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub CalculateDefaultWidths(widthToDivide as double, numberNotSet as integer)</SourceLine>
+   <SourceLine>dim defaultWidth as double = widthToDivide / (1.0*numberNotSet)</SourceLine>
+   <SourceLine>for i as integer = mNumCols-1 DownTo 0</SourceLine>
+   <SourceLine>if mColCalcWidths(i) = kNotSet then</SourceLine>
+   <SourceLine>mColCalcWidths(i) = defaultWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>widthToDivide as double, numberNotSet as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>width</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function width(colNum as integer) As double</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>assert mHaveCalculatedWidth</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>return mColCalcWidths(colNum)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fixedWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fixedWidth(colNum as integer) As double</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>assert mHaveCalculatedWidth</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>return mColFixedWidths(colNum)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>alignment</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function alignment(colNum as integer) As colAlignT</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>assert mHaveCalculatedWidth</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>return mColAlignments(colNum)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer</ItemParams>
+  <ItemResult>colAlignT</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fixedPercentage</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fixedPercentage(colNum as integer) As double</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>assert mHaveCalculatedWidth</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>return mColPercentages(colNum)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer</ItemParams>
+  <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setFixedWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setFixedWidth(colNum as integer, value as double)</SourceLine>
+   <SourceLine>mColFixedWidths(colNum) = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer, value as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fixedWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub fixedWidth(colNum as integer, assigns value as double)</SourceLine>
+   <SourceLine>mColFixedWidths(colNum) = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer, assigns value as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setFixedPercentage</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setFixedPercentage(colNum as integer, value as double)</SourceLine>
+   <SourceLine>mColPercentages(colNum) = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer, value as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fixedPercentage</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub fixedPercentage(colNum as integer, assigns value as double)</SourceLine>
+   <SourceLine>mColPercentages(colNum) = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer, assigns value as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setAlignment</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setAlignment(colNum as integer, value as colAlignT)</SourceLine>
+   <SourceLine>mColAlignments(colNum) = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer, value as colAlignT</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>alignment</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub alignment(colNum as integer, assigns value as colAlignT)</SourceLine>
+   <SourceLine>mColAlignments(colNum) = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer, assigns value as colAlignT</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>naturalAlignmentForField</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function naturalAlignmentForField(inType as rbrw.fieldT) As rbrwColSizer.colalignT</SourceLine>
+   <SourceLine>if inType = rbrw.fieldT.charField or inType = rbrw.fieldT.textField then</SourceLine>
+   <SourceLine>return rbrwColSizer.colAlignT.alignLeft</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>return rbrwColSizer.colAlignT.alignRight</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>inType as rbrw.fieldT</ItemParams>
+  <ItemResult>rbrwColSizer.colalignT</ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>based on oofColSizer</NoteLine>
+   <NoteLine>Specify or calculate a set of column widths &amp; alignments.</NoteLine>
+   <NoteLine>Fixed widths can be specified as points or percentages.</NoteLine>
+   <NoteLine>Columns left unspecified have widths calculated varying on data type.</NoteLine>
+   <NoteLine>It tries hard to create a reasonable looking set of widths, to be used in a report</NoteLine>
+   <NoteLine>or GUI multi-column browser.</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>mNumCols</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mNumCols As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mNumCols As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mColFixedWidths()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColFixedWidths() As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColFixedWidths() As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mColPercentages()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColPercentages() As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColPercentages() As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mColCalcWidths()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColCalcWidths() As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColCalcWidths() As double</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mColAlignments()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColAlignments() As colalignT</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColAlignments() As colalignT</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mHaveCalculatedWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mHaveCalculatedWidth As boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mHaveCalculatedWidth As boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+ <Constant>
+  <ItemName>kNotSet</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kNotSet</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>-1</ItemDef>
+  <ItemFlags>1</ItemFlags>
+ </Constant>
+ <Enumeration>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>colAlignT</ItemName>
+  <ItemFlags>0</ItemFlags>
+  <ItemType>Integer</ItemType>
+  <ItemName>colAlignT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>alignLeft</SourceLine>
+   <SourceLine>alignCentre</SourceLine>
+   <SourceLine>alignRight</SourceLine>
+   <SourceLine>alignJust</SourceLine>
+   <SourceLine>alignNatural</SourceLine>
+  </ItemSource>
+ </Enumeration>
+</block>
+</RBProject>

@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5">
+<block type="Module" ID="1908381679">
+ <ObjName>rbrwLineBand_GraphicsRender</ObjName>
+ <ObjContainerID>1963759756</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>rbrwLineBand_Render</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function clone(newOwner as rbrwDrawable) As rbrwRender</SourceLine>
+   <SourceLine>return new rbrwLineBand_GraphicsRender( rbrwLineBand(newOwner) )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>newOwner as rbrwDrawable</ItemParams>
+  <ItemResult>rbrwRender</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>draw</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub draw()</SourceLine>
+   <SourceLine>dim fixedHeight as double = mOwner.fixedHeight</SourceLine>
+   <SourceLine>dim currRep as rbrwReport = rbrwReport.currentReport</SourceLine>
+   <SourceLine>dim settings as rbrwSettings = currRep.settings</SourceLine>
+   <SourceLine>dim leftMargin as double = settings.leftMargin </SourceLine>
+   <SourceLine>dim bandIndenting as double = settings.bandIndenting</SourceLine>
+   <SourceLine>dim currentVerticalPos as double = currRep.currentVerticalPos</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim theLine as rbrwRect = new rbrwRect( _</SourceLine>
+   <SourceLine>leftMargin + bandIndenting, _</SourceLine>
+   <SourceLine>currentVerticalPos, _</SourceLine>
+   <SourceLine>leftMargin + currRep.bodyWidth - bandIndenting, _</SourceLine>
+   <SourceLine>currentVerticalPos + fixedHeight)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>//@TODO implement at least this minimal color change</SourceLine>
+   <SourceLine>'if( mOwner-&gt;grey() )</SourceLine>
+   <SourceLine>'{</SourceLine>
+   <SourceLine>'oofWinShadeDE::recordElement(theLine, GRAY_BRUSH);</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else {</SourceLine>
+   <SourceLine>rbrwGraphicsShadeDE.recordElement theLine, rgbBlack</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>currRep.incVerticalPos fixedHeight</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

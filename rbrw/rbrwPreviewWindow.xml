@@ -1,0 +1,1559 @@
+<?xml version="1.0"?>
+<RBProject version="2009r1">
+<block type="Window" ID="-1138389540">
+ <ObjName>rbrwPreviewWindow</ObjName>
+ <ObjContainerID>-1075894749</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>Window</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <HookInstance>
+  <ItemName>Paint</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Paint(g As Graphics)</SourceLine>
+   <SourceLine>system.DebugLog "rbrwPreviewWindow.Paint" + self.Title + EndOfLine</SourceLine>
+   <SourceLine>if amClosing then return</SourceLine>
+   <SourceLine>UpdateCanvas</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <HookInstance>
+  <ItemName>CancelClose</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function CancelClose(appQuitting as Boolean) As Boolean</SourceLine>
+   <SourceLine>amClosing = true</SourceLine>
+   <SourceLine>system.DebugLog "rbrwPreviewWindow.CancelClose" + self.Title + EndOfLine</SourceLine>
+   <SourceLine>return false  // don't cancel</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <HookInstance>
+  <ItemName>Close</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Close()</SourceLine>
+   <SourceLine>system.DebugLog "rbrwPreviewWindow.Close" + self.Title + EndOfLine</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <MenuHandler>
+  <ItemName>FilePageSetup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function FilePageSetup() As Boolean</SourceLine>
+   <SourceLine>HandlePageSetup</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </MenuHandler>
+ <MenuHandler>
+  <ItemName>FilePrint</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function FilePrint() As Boolean</SourceLine>
+   <SourceLine>HandlePrint</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </MenuHandler>
+ <MenuHandler>
+  <ItemName>FileClose</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function FileClose() As Boolean</SourceLine>
+   <SourceLine>Close</SourceLine>
+   <SourceLine>Return True</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </MenuHandler>
+ <Method>
+  <ItemName>HandleScroll</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub HandleScroll()</SourceLine>
+   <SourceLine>UpdateCanvas</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HandlePageSetup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub HandlePageSetup()</SourceLine>
+   <SourceLine>if mPageSetup is nil then InitPageSetup</SourceLine>
+   <SourceLine>mPageSetup.SetupString = mPageSetupString</SourceLine>
+   <SourceLine>If mPageSetup.PageSetupDialog Then</SourceLine>
+   <SourceLine>mPageSetupString = mPageSetup.SetupString</SourceLine>
+   <SourceLine>End If</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HandlePrint</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub HandlePrint()</SourceLine>
+   <SourceLine>'mReport.Render PreviewCanvas.Graphics, -hScrollControl.Value, -vScrollControl.Value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>InitPageSetup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub InitPageSetup()</SourceLine>
+   <SourceLine>if mPageSetup is nil then</SourceLine>
+   <SourceLine>mPageSetup = new printerSetup</SourceLine>
+   <SourceLine>mPageSetup.MaxVerticalResolution = -1</SourceLine>
+   <SourceLine>mPageSetup.MaxHorizontalResolution = -1</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inReport as rbrwReport, inRepLandscape as rbrwReport=nil, pageSetup as printerSetup=nil)</SourceLine>
+   <SourceLine>mRep = inReport</SourceLine>
+   <SourceLine>mRepLandscape = inRepLandscape</SourceLine>
+   <SourceLine>mPageSetup = pageSetup</SourceLine>
+   <SourceLine>// call the Window constructor, or Open events will not fire</SourceLine>
+   <SourceLine>Super.Window()</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>self.Title = inReport.SimpleTitle</SourceLine>
+   <SourceLine>InitPageSetup</SourceLine>
+   <SourceLine>mEnv = new rbrwGraphicsPreview(mPageSetup)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// last step in factory function in MFC</SourceLine>
+   <SourceLine>// CreatePreviewContent inReport, inRepLandscape, mPageSetup</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// from OnInitialUpdate</SourceLine>
+   <SourceLine>AdjustScrollSize</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inReport as rbrwReport, inRepLandscape as rbrwReport=nil, pageSetup as printerSetup=nil</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>UpdateCanvas</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub UpdateCanvas()</SourceLine>
+   <SourceLine>PreviewCanvas.Graphics.Erase</SourceLine>
+   <SourceLine>UpdateOutlineCanvai</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if not mHaveCreatedContent then</SourceLine>
+   <SourceLine>CreatePreviewContent </SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// from OnDraw</SourceLine>
+   <SourceLine>if mEnv.pages.count &gt; 0 then</SourceLine>
+   <SourceLine>// ignore the rectangle bit for now as it is ignored by drawPage</SourceLine>
+   <SourceLine>//oofRect rcBounds(CPoint(0, 0), GetTransformedPageSize(mEnv-&gt;pageRectPts()));</SourceLine>
+   <SourceLine>rbrwCurrentDraw.CurrentGraphics = PreviewCanvas.Graphics</SourceLine>
+   <SourceLine>mEnv.drawPage PreviewCanvas.Graphics, mCurrentPageIndex</SourceLine>
+   <SourceLine> end if // some pages to draw</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// old report rendering here</SourceLine>
+   <SourceLine>'mReport.Render PreviewCanvas.Graphics, -hScrollControl.Value, -vScrollControl.Value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>UpdateOutlineCanvai</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub UpdateOutlineCanvai()</SourceLine>
+   <SourceLine>' rather than having a special canvas and having to worry about passing around</SourceLine>
+   <SourceLine>'indented coords, use these four canvases (canvai?) to surround it</SourceLine>
+   <SourceLine>PreviewLeftOutline.Graphics.Erase &amp;cE5E5E5</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.Erase  &amp;cE5E5E5</SourceLine>
+   <SourceLine>PreviewTopOutline.Graphics.Erase &amp;cE5E5E5</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.Erase &amp;cE5E5E5</SourceLine>
+   <SourceLine>PreviewLeftOutline.Graphics.ForeColor = &amp;c000000</SourceLine>
+   <SourceLine>PreviewLeftOutline.Graphics.DrawLine 3, 0, 3, PreviewLeftOutline.Graphics.Height</SourceLine>
+   <SourceLine>PreviewTopOutline.Graphics.ForeColor = &amp;c000000</SourceLine>
+   <SourceLine>PreviewTopOutline.Graphics.DrawLine 3, 3, PreviewTopOutline.Graphics.Width - 8, 3</SourceLine>
+   <SourceLine>dim rightH as integer = PreviewRightOutline.Graphics.Height</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.ForeColor = &amp;c000000</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.DrawLine 0, 0, 0,  rightH</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.ForeColor = &amp;c3F3F3F</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.DrawLine 1, 0, 1,  rightH</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.PenWidth = 2</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.PenHeight = 2</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.ForeColor = &amp;c7F7F7F</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.DrawLine 2, 0, 2,  rightH</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.ForeColor = &amp;cBFBFBF</SourceLine>
+   <SourceLine>PreviewRightOutline.Graphics.DrawLine 3, 0, 3,  rightH</SourceLine>
+   <SourceLine>dim botW as integer = PreviewBottomOutline.Graphics.Width-6</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.ForeColor = &amp;c000000</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.DrawLine 3, 0, botW, 0</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.ForeColor = &amp;c3F3F3F</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.DrawLine 3, 1, botW, 1</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.PenHeight = 2</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.PenWidth = 2</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.ForeColor = &amp;c7F7F7F</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.DrawLine 3, 2, botW, 2</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.ForeColor = &amp;cBFBFBF</SourceLine>
+   <SourceLine>PreviewBottomOutline.Graphics.DrawLine 3, 4, botW, 4</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>IsLandscapeMode</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function IsLandscapeMode() As boolean</SourceLine>
+   <SourceLine>return false</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>CreatePreviewContent</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub CreatePreviewContent()</SourceLine>
+   <SourceLine>'// convert main report from multi with single content to a base oofRep, if necessary</SourceLine>
+   <SourceLine>'if (adoptedReport-&gt;isMultiReport()) {  // see if one section and mutate</SourceLine>
+   <SourceLine>'oofRepMulti* asMulti = (oofRepMulti*)adoptedReport;  // safe downcast</SourceLine>
+   <SourceLine>'if (asMulti-&gt;count()==1) {  // if multi report contains just one report, mutate into single report</SourceLine>
+   <SourceLine>'oofRepSection* onlySection = asMulti-&gt;section(0);</SourceLine>
+   <SourceLine>'oofRep* newSingle = new oofRep(*onlySection);  // copy section to plain base oofRep</SourceLine>
+   <SourceLine>'delete adoptedReport;</SourceLine>
+   <SourceLine>'adoptedReport = newSingle;</SourceLine>
+   <SourceLine>'}  // only one section in multi</SourceLine>
+   <SourceLine>'} // is multi</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'// convert optional landscape report from multi with single content to a base oofRep, if necessary</SourceLine>
+   <SourceLine>'if (inRepLandscapePtr &amp;&amp; inRepLandscapePtr-&gt;isMultiReport()) {  // see if one section and mutate</SourceLine>
+   <SourceLine>'oofRepMulti* asMulti = (oofRepMulti*)inRepLandscapePtr;  // safe downcast</SourceLine>
+   <SourceLine>'if (asMulti-&gt;count()==1) {  // if multi report contains just one report, mutate into single report</SourceLine>
+   <SourceLine>'oofRepSection* onlySection = asMulti-&gt;section(0);</SourceLine>
+   <SourceLine>'oofRep* newSingle = new oofRep(*onlySection);  // copy section to plain base oofRep</SourceLine>
+   <SourceLine>'delete inRepLandscapePtr;</SourceLine>
+   <SourceLine>'inRepLandscapePtr = newSingle;</SourceLine>
+   <SourceLine>'}  // only one section in multi</SourceLine>
+   <SourceLine>'} // is multi</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim actRep as rbrwReport = activeReport</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'// this flag's state will affect the BW button's state too</SourceLine>
+   <SourceLine>'blackAndWhitePrinting(actRep-&gt;settings()-&gt;printGraphsInMono());</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'oofRepEditor* possibleEditor = adoptedReport-&gt;settings()-&gt;reportEditor();</SourceLine>
+   <SourceLine>'if (possibleEditor) {</SourceLine>
+   <SourceLine>'oofRepEditingEnv* theEditEnv = possibleEditor-&gt;makeEditingEnvironment();;</SourceLine>
+   <SourceLine>'// reset the env but needed before this for some calcs</SourceLine>
+   <SourceLine>'mEnv = theEditEnv;</SourceLine>
+   <SourceLine>'theEditEnv-&gt;parentWindow(this);</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mEnv.start</SourceLine>
+   <SourceLine>rbrwCurrentDraw.CurrentGraphics = PreviewCanvas.Graphics</SourceLine>
+   <SourceLine>actRep.draw mEnv  //********* does the real work of generating pages from the report definition</SourceLine>
+   <SourceLine>mEnv.finish</SourceLine>
+   <SourceLine>// at this point we have all the pages in memory</SourceLine>
+   <SourceLine>mHaveCreatedContent = true</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AdjustScrollSize</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub AdjustScrollSize()</SourceLine>
+   <SourceLine>//@todo</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>based on oofRepWindow from oofRepMFC.h</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>DIFFERENCES FROM MFC</NoteLine>
+   <NoteLine>For infrastructure reasons, the MFC version has a factory function oofAfxCreateReportView invoking oofRepWindow::CreateReportWIndow</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>We just allow a window to be created, partly because RB users may use the implicit instance approach.</NoteLine>
+   <NoteLine>Thus, the CreatePreviewContent method is called in the window Constructor, as the last step</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>WHERE THE ACTUAL REPORTING HAPPENS</NoteLine>
+   <NoteLine>CreatePreviewContent calls actRep.draw mEnv</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>TODO</NoteLine>
+   <NoteLine>support scaling with mCachedScaleRatio and mScaleFactor and sZoomType</NoteLine>
+   <NoteLine>support landscape mode</NoteLine>
+   <NoteLine>AdjustScrollSize</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>Mapping Methods</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>Mapping Methods</NoteLine>
+   <NoteLine>Methods below have a trailing status + for implemented, * for stubbed either of which may have a P to indicate they were added with a Computed Property rather than Method</NoteLine>
+   <NoteLine>or with further comment</NoteLine>
+   <NoteLine>----------</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>activeReport    +</NoteLine>
+   <NoteLine>AdjustScrollSize    *</NoteLine>
+   <NoteLine>blackAndWhitePrinting</NoteLine>
+   <NoteLine>CreatePreviewContent    + but needs multireport stuff adding</NoteLine>
+   <NoteLine>CreateReportWindow    -- factory function replaced by code in constructor</NoteLine>
+   <NoteLine>finish    -- discarded in favour of mEnv.finish</NoteLine>
+   <NoteLine>GetFileName    *</NoteLine>
+   <NoteLine>GetTransformedPageSize    -- may not be needed</NoteLine>
+   <NoteLine>IsLandscapeMode    *</NoteLine>
+   <NoteLine>OnBeginPrinting</NoteLine>
+   <NoteLine>OnDraw    + in UpdateCanvas</NoteLine>
+   <NoteLine>OnEditCopy</NoteLine>
+   <NoteLine>OnEndPrinting</NoteLine>
+   <NoteLine>OnFileClose</NoteLine>
+   <NoteLine>OnFileOpen</NoteLine>
+   <NoteLine>OnFilePageSetup</NoteLine>
+   <NoteLine>OnFilePrint</NoteLine>
+   <NoteLine>OnFilePrintPreview</NoteLine>
+   <NoteLine>OnInitialUpdate    + as step in Constructor</NoteLine>
+   <NoteLine>OnKeyDown</NoteLine>
+   <NoteLine>OnLButtonDown</NoteLine>
+   <NoteLine>OnLButtonUp</NoteLine>
+   <NoteLine>OnMouseActivate</NoteLine>
+   <NoteLine>OnPrepareDC</NoteLine>
+   <NoteLine>OnPreparePrinting</NoteLine>
+   <NoteLine>OnPrint</NoteLine>
+   <NoteLine>OnRefresh</NoteLine>
+   <NoteLine>OnReportBW    *</NoteLine>
+   <NoteLine>OnReportFirst</NoteLine>
+   <NoteLine>OnReportLast</NoteLine>
+   <NoteLine>OnReportNext</NoteLine>
+   <NoteLine>OnReportPrevious</NoteLine>
+   <NoteLine>OnReportSave</NoteLine>
+   <NoteLine>OnReportZoom</NoteLine>
+   <NoteLine>OnSize</NoteLine>
+   <NoteLine>OnUpdateFileExit</NoteLine>
+   <NoteLine>OnUpdateReportBW</NoteLine>
+   <NoteLine>OnUpdateReportNext</NoteLine>
+   <NoteLine>OnUpdateReportPrevious</NoteLine>
+   <NoteLine>oofRepWindow    * as Constructor</NoteLine>
+   <NoteLine>ReflowReport</NoteLine>
+   <NoteLine>ScalePage</NoteLine>
+   <NoteLine>ScalingRelativeToPage</NoteLine>
+   <NoteLine>setLandscapeReport    -- not needed at present, was used by factory functions</NoteLine>
+   <NoteLine>setPageSetup    -- not needed at present, was used by factory functions</NoteLine>
+   <NoteLine>setReport    -- not needed at present, was used by factory functions</NoteLine>
+   <NoteLine>start    -- discarded in favour of mEnv.start</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>mPageSetup</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageSetup As printerSetup</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageSetup As printerSetup</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mPageSetupString</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPageSetupString As string</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPageSetupString As string</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mRep</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mRep As rbrwReport</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mRep As rbrwReport</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mRepLandscape</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mRepLandscape As rbrwReport</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mRepLandscape As rbrwReport</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mCurrentPageIndex</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCurrentPageIndex As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCurrentPageIndex As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mSavePage</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mSavePage As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mSavePage As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mEnv</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mEnv As rbrwGraphicsPreview</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mEnv As rbrwGraphicsPreview</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>activeReport</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>activeReport As rbrwReport</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>activeReport As rbrwReport</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>if not(mRepLandscape is nil ) and IsLandscapeMode then</SourceLine>
+   <SourceLine>return mRepLandscape</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return mRep</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mHaveCreatedContent</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mHaveCreatedContent As boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mHaveCreatedContent As boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>amClosing</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>amClosing As Boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>amClosing As Boolean</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <PropertyVal Name="BalloonHelp"></PropertyVal>
+ <PropertyVal Name="ImplicitInstance">True</PropertyVal>
+ <PropertyVal Name="MenuBar">0</PropertyVal>
+ <PropertyVal Name="MacProcID">0</PropertyVal>
+ <PropertyVal Name="MinimizeButton">True</PropertyVal>
+ <PropertyVal Name="MaximizeButton">True</PropertyVal>
+ <PropertyVal Name="LiveResize">False</PropertyVal>
+ <PropertyVal Name="Resizeable">True</PropertyVal>
+ <PropertyVal Name="CloseButton">True</PropertyVal>
+ <PropertyVal Name="MenuBarVisible">True</PropertyVal>
+ <PropertyVal Name="FullScreen">False</PropertyVal>
+ <PropertyVal Name="Visible">False</PropertyVal>
+ <PropertyVal Name="Title">Preview</PropertyVal>
+ <PropertyVal Name="Backdrop">0</PropertyVal>
+ <PropertyVal Name="BackColor">5312970</PropertyVal>
+ <PropertyVal Name="HasBackColor">False</PropertyVal>
+ <PropertyVal Name="Composite">False</PropertyVal>
+ <PropertyVal Name="Frame">0</PropertyVal>
+ <PropertyVal Name="MaxHeight">32000</PropertyVal>
+ <PropertyVal Name="MaxWidth">32000</PropertyVal>
+ <PropertyVal Name="MinHeight">64</PropertyVal>
+ <PropertyVal Name="MinWidth">64</PropertyVal>
+ <PropertyVal Name="Height">424</PropertyVal>
+ <PropertyVal Name="Width">600</PropertyVal>
+ <PropertyVal Name="Placement">0</PropertyVal>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Interfaces</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Placement</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <EditorType>Enum</EditorType>
+   <InheritsFrom>Window</InheritsFrom>
+   <Enumeration>
+    <ItemDef>0 - Default</ItemDef>
+    <ItemDef>1 - Parent Window</ItemDef>
+    <ItemDef>2 - Main Screen</ItemDef>
+    <ItemDef>3 - Parent Window Screen</ItemDef>
+    <ItemDef>4 - Stagger</ItemDef>
+   </Enumeration>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Width</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>300</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Height</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>300</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MinWidth</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>64</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MinHeight</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>64</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MaxWidth</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>32000</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MaxHeight</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>32000</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Frame</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <EditorType>Enum</EditorType>
+   <InheritsFrom>Window</InheritsFrom>
+   <Enumeration>
+    <ItemDef>0 - Document</ItemDef>
+    <ItemDef>1 - Movable Modal</ItemDef>
+    <ItemDef>2 - Modal Dialog</ItemDef>
+    <ItemDef>3 - Floating Window</ItemDef>
+    <ItemDef>4 - Plain Box</ItemDef>
+    <ItemDef>5 - Shadowed Box</ItemDef>
+    <ItemDef>6 - Rounded Window</ItemDef>
+    <ItemDef>7 - Global Floating Window</ItemDef>
+    <ItemDef>8 - Sheet Window</ItemDef>
+    <ItemDef>9 - Metal Window</ItemDef>
+    <ItemDef>10 - Drawer Window</ItemDef>
+    <ItemDef>11 - Modeless Dialog</ItemDef>
+   </Enumeration>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Composite</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>False</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>HasBackColor</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>False</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>BackColor</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>&amp;hFFFFFF</PropertyValue>
+   <ItemType>Color</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Backdrop</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <ItemType>Picture</ItemType>
+   <EditorType>Picture</EditorType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Title</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>Untitled</PropertyValue>
+   <ItemType>String</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Visible</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>True</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>FullScreen</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>False</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MenuBarVisible</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>True</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>CloseButton</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>True</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Resizeable</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>False</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>LiveResize</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>True</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MaximizeButton</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>False</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MinimizeButton</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>True</PropertyValue>
+   <ItemType>Boolean</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MacProcID</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>MenuBar</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <ItemType>MenuBar</ItemType>
+   <EditorType>MenuBar</EditorType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>ImplicitInstance</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Appearance</PropertyGroup>
+   <PropertyValue>True</PropertyValue>
+   <EditorType>Boolean</EditorType>
+   <InheritsFrom>Window</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>amClosing</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Boolean</ItemType>
+  </ViewProperty>
+ </ViewBehavior>
+ <Enumeration>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>ZoomT</ItemName>
+  <ItemFlags>0</ItemFlags>
+  <ItemType>Integer</ItemType>
+  <ItemName>ZoomT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>eFitPage</SourceLine>
+   <SourceLine>eFitWidth</SourceLine>
+  </ItemSource>
+ </Enumeration>
+ <ControlBehavior>
+  <Superclass>Canvas</Superclass>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>ScrollBar</Superclass>
+  <HookInstance>
+   <ItemName>ValueChanged</ItemName>
+   <Compatibility></Compatibility>
+   <Visible>1</Visible>
+   <ItemSource>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub ValueChanged()</SourceLine>
+    <SourceLine>HandleScroll()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>ScrollBar</Superclass>
+  <HookInstance>
+   <ItemName>ValueChanged</ItemName>
+   <Compatibility></Compatibility>
+   <Visible>1</Visible>
+   <ItemSource>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub ValueChanged()</SourceLine>
+    <SourceLine>HandleScroll()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>Canvas</Superclass>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>Canvas</Superclass>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>Canvas</Superclass>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>Canvas</Superclass>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>BevelButton</Superclass>
+  <HookInstance>
+   <ItemName>Action</ItemName>
+   <Compatibility></Compatibility>
+   <Visible>1</Visible>
+   <ItemSource>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Action()</SourceLine>
+    <SourceLine>mCurrentPageIndex = 0</SourceLine>
+    <SourceLine>UpdateNow</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>BevelButton</Superclass>
+  <HookInstance>
+   <ItemName>Action</ItemName>
+   <Compatibility></Compatibility>
+   <Visible>1</Visible>
+   <ItemSource>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Action()</SourceLine>
+    <SourceLine>if mCurrentPageIndex = 0 then</SourceLine>
+    <SourceLine>beep</SourceLine>
+    <SourceLine>else</SourceLine>
+    <SourceLine>mCurrentPageIndex = mCurrentPageIndex - 1</SourceLine>
+    <SourceLine>UpdateNow</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>BevelButton</Superclass>
+  <HookInstance>
+   <ItemName>Action</ItemName>
+   <Compatibility></Compatibility>
+   <Visible>1</Visible>
+   <ItemSource>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Action()</SourceLine>
+    <SourceLine>mCurrentPageIndex = mEnv.getNumPages - 1</SourceLine>
+    <SourceLine>UpdateNow</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>BevelButton</Superclass>
+  <HookInstance>
+   <ItemName>Action</ItemName>
+   <Compatibility></Compatibility>
+   <Visible>1</Visible>
+   <ItemSource>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Action()</SourceLine>
+    <SourceLine>if mCurrentPageIndex = mEnv.getNumPages - 1 then</SourceLine>
+    <SourceLine>beep</SourceLine>
+    <SourceLine>else</SourceLine>
+    <SourceLine>mCurrentPageIndex = mCurrentPageIndex + 1</SourceLine>
+    <SourceLine>UpdateNow</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>BevelButton</Superclass>
+  <HookInstance>
+   <ItemName>Action</ItemName>
+   <Compatibility></Compatibility>
+   <Visible>1</Visible>
+   <ItemSource>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Action()</SourceLine>
+    <SourceLine>HandlePrint</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>BevelButton</Superclass>
+ </ControlBehavior>
+ <ControlBehavior>
+  <Superclass>BevelButton</Superclass>
+ </ControlBehavior>
+ <Control>
+  <ControlClass>Canvas</ControlClass>
+  <ItemName>Canvas</ItemName>
+  <PropertyVal Name="Name">PreviewCanvas</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">6</PropertyVal>
+  <PropertyVal Name="Top">6</PropertyVal>
+  <PropertyVal Name="Width">570</PropertyVal>
+  <PropertyVal Name="Height">370</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop">True</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">0</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">False</PropertyVal>
+  <PropertyVal Name="Backdrop">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="AcceptTabs">False</PropertyVal>
+  <PropertyVal Name="EraseBackground">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Super">Canvas</PropertyVal>
+  <ControlIndex>0</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>ScrollBar</ControlClass>
+  <ItemName>ScrollBar</ItemName>
+  <PropertyVal Name="Name">hScrollControl</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">0</PropertyVal>
+  <PropertyVal Name="Top">408</PropertyVal>
+  <PropertyVal Name="Width">600</PropertyVal>
+  <PropertyVal Name="Height">16</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">1</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Minimum">0</PropertyVal>
+  <PropertyVal Name="Value">0</PropertyVal>
+  <PropertyVal Name="Maximum">100</PropertyVal>
+  <PropertyVal Name="LineStep">1</PropertyVal>
+  <PropertyVal Name="PageStep">40</PropertyVal>
+  <PropertyVal Name="LiveScroll">False</PropertyVal>
+  <PropertyVal Name="AcceptFocus">true</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Super">ScrollBar</PropertyVal>
+  <ControlIndex>1</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>ScrollBar</ControlClass>
+  <ItemName>ScrollBar</ItemName>
+  <PropertyVal Name="Name">vScrollControl</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">584</PropertyVal>
+  <PropertyVal Name="Top">0</PropertyVal>
+  <PropertyVal Name="Width">16</PropertyVal>
+  <PropertyVal Name="Height">408</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">True</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">2</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Minimum">0</PropertyVal>
+  <PropertyVal Name="Value">0</PropertyVal>
+  <PropertyVal Name="Maximum">100</PropertyVal>
+  <PropertyVal Name="LineStep">1</PropertyVal>
+  <PropertyVal Name="PageStep">40</PropertyVal>
+  <PropertyVal Name="LiveScroll">False</PropertyVal>
+  <PropertyVal Name="AcceptFocus">true</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Super">ScrollBar</PropertyVal>
+  <ControlIndex>2</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>Canvas</ControlClass>
+  <ItemName>Canvas</ItemName>
+  <PropertyVal Name="Name">PreviewTopOutline</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">1</PropertyVal>
+  <PropertyVal Name="Top">1</PropertyVal>
+  <PropertyVal Name="Width">584</PropertyVal>
+  <PropertyVal Name="Height">4</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop">True</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">3</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="Backdrop">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="AcceptTabs">False</PropertyVal>
+  <PropertyVal Name="EraseBackground">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Super">Canvas</PropertyVal>
+  <ControlIndex>3</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>Canvas</ControlClass>
+  <ItemName>Canvas</ItemName>
+  <PropertyVal Name="Name">PreviewLeftOutline</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">1</PropertyVal>
+  <PropertyVal Name="Top">4</PropertyVal>
+  <PropertyVal Name="Width">4</PropertyVal>
+  <PropertyVal Name="Height">370</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop">True</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">4</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="Backdrop">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="AcceptTabs">False</PropertyVal>
+  <PropertyVal Name="EraseBackground">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Super">Canvas</PropertyVal>
+  <ControlIndex>4</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>Canvas</ControlClass>
+  <ItemName>Canvas</ItemName>
+  <PropertyVal Name="Name">PreviewBottomOutline</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">1</PropertyVal>
+  <PropertyVal Name="Top">374</PropertyVal>
+  <PropertyVal Name="Width">584</PropertyVal>
+  <PropertyVal Name="Height">8</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">5</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="Backdrop">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="AcceptTabs">False</PropertyVal>
+  <PropertyVal Name="EraseBackground">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Super">Canvas</PropertyVal>
+  <ControlIndex>5</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>Canvas</ControlClass>
+  <ItemName>Canvas</ItemName>
+  <PropertyVal Name="Name">PreviewRightOutline</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">578</PropertyVal>
+  <PropertyVal Name="Top">4</PropertyVal>
+  <PropertyVal Name="Width">6</PropertyVal>
+  <PropertyVal Name="Height">370</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">True</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">6</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="Backdrop">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="AcceptTabs">False</PropertyVal>
+  <PropertyVal Name="EraseBackground">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Super">Canvas</PropertyVal>
+  <ControlIndex>6</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">FirstPageBtn</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">6</PropertyVal>
+  <PropertyVal Name="Top">384</PropertyVal>
+  <PropertyVal Name="Width">40</PropertyVal>
+  <PropertyVal Name="Height">22</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop"></PropertyVal>
+  <PropertyVal Name="LockRight"></PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">7</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Caption">[&lt;&lt;</PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon"></PropertyVal>
+  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">0</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Super">BevelButton</PropertyVal>
+  <ControlIndex>7</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">PrevPageBtn</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">54</PropertyVal>
+  <PropertyVal Name="Top">384</PropertyVal>
+  <PropertyVal Name="Width">40</PropertyVal>
+  <PropertyVal Name="Height">22</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop"></PropertyVal>
+  <PropertyVal Name="LockRight"></PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">8</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Caption">&lt;</PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon"></PropertyVal>
+  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">0</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Super">BevelButton</PropertyVal>
+  <ControlIndex>8</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">LastPageBtn</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">151</PropertyVal>
+  <PropertyVal Name="Top">384</PropertyVal>
+  <PropertyVal Name="Width">40</PropertyVal>
+  <PropertyVal Name="Height">22</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop"></PropertyVal>
+  <PropertyVal Name="LockRight"></PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">9</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Caption">&gt;&gt;]</PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon"></PropertyVal>
+  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">0</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Super">BevelButton</PropertyVal>
+  <ControlIndex>9</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">NextPageBtn</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">103</PropertyVal>
+  <PropertyVal Name="Top">384</PropertyVal>
+  <PropertyVal Name="Width">40</PropertyVal>
+  <PropertyVal Name="Height">22</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop"></PropertyVal>
+  <PropertyVal Name="LockRight"></PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">10</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Caption">&gt;</PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon"></PropertyVal>
+  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">0</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Super">BevelButton</PropertyVal>
+  <ControlIndex>10</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">PrintBtn</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">216</PropertyVal>
+  <PropertyVal Name="Top">384</PropertyVal>
+  <PropertyVal Name="Width">60</PropertyVal>
+  <PropertyVal Name="Height">22</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop"></PropertyVal>
+  <PropertyVal Name="LockRight"></PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">11</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Caption">Print...</PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon"></PropertyVal>
+  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">0</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Super">BevelButton</PropertyVal>
+  <ControlIndex>11</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">SaveBtn</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">291</PropertyVal>
+  <PropertyVal Name="Top">384</PropertyVal>
+  <PropertyVal Name="Width">60</PropertyVal>
+  <PropertyVal Name="Height">22</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop"></PropertyVal>
+  <PropertyVal Name="LockRight"></PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">12</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">False</PropertyVal>
+  <PropertyVal Name="Caption">Save...</PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon"></PropertyVal>
+  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">0</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Super">BevelButton</PropertyVal>
+  <ControlIndex>12</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">ZoomBtn</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="Scope">0</PropertyVal>
+  <PropertyVal Name="Left">367</PropertyVal>
+  <PropertyVal Name="Top">384</PropertyVal>
+  <PropertyVal Name="Width">60</PropertyVal>
+  <PropertyVal Name="Height">22</PropertyVal>
+  <PropertyVal Name="LockLeft">True</PropertyVal>
+  <PropertyVal Name="LockTop"></PropertyVal>
+  <PropertyVal Name="LockRight"></PropertyVal>
+  <PropertyVal Name="LockBottom">True</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="TabIndex">13</PropertyVal>
+  <PropertyVal Name="TabStop">True</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="Enabled">False</PropertyVal>
+  <PropertyVal Name="Caption">Zoom...</PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon"></PropertyVal>
+  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="AcceptFocus">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">0</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Super">BevelButton</PropertyVal>
+  <ControlIndex>13</ControlIndex>
+  <Locked>1</Locked>
+ </Control>
+</block>
+</RBProject>

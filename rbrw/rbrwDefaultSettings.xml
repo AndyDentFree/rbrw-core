@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5">
+<block type="Module" ID="1456171589">
+ <ObjName>rbrwDefaultSettings</ObjName>
+ <ObjContainerID>1936225279</ObjContainerID>
+ <IsClass>1</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>setDefaultsInto</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Sub setDefaultsInto(s as rbrwSettings)</SourceLine>
+   <SourceLine>// public static method so can be used by others to init a settings object</SourceLine>
+   <SourceLine>// Note that at this point we must provide default values</SourceLine>
+   <SourceLine>//for any states which the oofRepSettings object tracks, or else</SourceLine>
+   <SourceLine>//we get serious problems. Beware.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// all figures in points unless otherwise noted</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'sDefaultSettings-&gt;printGraphsInMono(true);</SourceLine>
+   <SourceLine>'sDefaultSettings-&gt;modalPreviewWindow(false);</SourceLine>
+   <SourceLine>'sDefaultSettings-&gt;graphBandMinSizePercent(50);  // percentage</SourceLine>
+   <SourceLine>'sDefaultSettings-&gt;XMLsettings(new oofRepXMLsettings);</SourceLine>
+   <SourceLine>'// sDefaultSettings-&gt;reportEditor(new oofRepEditor);  // left at null - reports not editable by default</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'// other init stuff - register default serializable classes</SourceLine>
+   <SourceLine>'oofShadingAdorner::registerSerializable();</SourceLine>
+   <SourceLine>'oofBandShadingAdorner::registerSerializable();</SourceLine>
+   <SourceLine>'oofBorderAdorner::registerSerializable();</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>s.pageHeight = 792.0     // GUI calculates from PREC, default to 11" for RTF</SourceLine>
+   <SourceLine>s.pageWidth = 576.0     // GUI calculates from PREC, default to 8" for RTF</SourceLine>
+   <SourceLine>s.topMargin = 36.0</SourceLine>
+   <SourceLine>s.bottomMargin = 36.0</SourceLine>
+   <SourceLine>s.leftMargin = 72.0</SourceLine>
+   <SourceLine>s.rightMargin = 72.0</SourceLine>
+   <SourceLine>s.lineThickness = 2.0</SourceLine>
+   <SourceLine>s.borderType = 0</SourceLine>
+   <SourceLine>s.colSepWidth = 20.0</SourceLine>
+   <SourceLine>s.blockVertSep = 20.0</SourceLine>
+   <SourceLine>s.bandIndenting = 0.0</SourceLine>
+   <SourceLine>s.drawHeadingsDownToLevel = 1</SourceLine>
+   <SourceLine>s.defaultTextStyle = new rbrwTextStyle("Helvetica", 10)</SourceLine>
+   <SourceLine>s.defaultPageHeaders = new rbrwBandList  // empty list</SourceLine>
+   <SourceLine>s.defaultPageFooters = new rbrwBandList  // empty list</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>s as rbrwSettings</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>settings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function settings() As rbrwSettings</SourceLine>
+   <SourceLine>// implement a Singleton with delayed construction</SourceLine>
+   <SourceLine>if sDefaultSettings is nil then</SourceLine>
+   <SourceLine>sDefaultSettings = new rbrwSettings</SourceLine>
+   <SourceLine>setDefaultsInto(sDefaultSettings)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return sDefaultSettings</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwSettings</ItemResult>
+ </Method>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>based on oofRepDefaultSettings</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>sDefaultSettings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Shared sDefaultSettings As rbrwSettings</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>sDefaultSettings As rbrwSettings</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>1</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

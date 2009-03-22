@@ -1,0 +1,634 @@
+<?xml version="1.0"?>
+<RBProject version="2008r5.1">
+<block type="Module" ID="-1125870315">
+ <ObjName>StyledTextUtils</ObjName>
+ <ObjContainerID>-1075940245</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>ReplaceAllOneChar</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ReplaceAllOneChar(extends st as StyledText, aChar as string, newString as string) As StyledText</SourceLine>
+   <SourceLine>' equivalent of ReplaceAll on a string but preserves styles</SourceLine>
+   <SourceLine>' As Adam Ernst pointed out, this doesn't replace if text goes over style boundaries.</SourceLine>
+   <SourceLine>if aChar.Len=0 then return st ' naive case of replacing empty string!</SourceLine>
+   <SourceLine>dim ret as StyledText = new StyledText()</SourceLine>
+   <SourceLine>dim newRun, oldRun as StyleRun</SourceLine>
+   <SourceLine>dim i, numRuns as integer</SourceLine>
+   <SourceLine>numRuns = st.StyleRunCount-1</SourceLine>
+   <SourceLine>for i=0 to numRuns</SourceLine>
+   <SourceLine>oldRun = st.StyleRun(i)</SourceLine>
+   <SourceLine>newRun = oldRun.CloneStylesOnly()</SourceLine>
+   <SourceLine>newRun.Text = oldRun.Text.ReplaceAll(aChar, newString)</SourceLine>
+   <SourceLine>ret.AppendStyleRun newRun</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends st as StyledText, aChar as string, newString as string</ItemParams>
+  <ItemResult>StyledText</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ReplaceAll</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ReplaceAll(extends st as StyledText, oldString as string, newString as string) As StyledText</SourceLine>
+   <SourceLine>' see note StyledText updating</SourceLine>
+   <SourceLine>' so we do the simple replaceAll and split processing in one loop</SourceLine>
+   <SourceLine>' BUG this doesn't cope with a replace having to stretch over THREE or more style runs</SourceLine>
+   <SourceLine>' see the editField.ReplaceAll</SourceLine>
+   <SourceLine>dim ret as StyledText = st.ReplaceAllOptimalCases(oldString, newString)</SourceLine>
+   <SourceLine>if ret&lt;&gt;nil then return ret</SourceLine>
+   <SourceLine>ret = new StyledText()</SourceLine>
+   <SourceLine>' checks for splits after doing the replaceAll</SourceLine>
+   <SourceLine>' please send any improvements to dent@oofile.com.au</SourceLine>
+   <SourceLine>dim newRun, r1, r2 as StyleRun</SourceLine>
+   <SourceLine>dim i, numRuns, maxCopyLen, r1Len, splitMatchAt, leftSearchCopy, leftSizeCopied, rightSizeCopyFrom as integer</SourceLine>
+   <SourceLine>dim combinedText, savedFrag as string</SourceLine>
+   <SourceLine>numRuns = st.StyleRunCount-2 ' can't split at end</SourceLine>
+   <SourceLine>savedFrag = ""</SourceLine>
+   <SourceLine>for i=0 to numRuns</SourceLine>
+   <SourceLine>r1 = st.StyleRun(i)</SourceLine>
+   <SourceLine>r2 = st.StyleRun(i+1)</SourceLine>
+   <SourceLine>newRun = r1.CloneStylesOnly()</SourceLine>
+   <SourceLine>if savedFrag.Len&gt;0 then</SourceLine>
+   <SourceLine>' the last r2 we handled had a bit replaced</SourceLine>
+   <SourceLine>newRun.Text = savedFrag.ReplaceAll(oldString, newString)</SourceLine>
+   <SourceLine>savedFrag=""</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>newRun.Text = r1.Text.ReplaceAll(oldString, newString)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>' at this point newRun.Text contains a possibly updated string where whole chunks may have been replaced</SourceLine>
+   <SourceLine>' build a bit of combined text covering the split between styles</SourceLine>
+   <SourceLine>r1Len = newRun.Text.Len</SourceLine>
+   <SourceLine>maxCopyLen = oldString.Len - 1</SourceLine>
+   <SourceLine>leftSearchCopy = Min(maxCopyLen, r1Len)  ' left run may be SHORTER than oldString</SourceLine>
+   <SourceLine>combinedText = newRun.Text.Mid(r1Len - leftSearchCopy) + r2.Text.Mid(1, maxCopyLen)</SourceLine>
+   <SourceLine>splitMatchAt = combinedText.InStr(oldString)</SourceLine>
+   <SourceLine>if splitMatchAt&gt;0 then ' we have a replace across the split</SourceLine>
+   <SourceLine>leftSizeCopied = leftSearchCopy - splitMatchAt + 1</SourceLine>
+   <SourceLine>rightSizeCopyFrom = oldString.Len - leftSizeCopied + 1</SourceLine>
+   <SourceLine>newRun.text = newRun.text.Mid(1, newRun.Text.Len - leftSizeCopied) + newString.Mid(1, leftSizeCopied)</SourceLine>
+   <SourceLine>savedFrag = newString.Mid(leftSizeCopied+1) + r2.text.Mid(rightSizeCopyFrom)</SourceLine>
+   <SourceLine>end if ' replace to do</SourceLine>
+   <SourceLine>ret.AppendStyleRun newRun</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>' copy the last run without split processing</SourceLine>
+   <SourceLine>newRun = r2.CloneStylesOnly() ' use the last r2</SourceLine>
+   <SourceLine>if savedFrag.Len&gt;0 then</SourceLine>
+   <SourceLine>newRun.Text = savedFrag.ReplaceAll(oldString, newString)</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>newRun.Text = r2.Text.ReplaceAll(oldString, newString)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>ret.AppendStyleRun newRun</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends st as StyledText, oldString as string, newString as string</ItemParams>
+  <ItemResult>StyledText</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Clone(extends sr as StyleRun) As StyleRun</SourceLine>
+   <SourceLine>dim newRun as StyleRun =  new StyleRun()</SourceLine>
+   <SourceLine>newRun.Bold = sr.Bold</SourceLine>
+   <SourceLine>newRun.Italic = sr.Italic</SourceLine>
+   <SourceLine>newRun.Underline = sr.Underline</SourceLine>
+   <SourceLine>newRun.Size = sr.Size</SourceLine>
+   <SourceLine>newRun.Font = sr.Font</SourceLine>
+   <SourceLine>newRun.TextColor = sr.TextColor</SourceLine>
+   <SourceLine>newRun.Text = sr.Text</SourceLine>
+   <SourceLine>return newRun</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends sr as StyleRun</ItemParams>
+  <ItemResult>StyleRun</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>CloneStylesOnly</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function CloneStylesOnly(extends sr as StyleRun) As StyleRun</SourceLine>
+   <SourceLine>' doesn't copy text, used in methods that mangle text as they copy it</SourceLine>
+   <SourceLine>dim newRun as StyleRun =  new StyleRun()</SourceLine>
+   <SourceLine>newRun.Bold = sr.Bold</SourceLine>
+   <SourceLine>newRun.Italic = sr.Italic</SourceLine>
+   <SourceLine>newRun.Underline = sr.Underline</SourceLine>
+   <SourceLine>newRun.Size = sr.Size</SourceLine>
+   <SourceLine>newRun.Font = sr.Font</SourceLine>
+   <SourceLine>newRun.TextColor = sr.TextColor</SourceLine>
+   <SourceLine>return newRun</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends sr as StyleRun</ItemParams>
+  <ItemResult>StyleRun</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ReplaceAllSameLen</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ReplaceAllSameLen(extends st as StyledText, oldString as string, newString as string) As StyledText</SourceLine>
+   <SourceLine>' equivalent of ReplaceAll on a string but preserves styles</SourceLine>
+   <SourceLine>' uses a separate copy of the text</SourceLine>
+   <SourceLine>' is an optimisation that can only work if oldString and newString same length so style boundaries don't shift</SourceLine>
+   <SourceLine>if oldString.Len=0 then return st ' naive case of replacing empty string!</SourceLine>
+   <SourceLine>if oldString.Len&lt;&gt;newString.Len then return nil ' error condition</SourceLine>
+   <SourceLine>dim ret as StyledText = new StyledText()</SourceLine>
+   <SourceLine>dim newRun, oldRun as StyleRun</SourceLine>
+   <SourceLine>dim copyRange as Range</SourceLine>
+   <SourceLine>dim i, numRuns as integer</SourceLine>
+   <SourceLine>dim copyBuf as string = st.Text.ReplaceAll(oldString, newString)</SourceLine>
+   <SourceLine>numRuns = st.StyleRunCount-1</SourceLine>
+   <SourceLine>for i=0 to numRuns</SourceLine>
+   <SourceLine>oldRun = st.StyleRun(i)</SourceLine>
+   <SourceLine>newRun = oldRun.CloneStylesOnly()</SourceLine>
+   <SourceLine>' copy the text from equivalent range in copyBuf</SourceLine>
+   <SourceLine>copyRange = st.StyleRunRange(i)</SourceLine>
+   <SourceLine>newRun.Text = copyBuf.Mid(copyRange.StartPos+1, copyRange.Length) ' WARNING Range is 0-based</SourceLine>
+   <SourceLine>ret.AppendStyleRun newRun</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends st as StyledText, oldString as string, newString as string</ItemParams>
+  <ItemResult>StyledText</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ReplaceAll</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub ReplaceAll(extends ef as EditField, oldString as string, newString as string)</SourceLine>
+   <SourceLine>' the best of all possible replaces uses the edit field to do smart replacement across styles</SourceLine>
+   <SourceLine>' so is the direct equivalent of the user doing it by hand.</SourceLine>
+   <SourceLine>dim oldLen as integer = oldString.Len</SourceLine>
+   <SourceLine>if oldLen=0 then return '  catch dangerous naive case</SourceLine>
+   <SourceLine>dim saveSelStart, saveSelLen, matchAt as integer</SourceLine>
+   <SourceLine>saveSelStart = ef.SelStart</SourceLine>
+   <SourceLine>saveSelLen = ef.SelLength</SourceLine>
+   <SourceLine>dim st as StyledText = ef.StyledText.ReplaceAllOptimalCases(oldString, newString)</SourceLine>
+   <SourceLine>if st&lt;&gt;nil then</SourceLine>
+   <SourceLine>ef.StyledText = st</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>' iterate through selection replacing in place</SourceLine>
+   <SourceLine>matchAt = 0</SourceLine>
+   <SourceLine>do</SourceLine>
+   <SourceLine>matchAt = ef.Text.InStr( matchAt+1, oldString) '  search from last match</SourceLine>
+   <SourceLine>if matchAt=0 then exit  ' *** bail out of loop, couldn't find it!</SourceLine>
+   <SourceLine>ef.SelStart = matchAt-1 '  shift back to 0-based!</SourceLine>
+   <SourceLine>ef.SelLength = oldLen</SourceLine>
+   <SourceLine>ef.SelText = newString  ' replace the text!</SourceLine>
+   <SourceLine>loop</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>ef.SelStart = saveSelStart</SourceLine>
+   <SourceLine>ef.SelLength = saveSelLen</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends ef as EditField, oldString as string, newString as string</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ReplaceAllForSingleRun</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ReplaceAllForSingleRun(extends st as StyledText, oldString as string, newString as string) As StyledText</SourceLine>
+   <SourceLine>if st.StyleRunCount&lt;&gt; 1 then return nil</SourceLine>
+   <SourceLine>dim ret as StyledText = new StyledText()</SourceLine>
+   <SourceLine>dim newRun, oldRun as StyleRun</SourceLine>
+   <SourceLine>oldRun = st.StyleRun(0)</SourceLine>
+   <SourceLine>newRun = oldRun.CloneStylesOnly()</SourceLine>
+   <SourceLine>newRun.Text = oldRun.Text.ReplaceAll(oldString, newString)</SourceLine>
+   <SourceLine>ret.AppendStyleRun newRun</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends st as StyledText, oldString as string, newString as string</ItemParams>
+  <ItemResult>StyledText</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ReplaceAllOptimalCases</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ReplaceAllOptimalCases(extends st as StyledText, oldString as string, newString as string) As StyledText</SourceLine>
+   <SourceLine>' try other versions in order of increasing complexity</SourceLine>
+   <SourceLine>if st.StyleRunCount = 1 then return st.ReplaceAllForSingleRun(oldString, newString)</SourceLine>
+   <SourceLine>if oldString.Len &lt; 2 then return st.ReplaceAllOneChar(oldString, newString)</SourceLine>
+   <SourceLine>if oldString.Len = newString.Len then return st.ReplaceAllSameLen(oldString, newString)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends st as StyledText, oldString as string, newString as string</ItemParams>
+  <ItemResult>StyledText</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Clone</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Clone(extends s as StyledText) As StyledText</SourceLine>
+   <SourceLine>dim ret as StyledText = new StyledText()</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>for i=0 to s.StyleRunCount-1</SourceLine>
+   <SourceLine>ret.AppendStyleRun s.StyleRun(i).clone()</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends s as StyledText</ItemParams>
+  <ItemResult>StyledText</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>LastLineIndex</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function LastLineIndex(extends e as EditField) As integer</SourceLine>
+   <SourceLine>if e.Text.Len=0 then return 0</SourceLine>
+   <SourceLine>return e.LineNumAtCharPos( e.Text.Len)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends e as EditField</ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Signature</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Signature(extends sr as StyleRun) As String</SourceLine>
+   <SourceLine>' returns a unique signature composed from the style</SourceLine>
+   <SourceLine>dim styleNum as integer</SourceLine>
+   <SourceLine>' encode all the style bits</SourceLine>
+   <SourceLine>if sr.Bold then styleNum = &amp;h100</SourceLine>
+   <SourceLine>if sr.Italic then styleNum = StyleNum + &amp;h200</SourceLine>
+   <SourceLine>if sr.Underline then styleNum = StyleNum + &amp;h400</SourceLine>
+   <SourceLine>dim ret as string = sr.Font+str(StyleNum+sr.Size)</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends sr as StyleRun</ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AsStringShape</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AsStringShape(extends sr as StyleRun) As StringShape</SourceLine>
+   <SourceLine>dim ret as new StringShape()</SourceLine>
+   <SourceLine>ret.Bold = sr.Bold</SourceLine>
+   <SourceLine>ret.Italic = sr.Italic</SourceLine>
+   <SourceLine>ret.TextFont = sr.Font</SourceLine>
+   <SourceLine>ret.TextSize = sr.Size</SourceLine>
+   <SourceLine>ret.Underline = sr.Underline</SourceLine>
+   <SourceLine>ret.FillColor = sr.TextColor</SourceLine>
+   <SourceLine>ret.Text = sr.Text</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends sr as StyleRun</ItemParams>
+  <ItemResult>StringShape</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>EndPos1B</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function EndPos1B(extends r as Range) As integer</SourceLine>
+   <SourceLine>' written partly to hide what may be a bug in Range</SourceLine>
+   <SourceLine>' currently returns a zero-based StartPos and 1-based EndPos</SourceLine>
+   <SourceLine>' so by using this function it can later compensate for RB versions</SourceLine>
+   <SourceLine>' AS OF RB5.5.2 the zero or 1-based nature of StartPos and EndPos</SourceLine>
+   <SourceLine>' is undocumented - see bug report oloenmgk</SourceLine>
+   <SourceLine>return r.EndPos</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends r as Range</ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>StartPos1B</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function StartPos1B(extends r as Range) As integer</SourceLine>
+   <SourceLine>' see EndPos1B comments</SourceLine>
+   <SourceLine>return r.StartPos+1</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends r as Range</ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetStyleFrom</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetStyleFrom(extends inGraphics as Graphics, sr as StyleRun)</SourceLine>
+   <SourceLine>inGraphics.Bold = sr.Bold</SourceLine>
+   <SourceLine>inGraphics.Italic = sr.Italic</SourceLine>
+   <SourceLine>inGraphics.TextFont = sr.Font</SourceLine>
+   <SourceLine>inGraphics.TextSize = sr.Size</SourceLine>
+   <SourceLine>inGraphics.Underline = sr.Underline</SourceLine>
+   <SourceLine>inGraphics.ForeColor = sr.TextColor</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends inGraphics as Graphics, sr as StyleRun</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AsStringShapeWithText</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AsStringShapeWithText(extends sr as StyleRun, inText as string) As StringShape</SourceLine>
+   <SourceLine>dim ret as new StringShape()</SourceLine>
+   <SourceLine>ret.Bold = sr.Bold</SourceLine>
+   <SourceLine>ret.Italic = sr.Italic</SourceLine>
+   <SourceLine>ret.TextFont = sr.Font</SourceLine>
+   <SourceLine>ret.TextSize = sr.Size</SourceLine>
+   <SourceLine>ret.Underline = sr.Underline</SourceLine>
+   <SourceLine>ret.FillColor = sr.TextColor</SourceLine>
+   <SourceLine>ret.Text = inText</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends sr as StyleRun, inText as string</ItemParams>
+  <ItemResult>StringShape</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetStyleFromScaling</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetStyleFromScaling(extends inGraphics as Graphics, sr as StyleRun)</SourceLine>
+   <SourceLine>inGraphics.Bold = sr.Bold</SourceLine>
+   <SourceLine>inGraphics.Italic = sr.Italic</SourceLine>
+   <SourceLine>inGraphics.TextFont = sr.Font</SourceLine>
+   <SourceLine>inGraphics.TextSize = scnTextSize(sr.Size)</SourceLine>
+   <SourceLine>inGraphics.Underline = sr.Underline</SourceLine>
+   <SourceLine>inGraphics.ForeColor = sr.TextColor</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends inGraphics as Graphics, sr as StyleRun</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Note>
+  <ItemName>StyledText updating</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>StyledText updating</NoteLine>
+   <NoteLine>what complicates this process is we can only play with a StyleRun.Text BEFORE we append it</NoteLine>
+   <NoteLine>  to the StyledText. We can construct as much as we like and rewrite the text but once it becomes</NoteLine>
+   <NoteLine>  part of the StyledText it is copied into a single block.</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>1</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>temp copy of SplitStyles</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>temp copy of SplitStyles</NoteLine>
+   <NoteLine>  ' creates new styles whenever a style extends over a wrap</NoteLine>
+   <NoteLine>  ' for efficiency sake, creates the new ST by copying.</NoteLine>
+   <NoteLine>  ' this method is safe on Mac and Windows</NoteLine>
+   <NoteLine>  ' tested as of June 2004 on OS/X and Windows XP</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>  ' note Ranges refer to the entire text not the chunks in a StyleRun</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>  dim lastLineNumZB as integer = inEdit.LastLineIndex()</NoteLine>
+   <NoteLine>  if lastLineNumZB=0 then return ' no wrapping, trivial case!</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>  dim st as StyledText = inEdit.StyledText</NoteLine>
+   <NoteLine>  dim newST as StyledText = new StyledText()</NoteLine>
+   <NoteLine>  dim r as Range</NoteLine>
+   <NoteLine>  dim sr, newRun as StyleRun</NoteLine>
+   <NoteLine>  dim entireText as string = inEdit.Text</NoteLine>
+   <NoteLine>  ' thought don't need to clone() as am creating new version, much more efficient to not clone!</NoteLine>
+   <NoteLine>  ' as we finish below by assigning a new StyledText to inEdit but it seems on the way out</NoteLine>
+   <NoteLine>  ' that it clears its existing one so the clone is still needed, sigh.</NoteLine>
+   <NoteLine>  mSavedText = st.Clone()</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>  dim i, numOldRuns, startLastLine1B, nextLineZB as integer</NoteLine>
+   <NoteLine>  dim firstCharPosNextLine1B, copyRunFrom, runLenRemain, copyLen as integer</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>  numOldRuns = st.StyleRunCount - 1</NoteLine>
+   <NoteLine>  nextLineZB = 1 '  we know from check earlier there is at least a second line</NoteLine>
+   <NoteLine>  firstCharPosNextLine1B = inEdit.CharPosAtLineNum(nextLineZB)</NoteLine>
+   <NoteLine>  for i=0 to numOldRuns</NoteLine>
+   <NoteLine>    sr = st.StyleRun(i)</NoteLine>
+   <NoteLine>    newRun = sr.CloneStylesOnly()</NoteLine>
+   <NoteLine>    r = st.StyleRunRange(i)</NoteLine>
+   <NoteLine>    ' check for case where this new style starts new line</NoteLine>
+   <NoteLine>    if r.StartPos1B() = firstCharPosNextLine1B then</NoteLine>
+   <NoteLine>      ' yep, start exactly at the start of the line so need to advance line</NoteLine>
+   <NoteLine>      nextLineZB = nextLineZB + 1</NoteLine>
+   <NoteLine>      if nextLineZB&lt;=lastLineNumZB then</NoteLine>
+   <NoteLine>        firstCharPosNextLine1B = inEdit.CharPosAtLineNum(nextLineZB)</NoteLine>
+   <NoteLine>      else</NoteLine>
+   <NoteLine>        ' current line is last so set a fake char pos guaranteed to be beyond a style</NoteLine>
+   <NoteLine>        firstCharPosNextLine1B = inEdit.Text.len+1</NoteLine>
+   <NoteLine>      end if</NoteLine>
+   <NoteLine>    end if ' style starts new line</NoteLine>
+   <NoteLine>    if r.EndPos1B() &gt;= firstCharPosNextLine1B then</NoteLine>
+   <NoteLine>      ' style doesn't end on this line, split it</NoteLine>
+   <NoteLine>      copyRunFrom = r.StartPos1B()</NoteLine>
+   <NoteLine>      runLenRemain = sr.Text.Len</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>      do ' loop in case this style extends over multiple lines, quite common!</NoteLine>
+   <NoteLine>        '  copy the chunk remaining on current line</NoteLine>
+   <NoteLine>        copyLen = firstCharPosNextLine1B - copyRunFrom</NoteLine>
+   <NoteLine>        newRun.Text = entireText.Mid(copyRunFrom, copyLen-1) + EndOfLine</NoteLine>
+   <NoteLine>        ' have blindly copied text assuming last char is one we'd want to lose, might want to check for spaces</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>        newSt.AppendStyleRun newRun</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>        ' now move on a line</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>        runLenRemain = runLenRemain - copyLen</NoteLine>
+   <NoteLine>        copyRunFrom = copyRunFrom + copyLen '  continually increment in this run</NoteLine>
+   <NoteLine>        nextLineZB = nextLineZB + 1</NoteLine>
+   <NoteLine>        if nextLineZB&lt;=lastLineNumZB then</NoteLine>
+   <NoteLine>          firstCharPosNextLine1B = inEdit.CharPosAtLineNum(nextLineZB)</NoteLine>
+   <NoteLine>        else</NoteLine>
+   <NoteLine>          ' current line is last so set a fake char pos guaranteed to be beyond a style</NoteLine>
+   <NoteLine>          firstCharPosNextLine1B = inEdit.Text.len+1</NoteLine>
+   <NoteLine>        end if</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>        newRun = sr.CloneStylesOnly()</NoteLine>
+   <NoteLine>        if r.EndPos1B()  &lt; firstCharPosNextLine1B then</NoteLine>
+   <NoteLine>          ' remainder of run on current line, just copy run's remaining text and exit</NoteLine>
+   <NoteLine>          newRun.Text = entireText.Mid(copyRunFrom, runLenRemain)</NoteLine>
+   <NoteLine>          exit</NoteLine>
+   <NoteLine>        end if</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>      loop ' whilst wrapping style over lines</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>    else</NoteLine>
+   <NoteLine>      newRun.Text = sr.Text ' copy all of run</NoteLine>
+   <NoteLine>    end if ' run is on one line or not</NoteLine>
+   <NoteLine>    newSt.AppendStyleRun newRun</NoteLine>
+   <NoteLine>  next i '  loop through runs</NoteLine>
+   <NoteLine>  inEdit.StyledText = newST</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>1</ItemFlags>
+ </Note>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+ <Constant>
+  <ItemName>kParagraphAlignFull</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kParagraphAlignFull</ItemName>
+  <ItemType>1</ItemType>
+  <ItemDef>4</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <ItemName>kParagraphAlignTable</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>kParagraphAlignTable</ItemName>
+  <ItemType>1</ItemType>
+  <ItemDef>5</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+</block>
+</RBProject>
