@@ -112,6 +112,7 @@ Class=rbrwGraphicsPrint;../rbrw/rbrwGraphicsPrint.xml;&h33D7B588;&h2F668969;fals
 Class=rbrwPagedGraphicsEnv;../rbrw/rbrwPagedGraphicsEnv.xml;&h3DA4A950;&h2F668969;false
 Class=stCurrentDrawScaling;../rbrw/stCurrentDrawScaling.xml;&h26BFF09D;&hBFDE7417;false
 Class=rbrwRecordSetSource;../rbrw/rbrwRecordSetSource.xml;&h1F6445AC;&hBFDF1263;false
+Class=rbrwMultiArraySource;../rbrw/rbrwMultiArraySource.xml;&h4E11D15;&hBFDF1263;false
 DefaultWindow=ReportExampleWindow
 AppMenuBar=ExampleMenuBar
 MajorVersion=1

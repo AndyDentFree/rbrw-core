@@ -448,3 +448,39 @@ ReportDemoApp.TestSimpleColumnsDB
 
 ReportDemoApp.ReportSimpleColumnsOneLevelDB
 - added to generate new minimal report from a recordset
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/23 Mon
+ADDING MORE ABSTRACT DATA SOURCES - PARALLEL ARRAYS
+
+IN rbrwUnitTests
+
+SampleFinancialData
+- added
+
+dataAbstractionTests.multiArraySource
+- added
+
+dataAbstractionTests.SetupFixture
+- init multiArraySource using SamplefinancialData
+
+rbrwMultiArraySource
+- added
+
+dataAbstractionTests.ValuesFromMulti2DArrayTest
+dataAbstractionTests.FieldsFromMultiArrayTest
+dataAbstractionTests.iterateMultiArrayTest
+- added
+
+
+IN ReportTester
+rbrwMultiArraySource
+SampleFinancialData
+- added to project
+
+ReportDemoApp.SetupSampleData
+- call SampleFinancialData.CreateSampleData
+  
+ReportDemoApp.ReportQuickbooksStyleStatement
+- use rbrwMultiArraySource

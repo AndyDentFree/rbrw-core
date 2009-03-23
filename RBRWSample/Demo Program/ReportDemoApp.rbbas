@@ -171,7 +171,8 @@ Inherits Application
 		Protected Sub SetupSampleData()
 		  SampleUserClass.FillSampleUsers mSampleUsers
 		  CreateTestDB
-		  'CreateSampleFinancials
+		  SampleFinancialData.CreateSampleData
+		  
 		End Sub
 	#tag EndMethod
 
@@ -227,7 +228,13 @@ Inherits Application
 		Function ReportQuickbooksStyleStatement() As rbrwReport
 		  ' a complex report similar to that from QuickBooks, see rbrwQuickbooksStyleStatementDesign.png
 		  
-		  dim r as new rbrwReport( new Sample2DUserArray(mSampleUsers) )
+		  dim mas as new rbrwMultiArraySource( _
+		  SampleFinancialData.arDates, _
+		  SampleFinancialData.arDetails, _
+		  SampleFinancialData.arAmounts)
+		  mas.setColNames( Array("Date", "Details", "Amount" ) )
+		  
+		  dim r as new rbrwReport( mas )
 		  return r
 		End Function
 	#tag EndMethod

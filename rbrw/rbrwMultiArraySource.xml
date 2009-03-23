@@ -1,0 +1,596 @@
+<?xml version="1.0"?>
+<RBProject version="2009r1">
+<block type="Module" ID="1937925681">
+ <ObjName>rbrwMultiArraySource</ObjName>
+ <ObjContainerID>450275996</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Interfaces> rbrwIterableSource, rbrwFieldFacadeWithIterator, rbrwFieldFacade</Interfaces>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>start</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub start()</SourceLine>
+   <SourceLine>// Part of the rbrwIterableSource interface.</SourceLine>
+   <SourceLine>mIter = 0</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>more</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function more() As boolean</SourceLine>
+   <SourceLine>// Part of the rbrwIterableSource interface.</SourceLine>
+   <SourceLine>return mIter &lt;= mUbound</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>inc</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub inc()</SourceLine>
+   <SourceLine>// Part of the rbrwIterableSource interface.</SourceLine>
+   <SourceLine>mIter = mIter + 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>iterator</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function iterator() As rbrwIterableSource</SourceLine>
+   <SourceLine>// Part of the rbrwFieldFacadeWithIterator interface.</SourceLine>
+   <SourceLine>return self</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwIterableSource</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>facade</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function facade() As rbrwFieldFacade</SourceLine>
+   <SourceLine>// Part of the rbrwFieldFacadeWithIterator interface.</SourceLine>
+   <SourceLine>return self</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwFieldFacade</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>listFields</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function listFields() As string()</SourceLine>
+   <SourceLine>// Part of the rbrwFieldFacade interface.</SourceLine>
+   <SourceLine>if mColNames2Index is nil then</SourceLine>
+   <SourceLine>InitDefaulColNames</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return mNames</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fieldValue</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fieldValue(name as string) As string</SourceLine>
+   <SourceLine>// Part of the rbrwFieldFacade interface.</SourceLine>
+   <SourceLine>if mColNames2Index is nil then</SourceLine>
+   <SourceLine>InitDefaulColNames</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim col as integer = mColNames2Index.Value( name )  // generates key error i </SourceLine>
+   <SourceLine>return fieldValue( col )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>name as string</ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fieldValue</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fieldValue(zeroBasedIndex as integer) As string</SourceLine>
+   <SourceLine>// Part of the rbrwFieldFacade interface.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim v as variant = colArrays( zeroBasedIndex )</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if v.ArrayElementType=Variant.TypeString then</SourceLine>
+   <SourceLine>dim ars() as string = v</SourceLine>
+   <SourceLine>return ars( mIter )</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif v.ArrayElementType=Variant.TypeInteger then</SourceLine>
+   <SourceLine>dim ari() as integer = v</SourceLine>
+   <SourceLine>dim f as IntegerFormatter = mFormatters.Value( zeroBasedIndex )</SourceLine>
+   <SourceLine>return f.Invoke( ari( mIter ) )</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif v.ArrayElementType=Variant.TypeDouble then</SourceLine>
+   <SourceLine>dim ard() as double = v</SourceLine>
+   <SourceLine>dim f as DoubleFormatter = mFormatters.Value( zeroBasedIndex )</SourceLine>
+   <SourceLine>return f.Invoke( ard( mIter ) )</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>raise new OutOfBoundsException</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>zeroBasedIndex as integer</ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>count</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function count() As integer</SourceLine>
+   <SourceLine>// Part of the rbrwFieldFacade interface.</SourceLine>
+   <SourceLine>return mFieldCount</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>integer</ItemResult>
+ </Method>
+ <DelegateDeclaration>
+  <ItemName>DoubleFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Delegate Function DoubleFormatter(value as double) As string</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>value as double</ItemParams>
+  <ItemResult>string</ItemResult>
+ </DelegateDeclaration>
+ <Method>
+  <ItemName>DefaultDoubleFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function DefaultDoubleFormatter(value as double) As String</SourceLine>
+   <SourceLine>return "$"+Format( value, "-###,##0.00" )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>value as double</ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(ParamArray cols as Variant)</SourceLine>
+   <SourceLine>// take a series of parameters which should all be arrays of the same length</SourceLine>
+   <SourceLine>mFormatters = new Dictionary</SourceLine>
+   <SourceLine>dim oneUbound as Integer</SourceLine>
+   <SourceLine>mUbound = -2</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>for each v as Variant in cols</SourceLine>
+   <SourceLine>if v.ArrayElementType=Variant.TypeString then</SourceLine>
+   <SourceLine>dim ars() as string = v</SourceLine>
+   <SourceLine>oneUbound = UBound(ars)</SourceLine>
+   <SourceLine>colArrays.Append v</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif v.ArrayElementType=Variant.TypeInteger then</SourceLine>
+   <SourceLine>dim ari() as integer = v</SourceLine>
+   <SourceLine>oneUbound = UBound(ari)</SourceLine>
+   <SourceLine>colArrays.Append v</SourceLine>
+   <SourceLine>mFormatters.Value(i) = AddressOf DefaultIntegerFormatter</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif v.ArrayElementType=Variant.TypeDouble then</SourceLine>
+   <SourceLine>dim ard() as double = v</SourceLine>
+   <SourceLine>oneUbound = UBound(ard)</SourceLine>
+   <SourceLine>colArrays.Append v</SourceLine>
+   <SourceLine>mFormatters.Value(i) = AddressOf DefaultDoubleFormatter</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if mUbound = -2 then</SourceLine>
+   <SourceLine>mUbound = oneUbound</SourceLine>
+   <SourceLine>elseif oneUbound&lt;&gt;mUbound then</SourceLine>
+   <SourceLine>return  // failure</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>i = i + 1</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// if get through the lot is success!</SourceLine>
+   <SourceLine>mValid = true</SourceLine>
+   <SourceLine>mFieldCount = UBound(cols) + 1</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>ParamArray cols as Variant</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>InitDefaulColNames</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub InitDefaulColNames()</SourceLine>
+   <SourceLine>mColNames2Index = new Dictionary</SourceLine>
+   <SourceLine>for i as integer = 0 to mFieldCount-1</SourceLine>
+   <SourceLine>dim name as string = Str(i)</SourceLine>
+   <SourceLine>mNames(i) = name</SourceLine>
+   <SourceLine>mColNames2Index.Value( name ) = i</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setColNames</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setColNames(inNames() as string)</SourceLine>
+   <SourceLine>if mFieldCount&lt;&gt; UBound(inNames) + 1 then</SourceLine>
+   <SourceLine>raise new OutOfBoundsException</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>mNames = inNames</SourceLine>
+   <SourceLine>mColNames2Index = new Dictionary</SourceLine>
+   <SourceLine>for i as integer = 0 to mFieldCount-1</SourceLine>
+   <SourceLine>dim name as string = inNames(i)</SourceLine>
+   <SourceLine>mColNames2Index.Value( name ) = i</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inNames() as string</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetDoubleFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetDoubleFormatter(zeroBasedColIndex as integer, informatter as DoubleFormatter)</SourceLine>
+   <SourceLine>mFormatters.value( zeroBasedColIndex ) = informatter</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>zeroBasedColIndex as integer, informatter as DoubleFormatter</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetIntegerFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetIntegerFormatter(zeroBasedColIndex as integer, informatter as IntegerFormatter)</SourceLine>
+   <SourceLine>mFormatters.value( zeroBasedColIndex ) = informatter</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>zeroBasedColIndex as integer, informatter as IntegerFormatter</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <DelegateDeclaration>
+  <ItemName>IntegerFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Delegate Function IntegerFormatter(value as integer) As string</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>value as integer</ItemParams>
+  <ItemResult>string</ItemResult>
+ </DelegateDeclaration>
+ <Method>
+  <ItemName>DefaultIntegerFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function DefaultIntegerFormatter(value as integer) As String</SourceLine>
+   <SourceLine>return Str( value )</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>value as integer</ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Note>
+  <ItemName>About</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>About</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Takes a bunch of arrays via ParamArray and puts them into indivually typed arrays</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>colArrays()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>colArrays() As variant</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>colArrays() As variant</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mValid</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mValid As Boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mValid As Boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>IsValid</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>IsValid As Boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>IsValid As Boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mValid</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mUbound</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mUbound As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mUbound As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mIter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mIter As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mIter As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mNames()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mNames() As string</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mNames() As string</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFieldCount</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFieldCount As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFieldCount As Integer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mColNames2Index</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColNames2Index As Dictionary</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColNames2Index As Dictionary</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mFormatters</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mFormatters As Dictionary</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mFormatters As Dictionary</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>-2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>mFieldCount</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

@@ -1,228 +1,391 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
-<block type="Module" ID="869071948">
+<RBProject version="2009r1">
+<block type="Module" ID="783449683">
  <ObjName>SampleFinancialData</ObjName>
- <ObjContainerID>-1075899702</ObjContainerID>
+ <ObjContainerID>2056130415</ObjContainerID>
  <IsClass>1</IsClass>
- <Interfaces>rbrwSource, rbrwIterableSource, rbrwFieldFacadeWithIterator, rbrwFieldFacade</Interfaces>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
  <Method>
-  <ItemName>value</ItemName>
+  <ItemName>CreateSampleData</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function value() As String</SourceLine>
-   <SourceLine>return mPresentedClass(mIter).Surname + chr(9) +  Format(mPresentedClass(mIter).Rank, "###0")</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>String</ItemResult>
- </Method>
- <Method>
-  <ItemName>inc</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub inc()</SourceLine>
-   <SourceLine>mIter = mIter + 1</SourceLine>
+   <SourceLine> Shared Sub CreateSampleData()</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "01/19/2009"</SourceLine>
+   <SourceLine>arDates.Append "02/11/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/11/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/22/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "02/24/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/08/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/08/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/08/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/08/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/10/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/10/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/10/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/10/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/10/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/10/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/10/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine>arDates.Append "04/15/2008"</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#246755-1 had PMT# 6,104 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#247175-1 had PMT# 6,105 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257936-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257936-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257943-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257936-1 - Services"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257943-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257943-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257936-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257936-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257943-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257943-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257936-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257936-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257943-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#257943-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258048-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258048-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258047-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258047-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258048-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258048-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258047-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258047-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258048-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258047-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258047-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258048-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258047-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#258048-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#249536-1 had PMT# 6,614 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#249539-1 had PMT# 6,615 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#249542-1 had PMT# 6,617 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#249546-1 had PMT# 6,616 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#252365-1 had PMT# 6,637 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#254562-1 had PMT# 6,636 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#254573-1 had PMT# 6,632 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#252366-1 had PMT# 6,638 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#254563-1 had PMT# 6,635 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#254569-1 had PMT# 6,634 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#254572-1 had PMT# 6,633 applied"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262335-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262335-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262338-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262341-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262341-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262344-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262344-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262347-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#262347-1"</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>arAmounts.append 652.5</SourceLine>
+   <SourceLine>arAmounts.append 1396.75</SourceLine>
+   <SourceLine>arAmounts.append 1200.63</SourceLine>
+   <SourceLine>arAmounts.append 823.5</SourceLine>
+   <SourceLine>arAmounts.append 1077.63</SourceLine>
+   <SourceLine>arAmounts.append 964.75</SourceLine>
+   <SourceLine>arAmounts.append 864.88</SourceLine>
+   <SourceLine>arAmounts.append 892</SourceLine>
+   <SourceLine>arAmounts.append 670.5</SourceLine>
+   <SourceLine>arAmounts.append 1040.5</SourceLine>
+   <SourceLine>arAmounts.append 680</SourceLine>
+   <SourceLine>arAmounts.append 567</SourceLine>
+   <SourceLine>arAmounts.append 760</SourceLine>
+   <SourceLine>arAmounts.append 740</SourceLine>
+   <SourceLine>arAmounts.append 740</SourceLine>
+   <SourceLine>arAmounts.append 573.75</SourceLine>
+   <SourceLine>arAmounts.append 1009.38</SourceLine>
+   <SourceLine>arAmounts.append 760</SourceLine>
+   <SourceLine>arAmounts.append 760.5</SourceLine>
+   <SourceLine>arAmounts.append 1168.38</SourceLine>
+   <SourceLine>arAmounts.append 431.25</SourceLine>
+   <SourceLine>arAmounts.append 740</SourceLine>
+   <SourceLine>arAmounts.append 994.38</SourceLine>
+   <SourceLine>arAmounts.append 832.5</SourceLine>
+   <SourceLine>arAmounts.append 1202.5</SourceLine>
+   <SourceLine>arAmounts.append 888</SourceLine>
+   <SourceLine>arAmounts.append 330</SourceLine>
+   <SourceLine>arAmounts.append 1036</SourceLine>
+   <SourceLine>arAmounts.append 752</SourceLine>
+   <SourceLine>arAmounts.append 480</SourceLine>
+   <SourceLine>arAmounts.append 653.75</SourceLine>
+   <SourceLine>arAmounts.append 423.75</SourceLine>
+   <SourceLine>arAmounts.append 1246.44</SourceLine>
+   <SourceLine>arAmounts.append 570.5</SourceLine>
+   <SourceLine>arAmounts.append 492.5</SourceLine>
+   <SourceLine>arAmounts.append 322.5</SourceLine>
+   <SourceLine>arAmounts.append 700</SourceLine>
+   <SourceLine>arAmounts.append 637.5</SourceLine>
+   <SourceLine>arAmounts.append 873.25</SourceLine>
+   <SourceLine>arAmounts.append 779.15</SourceLine>
+   <SourceLine>arAmounts.append 748</SourceLine>
+   <SourceLine>arAmounts.append 783</SourceLine>
+   <SourceLine>arAmounts.append 1197.88</SourceLine>
+   <SourceLine>arAmounts.append 573.75</SourceLine>
+   <SourceLine>arAmounts.append 511.25</SourceLine>
+   <SourceLine>arAmounts.append 740</SourceLine>
+   <SourceLine>arAmounts.append 256.5</SourceLine>
+   <SourceLine>arAmounts.append 922.25</SourceLine>
+   <SourceLine>arAmounts.append 837.25</SourceLine>
+   <SourceLine>arAmounts.append 333</SourceLine>
+   <SourceLine>arAmounts.append 1230.5</SourceLine>
+   <SourceLine>arAmounts.append 216</SourceLine>
+   <SourceLine>arAmounts.append -4170.4</SourceLine>
+   <SourceLine>arAmounts.append -5189.3</SourceLine>
+   <SourceLine>arAmounts.append 976.5</SourceLine>
+   <SourceLine>arAmounts.append 137.25</SourceLine>
+   <SourceLine>arAmounts.append 1028.25</SourceLine>
+   <SourceLine>arAmounts.append 868.5</SourceLine>
+   <SourceLine>arAmounts.append 250</SourceLine>
+   <SourceLine>arAmounts.append 712.5</SourceLine>
+   <SourceLine>arAmounts.append 250</SourceLine>
+   <SourceLine>arAmounts.append 645</SourceLine>
+   <SourceLine>arAmounts.append 230.77</SourceLine>
+   <SourceLine>arAmounts.append 485.57</SourceLine>
+   <SourceLine>arAmounts.append 230.77</SourceLine>
+   <SourceLine>arAmounts.append 469.63</SourceLine>
+   <SourceLine>arAmounts.append 778.5</SourceLine>
+   <SourceLine>arAmounts.append 154.13</SourceLine>
+   <SourceLine>arAmounts.append 230.77</SourceLine>
+   <SourceLine>arAmounts.append 491.94</SourceLine>
+   <SourceLine>arAmounts.append 250</SourceLine>
+   <SourceLine>arAmounts.append 712.5</SourceLine>
+   <SourceLine>arAmounts.append 1379.25</SourceLine>
+   <SourceLine>arAmounts.append 135</SourceLine>
+   <SourceLine>arAmounts.append 230.77</SourceLine>
+   <SourceLine>arAmounts.append 479.19</SourceLine>
+   <SourceLine>arAmounts.append 967.5</SourceLine>
+   <SourceLine>arAmounts.append 1453.5</SourceLine>
+   <SourceLine>arAmounts.append 153</SourceLine>
+   <SourceLine>arAmounts.append 742.5</SourceLine>
+   <SourceLine>arAmounts.append 974.25</SourceLine>
+   <SourceLine>arAmounts.append 250</SourceLine>
+   <SourceLine>arAmounts.append -4342.53</SourceLine>
+   <SourceLine>arAmounts.append -4483.09</SourceLine>
+   <SourceLine>arAmounts.append -4068.26</SourceLine>
+   <SourceLine>arAmounts.append -5287.65</SourceLine>
+   <SourceLine>arAmounts.append -4042.63</SourceLine>
+   <SourceLine>arAmounts.append -4032.97</SourceLine>
+   <SourceLine>arAmounts.append -3827.65</SourceLine>
+   <SourceLine>arAmounts.append -4380.77</SourceLine>
+   <SourceLine>arAmounts.append -5188.28</SourceLine>
+   <SourceLine>arAmounts.append -4004.65</SourceLine>
+   <SourceLine>arAmounts.append -3751.65</SourceLine>
+   <SourceLine>arAmounts.append 1010.22</SourceLine>
+   <SourceLine>arAmounts.append 168.75</SourceLine>
+   <SourceLine>arAmounts.append 1048.5</SourceLine>
+   <SourceLine>arAmounts.append 250</SourceLine>
+   <SourceLine>arAmounts.append 727.5</SourceLine>
+   <SourceLine>arAmounts.append 230.77</SourceLine>
+   <SourceLine>arAmounts.append 469.62</SourceLine>
+   <SourceLine>arAmounts.append 230.77</SourceLine>
+   <SourceLine>arAmounts.append 156</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
+  <Shared>1</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
  </Method>
- <Method>
-  <ItemName>start</ItemName>
+ <Note>
+  <ItemName>about</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub start()</SourceLine>
-   <SourceLine>mIter = 0</SourceLine>
-   <SourceLine>End Sub</SourceLine>
+   <NoteLine>about</NoteLine>
+   <NoteLine>Just contains a set of data which it creates as if you had copied stuff from a database into a series of arrays</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
   </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>listFields</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function listFields() As string()</SourceLine>
-   <SourceLine>' as our fixed class wrapping SampleUserClass just return its members</SourceLine>
-   <SourceLine>return Array("Surname", "Rank")</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>string()</ItemResult>
- </Method>
- <Method>
-  <ItemName>fieldValue</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function fieldValue(name as string) As string</SourceLine>
-   <SourceLine>if name="Surname" then</SourceLine>
-   <SourceLine>return mPresentedClass(mIter).Surname</SourceLine>
-   <SourceLine>elseif name="Othername" then</SourceLine>
-   <SourceLine>return mPresentedClass(mIter).Othername</SourceLine>
-   <SourceLine>elseif name = "Rank" then</SourceLine>
-   <SourceLine>return Format(mPresentedClass(mIter).Rank, "###0")</SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine>raise new OutOfBoundsException</SourceLine>
-   <SourceLine>return ""</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>name as string</ItemParams>
-  <ItemResult>string</ItemResult>
- </Method>
- <Method>
-  <ItemName>iterator</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function iterator() As rbrwIterableSource</SourceLine>
-   <SourceLine>return self</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>rbrwIterableSource</ItemResult>
- </Method>
- <Method>
-  <ItemName>facade</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function facade() As rbrwFieldFacade</SourceLine>
-   <SourceLine>return self</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>rbrwFieldFacade</ItemResult>
- </Method>
- <Method>
-  <ItemName>more</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function more() As Boolean</SourceLine>
-   <SourceLine>return mIter &lt;= UBound(mPresentedClass)</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>Boolean</ItemResult>
- </Method>
- <Method>
-  <ItemName>fieldValue</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function fieldValue(zeroBasedIndex as integer) As string</SourceLine>
-   <SourceLine>select case zeroBasedIndex</SourceLine>
-   <SourceLine>case 0 </SourceLine>
-   <SourceLine>return mPresentedClass(mIter).Surname</SourceLine>
-   <SourceLine>case 1</SourceLine>
-   <SourceLine>return Format(mPresentedClass(mIter).Rank, "###0")</SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine>raise new OutOfBoundsException</SourceLine>
-   <SourceLine>end select</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>zeroBasedIndex as integer</ItemParams>
-  <ItemResult>string</ItemResult>
- </Method>
- <Method>
-  <ItemName>count</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function count() As integer</SourceLine>
-   <SourceLine>return 2</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>integer</ItemResult>
- </Method>
+ </Note>
  <Property>
-  <ItemName>mPresentedClass()</ItemName>
+  <ItemName>arDates()</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mPresentedClass() As SampleUserClass</SourceLine>
+   <SourceLine>Shared arDates() As string</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mPresentedClass() As SampleUserClass</ItemDeclaration>
+  <ItemDeclaration>arDates() As string</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
+  <Shared>1</Shared>
  </Property>
  <Property>
-  <ItemName>mIter</ItemName>
+  <ItemName>arDetails()</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mIter As integer</SourceLine>
+   <SourceLine>Shared arDetails() As string</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mIter As integer</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>0</Shared>
+  <ItemDeclaration>arDetails() As string</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+ </Property>
+ <Property>
+  <ItemName>arAmounts()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Shared arAmounts() As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>arAmounts() As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
  </Property>
  <ViewBehavior>
   <ViewProperty>
