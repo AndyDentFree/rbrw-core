@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Module" ID="1935762619">
  <ObjName>rbrwGraphicsPrint</ObjName>
- <ObjContainerID>795249001</ObjContainerID>
+ <ObjContainerID>128126478</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwPagedGraphicsEnv</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -28,11 +28,13 @@
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim printEnv as new rbrwGraphicsPrint(ps)  // will populate ps if nil</SourceLine>
-   <SourceLine>rbrwCurrentDraw.ScalingFactor = ps.HorizontalResolution / 72.0</SourceLine>
    <SourceLine>printEnv.start</SourceLine>
    <SourceLine>rbrwCurrentDraw.CurrentGraphics = printG  // used for sizing</SourceLine>
    <SourceLine>r.draw printEnv  //********* does the real work of generating pages from the report definition, </SourceLine>
    <SourceLine>printEnv.finish</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>rbrwCurrentDraw.ScalingFactor = ps.HorizontalResolution / 72.0</SourceLine>
+   <SourceLine>printEnv.renderPagesToPrinter</SourceLine>
    <SourceLine>rbrwCurrentDraw.CurrentGraphics = nil  // to close the printer</SourceLine>
    <SourceLine>rbrwCurrentDraw.ScalingFactor = 1.0</SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -45,13 +47,12 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>finish</ItemName>
+  <ItemName>renderPagesToPrinter</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub finish()</SourceLine>
-   <SourceLine>super.finish</SourceLine>
+   <SourceLine>Sub renderPagesToPrinter()</SourceLine>
    <SourceLine>if mPages is nil then return  // no pages to dump to printer</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// dump all the pages to the printer now we have them in memory</SourceLine>
@@ -61,6 +62,7 @@
    <SourceLine>dim printG as Graphics = rbrwCurrentDraw.CurrentGraphics</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim firstPageIndex as integer = printG.FirstPage</SourceLine>
+   <SourceLineBreakpoint>9</SourceLineBreakpoint>
    <SourceLine>dim lastPageIndexReq as integer = printG.LastPage</SourceLine>
    <SourceLine>for pageIndex as integer = 0 to lastPageIndex</SourceLine>
    <SourceLine>pages.page(pageIndex).draw ignoredRect</SourceLine>
@@ -71,7 +73,7 @@
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
+  <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>

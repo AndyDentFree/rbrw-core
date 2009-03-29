@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
-<block type="Module" ID="758678980">
+<RBProject version="2009r2">
+<block type="Module" ID="439837969">
  <ObjName>rbrwCurrentDraw</ObjName>
- <ObjContainerID>1501818976</ObjContainerID>
- <IsClass>1</IsClass>
+ <ObjContainerID>1975780848</ObjContainerID>
+ <IsClass>0</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
@@ -13,14 +13,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function CurrentGraphics() As Graphics</SourceLine>
+   <SourceLine>Function CurrentGraphics() As Graphics</SourceLine>
    <SourceLine>return sCurrentGraphics</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult>Graphics</ItemResult>
  </Method>
@@ -30,7 +30,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub CurrentGraphics(assigns value as Graphics)</SourceLine>
+   <SourceLine>Sub CurrentGraphics(assigns value as Graphics)</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
    <SourceLine>if sCurrentGraphics = nil then</SourceLine>
    <SourceLine>system.DebugLog "rbrwCurrentDraw.CurrentGraphics.Set setting Graphics pointer value"</SourceLine>
@@ -51,7 +51,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>assigns value as Graphics</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -61,7 +61,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function getTextExtent(ts as rbrwTextStyle, text as string) As double</SourceLine>
+   <SourceLine>Function getTextExtent(ts as rbrwTextStyle, text as string) As double</SourceLine>
    <SourceLine>SetStyleFrom ts</SourceLine>
    <SourceLine>return sCurrentGraphics.StringWidth( text )</SourceLine>
    <SourceLine>End Function</SourceLine>
@@ -69,7 +69,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>ts as rbrwTextStyle, text as string</ItemParams>
   <ItemResult>double</ItemResult>
  </Method>
@@ -79,14 +79,19 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub incX(dx as double)</SourceLine>
+   <SourceLine>Sub incX(dx as double)</SourceLine>
    <SourceLine>sX = sX + dx</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if sX &lt; 0 then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>dx as double</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -96,14 +101,19 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub incY(dy as double)</SourceLine>
+   <SourceLine>Sub incY(dy as double)</SourceLine>
    <SourceLine>sY = sY + dy</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if sY &lt; 0 then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>dy as double</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -113,15 +123,20 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub moveTo(inX as double, inY as double)</SourceLine>
+   <SourceLine>Sub moveTo(inX as double, inY as double)</SourceLine>
    <SourceLine>sX = inX</SourceLine>
    <SourceLine>sy = inY</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if sX &lt; 0  or sY &lt; 0 then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>inX as double, inY as double</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -131,17 +146,22 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub moveTo(inX as double, inY as double, ByRef outPrevCoords as rbrw.Point)</SourceLine>
+   <SourceLine>Sub moveTo(inX as double, inY as double, ByRef outPrevCoords as rbrw.Point)</SourceLine>
    <SourceLine>outPrevCoords.x = sX</SourceLine>
    <SourceLine>outPrevCoords.y = sY</SourceLine>
    <SourceLine>sX = inX</SourceLine>
    <SourceLine>sy = inY</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if sX &lt; 0  or sY &lt; 0 then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>inX as double, inY as double, ByRef outPrevCoords as rbrw.Point</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -151,7 +171,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub resetCoordinates()</SourceLine>
+   <SourceLine>Sub resetCoordinates()</SourceLine>
    <SourceLine>sX = 0.0</SourceLine>
    <SourceLine>sY = 0.0</SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -159,7 +179,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -169,14 +189,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function x() As double</SourceLine>
+   <SourceLine>Function x() As double</SourceLine>
    <SourceLine>return sX</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult>double</ItemResult>
  </Method>
@@ -186,14 +206,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function y() As double</SourceLine>
+   <SourceLine>Function y() As double</SourceLine>
    <SourceLine>return sY</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult>double</ItemResult>
  </Method>
@@ -203,7 +223,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub createScratchPictureGraphics(picWidth as integer, picHeight as integer)</SourceLine>
+   <SourceLine>Sub createScratchPictureGraphics(picWidth as integer, picHeight as integer)</SourceLine>
    <SourceLine>sPictureForGraphics = new Picture(picWidth, picHeight, 32)</SourceLine>
    <SourceLine>sCurrentGraphics = sPictureForGraphics.Graphics</SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -211,7 +231,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>picWidth as integer, picHeight as integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -221,7 +241,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub releaseScratchPictureGraphics()</SourceLine>
+   <SourceLine>Sub releaseScratchPictureGraphics()</SourceLine>
    <SourceLine>if sPictureForGraphics is nil then return</SourceLine>
    <SourceLine>if sCurrentGraphics = sPictureForGraphics.Graphics then</SourceLine>
    <SourceLine>sCurrentGraphics = nil</SourceLine>
@@ -232,7 +252,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -242,14 +262,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub ClearRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
+   <SourceLine>Sub ClearRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.ClearRect sf*x, sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, width As Integer, height As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -259,14 +279,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function Clip(x as Integer, y as Integer, width as Integer, height as Integer) As Graphics</SourceLine>
+   <SourceLine>Function Clip(x as Integer, y as Integer, width as Integer, height as Integer) As Graphics</SourceLine>
    <SourceLine>return sCurrentGraphics.Clip( sf*x, sf*y, sf*width, sf*height )</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x as Integer, y as Integer, width as Integer, height as Integer</ItemParams>
   <ItemResult>Graphics</ItemResult>
  </Method>
@@ -276,14 +296,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawCautionIcon(x As Integer, y As Integer)</SourceLine>
+   <SourceLine>Sub DrawCautionIcon(x As Integer, y As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawCautionIcon sf*x, sf*y</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -293,14 +313,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawLine(x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer)</SourceLine>
+   <SourceLine>Sub DrawLine(x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.ClearRect sf*x1, sf*y1, sf*x2, sf*y2</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -310,14 +330,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawOval(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
+   <SourceLine>Sub DrawOval(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawOval sf*x, sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, width As Integer, height As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -327,14 +347,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
+   <SourceLine>Sub DrawRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawRect sf*x, sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, width As Integer, height As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -344,14 +364,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawRoundRect(x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer)</SourceLine>
+   <SourceLine>Sub DrawRoundRect(x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawRoundRect sf*x, sf*y, sf*width, sf*height, sf*arcWidth, sf*arcHeight</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -361,14 +381,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub FillOval(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
+   <SourceLine>Sub FillOval(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.FillOval sf*x, sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, width As Integer, height As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -378,14 +398,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub FillRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
+   <SourceLine>Sub FillRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.FillRect sf*x, sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, width As Integer, height As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -395,14 +415,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub FillRoundRect(x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer)</SourceLine>
+   <SourceLine>Sub FillRoundRect(x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.FillRoundRect sf*x, sf*y, sf*width, sf*height, sf*arcWidth, sf*arcHeight</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -412,7 +432,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawPicture(image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, sx As Integer=0, sy As Integer=0, w2 As Integer=-10000, h2 As Integer=-10000)</SourceLine>
+   <SourceLine>Sub DrawPicture(image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, sx As Integer=0, sy As Integer=0, w2 As Integer=-10000, h2 As Integer=-10000)</SourceLine>
    <SourceLine>if w1=-10000 then</SourceLine>
    <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y</SourceLine>
    <SourceLine>elseif h1=-10000 then</SourceLine>
@@ -433,7 +453,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, sx As Integer=0, sy As Integer=0, w2 As Integer=-10000, h2 As Integer=-10000</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -443,14 +463,22 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawString(str As String, x As Integer, y As Integer, width As Integer=0, condense As Boolean=False)</SourceLine>
+   <SourceLine>Sub DrawString(str As String, x As Integer, y As Integer, width As Integer=0, condense As Boolean=False)</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if x &lt; 0 or y &lt; 0 or IsNaN(x) or IsNan(y) then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>system.DebugLog "rbrwCurrentDraw.DrawString '" + str + "' at: " + str(x) + ", " + str(y) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>sCurrentGraphics.DrawString str, sf*x, sf*y, sf*width, condense</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>str As String, x As Integer, y As Integer, width As Integer=0, condense As Boolean=False</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -460,14 +488,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawObject(object2D As Object2D, deltaX As Integer=0, deltaY As Integer=0)</SourceLine>
+   <SourceLine>Sub DrawObject(object2D As Object2D, deltaX As Integer=0, deltaY As Integer=0)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawObject object2D, sf*deltaX, sf*deltaY</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>object2D As Object2D, deltaX As Integer=0, deltaY As Integer=0</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -477,7 +505,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function StringWidth(Text As String) As Double</SourceLine>
+   <SourceLine>Function StringWidth(Text As String) As Double</SourceLine>
    <SourceLine>// NOT scaled as should be scaled by setting scaled TextSize</SourceLine>
    <SourceLine>return  sCurrentGraphics.StringWidth( Text )  // may be slightly inaccurate compared to real result if working on scaled fonts</SourceLine>
    <SourceLine>End Function</SourceLine>
@@ -485,7 +513,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>Text As String</ItemParams>
   <ItemResult>Double</ItemResult>
  </Method>
@@ -495,7 +523,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function StringHeight(Text As String, WrapWidth As Integer) As Integer</SourceLine>
+   <SourceLine>Function StringHeight(Text As String, WrapWidth As Integer) As Integer</SourceLine>
    <SourceLine>// NOT scaled as should be scaled by setting scaled TextSize</SourceLine>
    <SourceLine>return sCurrentGraphics.StringHeight( Text, WrapWidth )  // may be slightly inaccurate compared to real result if working on scaled fonts</SourceLine>
    <SourceLine>End Function</SourceLine>
@@ -503,7 +531,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>Text As String, WrapWidth As Integer</ItemParams>
   <ItemResult>Integer</ItemResult>
  </Method>
@@ -513,14 +541,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function StringDirection(Text As String) As Integer</SourceLine>
+   <SourceLine>Function StringDirection(Text As String) As Integer</SourceLine>
    <SourceLine>return sCurrentGraphics.StringDirection(Text)</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>Text As String</ItemParams>
   <ItemResult>Integer</ItemResult>
  </Method>
@@ -530,14 +558,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub NextPage()</SourceLine>
+   <SourceLine>Sub NextPage()</SourceLine>
    <SourceLine>sCurrentGraphics.NextPage</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -547,14 +575,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawStopIcon(x As Integer, y As Integer)</SourceLine>
+   <SourceLine>Sub DrawStopIcon(x As Integer, y As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawStopIcon sf*x, sf*y</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -564,14 +592,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawNoteIcon(x As Integer, y As Integer)</SourceLine>
+   <SourceLine>Sub DrawNoteIcon(x As Integer, y As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawNoteIcon sf*x, sf*y</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -581,14 +609,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawCautionIcon1(x As Integer, y As Integer)</SourceLine>
+   <SourceLine>Sub DrawCautionIcon1(x As Integer, y As Integer)</SourceLine>
    <SourceLine>sCurrentGraphics.DrawCautionIcon sf*x, sf*y</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -598,14 +626,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function Pixel(x As Integer, y As Integer) As Color</SourceLine>
+   <SourceLine>Function Pixel(x As Integer, y As Integer) As Color</SourceLine>
    <SourceLine>return sCurrentGraphics.Pixel( sf*x, sf*y) </SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer</ItemParams>
   <ItemResult>Color</ItemResult>
  </Method>
@@ -615,7 +643,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub DrawPolygon(points() As Integer)</SourceLine>
+   <SourceLine>Sub DrawPolygon(points() As Integer)</SourceLine>
    <SourceLine>dim scaledPoints() as integer</SourceLine>
    <SourceLine>for each p as integer in points</SourceLine>
    <SourceLine>scaledPoints.Append sf*p</SourceLine>
@@ -626,7 +654,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>points() As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -636,7 +664,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub FillPolygon(points() As Integer)</SourceLine>
+   <SourceLine>Sub FillPolygon(points() As Integer)</SourceLine>
    <SourceLine>dim scaledPoints() as integer</SourceLine>
    <SourceLine>for each p as integer in points</SourceLine>
    <SourceLine>scaledPoints.Append sf*p</SourceLine>
@@ -647,7 +675,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>points() As Integer</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -657,14 +685,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function Handle(type As Integer) As Integer</SourceLine>
+   <SourceLine>Function Handle(type As Integer) As Integer</SourceLine>
    <SourceLine>return sCurrentGraphics.Handle(type)</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>type As Integer</ItemParams>
   <ItemResult>Integer</ItemResult>
  </Method>
@@ -674,14 +702,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub Pixel(x As Integer, y As Integer, Assigns _value As Color)</SourceLine>
+   <SourceLine>Sub Pixel(x As Integer, y As Integer, Assigns _value As Color)</SourceLine>
    <SourceLine>sCurrentGraphics.Pixel( sf*x, sf*y) = _value</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>x As Integer, y As Integer, Assigns _value As Color</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -691,7 +719,11 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub SetStyleFrom(inStyle as rbrwTextStyle)</SourceLine>
+   <SourceLine>Sub SetStyleFrom(inStyle as rbrwTextStyle)</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>dim v as Variant = InStyle</SourceLine>
+   <SourceLine>system.DebugLog "rbrwCurrentDraw.SetStyleFrom " +Hex(v.Hash) + " Font: " + inStyle.mTextFont + " " + str(inStyle.mTextSize) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>Bold = inStyle.mBold</SourceLine>
    <SourceLine>Italic = inStyle.mItalic</SourceLine>
    <SourceLine>TextFont = inStyle.mTextFont</SourceLine>
@@ -703,7 +735,7 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <ItemParams>inStyle as rbrwTextStyle</ItemParams>
   <ItemResult></ItemResult>
  </Method>
@@ -729,13 +761,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared sCurrentGraphics As Graphics</SourceLine>
+   <SourceLine>sCurrentGraphics As Graphics</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>sCurrentGraphics As Graphics</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>1</Shared>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <Property>
   <ItemName>sX</ItemName>
@@ -743,13 +775,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared sX As double</SourceLine>
+   <SourceLine>sX As double</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>sX As double</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>1</Shared>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <Property>
   <ItemName>sY</ItemName>
@@ -757,13 +789,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared sY As double</SourceLine>
+   <SourceLine>sY As double</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>sY As double</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>1</Shared>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <Property>
   <ItemName>sPictureForGraphics</ItemName>
@@ -771,13 +803,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared sPictureForGraphics As Picture</SourceLine>
+   <SourceLine>sPictureForGraphics As Picture</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>sPictureForGraphics As Picture</ItemDeclaration>
-  <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <Property>
   <ItemName>sScalingFactor</ItemName>
@@ -785,13 +817,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared sScalingFactor As double</SourceLine>
+   <SourceLine>sScalingFactor As double</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>sScalingFactor As double = 1.0</ItemDeclaration>
+  <ItemDeclaration>sScalingFactor As double</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
  </Property>
  <Property>
   <ItemName>sf</ItemName>
@@ -799,13 +831,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared sf As double = 1.0</SourceLine>
+   <SourceLine>sf As double</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>sf As double = 1.0</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>1</Shared>
+  <ItemDeclaration>sf As double</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <Property>
   <ItemName>ScalingFactor</ItemName>
@@ -813,13 +845,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared ScalingFactor As double</SourceLine>
+   <SourceLine>ScalingFactor As double</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>ScalingFactor As double</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -839,13 +871,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared Bold As Boolean</SourceLine>
+   <SourceLine>Bold As Boolean</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>Bold As Boolean</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -865,13 +897,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared Italic As Boolean</SourceLine>
+   <SourceLine>Italic As Boolean</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>Italic As Boolean</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -891,13 +923,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared Underline As Boolean</SourceLine>
+   <SourceLine>Underline As Boolean</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>Underline As Boolean</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -917,13 +949,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared PenHeight As Integer</SourceLine>
+   <SourceLine>PenHeight As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>PenHeight As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -943,13 +975,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared PenWidth As Integer</SourceLine>
+   <SourceLine>PenWidth As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>PenWidth As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -969,13 +1001,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared TextSize As Integer</SourceLine>
+   <SourceLine>TextSize As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>TextSize As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -996,13 +1028,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared TextHeight As Integer</SourceLine>
+   <SourceLine>TextHeight As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>TextHeight As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -1023,13 +1055,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared Height As Integer</SourceLine>
+   <SourceLine>Height As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>Height As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -1049,13 +1081,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared Width As Integer</SourceLine>
+   <SourceLine>Width As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>Width As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -1076,13 +1108,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared ForeColor As Color</SourceLine>
+   <SourceLine>ForeColor As Color</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>ForeColor As Color</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -1102,13 +1134,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared UseOldRenderer As Boolean</SourceLine>
+   <SourceLine>UseOldRenderer As Boolean</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>UseOldRenderer As Boolean</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -1128,13 +1160,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared TextAscent As Integer</SourceLine>
+   <SourceLine>TextAscent As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>TextAscent As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -1155,13 +1187,13 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Shared TextFont As String</SourceLine>
+   <SourceLine>TextFont As String</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>TextFont As String</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
+  <Shared>0</Shared>
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
@@ -1186,7 +1218,7 @@
    <ObjName>Index</ObjName>
    <Visible>1</Visible>
    <PropertyGroup>ID</PropertyGroup>
-   <PropertyValue>2147483648</PropertyValue>
+   <PropertyValue>-2147483648</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
   <ViewProperty>
@@ -1209,6 +1241,106 @@
    <PropertyValue>0</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
+  <ViewProperty>
+   <ObjName>sScalingFactor</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>ScalingFactor</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Bold</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Boolean</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Italic</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Boolean</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Underline</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Boolean</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>PenHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>PenWidth</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>TextSize</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>TextHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Height</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Width</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>ForeColor</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>&amp;h000000</PropertyValue>
+   <ItemType>Color</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>UseOldRenderer</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Boolean</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>TextAscent</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>TextFont</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>String</ItemType>
+   <EditorType>MultiLineEditor</EditorType>
+  </ViewProperty>
  </ViewBehavior>
+ <Constant>
+  <ItemName>LoggingRBRWDrawing</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>LoggingRBRWDrawing</ItemName>
+  <ItemType>3</ItemType>
+  <ItemDef>True</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
 </block>
 </RBProject>

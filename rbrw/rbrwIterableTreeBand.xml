@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="1890519234">
  <ObjName>rbrwIterableTreeBand</ObjName>
- <ObjContainerID>-1074031412</ObjContainerID>
+ <ObjContainerID>737559286</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwBand</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -101,6 +101,23 @@
   <Shared>0</Shared>
   <ItemParams>inSourceIterator as rbrwIterableSource, inFields as rbrwFieldFacade, inStyle as rbrwTextStyle=nil</ItemParams>
   <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>hasColSizer</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function hasColSizer() As Boolean</SourceLine>
+   <SourceLine>return not(mColSizer is nil)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>Boolean</ItemResult>
  </Method>
  <Note>
   <ItemName>about</ItemName>
@@ -312,6 +329,49 @@
    <SourceLine>return mFields</SourceLine>
    <SourceLine>End Get</SourceLine>
   </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>colSizer</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>colSizer As rbrwColSizer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>colSizer As rbrwColSizer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine>mColSizer = value</SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>if mColSizer is nil then</SourceLine>
+   <SourceLine>mColSizer = new rbrwColSizer( mFields.count )</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return mColSizer  // maybe nil, set by setColWidth</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mColSizer</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColSizer As rbrwColSizer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColSizer As rbrwColSizer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <ViewBehavior>
   <ViewProperty>

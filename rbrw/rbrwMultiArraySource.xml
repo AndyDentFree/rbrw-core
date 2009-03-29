@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Module" ID="1937925681">
  <ObjName>rbrwMultiArraySource</ObjName>
  <ObjContainerID>450275996</ObjContainerID>
@@ -131,11 +131,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function fieldValue(name as string) As string</SourceLine>
    <SourceLine>// Part of the rbrwFieldFacade interface.</SourceLine>
-   <SourceLine>if mColNames2Index is nil then</SourceLine>
-   <SourceLine>InitDefaulColNames</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>dim col as integer = mColNames2Index.Value( name )  // generates key error i </SourceLine>
-   <SourceLine>return fieldValue( col )</SourceLine>
+   <SourceLine>return fieldValue( fieldIndex(name) )</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -296,7 +292,9 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub InitDefaulColNames()</SourceLine>
    <SourceLine>mColNames2Index = new Dictionary</SourceLine>
-   <SourceLine>for i as integer = 0 to mFieldCount-1</SourceLine>
+   <SourceLine>dim fieldsUB as integer = mFieldCount - 1</SourceLine>
+   <SourceLine>redim mNames( fieldsUB )</SourceLine>
+   <SourceLine>for i as integer = 0 to fieldsUB</SourceLine>
    <SourceLine>dim name as string = Str(i)</SourceLine>
    <SourceLine>mNames(i) = name</SourceLine>
    <SourceLine>mColNames2Index.Value( name ) = i</SourceLine>
@@ -317,8 +315,8 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub setColNames(inNames() as string)</SourceLine>
-   <SourceLine>if mFieldCount&lt;&gt; UBound(inNames) + 1 then</SourceLine>
-   <SourceLine>raise new OutOfBoundsException</SourceLine>
+   <SourceLine>if mFieldCount&lt; UBound(inNames) + 1 then</SourceLine>
+   <SourceLine>raise new OutOfBoundsException // </SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>mNames = inNames</SourceLine>
    <SourceLine>mColNames2Index = new Dictionary</SourceLine>
@@ -400,6 +398,61 @@
   <Shared>0</Shared>
   <ItemParams>value as integer</ItemParams>
   <ItemResult>String</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetDoubleFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetDoubleFormatter(colName as string, informatter as DoubleFormatter)</SourceLine>
+   <SourceLine>mFormatters.value( fieldIndex(colName) ) = informatter</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colName as string, informatter as DoubleFormatter</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fieldIndex</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function fieldIndex(name as String) As Integer</SourceLine>
+   <SourceLine>if mColNames2Index is nil then</SourceLine>
+   <SourceLine>InitDefaulColNames</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim col as integer = mColNames2Index.Value( name )  // generates key error i</SourceLine>
+   <SourceLine>return col</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>name as String</ItemParams>
+  <ItemResult>Integer</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>SetIntegerFormatter</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub SetIntegerFormatter(colName as String, informatter as IntegerFormatter)</SourceLine>
+   <SourceLine>mFormatters.value( fieldIndex(colName) ) = informatter</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colName as String, informatter as IntegerFormatter</ItemParams>
+  <ItemResult></ItemResult>
  </Method>
  <Note>
   <ItemName>About</ItemName>

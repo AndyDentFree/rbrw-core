@@ -235,6 +235,33 @@ Inherits Application
 		  mas.setColNames( Array("Date", "Details", "Amount" ) )
 		  
 		  dim r as new rbrwReport( mas )
+		  
+		  r.body.colSizer.fixedWidth(0) = new scn( 0.75, inches )
+		  // leave details to take up the middle
+		  r.body.colSizer.fixedPercentage(2) = 15
+		  
+		  dim aBand as new rbrwLayoutBand
+		  aBand.Add  "MockMe Widgets, INC"
+		  // desired approach not yet implemented, see remainder below after startNewRow
+		  'aBand.Add  "MockMe Widgets, INC" + EndOfLine + _
+		  '"123 Stub Street" + EndOfLine + _
+		  '"Fowlerville WI 53999"
+		  
+		  dim rightblock as new rbrwTextBlock("Statement")
+		  rightblock.uniqueTextStyle.Bold = true
+		  rightblock.uniqueTextStyle.TextSize = 18
+		  aBand.Add rightblock, blockAlignT.alignRight
+		  
+		  aBand.startNewRow
+		  aBand.Add  "123 Stub Street"
+		  aBand.startNewRow
+		  aBand.Add  "Fowlerville WI 53999"
+		  r.PageHeaders.Add aBand
+		  r.pageHeaders.Add new rbrwSpaceBand(12, mm)
+		  
+		  r.PageFooters.Add new rbrwSpaceBand(0.5, inches)
+		  r.PageFooters.Add "This is a footer"
+		  
 		  return r
 		End Function
 	#tag EndMethod

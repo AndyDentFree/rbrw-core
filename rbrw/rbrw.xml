@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5">
+<RBProject version="2009r2">
 <block type="Module" ID="-1075940506">
  <ObjName>rbrw</ObjName>
  <ObjContainerID>-1075940312</ObjContainerID>
@@ -183,6 +183,16 @@
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
  </ViewBehavior>
+ <Constant>
+  <ItemName>LoggingRBRWDrawing</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>LoggingRBRWDrawing</ItemName>
+  <ItemType>3</ItemType>
+  <ItemDef>True</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
  <Structure>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>Point</ItemName>

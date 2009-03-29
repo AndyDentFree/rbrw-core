@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Module" ID="783449683">
  <ObjName>SampleFinancialData</ObjName>
- <ObjContainerID>2056130415</ObjContainerID>
+ <ObjContainerID>-1075899702</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -118,22 +118,22 @@
    <SourceLine>arDates.Append "04/15/2008"</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1 Automotive"</SourceLine>
    <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1 Car reconstruction after a fire, "+EndOfLine+"wings rebuilt and new chrome fins, lots of time in the workshop so the job details can wordwrap as well as demontrating an ability to cope with an embedded endofline"</SourceLine>
    <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103748-1 Pancakes"</SourceLine>
    <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1 Widgets, 3 boxes of"</SourceLine>
    <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>

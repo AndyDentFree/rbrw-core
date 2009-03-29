@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="-1074030933">
  <ObjName>rbrwTextBlock</ObjName>
- <ObjContainerID>-1074030850</ObjContainerID>
+ <ObjContainerID>883326124</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwBlock</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -41,60 +41,6 @@
   <Shared>0</Shared>
   <ItemParams>inSource as rbrwSource</ItemParams>
   <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>HeightZZZZ</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function HeightZZZZ(g As Graphics) As Double</SourceLine>
-   <SourceLine>'SetGraphicsStyleIfOverride g</SourceLine>
-   <SourceLine>'return g.TextAscent</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>g As Graphics</ItemParams>
-  <ItemResult>Double</ItemResult>
- </Method>
- <Method>
-  <ItemName>RenderZZZ</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub RenderZZZ(g as Graphics, xOffset as double = 0, yOffset as double = 0)</SourceLine>
-   <SourceLine>'SetGraphicsStyleIfOverride g</SourceLine>
-   <SourceLine>'g.DrawString mSource.value, xOffset, yOffset</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>g as Graphics, xOffset as double = 0, yOffset as double = 0</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>WidthZZZZ</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function WidthZZZZ(g As Graphics) As Double</SourceLine>
-   <SourceLine>'SetGraphicsStyleIfOverride g</SourceLine>
-   <SourceLine>'return g.StringWidth(mSource.value)</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>g As Graphics</ItemParams>
-  <ItemResult>Double</ItemResult>
  </Method>
  <Method>
   <ItemName>clone</ItemName>
@@ -188,13 +134,6 @@
   </GetAccessor>
  </Property>
  <ViewBehavior>
-  <ViewProperty>
-   <ObjName>ID</ObjName>
-   <PropertyGroup>Behavior</PropertyGroup>
-   <ItemType>string</ItemType>
-   <EditorType>MultiLineEditor</EditorType>
-   <InheritsFrom>rbrwDrawable</InheritsFrom>
-  </ViewProperty>
   <ViewProperty>
    <ObjName>mMoveDownAfter</ObjName>
    <PropertyGroup>Behavior</PropertyGroup>

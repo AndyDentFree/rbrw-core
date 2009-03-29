@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5">
+<RBProject version="2009r2">
 <block type="Module" ID="46791268">
  <ObjName>rbrwTreeBand_Render</ObjName>
  <ObjContainerID>1963759756</ObjContainerID>
@@ -55,7 +55,14 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub CalcColWidths()</SourceLine>
-   <SourceLine>if mColSizer is nil then mColSizer = new rbrwColSizer( mOwner.fields.count )</SourceLine>
+   <SourceLine>if mColSizer is nil then </SourceLine>
+   <SourceLine>if mOwner.hasColSizer then</SourceLine>
+   <SourceLine>mColSizer = mOwner.colSizer</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>mColSizer = new rbrwColSizer( mOwner.fields.count )</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
    <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="1349224694">
  <ObjName>rbrwLayoutBand</ObjName>
- <ObjContainerID>-1074031412</ObjContainerID>
+ <ObjContainerID>737559286</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwFixedHeightBand</Superclass>
  <ItemFlags>1</ItemFlags>

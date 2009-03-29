@@ -484,3 +484,70 @@ ReportDemoApp.SetupSampleData
   
 ReportDemoApp.ReportQuickbooksStyleStatement
 - use rbrwMultiArraySource
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/25 Wed
+MINOR TWEAKS TO SUPPORT STATEMENTS
+
+rbrwMultiArraySource.InitDefaulColNames
+- redim mNames
+
+rbrwMultiArraySource.fieldIndex
+- added
+
+rbrwMultiArraySource.fieldValue(string) as string
+- use fieldIndex
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/26 Thu
+COLUMN SIZING
+
+rbrwTreeBand_Render.CalcColWidths
+- check owner for col sizer
+
+rbrwIterableTreeBand.hasColSizer
+rbrwIterableTreeBand.colSizer
+rbrwIterableTreeBand.mColSizer
+- added
+
+rbrwColSizer.fixedWidth(integer,scn)
+- added
+
+ReportDemoApp.ReportQuickbooksStyleStatement
+- setup the fixed widths
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/28 Sat
+FIX RAILURE TO RENDER COLUMNS WHEN PRINTING
+
+rbrwGraphicsPrint.finish
+- renamed renderPagesToPrinter, leaving parent to supply a "finish"
+
+rbrwGraphicsPrint.PrintReport
+- set scaling and call renderPagesToPrinter after finish
+
+wndFinancialStatements.PrintFinancialStatementsReport
+- add option to show RBRW preview window if holding down option key
+
+rbrwPreviewWindow
+- added
+
+DebuggingUtils.IsNaN
+- added
+
+scn.points
+scn.scaled
+scn.cm
+scn.mm
+scn.inch
+scn.changeScaled
+scn.setScaled
+- add debug assert checking divisor
+
+scn.inches
+- added duplicate of scn.inch
+

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="622934382">
  <ObjName>rbrwColSizer</ObjName>
  <ObjContainerID>-1075463008</ObjContainerID>
@@ -340,6 +340,23 @@
   <Shared>1</Shared>
   <ItemParams>inType as rbrw.fieldT</ItemParams>
   <ItemResult>rbrwColSizer.colalignT</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>fixedWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub fixedWidth(colNum as integer, assigns value as scn)</SourceLine>
+   <SourceLine>mColFixedWidths(colNum) = value.points</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>colNum as integer, assigns value as scn</ItemParams>
+  <ItemResult></ItemResult>
  </Method>
  <Note>
   <ItemName>about</ItemName>

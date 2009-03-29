@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Window" ID="-1138389540">
  <ObjName>rbrwPreviewWindow</ObjName>
- <ObjContainerID>-1075894749</ObjContainerID>
+ <ObjContainerID>1128200001</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>Window</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -15,7 +15,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Paint(g As Graphics)</SourceLine>
-   <SourceLine>system.DebugLog "rbrwPreviewWindow.Paint" + self.Title + EndOfLine</SourceLine>
+   <SourceLine>system.DebugLog "rbrwPreviewWindow.Paint " + self.Title + EndOfLine</SourceLine>
    <SourceLine>if amClosing then return</SourceLine>
    <SourceLine>UpdateCanvas</SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -41,7 +41,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Close()</SourceLine>
-   <SourceLine>system.DebugLog "rbrwPreviewWindow.Close" + self.Title + EndOfLine</SourceLine>
+   <SourceLine>system.DebugLog "rbrwPreviewWindow.Close " + self.Title + EndOfLine</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>

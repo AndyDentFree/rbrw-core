@@ -1,65 +1,12 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Module" ID="-1075898055">
  <ObjName>rbrwReport</ObjName>
- <ObjContainerID>-1075892825</ObjContainerID>
+ <ObjContainerID>633798800</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
- <Method>
-  <ItemName>ZZZZZRender</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub ZZZZZRender(g as Graphics, xOffset as double = 0, yOffset as double = 0)</SourceLine>
-   <SourceLine>'g.SetStyleFrom defaultTextStyle '  in case none of our parts override</SourceLine>
-   <SourceLine>'dim pageWidth as double = g.Width</SourceLine>
-   <SourceLine>'dim pageHeight as double = g.Height</SourceLine>
-   <SourceLine>'dim footersHeight, footersY as double </SourceLine>
-   <SourceLine>'if not (mPageFooters is nil) then </SourceLine>
-   <SourceLine>'footersHeight = mPageFooters.Height(g)</SourceLine>
-   <SourceLine>'footersY = pageHeight - footersHeight</SourceLine>
-   <SourceLine>'end if</SourceLine>
-   <SourceLine>'if not(mpageHeaders is nil) then mpageHeaders.Render g, xOffset, yOffset, pageWidth</SourceLine>
-   <SourceLine>'if not (mBody is nil) then</SourceLine>
-   <SourceLine>'mBody.startIterators</SourceLine>
-   <SourceLine>'RenderPageBody g, xOffset, yOffset '  within its loop may render other mpageHeaders</SourceLine>
-   <SourceLine>'end if</SourceLine>
-   <SourceLine>'yOffset = footersY</SourceLine>
-   <SourceLine>'if footersHeight &gt; 0 then mPageFooters.Render g, xOffset, yOffset, pageWidth</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>g as Graphics, xOffset as double = 0, yOffset as double = 0</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>ZZZZRenderPageBody</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub ZZZZRenderPageBody(g as Graphics, xOffset as double = 0, yOffset as double = 0)</SourceLine>
-   <SourceLine>'' separate method in case someone wants to subclass  a report and override</SourceLine>
-   <SourceLine>'dim pageWidth as double = g.Width</SourceLine>
-   <SourceLine>'do</SourceLine>
-   <SourceLine>'mBody.Render g, xOffset, yOffset, pageWidth '  may break pages</SourceLine>
-   <SourceLine>'if not mBody.advanceIterators then exit</SourceLine>
-   <SourceLine>'loop</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>g as Graphics, xOffset as double = 0, yOffset as double = 0</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
  <Method>
   <ItemName>body</ItemName>
   <Compatibility></Compatibility>
@@ -817,6 +764,11 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub incVerticalPos(dy as double)</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if dy &lt; 0 or IsNaN(dy) then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>mVerticalPos = mVerticalPos + dy</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -1059,6 +1011,12 @@
   <SetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLineBreakpoint>1</SourceLineBreakpoint>
+   <SourceLine>if value &lt; 0 or IsNaN(value) then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>mVerticalPos = value</SourceLine>
    <SourceLine>End Set</SourceLine>
   </SetAccessor>

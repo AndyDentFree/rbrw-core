@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="-1074031330">
  <ObjName>rbrwFixedHeightBand</ObjName>
- <ObjContainerID>-1074031412</ObjContainerID>
+ <ObjContainerID>737559286</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwBand</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -85,7 +85,14 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function fixedHeight() As double</SourceLine>
    <SourceLine>if mHeight is nil then return 0.0</SourceLine>
-   <SourceLine>return mHeight.points</SourceLine>
+   <SourceLine>dim ret as double = mHeight.points</SourceLine>
+   <SourceLineBreakpoint>2</SourceLineBreakpoint>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if ret &lt; 0 or IsNaN(ret) then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>Return ret</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>

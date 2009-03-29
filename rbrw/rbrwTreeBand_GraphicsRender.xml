@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="50483742">
  <ObjName>rbrwTreeBand_GraphicsRender</ObjName>
- <ObjContainerID>1963759756</ObjContainerID>
+ <ObjContainerID>1643118258</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwTreeBand_Render</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -128,6 +128,7 @@
    <SourceLine>dim cellVerticalPos as double = curRep.currentVerticalPos - 1</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if i = numFlds-1 then</SourceLine>
+   <SourceLineBreakpoint>96</SourceLineBreakpoint>
    <SourceLine>cellWidth = bodyWidth - bandIndenting + leftMargin + (colSepWidth/2.0) - xPos</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
@@ -187,6 +188,7 @@
    <SourceLine>end if</SourceLine>
    <SourceLine>if bytes &gt; 0 then</SourceLine>
    <SourceLine>rbrwGraphicsTextDE.recordElement drawPos, ybase+rownum * lineHeight, sizedBody.text(i).mid( lines(rownum)+1, bytes)</SourceLine>
+   <SourceLineBreakpoint>155</SourceLineBreakpoint>
    <SourceLine>end if</SourceLine>
    <SourceLine>end if  // if any length in this row</SourceLine>
    <SourceLine>next  // loop through rows of report</SourceLine>

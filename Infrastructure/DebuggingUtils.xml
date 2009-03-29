@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r1">
+<RBProject version="2009r2">
 <block type="Module" ID="-1110946446">
  <ObjName>DebuggingUtils</ObjName>
- <ObjContainerID>-1137593125</ObjContainerID>
+ <ObjContainerID>55453937</ObjContainerID>
  <IsClass>0</IsClass>
  <ItemFlags>0</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -52,17 +52,39 @@
   <ItemParams></ItemParams>
   <ItemResult>string</ItemResult>
  </Method>
- <Property>
-  <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>lastMicroseconds As double</ItemDeclaration>
-  <ItemFlags>0</ItemFlags>
+ <Method>
+  <ItemName>IsNaN</ItemName>
   <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function IsNaN(f as double) As boolean</SourceLine>
+   <SourceLine>' thanks to Peter K Stuys</SourceLine>
+   <SourceLine>' http://support.realsoftware.com/listarchives/realbasic-nug/2005-08/msg04467.html</SourceLine>
+   <SourceLine>'returns true if f is a NaN</SourceLine>
+   <SourceLine>return not(f=f)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
+  <ItemParams>f as double</ItemParams>
+  <ItemResult>boolean</ItemResult>
+ </Method>
+ <Property>
+  <ItemName>lastMicroseconds</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>lastMicroseconds As double</SourceLine>
    <SourceLine>used to store last Microseconds</SourceLine>
   </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>lastMicroseconds As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <ViewBehavior>
   <ViewProperty>
@@ -98,8 +120,17 @@
    <PropertyValue>0</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
+  <ViewProperty>
+   <ObjName>lastMicroseconds</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
  </ViewBehavior>
  <Constant>
+  <ItemName>enableDebugLog</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>enableDebugLog</ItemName>
   <ItemType>3</ItemType>
@@ -107,6 +138,9 @@
   <ItemFlags>0</ItemFlags>
  </Constant>
  <Constant>
+  <ItemName>enableCharDetailedDebugLog</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>enableCharDetailedDebugLog</ItemName>
   <ItemType>3</ItemType>
@@ -114,6 +148,9 @@
   <ItemFlags>0</ItemFlags>
  </Constant>
  <Constant>
+  <ItemName>DEBUG_TEXT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>DEBUG_TEXT</ItemName>
   <ItemType>3</ItemType>
