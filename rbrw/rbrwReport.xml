@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="-1075898055">
  <ObjName>rbrwReport</ObjName>
- <ObjContainerID>633798800</ObjContainerID>
+ <ObjContainerID>-1075892825</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -651,7 +651,7 @@
    <SourceLine></SourceLine>
    <SourceLine>DrawBandList treeBand.headers</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>'treeBand.startTableBody</SourceLine>
+   <SourceLine>treeBand.startTableBody</SourceLine>
    <SourceLine>dim itering as rbrwIterableSource = treeBand.source</SourceLine>
    <SourceLine>itering.start</SourceLine>
    <SourceLine>while itering.more</SourceLine>
@@ -661,7 +661,7 @@
    <SourceLine>itering.inc</SourceLine>
    <SourceLine>wend</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>'treeBand.endTableBody</SourceLine>
+   <SourceLine>treeBand.endTableBody</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>DrawBandList treeBand.footers</SourceLine>
@@ -1012,7 +1012,6 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Set</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLineBreakpoint>1</SourceLineBreakpoint>
    <SourceLine>if value &lt; 0 or IsNaN(value) then</SourceLine>
    <SourceLine>break</SourceLine>
    <SourceLine>end if</SourceLine>

@@ -15,6 +15,13 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub SetupStatics()</SourceLine>
    <SourceLine>scnStatics.SetupStatics(1.0, points, 4.0)</SourceLine>
+   <SourceLine>if rbrwCurrentDraw.ScalingFactor = 0 then</SourceLine>
+   <SourceLine>// safety-net for behaviour observed in 2009r2b1 and possibly more general, that initialisation of properties is unreliable other than to zero</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>rbrwCurrentDraw.ScalingFactor = 1</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -238,6 +245,7 @@
    <SourceLine>alignLeft</SourceLine>
    <SourceLine>alignCentre</SourceLine>
    <SourceLine>alignRight</SourceLine>
+   <SourceLine>alignTextCentre</SourceLine>
   </ItemSource>
  </Enumeration>
  <Enumeration>

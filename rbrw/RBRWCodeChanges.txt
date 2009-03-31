@@ -551,3 +551,127 @@ scn.setScaled
 scn.inches
 - added duplicate of scn.inch
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/30 Mon
+ADDING PAGE SETUP CONTROL TO THE APP
+
+rbrwGraphicsPrint.PrintReport
+- reversed the order of optional Graphics and PrinterSetup, much more likely will 
+  pass in PS
+  
+ReportDemoApp.commonPrinterSetup
+- added
+
+ReportDemoApp.JustPrint
+- also pass in commonPrinterSetup
+
+ReportDemoApp.FilePageSetup
+- added to give user chance to populate commonPrinterSetup
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/30 Mon
+FIX PRINTING CONTENT OFFSET
+
+rbrwCurrentDraw.setOffset
+rbrwCurrentDraw.xOffset
+rbrwCurrentDraw.yOffset
+- added
+
+rbrwCurrentDraw
+- change all position calcs to include x and yOffset
+
+rbrwGraphicsPrint.PrintReport
+- call setOffset ps.pageLeft, ps.pageTop and then again to clear
+
+rbrwPagedGraphicsEnv.initDefaultPageSetup
+- set default resolution to 72 to match the default page dimensions which are in 72dpi coords
+
+rbrwPagedGraphicsEnv.setPageSetup
+- scale the paper rect according to the resolution in PS so it stays 72dpi
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+POSITIONING BLOCKS ON FINANCIAL REPORT
+
+rbrw.blockAlignT
+- added alignTextCentre
+
+
+rbrwLayoutBand_GraphicsRender.draw
+- add case for alignTextCentre
+
+in ReportTester:
+ReportDemoApp.AddFancyFooter
+- demonstrate using alignTextCentre
+
+SampleFinancialData.arBalance
+- added
+
+SampleFinancialData.CreateSampleData
+- assign arBalance
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+FOOTER FAILS TO APPEAR - rbrw-core Issue 10
+
+Pass in an arbitrary value to rbrwCurrentDraw.setOffset 
+instead of value derived from PrinterSetup in order to get it to appear. 
+Whilst nasty, this is a robust workaround.
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+ALWAYS PRINTS BLANK PAGE - rbrw-core Issue 11
+
+rbrwGraphicsPrint.renderPagesToPrinter
+- don't call nextPage for each page in loop, do between pages.
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+ALWAYS PRINTS ALL PAGES - rbrw-core Issue 12
+
+DrawingUtilities.PrintAllPages
+- added helper to check PrintG.LastPage = 214783647 
+
+rbrwGraphicsPrint.renderPagesToPrinter
+- use PrintAllPages to see if printing all
+- otherwise use specified page range offset to zero-based
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+DRAWING COLUMN HEADERS
+
+rbrwTreeBand_GraphicsRender.DrawContinuingOverPage
+rbrwTreeBand_GraphicsRender.draw
+- uncomment drawColumnHeaders
+
+rbrwTreeBand_Render.drawColumnHeaders
+rbrwTreeBand_Render.startTableBody
+rbrwTreeBand_Render.endTableBody
+- added blank parent method
+
+rbrwTreeBand_GraphicsRender.drawColumnHeaders
+- ported copied from oofRepViewBand_WinRender::drawColumnHeaders
+
+rbrwReport.DrawTreeBand
+- uncomment start/endTableBody
+
+rbrwIterableTreeBand.mColHeadersNeedCalc
+rbrwIterableTreeBand.dirtyColHeaders
+rbrwIterableTreeBand.startTableBody
+rbrwIterableTreeBand.endTableBody
+rbrwTreeBand_GraphicsRender.startTableBody
+rbrwTreeBand_GraphicsRender.CalcColHeaderWrapping
+- ported
+
+rbrwIterableTreeBand.CommonConstructor
+- init mColHeadersNeedCalc
+

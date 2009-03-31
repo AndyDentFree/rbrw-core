@@ -119,6 +119,17 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function FilePageSetup() As Boolean Handles FilePageSetup.Action
+			if commonPrinterSetup is nil then
+			rbrwGraphicsPrint.initDefaultPageSetup(commonPrinterSetup)
+			end if
+			call commonPrinterSetup.PageSetupDialog
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Method, Flags = &h0
 		Function ReportFixedHeaderWithAlignedText() As rbrwReport
@@ -163,6 +174,7 @@ Inherits Application
 	#tag Method, Flags = &h0
 		Function ReportSimpleColumnsOneLevel() As rbrwReport
 		  dim r as new rbrwReport( new Sample2DUserArray(mSampleUsers) )
+		  r.body.colSizer.alignment(1) = rbrwColSizer.colAlignT.alignRight
 		  return r
 		End Function
 	#tag EndMethod
@@ -212,13 +224,16 @@ Inherits Application
 		  r.PageFooters.Add new rbrwLineBand(1.5, points)
 		  
 		  dim aBand as new rbrwLayoutBand
-		  aBand.textStyle.TextSize = 12
-		  aBand.textStyle.Bold = true
-		  aBand.textStyle.Italic = true
-		  aBand.textStyle.TextColor = rgbCayenne
-		  aBand.Add "One Chunk   "
-		  aBand.Add "Second Chunk   "
-		  aBand.Add "Third Chunk   "
+		  aBand.uniqueTextStyle.TextSize = 12
+		  aBand.uniqueTextStyle.Bold = true
+		  aBand.uniqueTextStyle.Italic = true
+		  aBand.uniqueTextStyle.TextColor = rgbCayenne
+		  aBand.Add "One Chunk", blockAlignT.alignTextCentre
+		  aBand.blocks.LastBlock.fixedWidth = 180
+		  aBand.Add "Second Chunk", blockAlignT.alignTextCentre
+		  aBand.blocks.LastBlock.fixedWidth = 180
+		  aBand.Add "Third Chunk", blockAlignT.alignTextCentre
+		  aBand.blocks.LastBlock.fixedWidth = 180
 		  r.PageFooters.Add aBand
 		  
 		End Sub
@@ -228,17 +243,27 @@ Inherits Application
 		Function ReportQuickbooksStyleStatement() As rbrwReport
 		  ' a complex report similar to that from QuickBooks, see rbrwQuickbooksStyleStatementDesign.png
 		  
+		  const DESIGN_WIDTH = 540  // points at 72dpi, body width to fit on US 11 with 0.5" margins
+		  // conveniently allows for 6 cols of 90 across the bottom
+		  CONST AMT_COL_WIDTH = 90
+		  
 		  dim mas as new rbrwMultiArraySource( _
 		  SampleFinancialData.arDates, _
 		  SampleFinancialData.arDetails, _
-		  SampleFinancialData.arAmounts)
-		  mas.setColNames( Array("Date", "Details", "Amount" ) )
+		  SampleFinancialData.arAmounts,  _
+		  SampleFinancialData.arBalance)
+		  mas.setColNames( Array("Date", "Details", "Amount", "Balance" ) )
 		  
-		  dim r as new rbrwReport( mas )
+		  dim r as new rbrwReport( mas  )
 		  
-		  r.body.colSizer.fixedWidth(0) = new scn( 0.75, inches )
-		  // leave details to take up the middle
-		  r.body.colSizer.fixedPercentage(2) = 15
+		  // specify fixed widths for columns because we also align the blocks before and after
+		  r.body.colSizer.fixedWidth(0) = AMT_COL_WIDTH
+		  'r.body.colSizer.fixedWidth(1) = AMT_COL_WIDTH * 2
+		  r.body.colSizer.fixedWidth(2) = AMT_COL_WIDTH
+		  r.body.colSizer.fixedWidth(3) = AMT_COL_WIDTH
+		  r.body.colSizer.alignment(0) = rbrwColSizer.colAlignT.alignCentre
+		  r.body.colSizer.alignment(2) = rbrwColSizer.colAlignT.alignRight
+		  r.body.colSizer.alignment(3) = rbrwColSizer.colAlignT.alignRight
 		  
 		  dim aBand as new rbrwLayoutBand
 		  aBand.Add  "MockMe Widgets, INC"
@@ -247,28 +272,69 @@ Inherits Application
 		  '"123 Stub Street" + EndOfLine + _
 		  '"Fowlerville WI 53999"
 		  
+		  // Address at top of page
 		  dim rightblock as new rbrwTextBlock("Statement")
 		  rightblock.uniqueTextStyle.Bold = true
 		  rightblock.uniqueTextStyle.TextSize = 18
 		  aBand.Add rightblock, blockAlignT.alignRight
-		  
 		  aBand.startNewRow
 		  aBand.Add  "123 Stub Street"
 		  aBand.startNewRow
 		  aBand.Add  "Fowlerville WI 53999"
 		  r.PageHeaders.Add aBand
-		  r.pageHeaders.Add new rbrwSpaceBand(12, mm)
 		  
+		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
+		  
+		  // Bill to - Customer Details Block
+		  aBand = new rbrwLayoutBand
+		  aBand.Add "Bill's Repairs"
+		  aBand.startNewRow
+		  aBand.Add "97 Back Alley"
+		  aBand.startNewRow
+		  aBand.Add  "Fowlerville WI 53999"
+		  // want to somehow indent band here aBand.sett
+		  r.PageHeaders.Add aBand
+		  
+		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
+		  
+		  // fake the aligned financial summary
+		  aBand = new rbrwLayoutBand
+		  for each s as string in Array("Date", "Amount Due", "Enclosed")
+		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		  next
+		  aBand.startNewRow
+		  // fake array of formatted numbers
+		  for each s as string in Array("09/16/08",  "$1,520.00")
+		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		  next
+		  r.PageHeaders.Add aBand
+		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
+		  
+		  
+		  // space band to ensure page footer height isn't encroached on by columns
 		  r.PageFooters.Add new rbrwSpaceBand(0.5, inches)
-		  r.PageFooters.Add "This is a footer"
 		  
+		  aBand = new rbrwLayoutBand
+		  for each s as string in Array("Current", "1-15", "16-30", "31-60", "61-90", "Over 90")
+		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		  next
+		  aBand.startNewRow
+		  // fake array of formatted numbers
+		  for each s as string in Array("$7.00", "$17,890.11", "$1,290.45", "$0.00", "$0.00", "$0.00")
+		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		  next
+		  r.PageFooters.Add aBand
 		  return r
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub JustPrint(r as rbrwReport)
-		  rbrwGraphicsPrint.PrintReport r
+		  rbrwGraphicsPrint.PrintReport r, commonPrinterSetup
 		  
 		End Sub
 	#tag EndMethod
@@ -512,6 +578,10 @@ Inherits Application
 
 	#tag Property, Flags = &h21
 		Private testDB As REALSQLDatabase
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected commonPrinterSetup As PrinterSetup
 	#tag EndProperty
 
 

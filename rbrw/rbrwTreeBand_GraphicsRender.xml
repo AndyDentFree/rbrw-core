@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="50483742">
  <ObjName>rbrwTreeBand_GraphicsRender</ObjName>
- <ObjContainerID>1643118258</ObjContainerID>
+ <ObjContainerID>1963759756</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwTreeBand_Render</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -106,7 +106,7 @@
    <SourceLine>'xPos = xPos + colSepWidth/2.0</SourceLine>
    <SourceLine>'end if</SourceLine>
    <SourceLine>if not mDrawnColHeadersThisPage then</SourceLine>
-   <SourceLine>///////// mOwner.drawColumnHeaders</SourceLine>
+   <SourceLine>drawColumnHeaders</SourceLine>
    <SourceLine>// restore the style - col headers may have changed this</SourceLine>
    <SourceLine>curRep.changeTextStyle mOwner.textStyle</SourceLine>
    <SourceLine>end if</SourceLine>
@@ -128,7 +128,6 @@
    <SourceLine>dim cellVerticalPos as double = curRep.currentVerticalPos - 1</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if i = numFlds-1 then</SourceLine>
-   <SourceLineBreakpoint>96</SourceLineBreakpoint>
    <SourceLine>cellWidth = bodyWidth - bandIndenting + leftMargin + (colSepWidth/2.0) - xPos</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
@@ -188,7 +187,6 @@
    <SourceLine>end if</SourceLine>
    <SourceLine>if bytes &gt; 0 then</SourceLine>
    <SourceLine>rbrwGraphicsTextDE.recordElement drawPos, ybase+rownum * lineHeight, sizedBody.text(i).mid( lines(rownum)+1, bytes)</SourceLine>
-   <SourceLineBreakpoint>155</SourceLineBreakpoint>
    <SourceLine>end if</SourceLine>
    <SourceLine>end if  // if any length in this row</SourceLine>
    <SourceLine>next  // loop through rows of report</SourceLine>
@@ -356,7 +354,7 @@
    <SourceLine></SourceLine>
    <SourceLine>// we know we have made room for the col headers if not drawn on this page</SourceLine>
    <SourceLine>if Not(mDrawnColHeadersThisPage) then</SourceLine>
-   <SourceLine>//////// mOwner.drawColumnHeaders</SourceLine>
+   <SourceLine>drawColumnHeaders</SourceLine>
    <SourceLine>// restore the style - headers may have changed</SourceLine>
    <SourceLine>curRep.changeTextStyle(style)</SourceLine>
    <SourceLine>end if</SourceLine>
@@ -540,7 +538,7 @@
    <SourceLine>curRep.drawPageBreak</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// unconditionally draw headers - we KNOW we haven't drawn them</SourceLine>
-   <SourceLine>//////mOwner.drawColumnHeaders  // NOT YET IMPLEMENTED - setting to say that we don't draw these on subsequent pages</SourceLine>
+   <SourceLine>drawColumnHeaders  // NOT YET IMPLEMENTED - setting to say that we don't draw these on subsequent pages</SourceLine>
    <SourceLine>theEnv.resumeBandOverPage</SourceLine>
    <SourceLine>curRep.changeTextStyle mOwner.textStyle  // In case the page break or col headers changed styles</SourceLine>
    <SourceLine>DrawContinuingOverPage(startRow+rowsDrawn, heightLeft, sizedBody, hasCustomDrawers)</SourceLine>
@@ -557,6 +555,178 @@
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
   <ItemParams>startRow as integer,  heightLeft as double, sizedBody as rbrwSizedTextArray,  hasCustomDrawers as boolean</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>drawColumnHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawColumnHeaders()</SourceLine>
+   <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
+   <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
+   <SourceLine>dim bandIndenting as double = currSettings.bandIndenting</SourceLine>
+   <SourceLine>dim colSepWidth as double = currSettings.colSepWidth</SourceLine>
+   <SourceLine>dim leftMargin as double =  currSettings.leftMargin</SourceLine>
+   <SourceLine>dim bodyWidth as double = curRep.bodyWidth</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mDrawnColHeadersThisPage = true   // not conditional! we want to avoid calling this method again this page</SourceLine>
+   <SourceLine>if not curRep.shouldDrawViewColumnHeaders then</SourceLine>
+   <SourceLine>return</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// HACK - force column headers to bold, NOT YET IMPLEMENTED - need a global setting for this</SourceLine>
+   <SourceLine>dim ownerStyle as rbrwTextStyle = mOwner.textStyle</SourceLine>
+   <SourceLine>dim style as new rbrwTextStyle( ownerStyle )</SourceLine>
+   <SourceLine>style.Bold = true</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>curRep.changeTextStyle style</SourceLine>
+   <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
+   <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine>dim rowDrawHeight as double = mColHeaders.maxRows * lineHeight</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine>// Render the Headers</SourceLine>
+   <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'const unsigned long adornCount = mOwner-&gt;adorners().count();</SourceLine>
+   <SourceLine>'unsigned long cellY = 0;</SourceLine>
+   <SourceLine>'</SourceLine>
+   <SourceLine>'if( adornCount )</SourceLine>
+   <SourceLine>'xPos += colSepWidth/2;</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
+   <SourceLine>dim numrows as integer =mColHeaders.GetNumRows(i)</SourceLine>
+   <SourceLine>dim lines() as integer = mColHeaders.GetLineStarts(i)</SourceLine>
+   <SourceLine>dim lengths() as integer = mColHeaders.GetLineLengths(i)</SourceLine>
+   <SourceLine>dim alignment as rbrwColSizer.colAlignT = mColSizer.alignment(i)</SourceLine>
+   <SourceLine>// Cope with natural alignment</SourceLine>
+   <SourceLine>'if(alignment==oofColSizer::alignNatural)</SourceLine>
+   <SourceLine>'alignment = oofColSizer::naturalAlignmentForField(view-&gt;field(i).fieldType());</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'const int ybase=curRep-&gt;currentVerticalPos()-style-&gt;leading();</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim ybase as double = curRep.currentVerticalPos - style.leading</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Adorner information for the cell</SourceLine>
+   <SourceLine>dim cellWidth as double = mColSizer.width(i) + colSepWidth</SourceLine>
+   <SourceLine>dim cellHeight as double = rowDrawHeight</SourceLine>
+   <SourceLine>dim  cellHorizontalPos as double = xPos - (colSepWidth/2.0)</SourceLine>
+   <SourceLine>dim cellVerticalPos as double = curRep.currentVerticalPos - 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine> // resize the last cell to right edge</SourceLine>
+   <SourceLine>if i = numFlds-1 then</SourceLine>
+   <SourceLine>cellWidth = bodyWidth - bandIndenting + leftMargin + (colSepWidth/2.0) - xPos</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>'if( adornCount ) {</SourceLine>
+   <SourceLine>'// call before adorners for cell</SourceLine>
+   <SourceLine>'mOwner-&gt;adorners().start();</SourceLine>
+   <SourceLine>'for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
+   <SourceLine>'oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
+   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawBefore ) {</SourceLine>
+   <SourceLine>'oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
+   <SourceLine>'currentAdorner-&gt;drawcell(i,cellY,mOwner,cellHeight,cellWidth);</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'mOwner-&gt;adorners().next();</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>dim bytes as integer</SourceLine>
+   <SourceLine>for rownum as integer = 0 to numRows - 1</SourceLine>
+   <SourceLine>if lengths(rownum) &gt; 0 then</SourceLine>
+   <SourceLine>dim drawPos as double</SourceLine>
+   <SourceLine>if alignment = rbrwColSizer.colAlignT.alignRight then</SourceLine>
+   <SourceLine>drawPos=xPos+mColSizer.width(i)-lengths(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCentre then</SourceLine>
+   <SourceLine>drawPos=xPos+ ( mColSizer.width(i)-lengths(rownum) )/2.0</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>drawPos=xPos</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if rownum = (numrows-1)    then</SourceLine>
+   <SourceLine>// all the bytes in the string minus the start of the last line</SourceLine>
+   <SourceLine>bytes=mColHeaders.text(i).Len-lines(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>bytes=lines(rownum+1) - lines(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if bytes &gt; 0 then</SourceLine>
+   <SourceLine>rbrwGraphicsTextDE.recordElement drawPos, ybase+rownum * lineHeight, mColHeaders.text(i).mid( lines(rownum)+1, bytes)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine>next  // loop through rows of headers</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>curRep.incVerticalPos  rowDrawHeight</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>startTableBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub startTableBody(headersHaveChanged as Boolean)</SourceLine>
+   <SourceLine>// reset here in case we redraw a Windows render once constructed,</SourceLine>
+   <SourceLine>// eg: if printing after generating a preview</SourceLine>
+   <SourceLine>if rbrwReport.currentReport.shouldDrawViewColumnHeaders then</SourceLine>
+   <SourceLine>mDrawnColHeadersThisPage = false</SourceLine>
+   <SourceLine>if headersHaveChanged then</SourceLine>
+   <SourceLine>CalcColHeaderWrapping</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>mDrawnColHeadersThisPage = true</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>headersHaveChanged as Boolean</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>CalcColHeaderWrapping</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub CalcColHeaderWrapping()</SourceLine>
+   <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// HACK - force column headers to bold, NOT YET IMPLEMENTED - need a global setting for this</SourceLine>
+   <SourceLine>dim ownerStyle as rbrwTextStyle = mOwner.textStyle</SourceLine>
+   <SourceLine>dim style as new rbrwTextStyle( ownerStyle )</SourceLine>
+   <SourceLine>style.Bold = true</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim fieldNames() as string = fields.listFields</SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
+   <SourceLine>// see http://code.google.com/p/rbrw-core/issues/detail?id=18</SourceLine>
+   <SourceLine>mColHeaders.text(i) = fieldNames(i)  // this is not the same as the OOFILE view-&gt;getHeading(i) but will do for now</SourceLine>
+   <SourceLine>mColHeaders.CalculateWrapping( i,mColSizer.width(i) )</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Note>

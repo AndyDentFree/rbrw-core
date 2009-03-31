@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="-1120693376">
  <ObjName>scn</ObjName>
- <ObjContainerID>1974833076</ObjContainerID>
+ <ObjContainerID>-1075940329</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>0</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -543,6 +543,26 @@
   <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setInches</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setInches(inInch as double)</SourceLine>
+   <SourceLine>#if enableDebugLog</SourceLine>
+   <SourceLine>system.DebugLog "scn.setInches from "+str(inch()) +" to "+str(inInch)+" on scn: "+DebugName</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>mFineRes = inInch * scnStatics.gDPI</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inInch as double</ItemParams>
+  <ItemResult></ItemResult>
  </Method>
  <Property>
   <ItemName>mFineRes</ItemName>

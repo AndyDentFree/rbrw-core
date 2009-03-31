@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5">
+<RBProject version="2009r2">
 <block type="Module" ID="1456171589">
  <ObjName>rbrwDefaultSettings</ObjName>
  <ObjContainerID>1936225279</ObjContainerID>
@@ -36,8 +36,8 @@
    <SourceLine>s.pageWidth = 576.0     // GUI calculates from PREC, default to 8" for RTF</SourceLine>
    <SourceLine>s.topMargin = 36.0</SourceLine>
    <SourceLine>s.bottomMargin = 36.0</SourceLine>
-   <SourceLine>s.leftMargin = 72.0</SourceLine>
-   <SourceLine>s.rightMargin = 72.0</SourceLine>
+   <SourceLine>s.leftMargin = 36.0</SourceLine>
+   <SourceLine>s.rightMargin = 36.0</SourceLine>
    <SourceLine>s.lineThickness = 2.0</SourceLine>
    <SourceLine>s.borderType = 0</SourceLine>
    <SourceLine>s.colSepWidth = 20.0</SourceLine>

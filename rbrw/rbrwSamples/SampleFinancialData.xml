@@ -323,6 +323,11 @@
    <SourceLine>arAmounts.append 230.77</SourceLine>
    <SourceLine>arAmounts.append 156</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>dim runningBal as double</SourceLine>
+   <SourceLine>for each b as double in arAmounts</SourceLine>
+   <SourceLine>arBalance.Append runningBal</SourceLine>
+   <SourceLine>runningBal = runningBal + b</SourceLine>
+   <SourceLine>next</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -384,6 +389,20 @@
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>arAmounts() As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+ </Property>
+ <Property>
+  <ItemName>arBalance()</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Shared arBalance() As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>arBalance() As double</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
   <Shared>1</Shared>
  </Property>

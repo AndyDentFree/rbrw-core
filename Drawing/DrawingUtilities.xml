@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="-1124356759">
  <ObjName>DrawingUtilities</ObjName>
  <ObjContainerID>-1075940245</ObjContainerID>
@@ -312,6 +312,23 @@
   <Shared>0</Shared>
   <ItemParams>inX as integer, inY as integer, inX2 as integer, inY2 as integer, lineColor as Color, dashLen as integer = 4, dashGap as integer = 4</ItemParams>
   <ItemResult>Group2D</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>PrintAllPages</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function PrintAllPages(extends G as Graphics) As Boolean</SourceLine>
+   <SourceLine>return G.LastPage = 214783647</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends G as Graphics</ItemParams>
+  <ItemResult>Boolean</ItemResult>
  </Method>
  <Note>
   <ItemName>About</ItemName>

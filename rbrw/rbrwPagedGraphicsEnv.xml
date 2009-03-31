@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Module" ID="170797994">
  <ObjName>rbrwPagedGraphicsEnv</ObjName>
  <ObjContainerID>795249001</ObjContainerID>
@@ -74,7 +74,24 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub setPageSetup(ps as PrinterSetup)</SourceLine>
-   <SourceLine>mPaperRect = new rbrwRect(0, 0, ps.PageWidth, ps.PageHeight)</SourceLine>
+   <SourceLine>// it is attractive to use PageWidth and PageHeight from the PageSetup</SourceLine>
+   <SourceLine>// but you need to take the margins into account</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// to maintain the coords in 72dpi uses </SourceLine>
+   <SourceLine>dim effectiveWidth as double = ps.width-2*ps.pageleft  // eg: 4958</SourceLine>
+   <SourceLine>dim effectiveHeight as double =ps.height-2*ps.pagetop // eg: 6825</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// when creating defaults, the constructor typically populates PageSetup with defaults on OS/X matching current system default</SourceLine>
+   <SourceLine>// at 72dpi but incorrectly sets the max res to 600. Unfortunately, we can't correct that by setting resolution there hence this hack.</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if ps.HorizontalResolution &gt; 72 and ps.Width &lt; 2000 then  // assume res is really 72dpi, coarse check on width guarantees it</SourceLine>
+   <SourceLine>// no need to scale</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>dim sf as double  =  72 / ps.HorizontalResolution</SourceLine>
+   <SourceLine>effectiveWidth = effectiveWidth*sf</SourceLine>
+   <SourceLine>effectiveHeight = effectiveHeight*sf</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>mPaperRect = new rbrwRect(0, 0, effectiveWidth, effectiveHeight)</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -246,6 +263,8 @@
    <NoteLine></NoteLine>
    <NoteLine>PROPERTIES NOT IMPLEMENTED</NoteLine>
    <NoteLine>mParentWnd</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
   </ItemSource>
   <ItemFlags>0</ItemFlags>
  </Note>

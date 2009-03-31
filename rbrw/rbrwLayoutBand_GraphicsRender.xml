@@ -43,14 +43,14 @@
    <SourceLine>for each theBlock as rbrwBlock in mOwner.blocks.blocks</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim blockWidth as double = theBlock.width</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>dim incXAfter as double</SourceLine>
    <SourceLine>if theBlock.align = rbrwBlock.blockAlignT.alignRight then</SourceLine>
    <SourceLine>// BOLD ASSUMPTION - only one right aligned item per line.</SourceLine>
    <SourceLine>dim pt as rbrw.Point </SourceLine>
    <SourceLine>// Get the current position first</SourceLine>
    <SourceLine>rbrwCurrentDraw.moveTo 0, 0, pt</SourceLine>
    <SourceLine>// Now reposition properly for the right alignment</SourceLine>
-   <SourceLine>rbrwCurrentDraw.moveTo bodyWidth + leftMargin - bandIndenting - theBlock.width, pt.y</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo bodyWidth + leftMargin - bandIndenting - blockWidth, pt.y</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>elseif theBlock.align = rbrwBlock.blockAlignT.alignCentre then</SourceLine>
@@ -61,18 +61,29 @@
    <SourceLine>rbrwCurrentDraw.moveTo newX, pt.y</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>elseif theBlock.align = rbrwBlock.blockAlignT.alignTextCentre and theBlock.fixedWidth &gt; 0 then</SourceLine>
+   <SourceLine>// centre the text within the width - only makes sense if also set fixed width</SourceLine>
+   <SourceLine>dim pt as rbrw.Point</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo 0, 0, pt</SourceLine>
+   <SourceLine>// Now reposition for centre alignment - same as left-aligned default case, just incremented by half the difference</SourceLine>
+   <SourceLine>dim marginInCell as double =  (theBlock.fixedWidth - blockWidth)/2.0</SourceLine>
+   <SourceLine>dim newX as double = pt.x + marginInCell  // followed by the text followed by another marginInCell</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo newX, pt.y</SourceLine>
+   <SourceLine>incXAfter = theBlock.fixedWidth - marginInCell  // move on all bar the left margin</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine> // NOT YET IMPLEMENTED - cope with other alignments?</SourceLine>
+   <SourceLine>// default left-aligned behaviour</SourceLine>
+   <SourceLine>if theBlock.fixedWidth &gt; 0 then</SourceLine>
+   <SourceLine>incXafter = theBlock.fixedWidth // move horizontally the full fixed width</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>incXafter = blockWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>end if // switch alignments</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>SetCurrentBlockCoords rbrwCurrentDraw.x, rbrwCurrentDraw.y, theBlock  // save for callbacks</SourceLine>
    <SourceLine>theBlock.draw</SourceLine>
-   <SourceLine>if theBlock.fixedWidth &gt; 0 then</SourceLine>
-   <SourceLine>rbrwCurrentDraw.incX theBlock.fixedWidth - blockWidth // move horizontally</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine>rbrwCurrentDraw.incX blockWidth  // slide along so next block adjacent</SourceLine>
-   <SourceLine>end if</SourceLine>
+   <SourceLine>rbrwCurrentDraw.incX incXAfter</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if theBlock.moveDownAfter then</SourceLine>
    <SourceLine>dim pt as rbrw.Point</SourceLine>

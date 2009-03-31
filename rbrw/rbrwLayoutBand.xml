@@ -267,6 +267,34 @@
   <ItemParams></ItemParams>
   <ItemResult>string</ItemResult>
  </Method>
+ <Method>
+  <ItemName>AddRows</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub AddRows(inText as string, alignBlock as blockAlignT = blockAlignT.alignLeft)</SourceLine>
+   <SourceLine>dim lines() as string = split(inText, EndOfLine)</SourceLine>
+   <SourceLine>dim isFirst as Boolean = true</SourceLine>
+   <SourceLine>for each aLine as string in lines</SourceLine>
+   <SourceLine>if isFirst then</SourceLine>
+   <SourceLine>isFirst = false</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>startNewRow</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim newBlock as rbrwBlock = new rbrwTextBlock( new rbrwLiteral(aLine) )</SourceLine>
+   <SourceLine>newBlock.align = alignBlock</SourceLine>
+   <SourceLine>Add newBlock</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inText as string, alignBlock as blockAlignT = blockAlignT.alignLeft</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
  <Note>
   <ItemName>about</ItemName>
   <Compatibility></Compatibility>

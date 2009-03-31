@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="1935762619">
  <ObjName>rbrwGraphicsPrint</ObjName>
- <ObjContainerID>128126478</ObjContainerID>
+ <ObjContainerID>795249001</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwPagedGraphicsEnv</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -14,7 +14,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub PrintReport(r as rbrwReport, printG as graphics=nil, ps as PrinterSetup=nil)</SourceLine>
+   <SourceLine> Shared Sub PrintReport(r as rbrwReport, ps as PrinterSetup = nil, printG as graphics = nil)</SourceLine>
    <SourceLine>// parallels rbrwPreviewWindow.CreatePreviewContent</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if ps is nil then</SourceLine>
@@ -33,17 +33,20 @@
    <SourceLine>r.draw printEnv  //********* does the real work of generating pages from the report definition, </SourceLine>
    <SourceLine>printEnv.finish</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>rbrwCurrentDraw.setOffset -20, -80  // HARDCODED NASTY HACK</SourceLine>
+   <SourceLine>'rbrwCurrentDraw.setOffset ps.pageLeft, ps.pageTop</SourceLine>
    <SourceLine>rbrwCurrentDraw.ScalingFactor = ps.HorizontalResolution / 72.0</SourceLine>
    <SourceLine>printEnv.renderPagesToPrinter</SourceLine>
    <SourceLine>rbrwCurrentDraw.CurrentGraphics = nil  // to close the printer</SourceLine>
    <SourceLine>rbrwCurrentDraw.ScalingFactor = 1.0</SourceLine>
+   <SourceLine>rbrwCurrentDraw.setOffset 0.0, 0.0</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>1</Shared>
-  <ItemParams>r as rbrwReport, printG as graphics=nil, ps as PrinterSetup=nil</ItemParams>
+  <ItemParams>r as rbrwReport, ps as PrinterSetup = nil, printG as graphics = nil</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -55,18 +58,27 @@
    <SourceLine>Sub renderPagesToPrinter()</SourceLine>
    <SourceLine>if mPages is nil then return  // no pages to dump to printer</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>// dump all the pages to the printer now we have them in memory</SourceLine>
+   <SourceLine>// dump all the chosen pages to the printer now we have them in memory</SourceLine>
    <SourceLine>dim ignoredRect as rbrwRect</SourceLine>
-   <SourceLine>dim lastPageIndex as integer = pages.count - 1</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim printG as Graphics = rbrwCurrentDraw.CurrentGraphics</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>dim firstPageIndex as integer = printG.FirstPage</SourceLine>
-   <SourceLineBreakpoint>9</SourceLineBreakpoint>
-   <SourceLine>dim lastPageIndexReq as integer = printG.LastPage</SourceLine>
-   <SourceLine>for pageIndex as integer = 0 to lastPageIndex</SourceLine>
+   <SourceLine>dim firstPageIndex as integer</SourceLine>
+   <SourceLine>dim lastPageIndex as integer</SourceLine>
+   <SourceLine>if PrintG.LastPage = 214783647 then  // all pages, there is no neat flag</SourceLine>
+   <SourceLine>lastPageIndex  = pages.count - 1</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>firstPageIndex = printG.FirstPage - 1</SourceLine>
+   <SourceLine>lastPageIndex = Min( pages.count, printG.LastPage ) - 1  // min of what user specifies and is real</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim isFirst as Boolean = true</SourceLine>
+   <SourceLine>for pageIndex as integer = firstPageIndex to lastPageIndex</SourceLine>
+   <SourceLine>if isFirst then</SourceLine>
+   <SourceLine>isFirst = false</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>printG.NextPage  // only BETWEEN pages</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>pages.page(pageIndex).draw ignoredRect</SourceLine>
-   <SourceLine>printG.NextPage</SourceLine>
    <SourceLine>next</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -94,6 +106,47 @@
    <NoteLine></NoteLine>
    <NoteLine>PROPERTIES NOT IMPLEMENTED</NoteLine>
    <NoteLine>mParentWnd</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>PageSetup Comments</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>PageSetup Comments</NoteLine>
+   <NoteLine>page Setup typical values for a LW360 600dpi printer, A4</NoteLine>
+   <NoteLine>pageLeft = -150  quarter-inch</NoteLine>
+   <NoteLine>pagetop = -150</NoteLine>
+   <NoteLine>pageheight = 7016</NoteLine>
+   <NoteLine>pagewidth = 4958</NoteLine>
+   <NoteLine>height = 6525</NoteLine>
+   <NoteLine>width = 4658</NoteLine>
+   <NoteLine>ps.height-2*ps.pagetop = 6825</NoteLine>
+   <NoteLine>ps.width-2*ps.pageleft = 4958</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>page Setup typical values for a LW360 600dpi printer, US Letter</NoteLine>
+   <NoteLine>pageLeft = -150</NoteLine>
+   <NoteLine>pagetop = -150</NoteLine>
+   <NoteLine>pageheight = 6600</NoteLine>
+   <NoteLine>pagewidth = 5100</NoteLine>
+   <NoteLine>height = 6116</NoteLine>
+   <NoteLine>width = 4800</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>default values from just creating a PageSetup</NoteLine>
+   <NoteLine>HorizontalResolution = 600</NoteLine>
+   <NoteLine>pageLeft = -18  quarter-inch</NoteLine>
+   <NoteLine>pagetop = -18</NoteLine>
+   <NoteLine>pageheight = 842</NoteLine>
+   <NoteLine>pagewidth = 595</NoteLine>
+   <NoteLine>height = 783</NoteLine>
+   <NoteLine>width = 559</NoteLine>
    <NoteLine></NoteLine>
    <NoteLine></NoteLine>
   </ItemSource>

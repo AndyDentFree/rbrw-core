@@ -228,3 +228,20 @@ ALTERNATIVES
 - TRIED AND FAILED - can't redirect properties
 
 DECISION - 2
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/30 Mon
+STRUCTURING FINANCIAL STATEMENTS REPORT
+
+Context
+Need to handle printing multiple statements and decide the data relationship on the report.
+
+Reports have transaction data from one or more customers. The whole purpose of statements, unlike the A/R Aging report, is to provide per-customer statements.
+
+ALTERNATIVE DATA MODELS
+1) Primarily iterating through customers, with a break per customer. The transaction data is attached as a footer band to the break.
+
+2) Iterating through a view of transactions which includes a customer ID. Break on a new customer ID and draw the customer details as a break header. This is a more traditional SQL view of the data.
+
+

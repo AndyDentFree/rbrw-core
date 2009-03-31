@@ -16,6 +16,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Constructor(b as rbrwIterableTreeBand)</SourceLine>
    <SourceLine>mOwner = b</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -83,6 +84,62 @@
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
   <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>drawColumnHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub drawColumnHeaders()</SourceLine>
+   <SourceLine>// empty method most will override</SourceLine>
+   <SourceLine>// OOFILE  goes through a convoluted call to mOwner.drawColumnHeaders which then</SourceLine>
+   <SourceLine>// goes oofRepViewRedirectingRender::drawColumnHeaders to call drawColumnHeaders</SourceLine>
+   <SourceLine>// on the actual renderer</SourceLine>
+   <SourceLine>// we don't do that because editing in preview is not (yet?) implemented in rbrw and even</SourceLine>
+   <SourceLine>// that may not require such a design - it had more to do with evolution and C++ quirks, I suspect</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>endTableBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub endTableBody()</SourceLine>
+   <SourceLine>// blank parent method</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>startTableBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub startTableBody(headersHaveChanged as Boolean)</SourceLine>
+   <SourceLine>// blank parent method</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>headersHaveChanged as Boolean</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Property>

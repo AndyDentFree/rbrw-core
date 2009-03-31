@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="1890519234">
  <ObjName>rbrwIterableTreeBand</ObjName>
- <ObjContainerID>737559286</ObjContainerID>
+ <ObjContainerID>-1074031412</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwBand</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -19,7 +19,7 @@
    <SourceLine>// create members which were concrete objects in oofile and so are expected to exist</SourceLine>
    <SourceLine>mHeaders = new rbrwBandList</SourceLine>
    <SourceLine>mFooters = new rbrwBandList</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>mColHeadersNeedCalc = true</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -37,6 +37,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Constructor(inStyle as rbrwTextStyle=nil)</SourceLine>
    <SourceLine>CommonConstructor inStyle</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -74,6 +75,7 @@
    <SourceLine>CommonConstructor inStyle</SourceLine>
    <SourceLine>mSourceIterator = inIterFields.iterator</SourceLine>
    <SourceLine>mFields = inIterFields.facade</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -93,6 +95,7 @@
    <SourceLine>CommonConstructor inStyle</SourceLine>
    <SourceLine>mSourceIterator = inSourceIterator</SourceLine>
    <SourceLine>mFields = inFields</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -118,6 +121,57 @@
   <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>dirtyColHeaders</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub dirtyColHeaders()</SourceLine>
+   <SourceLine>mColHeadersNeedCalc = true</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>startTableBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub startTableBody()</SourceLine>
+   <SourceLine>rbrwTreeBand_Render(mRender).startTableBody mColHeadersNeedCalc</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>endTableBody</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub endTableBody()</SourceLine>
+   <SourceLine>rbrwTreeBand_Render(mRender).endTableBody </SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
  </Method>
  <Note>
   <ItemName>about</ItemName>
@@ -371,6 +425,20 @@
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>mColSizer As rbrwColSizer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mColHeadersNeedCalc</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mColHeadersNeedCalc As Boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mColHeadersNeedCalc As Boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>
  <ViewBehavior>

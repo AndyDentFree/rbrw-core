@@ -241,9 +241,9 @@ Begin Menu ExampleMenuBar
          Text = "Single Line Header"
          Index = -2147483648
          ShortcutKey = "1"
-         Shortcut = "Cmd+Option+Alt+1"
+         Shortcut = "Cmd+Shift+Alt+1"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End
@@ -252,9 +252,9 @@ Begin Menu ExampleMenuBar
          Text = "Simple Fixed Header"
          Index = -2147483648
          ShortcutKey = "2"
-         Shortcut = "Cmd+Option+Alt+2"
+         Shortcut = "Cmd+Shift+Alt+2"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End
@@ -263,9 +263,9 @@ Begin Menu ExampleMenuBar
          Text = "Multi-line Header with Aligned Text"
          Index = -2147483648
          ShortcutKey = "3"
-         Shortcut = "Cmd+Option+Alt+3"
+         Shortcut = "Cmd+Shift+Alt+3"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End
@@ -274,9 +274,9 @@ Begin Menu ExampleMenuBar
          Text = "Fixed Header with Layout, Pic"
          Index = -2147483648
          ShortcutKey = "4"
-         Shortcut = "Cmd+Option+Alt+4"
+         Shortcut = "Cmd+Shift+Alt+4"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End
@@ -285,9 +285,9 @@ Begin Menu ExampleMenuBar
          Text = "Simple Columns, one level"
          Index = -2147483648
          ShortcutKey = "5"
-         Shortcut = "Cmd+Option+Alt+5"
+         Shortcut = "Cmd+Shift+Alt+5"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End
@@ -296,9 +296,9 @@ Begin Menu ExampleMenuBar
          Text = "Simple Columns, from Database"
          Index = -2147483648
          ShortcutKey = "6"
-         Shortcut = "Cmd+Option+Alt+6"
+         Shortcut = "Cmd+Shift+Alt+6"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End
@@ -307,9 +307,9 @@ Begin Menu ExampleMenuBar
          Text = "Columns with Header and Footer"
          Index = -2147483648
          ShortcutKey = "7"
-         Shortcut = "Cmd+Option+Alt+7"
+         Shortcut = "Cmd+Shift+Alt+7"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End
@@ -318,9 +318,9 @@ Begin Menu ExampleMenuBar
          Text = "Quickbooks-style Statement"
          Index = -2147483648
          ShortcutKey = "8"
-         Shortcut = "Cmd+Option+Alt+8"
+         Shortcut = "Cmd+Shift+Alt+8"
          MenuModifier = True
-         MacOptionKey = True
+         AltMenuModifier = True
          PCAltKey = True
          AutoEnable = True
       End

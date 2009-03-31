@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="439837969">
  <ObjName>rbrwCurrentDraw</ObjName>
- <ObjContainerID>1975780848</ObjContainerID>
+ <ObjContainerID>-1075463008</ObjContainerID>
  <IsClass>0</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -263,7 +263,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub ClearRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.ClearRect sf*x, sf*y, sf*width, sf*height</SourceLine>
+   <SourceLine>sCurrentGraphics.ClearRect sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -280,7 +280,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function Clip(x as Integer, y as Integer, width as Integer, height as Integer) As Graphics</SourceLine>
-   <SourceLine>return sCurrentGraphics.Clip( sf*x, sf*y, sf*width, sf*height )</SourceLine>
+   <SourceLine>return sCurrentGraphics.Clip( sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height )</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -297,7 +297,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawCautionIcon(x As Integer, y As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawCautionIcon sf*x, sf*y</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawCautionIcon sf*xOffset + sf*x, sf*yOffset + sf*y</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -314,7 +314,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawLine(x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.ClearRect sf*x1, sf*y1, sf*x2, sf*y2</SourceLine>
+   <SourceLine>sCurrentGraphics.ClearRect sf*xOffset + sf*x1, sf*yOffset + sf*y1, sf*xOffset + sf*x2, sf*yOffset + sf*y2</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -331,7 +331,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawOval(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawOval sf*x, sf*y, sf*width, sf*height</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawOval sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -348,7 +348,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawRect sf*x, sf*y, sf*width, sf*height</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawRect sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -365,7 +365,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawRoundRect(x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawRoundRect sf*x, sf*y, sf*width, sf*height, sf*arcWidth, sf*arcHeight</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawRoundRect sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height, sf*arcWidth, sf*arcHeight</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -382,7 +382,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub FillOval(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.FillOval sf*x, sf*y, sf*width, sf*height</SourceLine>
+   <SourceLine>sCurrentGraphics.FillOval sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -399,7 +399,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub FillRect(x As Integer, y As Integer, width As Integer, height As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.FillRect sf*x, sf*y, sf*width, sf*height</SourceLine>
+   <SourceLine>sCurrentGraphics.FillRect sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -416,7 +416,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub FillRoundRect(x As Integer, y As Integer, width As Integer, height As Integer, arcWidth As Integer, arcHeight As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.FillRoundRect sf*x, sf*y, sf*width, sf*height, sf*arcWidth, sf*arcHeight</SourceLine>
+   <SourceLine>sCurrentGraphics.FillRoundRect sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, sf*height, sf*arcWidth, sf*arcHeight</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -434,19 +434,19 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawPicture(image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, sx As Integer=0, sy As Integer=0, w2 As Integer=-10000, h2 As Integer=-10000)</SourceLine>
    <SourceLine>if w1=-10000 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y</SourceLine>
    <SourceLine>elseif h1=-10000 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y, sf*w1</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1</SourceLine>
    <SourceLine>elseif sx=0 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y, sf*w1, sf*h1</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*h1</SourceLine>
    <SourceLine>elseif sy=0 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y, sf*w1, sf*h1, sf*sx</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*h1, sf*sx</SourceLine>
    <SourceLine>elseif w2=-10000 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y, sf*w1, sf*sx, sf*sy</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*sx, sf*sy</SourceLine>
    <SourceLine>elseif h2=-10000 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y, sf*w1, sf*sx, sf*sy, sf*w2</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*sx, sf*sy, sf*w2</SourceLine>
    <SourceLine>else</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*x, sf*y, sf*w1, sf*sx, sf*sy, sf*w2, sf*h2</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*sx, sf*sy, sf*w2, sf*h2</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -472,7 +472,7 @@
    <SourceLine>#if LoggingRBRWDrawing</SourceLine>
    <SourceLine>system.DebugLog "rbrwCurrentDraw.DrawString '" + str + "' at: " + str(x) + ", " + str(y) + EndOfLine</SourceLine>
    <SourceLine>#endif</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawString str, sf*x, sf*y, sf*width, condense</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawString str, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*width, condense</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -576,7 +576,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawStopIcon(x As Integer, y As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawStopIcon sf*x, sf*y</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawStopIcon sf*xOffset + sf*x, sf*yOffset + sf*y</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -593,24 +593,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawNoteIcon(x As Integer, y As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawNoteIcon sf*x, sf*y</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>x As Integer, y As Integer</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>DrawCautionIcon1</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub DrawCautionIcon1(x As Integer, y As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawCautionIcon sf*x, sf*y</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawNoteIcon sf*xOffset + sf*x, sf*yOffset + sf*y</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -627,7 +610,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function Pixel(x As Integer, y As Integer) As Color</SourceLine>
-   <SourceLine>return sCurrentGraphics.Pixel( sf*x, sf*y) </SourceLine>
+   <SourceLine>return sCurrentGraphics.Pixel( sf*xOffset + sf*x, sf*yOffset + sf*y) </SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -703,7 +686,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Pixel(x As Integer, y As Integer, Assigns _value As Color)</SourceLine>
-   <SourceLine>sCurrentGraphics.Pixel( sf*x, sf*y) = _value</SourceLine>
+   <SourceLine>sCurrentGraphics.Pixel( sf*xOffset + sf*x, sf*yOffset + sf*y) = _value</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -737,6 +720,26 @@
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <ItemParams>inStyle as rbrwTextStyle</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>setOffset</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setOffset(inX as double, inY as double)</SourceLine>
+   <SourceLine>// typically used to set the printing offsets which will be negative so no checking as to their value is particularly sensible</SourceLine>
+   <SourceLine>xOffset = inX</SourceLine>
+   <SourceLine>yOffset = inY</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inX as double, inY as double</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Note>
@@ -835,7 +838,7 @@
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>sf As double</ItemDeclaration>
+  <ItemDeclaration>sf As double = 1.0</ItemDeclaration>
   <ItemFlags>33</ItemFlags>
   <Shared>0</Shared>
  </Property>
@@ -1206,6 +1209,34 @@
    <SourceLine>return sCurrentGraphics.TextFont</SourceLine>
    <SourceLine>End Get</SourceLine>
   </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>xOffset</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>xOffset As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>xOffset As double</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>yOffset</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>yOffset As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>yOffset As double</ItemDeclaration>
+  <ItemFlags>33</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <ViewBehavior>
   <ViewProperty>
