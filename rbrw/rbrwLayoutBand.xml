@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="1349224694">
  <ObjName>rbrwLayoutBand</ObjName>
- <ObjContainerID>737559286</ObjContainerID>
+ <ObjContainerID>-1074031412</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwFixedHeightBand</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -275,6 +275,23 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub AddRows(inText as string, alignBlock as blockAlignT = blockAlignT.alignLeft)</SourceLine>
    <SourceLine>dim lines() as string = split(inText, EndOfLine)</SourceLine>
+   <SourceLine>AddRows lines, alignBlock</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inText as string, alignBlock as blockAlignT = blockAlignT.alignLeft</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AddRows</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub AddRows(lines() as string, alignBlock as blockAlignT = blockAlignT.alignLeft)</SourceLine>
    <SourceLine>dim isFirst as Boolean = true</SourceLine>
    <SourceLine>for each aLine as string in lines</SourceLine>
    <SourceLine>if isFirst then</SourceLine>
@@ -292,7 +309,7 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>inText as string, alignBlock as blockAlignT = blockAlignT.alignLeft</ItemParams>
+  <ItemParams>lines() as string, alignBlock as blockAlignT = blockAlignT.alignLeft</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Note>

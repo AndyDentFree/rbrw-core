@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Module" ID="1837968369">
  <ObjName>rbrwTextStyle</ObjName>
- <ObjContainerID>1501818976</ObjContainerID>
+ <ObjContainerID>-1075463008</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -216,17 +216,17 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>TextAscent</ItemName>
+  <ItemName>TextHeight</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function TextAscent(usingGraphics as Graphics) As double</SourceLine>
-   <SourceLine>if mCachedAscent = 0 then ' cache because this is expensive</SourceLine>
+   <SourceLine>Function TextHeight(usingGraphics as Graphics) As double</SourceLine>
+   <SourceLine>if mCachedHeight = 0 then ' cache because this is expensive</SourceLine>
    <SourceLine>usingGraphics.SetStyleFrom self</SourceLine>
-   <SourceLine>mCachedAscent = usingGraphics.TextAscent</SourceLine>
+   <SourceLine>mCachedHeight = usingGraphics.TextHeight</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine>return mCachedAscent</SourceLine>
+   <SourceLine>return mCachedHeight</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -489,16 +489,16 @@
   <Shared>0</Shared>
  </Property>
  <Property>
-  <ItemName>mCachedAscent</ItemName>
+  <ItemName>mCachedHeight</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mCachedAscent As Integer</SourceLine>
+   <SourceLine>mCachedHeight As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mCachedAscent As Integer</ItemDeclaration>
+  <ItemDeclaration>mCachedHeight As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
  </Property>

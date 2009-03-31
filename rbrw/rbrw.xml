@@ -197,7 +197,7 @@
   <TextEncoding>134217984</TextEncoding>
   <ItemName>LoggingRBRWDrawing</ItemName>
   <ItemType>3</ItemType>
-  <ItemDef>True</ItemDef>
+  <ItemDef>False</ItemDef>
   <ItemFlags>0</ItemFlags>
  </Constant>
  <Structure>

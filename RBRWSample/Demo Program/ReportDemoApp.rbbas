@@ -264,6 +264,7 @@ Inherits Application
 		  r.body.colSizer.alignment(0) = rbrwColSizer.colAlignT.alignCentre
 		  r.body.colSizer.alignment(2) = rbrwColSizer.colAlignT.alignRight
 		  r.body.colSizer.alignment(3) = rbrwColSizer.colAlignT.alignRight
+		  r.body.adorners.Append new rbrwBorderAdorner( rbrwBorderAdorner.BorderCode.oneThin )
 		  
 		  dim aBand as new rbrwLayoutBand
 		  aBand.Add  "MockMe Widgets, INC"
@@ -287,11 +288,13 @@ Inherits Application
 		  
 		  // Bill to - Customer Details Block
 		  aBand = new rbrwLayoutBand
-		  aBand.Add "Bill's Repairs"
+		  aBand.Add "Bill To:"
+		  aBand.LastBlock.uniqueTextStyle.Bold = true
 		  aBand.startNewRow
-		  aBand.Add "97 Back Alley"
-		  aBand.startNewRow
-		  aBand.Add  "Fowlerville WI 53999"
+		  aBand.AddRows Array( _
+		  "Bill's Repairs", _
+		  "97 Back Alley", _
+		  "Fowlerville WI 53999" )
 		  // want to somehow indent band here aBand.sett
 		  r.PageHeaders.Add aBand
 		  

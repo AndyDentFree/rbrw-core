@@ -675,3 +675,40 @@ rbrwTreeBand_GraphicsRender.CalcColHeaderWrapping
 rbrwIterableTreeBand.CommonConstructor
 - init mColHeadersNeedCalc
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+FIX HEIGHT OF TEXT TOO CLOSE - rbrw-core Issue 5
+
+Global search and replace of Ascent with Height - was wrongly using the TextAscent
+property of Graphics instead of TextHeight which includes the natural leading.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+DRAWING GRIDLINES
+
+rbrwBorderAdorner_GraphicsRender
+- ported from oofBorderAdorner_WinRender
+
+rbrwBorderAdorner_Render
+- ported from oofBorderAdorner_Render
+
+rbrwTreeBand_GraphicsRender.draw
+- uncomment adorner logic
+- inc mRowZB
+
+rbrwTreeBand_GraphicsRender.mRowZB
+- added property to replace dbView::recordNumber
+
+rbrwTreeBand_GraphicsRender.startTableBody
+- reset mRowZB
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/03/31 Tue
+FIX GRIDLINE RENDERING FOR TREE BAND
+
+rbrwCurrentDraw.DrawLine
+- correct call - was doing ClearRect instead of DrawLine, makes it look OK on our Preview
+  but crap positioning on scaled printout

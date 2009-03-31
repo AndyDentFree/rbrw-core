@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2">
 <block type="Module" ID="367990113">
  <ObjName>rbrwGraphicsLineDE</ObjName>
  <ObjContainerID>-1069075618</ObjContainerID>
@@ -32,7 +32,12 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine> Shared Sub recordElement(x as double, y as double, right as double, bottom as double)</SourceLine>
-   <SourceLine>appendElement new rbrwGraphicsLineDE(x, y, right, bottom) </SourceLine>
+   <SourceLine>dim el as new rbrwGraphicsLineDE(x, y, right, bottom) </SourceLine>
+   <SourceLine>appendElement el</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>dim v as Variant = el</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsLineDE.recordElement ('" +Hex(v) + ") " +  str(x) + ", " + str(y) + " to " + str(right) + ", " + str(bottom) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -49,7 +54,12 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine> Shared Sub recordElement(r as rbrwRect)</SourceLine>
-   <SourceLine>appendElement new rbrwGraphicsLineDE(r) </SourceLine>
+   <SourceLine>dim el as new rbrwGraphicsLineDE(r) </SourceLine>
+   <SourceLine>appendElement el</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>dim v as Variant = el</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsLineDE.recordElement ('" +Hex(v) + ") " +  str(r.Left) + ", " + str(r.Top) + " to " + str(r.Right) + ", " + str(r.Bottom) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>

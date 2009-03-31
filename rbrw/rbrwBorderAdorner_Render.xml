@@ -1,57 +1,56 @@
 <?xml version="1.0"?>
 <RBProject version="2009r2">
-<block type="Module" ID="516275660">
- <ObjName>rbrwGraphicsTextDE</ObjName>
- <ObjContainerID>-1069075618</ObjContainerID>
+<block type="Module" ID="694386185">
+ <ObjName>rbrwBorderAdorner_Render</ObjName>
+ <ObjContainerID>1963759756</ObjContainerID>
  <IsClass>1</IsClass>
- <Superclass>rbrwTextDE</Superclass>
+ <Superclass>rbrwAdornerRender</Superclass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
  <Method>
-  <ItemName>recordElement</ItemName>
+  <ItemName>Constructor</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub recordElement(x as double, y as double, inStr as string)</SourceLine>
-   <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>if x &lt; 0 or y &lt; 0  or IsNaN(x) or IsNaN(y)  then</SourceLine>
-   <SourceLine>break</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>#endif</SourceLine>
-   <SourceLine>dim el as new rbrwGraphicsTextDE(x, y, inStr) </SourceLine>
-   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
-   <SourceLine>dim v as Variant = el</SourceLine>
-   <SourceLine>system.DebugLog "rbrwGraphicsTextDE.recordElement ('" +Hex(v) + ") " +  inStr + "' at: " + str(x) + ", " + str(y) + EndOfLine</SourceLine>
-   <SourceLine>#endif</SourceLine>
-   <SourceLine>appendElement el</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
-  <ItemParams>x as double, y as double, inStr as string</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>draw</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub draw()</SourceLine>
-   <SourceLine>rbrwCurrentDraw.DrawString mString, mX, mY+rbrwCurrentDraw.TextHeight</SourceLine>
+   <SourceLine>Sub Constructor(inOwner as rbrwBorderAdorner)</SourceLine>
+   <SourceLine>mOwner = inOwner</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams></ItemParams>
+  <ItemParams>inOwner as rbrwBorderAdorner</ItemParams>
   <ItemResult></ItemResult>
  </Method>
+ <Note>
+  <ItemName>About</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>About</NoteLine>
+   <NoteLine>based on oofBorderAdorner_Render</NoteLine>
+   <NoteLine></NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Property>
+  <ItemName>mOwner</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mOwner As rbrwBorderAdorner</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mOwner As rbrwBorderAdorner</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
  <ViewBehavior>
   <ViewProperty>
    <ObjName>Name</ObjName>
@@ -63,7 +62,7 @@
    <ObjName>Index</ObjName>
    <Visible>1</Visible>
    <PropertyGroup>ID</PropertyGroup>
-   <PropertyValue>-2147483648</PropertyValue>
+   <PropertyValue>2147483648</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
   <ViewProperty>

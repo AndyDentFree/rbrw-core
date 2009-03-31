@@ -32,6 +32,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub draw()</SourceLine>
+   <SourceLine>// Draw is called one PER RECORD in the data source but we don't know about that, we only know </SourceLine>
    <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
    <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
    <SourceLine>dim bandIndenting as double = currSettings.bandIndenting</SourceLine>
@@ -55,14 +56,14 @@
    <SourceLine></SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// Setup for adorners</SourceLine>
-   <SourceLine>dim adornCount as integer // = mOwner-&gt;adorners().count();</SourceLine>
-   <SourceLine>'unsigned long cellY;</SourceLine>
-   <SourceLine>'if( adornCount ) {</SourceLine>
-   <SourceLine>'// Calculate the current record number we're drawing</SourceLine>
-   <SourceLine>'cellY = view-&gt;recordNumber();</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'else</SourceLine>
-   <SourceLine>'cellY = 0;</SourceLine>
+   <SourceLine>dim adornCount as integer  = mOwner.adorners.count</SourceLine>
+   <SourceLine>dim cellY as double</SourceLine>
+   <SourceLine>if adornCount  &gt; 0 then</SourceLine>
+   <SourceLine>// Calculate the current record number we're drawing</SourceLine>
+   <SourceLine>cellY = mRowZB</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>cellY = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// Get the field text and calculate the wrapping and height</SourceLine>
    <SourceLine>dim sizedBody as new rbrwSizedTextArray(lastFieldIndex+1)</SourceLine>
@@ -102,9 +103,9 @@
    <SourceLine>// We don't fit, and we'll need to cope with this!</SourceLine>
    <SourceLine>DrawContinuingOverPage 0, DrawHeight, sizedBody, hasCustomDrawers</SourceLine>
    <SourceLine>else </SourceLine>
-   <SourceLine>'if adornCount &gt; 0 then</SourceLine>
-   <SourceLine>'xPos = xPos + colSepWidth/2.0</SourceLine>
-   <SourceLine>'end if</SourceLine>
+   <SourceLine>if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>xPos = xPos + colSepWidth/2.0</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>if not mDrawnColHeadersThisPage then</SourceLine>
    <SourceLine>drawColumnHeaders</SourceLine>
    <SourceLine>// restore the style - col headers may have changed this</SourceLine>
@@ -117,32 +118,30 @@
    <SourceLine>'if (alignment==oofColSizer::alignNatural) then</SourceLine>
    <SourceLine>'alignment = oofColSizer::naturalAlignmentForField(view-&gt;field(i).fieldType());</SourceLine>
    <SourceLine>'end if</SourceLine>
-   <SourceLine>// Windows different vertical motion!</SourceLine>
-   <SourceLine>'  ANDY CONFUSED - skip this?</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>dim ybase as double = curRep.currentVerticalPos - style.leading</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// Adorner information for the cell</SourceLine>
    <SourceLine>dim cellWidth as double = mColSizer.width(i) + colSepWidth</SourceLine>
    <SourceLine>dim cellHeight as double = rowDrawHeight</SourceLine>
    <SourceLine>dim  cellHorizontalPos as double = xPos - (colSepWidth/2.0)</SourceLine>
-   <SourceLine>dim cellVerticalPos as double = curRep.currentVerticalPos - 1</SourceLine>
+   <SourceLine>dim cellVerticalPos as double = ybase</SourceLine>
+   <SourceLine>'dim cellVerticalPos as double = curRep.currentVerticalPos - 1</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if i = numFlds-1 then</SourceLine>
    <SourceLine>cellWidth = bodyWidth - bandIndenting + leftMargin + (colSepWidth/2.0) - xPos</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>'if adornCount &gt; 0 then</SourceLine>
-   <SourceLine>'// call before adorners for cell</SourceLine>
-   <SourceLine>'mOwner-&gt;adorners().start();</SourceLine>
-   <SourceLine>'for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
-   <SourceLine>'oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
-   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawBefore ) {</SourceLine>
-   <SourceLine>'oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
-   <SourceLine>'currentAdorner-&gt;drawcell(i,cellY,mOwner,cellHeight,cellWidth);</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'mOwner-&gt;adorners().next();</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'}</SourceLine>
+   <SourceLine>if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>// call before adorners for cell</SourceLine>
+   <SourceLine>for each currentAdorner as rbrwAdorner in mOwner.adorners</SourceLine>
+   <SourceLine>if currentAdorner.drawWhen = rbrwAdorner.AdornerContextCode.drawBefore  then</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo cellHorizontalPos, cellVerticalPos</SourceLine>
+   <SourceLine>currentAdorner.drawcell i, cellY, mOwner, cellHeight, cellWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>// draw the contents of the cell</SourceLine>
    <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i)</SourceLine>
    <SourceLine>'if (theDrawer) {</SourceLine>
@@ -191,24 +190,22 @@
    <SourceLine>end if  // if any length in this row</SourceLine>
    <SourceLine>next  // loop through rows of report</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>'if( adornCount ) then</SourceLine>
-   <SourceLine>'// call after adorners for cell</SourceLine>
-   <SourceLine>'mOwner-&gt;adorners().start();</SourceLine>
-   <SourceLine>'for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
-   <SourceLine>'oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
-   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawAfter ) then</SourceLine>
-   <SourceLine>'oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
-   <SourceLine>'currentAdorner-&gt;drawcell(i,cellY,mOwner,cellHeight,cellWidth);</SourceLine>
-   <SourceLine>'end if</SourceLine>
-   <SourceLine>'mOwner-&gt;adorners().next();</SourceLine>
-   <SourceLine>'next</SourceLine>
-   <SourceLine>'end if</SourceLine>
+   <SourceLine>if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>// call after adorners for cell</SourceLine>
+   <SourceLine>for each currentAdorner as rbrwAdorner in mOwner.adorners</SourceLine>
+   <SourceLine>if currentAdorner.drawWhen = rbrwAdorner.AdornerContextCode.drawAfter  then</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo cellHorizontalPos, cellVerticalPos</SourceLine>
+   <SourceLine>currentAdorner.drawcell i, cellY, mOwner, cellHeight, cellWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
    <SourceLine>next</SourceLine>
    <SourceLine>curRep.incVerticalPos  rowDrawHeight</SourceLine>
    <SourceLine>end if  // had to call DrawContinuingOverPage or draw here because it fitted</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>mRowZB = mRowZB + 1  // increment effective record number</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -688,6 +685,7 @@
    <SourceLine>else</SourceLine>
    <SourceLine>mDrawnColHeadersThisPage = true</SourceLine>
    <SourceLine>end if</SourceLine>
+   <SourceLine>mRowZB = 0</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -736,12 +734,25 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <NoteLine>about - column sizing</NoteLine>
-   <NoteLine></NoteLine>
-   <NoteLine></NoteLine>
    <NoteLine>rbrwTreeBand_GraphicsRender descends from rbrwTreeBand_Render which provides mOwner as rbrwIterableTreeBand </NoteLine>
    <NoteLine></NoteLine>
    <NoteLine>mOwner.view.count in the original should be replaced by mOwner.fields.count</NoteLine>
    <NoteLine>instead of expecting a dbView to provide an oofColSizer, we keep that down at this level, having an rbrwColSizer member</NoteLine>
+  </ItemSource>
+  <ItemFlags>0</ItemFlags>
+ </Note>
+ <Note>
+  <ItemName>about</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <NoteLine>about</NoteLine>
+   <NoteLine>port of oofRepViewBand_WinRender</NoteLine>
+   <NoteLine></NoteLine>
+   <NoteLine>Important:</NoteLine>
+   <NoteLine>maintains own iteration count for cell ordinal position - in OOFILE was conveniently available from dbView::recordNumber</NoteLine>
+   <NoteLine></NoteLine>
   </ItemSource>
   <ItemFlags>0</ItemFlags>
  </Note>
@@ -756,6 +767,20 @@
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>mColHeaders As rbrwSizedTextArray</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mRowZB</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mRowZB As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mRowZB As Integer</ItemDeclaration>
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>

@@ -314,7 +314,10 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub DrawLine(x1 As Integer, y1 As Integer, x2 As Integer, y2 As Integer)</SourceLine>
-   <SourceLine>sCurrentGraphics.ClearRect sf*xOffset + sf*x1, sf*yOffset + sf*y1, sf*xOffset + sf*x2, sf*yOffset + sf*y2</SourceLine>
+   <SourceLine>'sCurrentGraphics.DrawLine sf*xOffset + sf*x1, sf*yOffset + sf*y1, sf*xOffset + sf*x2, sf*yOffset + sf*y2</SourceLine>
+   <SourceLine>dim w as double = Max(1.0, Abs( x2-x1))</SourceLine>
+   <SourceLine>dim h as double = Max(1.0, Abs(y2-y1) )</SourceLine>
+   <SourceLine>sCurrentGraphics.FillRect sf*xOffset + sf*x1, sf*yOffset + sf*y1, sf*w, sf*h</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
