@@ -36,7 +36,7 @@
    <SourceLine>appendElement el</SourceLine>
    <SourceLine>#if LoggingRBRWDrawing</SourceLine>
    <SourceLine>dim v as Variant = el</SourceLine>
-   <SourceLine>system.DebugLog "rbrwGraphicsLineDE.recordElement ('" +Hex(v) + ") " +  str(x) + ", " + str(y) + " to " + str(right) + ", " + str(bottom) + EndOfLine</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsLineDE.recordElement ('" +Hex(v.hash) + ") " +  str(x) + ", " + str(y) + " to " + str(right) + ", " + str(bottom) + EndOfLine</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -58,7 +58,7 @@
    <SourceLine>appendElement el</SourceLine>
    <SourceLine>#if LoggingRBRWDrawing</SourceLine>
    <SourceLine>dim v as Variant = el</SourceLine>
-   <SourceLine>system.DebugLog "rbrwGraphicsLineDE.recordElement ('" +Hex(v) + ") " +  str(r.Left) + ", " + str(r.Top) + " to " + str(r.Right) + ", " + str(r.Bottom) + EndOfLine</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsLineDE.recordElement ('" +Hex(v.hash) + ") " +  str(r.Left) + ", " + str(r.Top) + " to " + str(r.Right) + ", " + str(r.Bottom) + EndOfLine</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>

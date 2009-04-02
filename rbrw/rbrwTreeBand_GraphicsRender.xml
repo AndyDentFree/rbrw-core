@@ -588,11 +588,10 @@
    <SourceLine>// Render the Headers</SourceLine>
    <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>'const unsigned long adornCount = mOwner-&gt;adorners().count();</SourceLine>
-   <SourceLine>'unsigned long cellY = 0;</SourceLine>
-   <SourceLine>'</SourceLine>
-   <SourceLine>'if( adornCount )</SourceLine>
-   <SourceLine>'xPos += colSepWidth/2;</SourceLine>
+   <SourceLine>dim adornCount as integer  = mOwner.adorners.count</SourceLine>
+   <SourceLine>if adornCount &gt; 0 then</SourceLine>
+   <SourceLine> xPos = xPos  + colSepWidth/2</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
    <SourceLine>dim numrows as integer =mColHeaders.GetNumRows(i)</SourceLine>
@@ -618,18 +617,16 @@
    <SourceLine>cellWidth = bodyWidth - bandIndenting + leftMargin + (colSepWidth/2.0) - xPos</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>'if( adornCount ) {</SourceLine>
-   <SourceLine>'// call before adorners for cell</SourceLine>
-   <SourceLine>'mOwner-&gt;adorners().start();</SourceLine>
-   <SourceLine>'for( unsigned long ad=0; ad&lt;adornCount; ad++ ) {</SourceLine>
-   <SourceLine>'oofAdorner* currentAdorner = mOwner-&gt;adorners().current();</SourceLine>
-   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawBefore ) {</SourceLine>
-   <SourceLine>'oofCurrentDraw::moveToEx( hdc, cellHorizontalPos, cellVerticalPos, NULL );</SourceLine>
-   <SourceLine>'currentAdorner-&gt;drawcell(i,cellY,mOwner,cellHeight,cellWidth);</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'mOwner-&gt;adorners().next();</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'}</SourceLine>
+   <SourceLine>if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>// call before adorners for cell</SourceLine>
+   <SourceLine>for each currentAdorner as rbrwAdorner in mOwner.adorners</SourceLine>
+   <SourceLine>if currentAdorner.drawWhen = rbrwAdorner.AdornerContextCode.drawBefore  then</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo cellHorizontalPos, cellVerticalPos</SourceLine>
+   <SourceLine>currentAdorner.drawcell i, 0, mOwner, cellHeight, cellWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>dim bytes as integer</SourceLine>
    <SourceLine>for rownum as integer = 0 to numRows - 1</SourceLine>
    <SourceLine>if lengths(rownum) &gt; 0 then</SourceLine>
@@ -655,9 +652,20 @@
    <SourceLine>end if</SourceLine>
    <SourceLine>end if </SourceLine>
    <SourceLine>next  // loop through rows of headers</SourceLine>
+   <SourceLine>if adornCount &gt; 0 then</SourceLine>
+   <SourceLine>// call after adorners for cell</SourceLine>
+   <SourceLine>for each currentAdorner as rbrwAdorner in mOwner.adorners</SourceLine>
+   <SourceLine>if currentAdorner.drawWhen = rbrwAdorner.AdornerContextCode.drawAfter  then</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo cellHorizontalPos, cellVerticalPos</SourceLine>
+   <SourceLine>currentAdorner.drawcell i, 0, mOwner, cellHeight, cellWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
    <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>curRep.incVerticalPos  rowDrawHeight</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>

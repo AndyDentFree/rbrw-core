@@ -712,3 +712,12 @@ FIX GRIDLINE RENDERING FOR TREE BAND
 rbrwCurrentDraw.DrawLine
 - correct call - was doing ClearRect instead of DrawLine, makes it look OK on our Preview
   but crap positioning on scaled printout
+  
+rbrwTreeBand_GraphicsRender.drawColumnHeaders
+- uncomment adorner code
+
+rbrwGraphicsPrint.PrintReport
+- call setOffset ps.pageLeft, ps.pageTop instead of hack
+
+rbrwGraphicsTextDE.draw
+- use UnscaledTextHeight

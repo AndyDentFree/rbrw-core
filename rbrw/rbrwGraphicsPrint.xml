@@ -33,8 +33,8 @@
    <SourceLine>r.draw printEnv  //********* does the real work of generating pages from the report definition, </SourceLine>
    <SourceLine>printEnv.finish</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>rbrwCurrentDraw.setOffset -20, -80  // HARDCODED NASTY HACK</SourceLine>
-   <SourceLine>'rbrwCurrentDraw.setOffset ps.pageLeft, ps.pageTop</SourceLine>
+   <SourceLine>'rbrwCurrentDraw.setOffset -20, -80  // HARDCODED NASTY HACK</SourceLine>
+   <SourceLine>rbrwCurrentDraw.setOffset ps.pageLeft, ps.pageTop</SourceLine>
    <SourceLine>rbrwCurrentDraw.ScalingFactor = ps.HorizontalResolution / 72.0</SourceLine>
    <SourceLine>printEnv.renderPagesToPrinter</SourceLine>
    <SourceLine>rbrwCurrentDraw.CurrentGraphics = nil  // to close the printer</SourceLine>

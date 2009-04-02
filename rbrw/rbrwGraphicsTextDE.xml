@@ -23,7 +23,7 @@
    <SourceLine>dim el as new rbrwGraphicsTextDE(x, y, inStr) </SourceLine>
    <SourceLine>#if LoggingRBRWDrawing</SourceLine>
    <SourceLine>dim v as Variant = el</SourceLine>
-   <SourceLine>system.DebugLog "rbrwGraphicsTextDE.recordElement ('" +Hex(v) + ") " +  inStr + "' at: " + str(x) + ", " + str(y) + EndOfLine</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsTextDE.recordElement ('" +Hex(v.Hash) + ") " +  inStr + "' at: " + str(x) + ", " + str(y) + EndOfLine</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>appendElement el</SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -42,7 +42,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub draw()</SourceLine>
-   <SourceLine>rbrwCurrentDraw.DrawString mString, mX, mY+rbrwCurrentDraw.TextHeight</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawString mString, mX, mY+rbrwCurrentDraw.UnscaledTextHeight</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>

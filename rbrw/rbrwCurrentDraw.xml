@@ -124,6 +124,10 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub moveTo(inX as double, inY as double)</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>system.DebugLog "rbrwCurrentDraw.moveTo' FROM" + str(sX) + ", " + str(sY) + " to " + str(inX) + ", " + str(inY) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>sX = inX</SourceLine>
    <SourceLine>sy = inY</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
@@ -147,6 +151,9 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub moveTo(inX as double, inY as double, ByRef outPrevCoords as rbrw.Point)</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>system.DebugLog "rbrwCurrentDraw.moveTo (outPrevCoords) ' FROM" + str(sX) + ", " + str(sY) + " to " + str(inX) + ", " + str(inY) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
    <SourceLine>outPrevCoords.x = sX</SourceLine>
    <SourceLine>outPrevCoords.y = sY</SourceLine>
    <SourceLine>sX = inX</SourceLine>
@@ -1240,6 +1247,37 @@
   <ItemDeclaration>yOffset As double</ItemDeclaration>
   <ItemFlags>33</ItemFlags>
   <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>UnscaledTextHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Property UnscaledTextHeight As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>UnscaledTextHeight As Integer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>// needed by things which need to work in 72dpi mode despite our current scaling factor</SourceLine>
+   <SourceLine>// eg: rbrwGraphicsTextDE.draw</SourceLine>
+   <SourceLine>// it would be expensive but probably slightly more accurate to pop the size, set it back to an unscaled value</SourceLine>
+   <SourceLine>// then get TextHeight but the return value is only going to be multipled by sf anyway as part of a string position</SourceLine>
+   <SourceLine>// so we don't care about the accuracy</SourceLine>
+   <SourceLine>return sCurrentGraphics.TextHeight / sf</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
  </Property>
  <ViewBehavior>
   <ViewProperty>
