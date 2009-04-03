@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="2011515570">
  <ObjName>rbrwEnvironment</ObjName>
- <ObjContainerID>128126478</ObjContainerID>
+ <ObjContainerID>795249001</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -195,23 +195,6 @@
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <ItemParams></ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>makeRenderDispatch</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub makeRenderDispatch(adorner as rbrwAdorner)</SourceLine>
-   <SourceLine>break  // pure virtual</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>adorner as rbrwAdorner</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>

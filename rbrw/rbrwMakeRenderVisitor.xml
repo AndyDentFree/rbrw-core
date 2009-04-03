@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5">
+<RBProject version="2009r2">
 <block type="Module" ID="744542420">
  <ObjName>rbrwMakeRenderVisitor</ObjName>
  <ObjContainerID>1074776017</ObjContainerID>
@@ -26,31 +26,12 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>VisitAdorner</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub VisitAdorner(inAdorner as rbrwAdorner)</SourceLine>
-   <SourceLine>mEnv.makeRenderDispatch inAdorner</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>1</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>inAdorner as rbrwAdorner</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
   <ItemName>VisitDrawable</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub VisitDrawable(inDrawable as rbrwDrawable)</SourceLine>
-   <SourceLine>VisitAdornerList inDrawable.adorners</SourceLine>
    <SourceLine>mEnv.makeRenderDispatch inDrawable</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>

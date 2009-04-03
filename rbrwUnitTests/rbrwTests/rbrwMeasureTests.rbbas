@@ -5,16 +5,16 @@ Inherits testsNeedingGraphicsEnv
 		Sub HeightOfTextStyleTest()
 		  // try a range of heights to confirm the style consistently gets a realistic pixel height
 		  dim ts as new rbrwTextStyle("Helvetica", 10)
-		  Assert.AreEqual 8.0,  ts.TextAscent( rbrwCurrentDraw.CurrentGraphics ), 0.0
+		  Assert.AreEqual 10.0,  ts.TextHeight( rbrwCurrentDraw.CurrentGraphics ), 0.0
 		  
 		  ts = new rbrwTextStyle("Helvetica", 18)
-		  Assert.AreEqual 14.0,  ts.TextAscent( rbrwCurrentDraw.CurrentGraphics ), 0.0
+		  Assert.AreEqual 18.0,  ts.TextHeight( rbrwCurrentDraw.CurrentGraphics ), 0.0
 		  
 		  ts = new rbrwTextStyle("Helvetica", 36)
-		  Assert.AreEqual 28.0,  ts.TextAscent( rbrwCurrentDraw.CurrentGraphics ), 0.0
+		  Assert.AreEqual 36.0,  ts.TextHeight( rbrwCurrentDraw.CurrentGraphics ), 0.0
 		  
 		  ts = new rbrwTextStyle("Helvetica", 72)
-		  Assert.AreEqual 55.0,  ts.TextAscent( rbrwCurrentDraw.CurrentGraphics ), 0.0
+		  Assert.AreEqual 72.0,  ts.TextHeight( rbrwCurrentDraw.CurrentGraphics ), 0.0
 		  
 		End Sub
 	#tag EndMethod

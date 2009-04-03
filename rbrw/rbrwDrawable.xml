@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="1700735113">
  <ObjName>rbrwDrawable</ObjName>
- <ObjContainerID>1975780848</ObjContainerID>
+ <ObjContainerID>-1075463008</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwTextStylable</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -72,34 +72,9 @@
    <SourceLine>'we shouldn't need to do anything.regarding actual output</SourceLine>
    <SourceLine>if mRender is nil then return</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>'const unsigned long adornCount = adorners().count();</SourceLine>
-   <SourceLine>'unsigned long i;</SourceLine>
-   <SourceLine>'</SourceLine>
-   <SourceLine>'if (adornCount) {</SourceLine>
-   <SourceLine>'// call adorners for before the band</SourceLine>
-   <SourceLine>'adorners().start();</SourceLine>
-   <SourceLine>'for( i=0; i&lt;adornCount; i++ ) {</SourceLine>
-   <SourceLine>'oofAdorner*    currentAdorner = adorners().current();</SourceLine>
-   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawBefore ) {</SourceLine>
-   <SourceLine>'currentAdorner-&gt;draw( this, fixedHeight(), oofRep::currentReport()-&gt;bodyWidth() );</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'adorners().next();</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'}</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>mRender.draw</SourceLine>
-   <SourceLine>'</SourceLine>
-   <SourceLine>'if (adornCount) {</SourceLine>
-   <SourceLine>'// call adorners for after the band</SourceLine>
-   <SourceLine>'adorners().start();</SourceLine>
-   <SourceLine>'for( i=0; i&lt;adornCount; i++ ) {</SourceLine>
-   <SourceLine>'oofAdorner*    currentAdorner = adorners().current();</SourceLine>
-   <SourceLine>'if( currentAdorner-&gt;drawWhen() == oofAdorner::drawAfter ) {</SourceLine>
-   <SourceLine>'currentAdorner-&gt;draw( this, fixedHeight(), oofRep::currentReport()-&gt;bodyWidth() );</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'adorners().next();</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'}</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -212,20 +187,6 @@
    <SourceLine>return mID</SourceLine>
    <SourceLine>End Get</SourceLine>
   </GetAccessor>
- </Property>
- <Property>
-  <ItemName>adorners()</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>adorners() As rbrwAdorner</SourceLine>
-   <SourceLine></SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>adorners() As rbrwAdorner</ItemDeclaration>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
  </Property>
  <ViewBehavior>
   <ViewProperty>

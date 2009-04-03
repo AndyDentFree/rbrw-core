@@ -8,6 +8,28 @@
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
  <Method>
+  <ItemName>settings</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Function settings() As rbrwSettings</SourceLine>
+   <SourceLine>// implement a Singleton with delayed construction</SourceLine>
+   <SourceLine>if sDefaultSettings is nil then</SourceLine>
+   <SourceLine>sDefaultSettings = new rbrwSettings</SourceLine>
+   <SourceLine>setDefaultsInto(sDefaultSettings)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return sDefaultSettings</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwSettings</ItemResult>
+ </Method>
+ <Method>
   <ItemName>setDefaultsInto</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
@@ -27,10 +49,6 @@
    <SourceLine>'sDefaultSettings-&gt;XMLsettings(new oofRepXMLsettings);</SourceLine>
    <SourceLine>'// sDefaultSettings-&gt;reportEditor(new oofRepEditor);  // left at null - reports not editable by default</SourceLine>
    <SourceLine>'</SourceLine>
-   <SourceLine>'// other init stuff - register default serializable classes</SourceLine>
-   <SourceLine>'oofShadingAdorner::registerSerializable();</SourceLine>
-   <SourceLine>'oofBandShadingAdorner::registerSerializable();</SourceLine>
-   <SourceLine>'oofBorderAdorner::registerSerializable();</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>s.pageHeight = 792.0     // GUI calculates from PREC, default to 11" for RTF</SourceLine>
    <SourceLine>s.pageWidth = 576.0     // GUI calculates from PREC, default to 8" for RTF</SourceLine>
@@ -55,28 +73,6 @@
   <Shared>1</Shared>
   <ItemParams>s as rbrwSettings</ItemParams>
   <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>settings</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function settings() As rbrwSettings</SourceLine>
-   <SourceLine>// implement a Singleton with delayed construction</SourceLine>
-   <SourceLine>if sDefaultSettings is nil then</SourceLine>
-   <SourceLine>sDefaultSettings = new rbrwSettings</SourceLine>
-   <SourceLine>setDefaultsInto(sDefaultSettings)</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>return sDefaultSettings</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>rbrwSettings</ItemResult>
  </Method>
  <Note>
   <ItemName>about</ItemName>

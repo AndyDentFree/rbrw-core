@@ -70,8 +70,8 @@
    <NoteLine>The main reason for such a close port is to retain the complex nested drawing and page-break model which is well-debugged.</NoteLine>
    <NoteLine></NoteLine>
    <NoteLine>Some classes have been intentionally skipped as REALbasic is an easier language to work with, </NoteLine>
-   <NoteLine>My initial intent was to use the native RB arrays rather than specialised classes such as oofAdornerList as they offer similar extensible, iterable, type-safe arrays. </NoteLine>
-   <NoteLine>However, the smart cloning of oofAdornerList etc. may cause them to return.</NoteLine>
+   <NoteLine>My initial intent was to use the native RB arrays rather than specialised classes such as oofBreakList as they offer similar extensible, iterable, type-safe arrays. </NoteLine>
+   <NoteLine>However, the smart cloning of oofBreakList etc. may cause them to return.</NoteLine>
    <NoteLine></NoteLine>
    <NoteLine>Also note that most of the constructor work to initialise values to zero or false is skipped as these are the REALbasic defaults for all reference types.</NoteLine>
    <NoteLine>However, automatic C++ constructors that copy values are NOT provided in RB - you have to write your own copy constructors.</NoteLine>

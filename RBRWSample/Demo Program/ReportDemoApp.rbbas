@@ -210,7 +210,7 @@ Inherits Application
 		  r.pageHeaders.startNewRow
 		  dim midblock as new rbrwTextBlock(" A centred line of text followed by a gap & line across page")
 		  midblock.uniqueTextStyle.Bold = true
-		  midblock.uniqueTextStyle.TextSize = 18
+		  midblock.uniqueTextStyle.TextSize = 14
 		  r.pageHeaders.Add midblock, blockAlignT.alignCentre
 		  r.pageHeaders.Add new rbrwSpaceBand(12, mm)
 		  r.pageHeaders.Add new rbrwLineBand(1.5, points)
@@ -264,7 +264,6 @@ Inherits Application
 		  r.body.colSizer.alignment(0) = rbrwColSizer.colAlignT.alignCentre
 		  r.body.colSizer.alignment(2) = rbrwColSizer.colAlignT.alignRight
 		  r.body.colSizer.alignment(3) = rbrwColSizer.colAlignT.alignRight
-		  r.body.adorners.Append new rbrwBorderAdorner( rbrwBorderAdorner.BorderCode.oneThin )
 		  
 		  dim aBand as new rbrwLayoutBand
 		  aBand.Add  "MockMe Widgets, INC"

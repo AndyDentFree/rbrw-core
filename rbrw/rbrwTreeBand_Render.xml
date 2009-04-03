@@ -72,9 +72,7 @@
    <SourceLine></SourceLine>
    <SourceLine>curRep.changeTextStyle mOwner.textStyle</SourceLine>
    <SourceLine>dim widthToDivide as double = curRep.bodyWidth - (2*bandIndenting)</SourceLine>
-   <SourceLine>if mOwner.adorners.count &gt; 0 then  // allow room assuming adorners do grid?</SourceLine>
-   <SourceLine>widthToDivide = widthToDivide - colSepWidth</SourceLine>
-   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>mColSizer.calculateWidths widthToDivide, colSepWidth</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>

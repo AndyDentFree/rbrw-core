@@ -9,23 +9,6 @@
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
  <Method>
-  <ItemName>makeRenderDispatch</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub makeRenderDispatch(adorner as rbrwAdorner)</SourceLine>
-   <SourceLine>adorner.makeRender(self)</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>adorner as rbrwAdorner</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
   <ItemName>heightOfTextStyle</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>

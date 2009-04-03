@@ -82,6 +82,7 @@
    <SourceLine>end if // switch alignments</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>SetCurrentBlockCoords rbrwCurrentDraw.x, rbrwCurrentDraw.y, theBlock  // save for callbacks</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>theBlock.draw</SourceLine>
    <SourceLine>rbrwCurrentDraw.incX incXAfter</SourceLine>
    <SourceLine></SourceLine>
@@ -90,7 +91,6 @@
    <SourceLine>rbrwCurrentDraw.moveTo 0, 0, pt</SourceLine>
    <SourceLine>// Now reposition properly for the right alignment</SourceLine>
    <SourceLine>rbrwCurrentDraw.moveTo leftMargin +bandIndenting, pt.y + theBlock.fixedHeight</SourceLine>
-   <SourceLine></SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>next</SourceLine>
    <SourceLine></SourceLine>

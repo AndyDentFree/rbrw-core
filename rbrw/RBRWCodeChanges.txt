@@ -686,7 +686,7 @@ property of Graphics instead of TextHeight which includes the natural leading.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 2009/03/31 Tue
-DRAWING GRIDLINES
+DRAWING GRIDLINES ON COLUMNS - rbrw-core Issue 14
 
 rbrwBorderAdorner_GraphicsRender
 - ported from oofBorderAdorner_WinRender
@@ -721,3 +721,45 @@ rbrwGraphicsPrint.PrintReport
 
 rbrwGraphicsTextDE.draw
 - use UnscaledTextHeight
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/02 Thu
+PUT BORERS ON LAYOUT BANDS
+
+ReportDemoApp.ReportQuickbooksStyleStatement
+- append borders to the layout bands
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/03 Fri
+REPLACING ADORNERS - STEP 1 RIP THE BASTARDS OUT
+
+rbrwAdorner
+rbrwAdornerRender
+rbrwAdornerSupport
+rbrwBorderAdorner
+rbrwBorderAdorner_GraphicsRender
+rbrwBorderAdorner_Render
+- removed
+
+rbrwEnvironment.makeRenderDispatch(rbrwAdorner)
+rbrwGraphicsEnv.makeRenderDispatch(rbrwAdorner)...
+rbrwVisitor.VisitAdorner
+rbrwVisitor.VisitAdornerList
+rbrwDrawable.adorners()
+rbrwMakeRenderVisitor.VisitAdorner
+- removed 
+
+
+rbrwMakeRenderVisitor.VisitDrawable
+- don't call VisitAdornerList
+
+rbrwTreeBand_Render.CalcColWidths
+- remove hack subtracting colSepWidth if adorners (assumes adorners do grid)
+
+rbrwLayoutBand_GraphicsRender.draw
+rbrwTreeBand_GraphicsRender.drawColumnHeaders
+- remove adorner invoking code
+

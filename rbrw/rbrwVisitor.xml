@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="1275579608">
  <ObjName>rbrwVisitor</ObjName>
- <ObjContainerID>1396362239</ObjContainerID>
+ <ObjContainerID>1074776017</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -132,23 +132,6 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>VisitAdorner</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub VisitAdorner(inAdorner as rbrwAdorner)</SourceLine>
-   <SourceLine>// empty default </SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>1</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>inAdorner as rbrwAdorner</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
   <ItemName>VisitDrawable</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
@@ -180,29 +163,6 @@
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
   <ItemParams>inBand as rbrwBand</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>VisitAdornerList</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub VisitAdornerList(inAdorners() as rbrwAdorner)</SourceLine>
-   <SourceLine>if ubound(inAdorners) = -1 then return</SourceLine>
-   <SourceLine>EnterLevel</SourceLine>
-   <SourceLine>for each ad as rbrwAdorner in inAdorners</SourceLine>
-   <SourceLine>VisitAdorner ad</SourceLine>
-   <SourceLine>next</SourceLine>
-   <SourceLine>LeaveLevel</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>1</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>inAdorners() as rbrwAdorner</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
