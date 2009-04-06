@@ -442,21 +442,18 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub DrawPicture(image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, sx As Integer=0, sy As Integer=0, w2 As Integer=-10000, h2 As Integer=-10000)</SourceLine>
+   <SourceLine>Sub DrawPicture(image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, picX As Integer=0, picY As Integer=0, picW As Integer=-10000, picH As Integer=-10000)</SourceLine>
    <SourceLine>if w1=-10000 then</SourceLine>
    <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y</SourceLine>
    <SourceLine>elseif h1=-10000 then</SourceLine>
    <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1</SourceLine>
-   <SourceLine>elseif sx=0 then</SourceLine>
+   <SourceLine>elseif picW=-10000 then</SourceLine>
    <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*h1</SourceLine>
-   <SourceLine>elseif sy=0 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*h1, sf*sx</SourceLine>
-   <SourceLine>elseif w2=-10000 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*sx, sf*sy</SourceLine>
-   <SourceLine>elseif h2=-10000 then</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*sx, sf*sy, sf*w2</SourceLine>
+   <SourceLine>// do NOT scale the second coords as they are 72dpi SOURCE coords in the picture</SourceLine>
+   <SourceLine>elseif picH=-10000 then</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*h1, picX, picY, picW</SourceLine>
    <SourceLine>else</SourceLine>
-   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*sx, sf*sy, sf*w2, sf*h2</SourceLine>
+   <SourceLine>sCurrentGraphics.DrawPicture Image, sf*xOffset + sf*x, sf*yOffset + sf*y, sf*w1, sf*h1, picX, picY, picW, picH</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -464,7 +461,7 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, sx As Integer=0, sy As Integer=0, w2 As Integer=-10000, h2 As Integer=-10000</ItemParams>
+  <ItemParams>image As Picture, x As Integer, y As Integer, w1 As Integer=-10000, h1 As Integer=-10000, picX As Integer=0, picY As Integer=0, picW As Integer=-10000, picH As Integer=-10000</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -750,6 +747,32 @@
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <ItemParams>inX as double, inY as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>moveTo</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub moveTo(inCoords as rbrw.Point)</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>system.DebugLog "rbrwCurrentDraw.moveTo (outPrevCoords) ' FROM" + str(sX) + ", " + str(sY) + " to " + str(inCoords.x) + ", " + str(inCoords.y) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>sX = inCoords.x</SourceLine>
+   <SourceLine>sy = inCoords.y</SourceLine>
+   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine>if sX &lt; 0  or sY &lt; 0 then</SourceLine>
+   <SourceLine>break</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inCoords as rbrw.Point</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Note>
@@ -1254,7 +1277,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Property UnscaledTextHeight As Integer</SourceLine>
+   <SourceLine>UnscaledTextHeight As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -1402,6 +1425,12 @@
    <PropertyGroup>Behavior</PropertyGroup>
    <ItemType>String</ItemType>
    <EditorType>MultiLineEditor</EditorType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>UnscaledTextHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
   </ViewProperty>
  </ViewBehavior>
  <Constant>

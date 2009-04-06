@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5.1">
+<RBProject version="2009r2">
 <block type="Module" ID="371684813">
  <ObjName>rbrwTextSizer</ObjName>
- <ObjContainerID>-1075463008</ObjContainerID>
+ <ObjContainerID>1975780848</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -255,11 +255,11 @@
    <SourceLine>mMeasureArray(0) = 0</SourceLine>
    <SourceLine>for cumChar as integer = 1 to maxCharsToMeasure</SourceLine>
    <SourceLine>dim cumLen as integer = Round( g.StringWidth( inValue.StringValue(measureFrom, cumChar) )  ) // Mid is 1-based, so use StringValue</SourceLine>
-   <SourceLine>#if DebugBuild</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>if cumLen &lt; 1 then </SourceLine>
-   <SourceLine>break</SourceLine>
+   <SourceLine>raise new rbrwMeasureErrorException</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>mMeasureArray(cumChar) = cumLen</SourceLine>
    <SourceLine>if cumLen &gt; inColWidth then</SourceLine>
    <SourceLine>maxCharsToMeasure = cumChar  // optimisation - shorten comparison loop below</SourceLine>

@@ -131,6 +131,7 @@
    <SourceLine>mBold = rhs.mBold</SourceLine>
    <SourceLine>mItalic = rhs.mItalic</SourceLine>
    <SourceLine>mUnderline = rhs.mUnderline</SourceLine>
+   <SourceLine>mLeading = rhs.mLeading</SourceLine>
    <SourceLine>GenerateDescription</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -437,7 +438,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function leading() As double</SourceLine>
-   <SourceLine>return 0.0</SourceLine>
+   <SourceLine>return mLeading</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -446,6 +447,23 @@
   <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult>double</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>leading</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub leading(assigns value as double)</SourceLine>
+   <SourceLine>mLeading = value</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>assigns value as double</ItemParams>
+  <ItemResult></ItemResult>
  </Method>
  <Note>
   <ItemName>about</ItemName>
@@ -586,6 +604,20 @@
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
  </Property>
+ <Property>
+  <ItemName>mLeading</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mLeading As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mLeading As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
  <ViewBehavior>
   <ViewProperty>
    <ObjName>Name</ObjName>
@@ -633,12 +665,6 @@
    <ItemType>boolean</ItemType>
   </ViewProperty>
   <ViewProperty>
-   <ObjName>mCachedAscent</ObjName>
-   <PropertyGroup>Behavior</PropertyGroup>
-   <PropertyValue>0</PropertyValue>
-   <ItemType>Integer</ItemType>
-  </ViewProperty>
-  <ViewProperty>
    <ObjName>mFillColor</ObjName>
    <PropertyGroup>Behavior</PropertyGroup>
    <PropertyValue>&amp;h000000</PropertyValue>
@@ -667,6 +693,12 @@
    <PropertyGroup>Behavior</PropertyGroup>
    <PropertyValue>0</PropertyValue>
    <ItemType>boolean</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>mCachedHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
   </ViewProperty>
  </ViewBehavior>
 </block>

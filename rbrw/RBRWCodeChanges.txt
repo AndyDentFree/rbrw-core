@@ -761,5 +761,211 @@ rbrwTreeBand_Render.CalcColWidths
 
 rbrwLayoutBand_GraphicsRender.draw
 rbrwTreeBand_GraphicsRender.drawColumnHeaders
+rbrwTreeBand_GraphicsRender.draw
 - remove adorner invoking code
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/04 Sat
+QUICK HACKS TO REPORTS TO GET BOXED FINANCIAL STATEMENTS WORKING
+
+rbrwGraphicsBorderDE
+rbrwBackground
+rbrwBorder
+- added classes
+
+rbrw.lineStyleT
+- added enum used by rbrwBorder
+
+rbrwDrawable.background
+rbrwDrawable.border
+- added public properties
+
+ReportDemoApp.ReportQuickbooksStyleStatement
+- set border = true on all the main bands
+
+rbrwTreeBand_Render.mDrawnColHeadersThisPage
+- renamed mStartedAreaThisPage
+
+rbrwTreeBand_Render.finishConstruction
+- remove logic setting mDrawnColHeadersThisPage
+
+rbrwTreeBand_GraphicsRender.startTableBody
+- unconditionally clear mStartedAreaThisPage 
+- don't set mDrawnColHeadersThisPage
+
+rbrwTreeBand_GraphicsRender.finishConstruction
+- check rbrwReport.currentReport.shouldDrawViewColumnHeaders instead of mDrawnColHeadersThisPage
+
+rbrwTreeBand_GraphicsRender.drawColumnHeaders
+- don't set mDrawnColHeadersThisPage
+
+rbrwTreeBand_GraphicsRender.draw
+- calculate heightPriorFirstRow insted of colHeaderHeight
+- create element and assign to mCurrentBorder
+
+rbrwTreeBand_GraphicsRender.DrawContinuingOverPage
+- calculate heightPriorFirstRow insted of colHeaderHeight
+- create element and assign to mCurrentBorder
+- clear mStartedAreaThisPage
+
+rbrwTreeBand_GraphicsRender.mCurrentBorder
+- added property
+
+rbrwTreeBand_GraphicsRender.endTableBody
+- added to set the height for the borders to be drawn down to
+
+rbrwPage.lastElement
+rbrwDrawingElement.lastElement
+rbrwSizedDE.height.Set
+rbrwSizedDE.width.Set
+- added
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/05 Sun
+FIX MINOR STATEMENT FORMATTING
+
+rbrwTextStyle.mLeading
+- added
+
+rbrwTextStyle.leading
+- added setter
+- getter returns mLeading
+
+ReportDemoApp.ReportQuickbooksStyleStatement
+- set report leading on default text style
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/05 Sun
+STATEMENT FORMATTING - ADDING LINES BETWEEN COLUMNS
+
+rbrwColSizer.count
+- added
+
+rbrwGraphicsBorderDE.colSepWidth
+- added property
+
+rbrwTreeBand_GraphicsRender.DrawContinuingOverPage
+rbrwTreeBand_GraphicsRender.draw
+- set mCurrentBorder.colSepWidth 
+
+rbrwGraphicsBorderDE.draw
+- draw dividing lines
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/05 Sun
+STATEMENT FORMATTING - ADDING LINES ON LAYOUT BANDS
+
+rbrwColSizer.Constructor(integer())
+- added 
+
+rbrwLayoutBand_GraphicsRender.draw
+- create a rbrwGraphicsBorderDE if border set on owner
+- measure the first row height and set headerHeight on border
+
+ReportDemoApp.ReportQuickbooksStyleStatement
+- add fixed colSizers on layout bands
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/05 Sun
+MINOR FORMATTING TWEAKS - RIGHT-ALIGNED COLUMN HEADERS OVERLAPPING WITH GRID
+
+rbrwTreeBand_GraphicsRender.CalcColHeaderWrapping
+- add changeTextStyle so bold heading style used for measurement
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/05 Sun
+MINOR FORMATTING TWEAKS - BOLD HEADINGS ON TOTALS BLOCK
+
+ReportDemoApp.ReportQuickbooksStyleStatement
+- set bold on the blocks uniqueTextStyle
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/05 Sun
+MINOR FORMATTING TWEAKS - address alignment vertically on left
+
+ReportDemoApp.ReportQuickbooksStyleStatement
+- add the tall "Statement" block before the left-most
+
+rbrwCurrentDraw.moveTo
+- add variant taking an rbrwPoint
+
+rbrwLayoutBand_GraphicsRender.draw
+- reset coords if drawn centred or right and not moveDownAfter
+
+
+      
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/06 Mon
+GREYSCALE ON HEADER AREA OF BORDERS
+
+rbrwGraphicsBorderDE.draw
+- rearrange order of drawing
+- draw header area first with greyscale
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/06 Mon
+MINOR FORMATTING TWEAKS - LEADING IN LAYOUT HEADERS
+
+rbrwGraphicsEnv.heightOfTextStyle
+- include leading  - IMPORTANT to size layout vertically!
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/06 Mon
+ADDING LOGOS ON THE FINANCIAL STATEMENTS
+
+ReportTester project
+- added sisyphus_sign picture
+
+rbrwPictureBlock
+- added methods and properties, was empty class
+
+rbrwPictureBlock_Render
+rbrwPictureBlock_GraphicsRender
+rbrwGraphicsPictureDE
+- added
+
+rbrwPicDE
+- removed unused and unneeded class
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/06 Mon
+ADD PAGE NUMBERS ON REPORT
+
+rbrwBracketedTextBlock
+rbrwPageNoBlock
+- added
+
+rbrwTextBlock.Constructor(string,rbrwTextStyle=Nil)
+- add optional style param and pass to super
+
+rbrwTextBlock.text
+- changed from property to method so can override
+
+rbrwTextBlock.clone
+- copy mAlignment to clone
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/07 Tue
+DETECT PRINTING CANCELLED - AVOID STUCK IN LOOP
+
+rbrwTextSizer.calculateWrapping
+- throw rbrwMeasureErrorException when size < 1
+
+
+rbrw.PrintNotCancelled
+- added
+
+rbrwException
+rbrwMeasureErrorException
+- added

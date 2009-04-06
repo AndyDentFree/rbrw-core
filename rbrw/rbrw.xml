@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="-1075940506">
  <ObjName>rbrw</ObjName>
- <ObjContainerID>-1075940312</ObjContainerID>
+ <ObjContainerID>1128200001</ObjContainerID>
  <IsClass>0</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -30,6 +30,42 @@
   <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>PrintCancelled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function PrintCancelled() As Boolean</SourceLine>
+   <SourceLine>// from this thread</SourceLine>
+   <SourceLine>// http://www.realsoftware.com/listarchives/realbasic-nug/2004-12/msg00369.html</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>#if targetCarbon</SourceLine>
+   <SourceLine>#if targetMachO</SourceLine>
+   <SourceLine>Declare Function PMError Lib "Carbon" () as Integer</SourceLine>
+   <SourceLine>#else</SourceLine>
+   <SourceLine>Declare Function PMError Lib "CarbonLib" () as Integer</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>#if targetPPC</SourceLine>
+   <SourceLine>Declare Function PMError Lib "InterfaceLib" () as Short</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>#if targetMacOS</SourceLine>
+   <SourceLine>return PMError = -128</SourceLine>
+   <SourceLine>#else</SourceLine>
+   <SourceLine>return false  // don't know on Windows or Linux</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>Boolean</ItemResult>
  </Method>
  <Note>
   <ItemName>about rbrwRenderT</ItemName>
@@ -243,9 +279,9 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>alignLeft</SourceLine>
-   <SourceLine>alignCentre</SourceLine>
+   <SourceLine>alignCenter</SourceLine>
    <SourceLine>alignRight</SourceLine>
-   <SourceLine>alignTextCentre</SourceLine>
+   <SourceLine>alignTextCenter</SourceLine>
   </ItemSource>
  </Enumeration>
  <Enumeration>
@@ -266,6 +302,27 @@
    <SourceLine>blobField</SourceLine>
    <SourceLine>boolField</SourceLine>
    <SourceLine>dateTimeField</SourceLine>
+  </ItemSource>
+ </Enumeration>
+ <Enumeration>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>lineStyleT</ItemName>
+  <ItemFlags>0</ItemFlags>
+  <ItemType>Integer</ItemType>
+  <ItemName>lineStyleT</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>none</SourceLine>
+   <SourceLine>dotted</SourceLine>
+   <SourceLine>dashed</SourceLine>
+   <SourceLine>solid</SourceLine>
+   <SourceLine>double</SourceLine>
+   <SourceLine>groove</SourceLine>
+   <SourceLine>inset</SourceLine>
+   <SourceLine>outset</SourceLine>
+   <SourceLine>ridge</SourceLine>
   </ItemSource>
  </Enumeration>
 </block>

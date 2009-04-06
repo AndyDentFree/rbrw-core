@@ -40,32 +40,45 @@
    <SourceLine></SourceLine>
    <SourceLine>rbrwCurrentDraw.moveTo leftMargin+bandIndenting, currentVerticalPos</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>dim theBorder as rbrwGraphicsBorderDE</SourceLine>
+   <SourceLine>if not (mOwner.border is nil) then // fancier check later, hack to just get solid borders for statements</SourceLine>
+   <SourceLine>rbrwGraphicsBorderDE.recordElement rbrwCurrentDraw.x,rbrwCurrentDraw.y</SourceLine>
+   <SourceLine>theBorder = rbrwGraphicsBorderDE( rbrwDrawingElement.lastElement )</SourceLine>
+   <SourceLine>theBorder.colSizer =  mOwner.border.colSizer</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim maxBandWidth as integer</SourceLine>
+   <SourceLine>dim firstRowHeight as integer // HACK for underlining first row in statements</SourceLine>
    <SourceLine>for each theBlock as rbrwBlock in mOwner.blocks.blocks</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim blockWidth as double = theBlock.width</SourceLine>
    <SourceLine>dim incXAfter as double</SourceLine>
+   <SourceLine>dim ptBasePriorRestorable as rbrw.Point</SourceLine>
+   <SourceLine>dim restoreCoordsAfterBlocks as Boolean  // flag for situations like aligned right where may want to keep accumulating on left</SourceLine>
    <SourceLine>if theBlock.align = rbrwBlock.blockAlignT.alignRight then</SourceLine>
    <SourceLine>// BOLD ASSUMPTION - only one right aligned item per line.</SourceLine>
-   <SourceLine>dim pt as rbrw.Point </SourceLine>
    <SourceLine>// Get the current position first</SourceLine>
-   <SourceLine>rbrwCurrentDraw.moveTo 0, 0, pt</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo 0, 0, ptBasePriorRestorable</SourceLine>
    <SourceLine>// Now reposition properly for the right alignment</SourceLine>
-   <SourceLine>rbrwCurrentDraw.moveTo bodyWidth + leftMargin - bandIndenting - blockWidth, pt.y</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo bodyWidth + leftMargin - bandIndenting - blockWidth, ptBasePriorRestorable.y</SourceLine>
+   <SourceLine>maxBandWidth = Max(maxBandWidth, bodyWidth + leftMargin - bandIndenting)</SourceLine>
+   <SourceLine>restoreCoordsAfterBlocks = true</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>elseif theBlock.align = rbrwBlock.blockAlignT.alignCenter then</SourceLine>
+   <SourceLine>// BOLD ASSUMPTION - only one centered item per line.</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo 0, 0, ptBasePriorRestorable</SourceLine>
+   <SourceLine>// Now reposition for center alignment</SourceLine>
+   <SourceLine>dim newX as double = (bodyWidth - blockWidth)/2.0</SourceLine>
+   <SourceLine>// centre on page rather than between margins dim newX as double = leftMargin+ (bodyWidth - blockWidth)/2.0</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo newX, ptBasePriorRestorable.y</SourceLine>
+   <SourceLine>maxBandWidth = Max(maxBandWidth, newX + blockWidth/2.0 )</SourceLine>
+   <SourceLine>restoreCoordsAfterBlocks = true</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>elseif theBlock.align = rbrwBlock.blockAlignT.alignCentre then</SourceLine>
+   <SourceLine>elseif theBlock.align = rbrwBlock.blockAlignT.alignTextCenter and theBlock.fixedWidth &gt; 0 then</SourceLine>
+   <SourceLine>// center the text within the width - only makes sense if also set fixed width</SourceLine>
    <SourceLine>dim pt as rbrw.Point</SourceLine>
    <SourceLine>rbrwCurrentDraw.moveTo 0, 0, pt</SourceLine>
-   <SourceLine>// Now reposition for centre alignment</SourceLine>
-   <SourceLine>dim newX as double = leftMargin+ (bodyWidth - blockWidth)/2.0</SourceLine>
-   <SourceLine>rbrwCurrentDraw.moveTo newX, pt.y</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>elseif theBlock.align = rbrwBlock.blockAlignT.alignTextCentre and theBlock.fixedWidth &gt; 0 then</SourceLine>
-   <SourceLine>// centre the text within the width - only makes sense if also set fixed width</SourceLine>
-   <SourceLine>dim pt as rbrw.Point</SourceLine>
-   <SourceLine>rbrwCurrentDraw.moveTo 0, 0, pt</SourceLine>
-   <SourceLine>// Now reposition for centre alignment - same as left-aligned default case, just incremented by half the difference</SourceLine>
+   <SourceLine>// Now reposition for center alignment - same as left-aligned default case, just incremented by half the difference</SourceLine>
    <SourceLine>dim marginInCell as double =  (theBlock.fixedWidth - blockWidth)/2.0</SourceLine>
    <SourceLine>dim newX as double = pt.x + marginInCell  // followed by the text followed by another marginInCell</SourceLine>
    <SourceLine>rbrwCurrentDraw.moveTo newX, pt.y</SourceLine>
@@ -85,17 +98,27 @@
    <SourceLine></SourceLine>
    <SourceLine>theBlock.draw</SourceLine>
    <SourceLine>rbrwCurrentDraw.incX incXAfter</SourceLine>
+   <SourceLine>maxBandWidth = Max(maxBandWidth, rbrwCurrentDraw.x )</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if theBlock.moveDownAfter then</SourceLine>
-   <SourceLine>dim pt as rbrw.Point</SourceLine>
-   <SourceLine>rbrwCurrentDraw.moveTo 0, 0, pt</SourceLine>
+   <SourceLine>dim ptToMoveFrom as rbrw.Point</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo 0, 0,ptToMoveFrom</SourceLine>
    <SourceLine>// Now reposition properly for the right alignment</SourceLine>
-   <SourceLine>rbrwCurrentDraw.moveTo leftMargin +bandIndenting, pt.y + theBlock.fixedHeight</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo leftMargin +bandIndenting, ptToMoveFrom.y + theBlock.fixedHeight</SourceLine>
+   <SourceLine>if firstRowHeight = 0 then</SourceLine>
+   <SourceLine>firstRowHeight = theBlock.fixedHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>elseif restoreCoordsAfterBlocks then</SourceLine>
+   <SourceLine>rbrwCurrentDraw.moveTo ptBasePriorRestorable</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>next</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>currRep.incVerticalPos mOwner.fixedHeight</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>if not(theBorder is nil) then</SourceLine>
+   <SourceLine>theBorder.width = maxBandWidth</SourceLine>
+   <SourceLine>theBorder.height = mOwner.fixedHeight + 2  // HACK TO GET PRETTY RESULTS</SourceLine>
+   <SourceLine>theBorder.headerHeight = firstRowHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>

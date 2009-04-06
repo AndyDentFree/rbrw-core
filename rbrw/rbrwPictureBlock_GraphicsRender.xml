@@ -1,31 +1,29 @@
 <?xml version="1.0"?>
 <RBProject version="2009r2">
-<block type="Module" ID="-1069075743">
- <ObjName>rbrwDrawingElement</ObjName>
- <ObjContainerID>-1069075618</ObjContainerID>
+<block type="Module" ID="998256335">
+ <ObjName>rbrwPictureBlock_GraphicsRender</ObjName>
+ <ObjContainerID>1963759756</ObjContainerID>
  <IsClass>1</IsClass>
+ <Superclass>rbrwPictureBlock_Render</Superclass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
  <Method>
-  <ItemName>appendElement</ItemName>
+  <ItemName>clone</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub appendElement(adoptedDE as rbrwDrawingElement)</SourceLine>
-   <SourceLine>// factory that records elements with current page</SourceLine>
-   <SourceLine>dim currentPage as rbrwPage = rbrwPage.CurrentlyConstructing</SourceLine>
-   <SourceLine>assert not(currentPage is nil)</SourceLine>
-   <SourceLine>currentPage.appendElement adoptedDE</SourceLine>
-   <SourceLine>End Sub</SourceLine>
+   <SourceLine>Function clone(newOwner as rbrwDrawable) As rbrwRender</SourceLine>
+   <SourceLine>return new rbrwPictureBlock_GraphicsRender( rbrwPictureBlock(newOwner) )</SourceLine>
+   <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
-  <ItemParams>adoptedDE as rbrwDrawingElement</ItemParams>
-  <ItemResult></ItemResult>
+  <Shared>0</Shared>
+  <ItemParams>newOwner as rbrwDrawable</ItemParams>
+  <ItemResult>rbrwRender</ItemResult>
  </Method>
  <Method>
   <ItemName>draw</ItemName>
@@ -34,8 +32,12 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub draw()</SourceLine>
-   <SourceLine>break  // pure virtual</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>if mOwner.fixedWidth &gt; 0 then</SourceLine>
+   <SourceLine>// scale it</SourceLine>
+   <SourceLine>rbrwGraphicsPictureDE.recordElement mOwner.picture, rbrwCurrentDraw.x, rbrwCurrentDraw.y, rbrwCurrentDraw.x + mOwner.fixedWidth, rbrwCurrentDraw.y + mOwner.fixedHeight</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>rbrwGraphicsPictureDE.recordElement mOwner.picture, rbrwCurrentDraw.x, rbrwCurrentDraw.y</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -44,26 +46,6 @@
   <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>lastElement</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function lastElement() As rbrwDrawingElement</SourceLine>
-   <SourceLine>// factory that records elements with current page</SourceLine>
-   <SourceLine>dim currentPage as rbrwPage = rbrwPage.CurrentlyConstructing</SourceLine>
-   <SourceLine>if currentPage is nil then return nil</SourceLine>
-   <SourceLine>return currentPage.lastElement</SourceLine>
-   <SourceLine>End Function</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>rbrwDrawingElement</ItemResult>
  </Method>
  <ViewBehavior>
   <ViewProperty>
@@ -76,7 +58,7 @@
    <ObjName>Index</ObjName>
    <Visible>1</Visible>
    <PropertyGroup>ID</PropertyGroup>
-   <PropertyValue>-2147483648</PropertyValue>
+   <PropertyValue>2147483648</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
   <ViewProperty>

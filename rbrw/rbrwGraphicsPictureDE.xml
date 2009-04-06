@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<RBProject version="2009r2">
+<block type="Module" ID="772909789">
+ <ObjName>rbrwGraphicsPictureDE</ObjName>
+ <ObjContainerID>-1069075618</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>rbrwSizedDE</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>draw</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub draw()</SourceLine>
+   <SourceLine>if mUnscaled then</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawPicture mPicture, mX, mY  // let picture naturally scale itself</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawPicture mPicture, mX, mY, width, height, 0, 0, mPicture.Width, mPicture.Height  // draw the entire picture to scaled rectangle</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>recordElement</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Sub recordElement(inPic as Picture, x as double, y as double, right as double, bottom as double)</SourceLine>
+   <SourceLine>dim el as new rbrwGraphicsPictureDE(inPic, x, y, right, bottom) </SourceLine>
+   <SourceLine>appendElement el</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>dim v as Variant = el</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsPictureDE.recordElement ('" +Hex(v.hash) + ") " +  str(x) + ", " + str(y) + " to " + str(right) + ", " + str(bottom) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>inPic as Picture, x as double, y as double, right as double, bottom as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inPic as Picture, x as double, y as double, right as double, bottom as double)</SourceLine>
+   <SourceLine>Super.Constructor x, y, right, bottom</SourceLine>
+   <SourceLine>mPicture = inPic</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPic as Picture, x as double, y as double, right as double, bottom as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inPic as Picture, x as double, y as double)</SourceLine>
+   <SourceLine>Super.Constructor x, y, x+inPic.width, y+inPic.Height</SourceLine>
+   <SourceLine>mUnscaled = true</SourceLine>
+   <SourceLine>mPicture = inPic</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inPic as Picture, x as double, y as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>recordElement</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Sub recordElement(inPic as Picture, x as double, y as double)</SourceLine>
+   <SourceLine>dim el as new rbrwGraphicsPictureDE(inPic, x, y) </SourceLine>
+   <SourceLine>appendElement el</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>dim v as Variant = el</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsPictureDE.recordElement ('" +Hex(v.hash) + ") " +  str(x) + ", " + str(y) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>inPic as Picture, x as double, y as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Property>
+  <ItemName>mPicture</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mPicture As Picture</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mPicture As Picture</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mUnscaled</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mUnscaled As Boolean</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mUnscaled As Boolean</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>width</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+   <InheritsFrom>rbrwSizedDE</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>height</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+   <InheritsFrom>rbrwSizedDE</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

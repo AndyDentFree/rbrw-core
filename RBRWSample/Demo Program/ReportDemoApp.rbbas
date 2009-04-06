@@ -147,7 +147,7 @@ Inherits Application
 		Function ReportSingleLineHeader() As rbrwReport
 		  dim r as new rbrwReport
 		  r.defaultTextStyle.TextFont = "Courier"
-		  r.pageHeaders.Add "This is just a single literal line of text", blockAlignT.alignCentre
+		  r.pageHeaders.Add "This is just a single literal line of text", blockAlignT.alignCenter
 		  
 		  return r
 		End Function
@@ -208,10 +208,10 @@ Inherits Application
 		  r.pageHeaders.Add aBand
 		  //break
 		  r.pageHeaders.startNewRow
-		  dim midblock as new rbrwTextBlock(" A centred line of text followed by a gap & line across page")
+		  dim midblock as new rbrwTextBlock(" A centerd line of text followed by a gap & line across page")
 		  midblock.uniqueTextStyle.Bold = true
 		  midblock.uniqueTextStyle.TextSize = 14
-		  r.pageHeaders.Add midblock, blockAlignT.alignCentre
+		  r.pageHeaders.Add midblock, blockAlignT.alignCenter
 		  r.pageHeaders.Add new rbrwSpaceBand(12, mm)
 		  r.pageHeaders.Add new rbrwLineBand(1.5, points)
 		  
@@ -228,11 +228,11 @@ Inherits Application
 		  aBand.uniqueTextStyle.Bold = true
 		  aBand.uniqueTextStyle.Italic = true
 		  aBand.uniqueTextStyle.TextColor = rgbCayenne
-		  aBand.Add "One Chunk", blockAlignT.alignTextCentre
+		  aBand.Add "One Chunk", blockAlignT.alignTextCenter
 		  aBand.blocks.LastBlock.fixedWidth = 180
-		  aBand.Add "Second Chunk", blockAlignT.alignTextCentre
+		  aBand.Add "Second Chunk", blockAlignT.alignTextCenter
 		  aBand.blocks.LastBlock.fixedWidth = 180
-		  aBand.Add "Third Chunk", blockAlignT.alignTextCentre
+		  aBand.Add "Third Chunk", blockAlignT.alignTextCenter
 		  aBand.blocks.LastBlock.fixedWidth = 180
 		  r.PageFooters.Add aBand
 		  
@@ -245,7 +245,8 @@ Inherits Application
 		  
 		  const DESIGN_WIDTH = 540  // points at 72dpi, body width to fit on US 11 with 0.5" margins
 		  // conveniently allows for 6 cols of 90 across the bottom
-		  CONST AMT_COL_WIDTH = 90
+		  CONST AMT_COL_WIDTH = 85
+		  CONST COL_SEP_WIDTH = 4
 		  
 		  dim mas as new rbrwMultiArraySource( _
 		  SampleFinancialData.arDates, _
@@ -255,28 +256,35 @@ Inherits Application
 		  mas.setColNames( Array("Date", "Details", "Amount", "Balance" ) )
 		  
 		  dim r as new rbrwReport( mas  )
+		  r.settings.defaultTextStyle.leading = 2
+		  r.settings.colSepWidth = COL_SEP_WIDTH
 		  
 		  // specify fixed widths for columns because we also align the blocks before and after
-		  r.body.colSizer.fixedWidth(0) = AMT_COL_WIDTH
-		  'r.body.colSizer.fixedWidth(1) = AMT_COL_WIDTH * 2
-		  r.body.colSizer.fixedWidth(2) = AMT_COL_WIDTH
-		  r.body.colSizer.fixedWidth(3) = AMT_COL_WIDTH
-		  r.body.colSizer.alignment(0) = rbrwColSizer.colAlignT.alignCentre
+		  r.body.colSizer.fixedWidth(0) = AMT_COL_WIDTH - COL_SEP_WIDTH
+		  r.body.colSizer.fixedWidth(1) = AMT_COL_WIDTH * 3 - COL_SEP_WIDTH
+		  r.body.colSizer.fixedWidth(2) = AMT_COL_WIDTH - COL_SEP_WIDTH
+		  r.body.colSizer.fixedWidth(3) = AMT_COL_WIDTH - COL_SEP_WIDTH
+		  r.body.colSizer.alignment(0) = rbrwColSizer.colAlignT.alignCenter
 		  r.body.colSizer.alignment(2) = rbrwColSizer.colAlignT.alignRight
 		  r.body.colSizer.alignment(3) = rbrwColSizer.colAlignT.alignRight
+		  r.body.border = true
+		  
+		  dim bandBorder as rbrwBorder
 		  
 		  dim aBand as new rbrwLayoutBand
-		  aBand.Add  "MockMe Widgets, INC"
-		  // desired approach not yet implemented, see remainder below after startNewRow
-		  'aBand.Add  "MockMe Widgets, INC" + EndOfLine + _
-		  '"123 Stub Street" + EndOfLine + _
-		  '"Fowlerville WI 53999"
 		  
-		  // Address at top of page
+		  // Guff at top of page
 		  dim rightblock as new rbrwTextBlock("Statement")
 		  rightblock.uniqueTextStyle.Bold = true
 		  rightblock.uniqueTextStyle.TextSize = 18
 		  aBand.Add rightblock, blockAlignT.alignRight
+		  
+		  dim logoBlock as new rbrwPictureBlock(sisyphus_sign)
+		  logoBlock.fixedWidth = 120
+		  aBand.Add  logoBlock, blockAlignT.alignCenter
+		  
+		  // start address on left so the moveDownAfter is not after the tall Statement
+		  aBand.Add  "MockMe Widgets, INC"
 		  aBand.startNewRow
 		  aBand.Add  "123 Stub Street"
 		  aBand.startNewRow
@@ -289,6 +297,8 @@ Inherits Application
 		  aBand = new rbrwLayoutBand
 		  aBand.Add "Bill To:"
 		  aBand.LastBlock.uniqueTextStyle.Bold = true
+		  aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
+		  
 		  aBand.startNewRow
 		  aBand.AddRows Array( _
 		  "Bill's Repairs", _
@@ -296,22 +306,30 @@ Inherits Application
 		  "Fowlerville WI 53999" )
 		  // want to somehow indent band here aBand.sett
 		  r.PageHeaders.Add aBand
+		  aBand.border = true
 		  
 		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
 		  
 		  // fake the aligned financial summary
 		  aBand = new rbrwLayoutBand
 		  for each s as string in Array("Date", "Amount Due", "Enclosed")
-		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.Add s, blockAlignT.alignTextCenter
 		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		    aBand.blocks.LastBlock.uniqueTextStyle.Bold = true
+		    aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
 		  next
 		  aBand.startNewRow
-		  // fake array of formatted numbers
+		  // fake total details
 		  for each s as string in Array("09/16/08",  "$1,520.00")
-		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.Add s, blockAlignT.alignTextCenter
 		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
 		  next
 		  r.PageHeaders.Add aBand
+		  bandBorder = new rbrwBorder(1)
+		  bandBorder.colSizer = new rbrwColSizer( Array(AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH) )
+		  aBand.border = bandBorder
+		  
+		  
 		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
 		  
 		  
@@ -320,16 +338,27 @@ Inherits Application
 		  
 		  aBand = new rbrwLayoutBand
 		  for each s as string in Array("Current", "1-15", "16-30", "31-60", "61-90", "Over 90")
-		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.Add s, blockAlignT.alignTextCenter
 		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		    aBand.blocks.LastBlock.uniqueTextStyle.Bold = true
+		    aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
 		  next
 		  aBand.startNewRow
 		  // fake array of formatted numbers
 		  for each s as string in Array("$7.00", "$17,890.11", "$1,290.45", "$0.00", "$0.00", "$0.00")
-		    aBand.Add s, blockAlignT.alignTextCentre
+		    aBand.Add s, blockAlignT.alignTextCenter
 		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
 		  next
 		  r.PageFooters.Add aBand
+		  bandBorder = new rbrwBorder(1)
+		  bandBorder.colSizer = new rbrwColSizer( Array(AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH) )
+		  aBand.border = bandBorder
+		  
+		  r.PageFooters.Add new rbrwSpaceBand(5, mm)
+		  aBand = new rbrwLayoutBand
+		  aBand.Add new rbrwPageNoBlock("Page ", "   ")
+		  r.PageFooters.Add aBand
+		  
 		  return r
 		End Function
 	#tag EndMethod

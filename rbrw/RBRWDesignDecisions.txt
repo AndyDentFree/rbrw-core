@@ -245,3 +245,26 @@ ALTERNATIVE DATA MODELS
 2) Iterating through a view of transactions which includes a customer ID. Break on a new customer ID and draw the customer details as a break header. This is a more traditional SQL view of the data.
 
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/05 Sun
+WHEN TO TELL WE HAVE STARTED AND ENDED A BAND ON A PAGE
+
+rbrwTreeBand_GraphicsRender.draw is called to draw each row.
+
+mDrawnColHeadersThisPage is used to help decide if column headers should be drawn but in
+rbrwTreeBand_GraphicsRender.startTableBody it is set true depending on shouldDrawViewColumnHeaders
+to avoid any headers ever being drawn.
+
+For variable-height bands we need to have a way to identify when the band ends - this will be 
+when we run out of content or a DrawContinuingOverPage does a page break.
+
+ALTERNATIVES
+1) add something similar to mDrawnColHeadersThisPage but as a 
+"start area on page" / "end area on page"
+- only a minor design change from the current approach
+- move the mDrawnColHeadersThisPage logic into this as a subset
+
+2) record the lowest and highest values for the coords on a given page
+- doesn't really provide the flexibility we need 
+

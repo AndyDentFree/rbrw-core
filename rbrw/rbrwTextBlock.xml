@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="-1074030933">
  <ObjName>rbrwTextBlock</ObjName>
- <ObjContainerID>883326124</ObjContainerID>
+ <ObjContainerID>-1074030850</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwBlock</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -14,7 +14,8 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(s as string)</SourceLine>
+   <SourceLine>Sub Constructor(s as string, adoptedStyle as rbrwTextStyle=Nil)</SourceLine>
+   <SourceLine>super.Constructor adoptedStyle</SourceLine>
    <SourceLine>mSource = new rbrwLiteral(s)</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -22,7 +23,7 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>s as string</ItemParams>
+  <ItemParams>s as string, adoptedStyle as rbrwTextStyle=Nil</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -31,7 +32,8 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(inSource as rbrwSource)</SourceLine>
+   <SourceLine>Sub Constructor(inSource as rbrwSource, adoptedStyle as rbrwTextStyle=Nil)</SourceLine>
+   <SourceLine>super.Constructor adoptedStyle</SourceLine>
    <SourceLine>mSource = inSource</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -39,7 +41,7 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>inSource as rbrwSource</ItemParams>
+  <ItemParams>inSource as rbrwSource, adoptedStyle as rbrwTextStyle=Nil</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -49,7 +51,9 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function clone() As rbrwTextBlock</SourceLine>
-   <SourceLine>return new rbrwTextBlock(mSource)</SourceLine>
+   <SourceLine>dim ret as new rbrwTextBlock(mSource)</SourceLine>
+   <SourceLine>ret.mAlignment = mAlignment</SourceLine>
+   <SourceLine>return ret</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -93,6 +97,23 @@
   <ItemParams></ItemParams>
   <ItemResult>string</ItemResult>
  </Method>
+ <Method>
+  <ItemName>text</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function text() As String</SourceLine>
+   <SourceLine>return mSource.value</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+ </Method>
  <Property>
   <ItemName>mSource</ItemName>
   <Compatibility></Compatibility>
@@ -107,33 +128,14 @@
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>
- <Property>
-  <ItemName>text</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>text As string</SourceLine>
-   <SourceLine></SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>text As string</ItemDeclaration>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <SetAccessor>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Set</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>End Set</SourceLine>
-  </SetAccessor>
-  <GetAccessor>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Get</SourceLine>
-   <SourceLine>return mSource.value</SourceLine>
-   <SourceLine>End Get</SourceLine>
-  </GetAccessor>
- </Property>
  <ViewBehavior>
+  <ViewProperty>
+   <ObjName>ID</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>string</ItemType>
+   <EditorType>MultiLineEditor</EditorType>
+   <InheritsFrom>rbrwDrawable</InheritsFrom>
+  </ViewProperty>
   <ViewProperty>
    <ObjName>mMoveDownAfter</ObjName>
    <PropertyGroup>Behavior</PropertyGroup>

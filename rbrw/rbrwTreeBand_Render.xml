@@ -33,11 +33,6 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub finishConstruction()</SourceLine>
-   <SourceLine>if rbrwReport.currentReport.shouldDrawViewColumnHeaders then</SourceLine>
-   <SourceLine>mDrawnColHeadersThisPage = false</SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine>mDrawnColHeadersThisPage = true</SourceLine>
-   <SourceLine>end if</SourceLine>
    <SourceLine>CalcColWidths</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -155,16 +150,16 @@
   <Shared>0</Shared>
  </Property>
  <Property>
-  <ItemName>mDrawnColHeadersThisPage</ItemName>
+  <ItemName>mStartedAreaThisPage</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mDrawnColHeadersThisPage As boolean</SourceLine>
+   <SourceLine>mStartedAreaThisPage As boolean</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mDrawnColHeadersThisPage As boolean</ItemDeclaration>
+  <ItemDeclaration>mStartedAreaThisPage As boolean</ItemDeclaration>
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>

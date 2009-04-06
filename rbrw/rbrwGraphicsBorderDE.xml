@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<RBProject version="2009r2">
+<block type="Module" ID="1645410225">
+ <ObjName>rbrwGraphicsBorderDE</ObjName>
+ <ObjContainerID>-1069075618</ObjContainerID>
+ <IsClass>1</IsClass>
+ <Superclass>rbrwSizedDE</Superclass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>draw</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub draw()</SourceLine>
+   <SourceLine>if not(colSizer is nil) then // ADJUST SIZE</SourceLine>
+   <SourceLine>dim lastCol as integer = colSizer.count - 2  // skip last col</SourceLine>
+   <SourceLine>dim accumWidth as integer</SourceLine>
+   <SourceLine>for i as Integer = 0 to lastCol</SourceLine>
+   <SourceLine>dim colWidth as integer = colSizer.width(i)</SourceLine>
+   <SourceLine>accumWidth = accumWidth + colWidth+ colSepWidth</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>accumWidth = accumWidth + colSizer.width(lastCol+1)</SourceLine>
+   <SourceLine>mRight = mX + accumWidth + 2  // override width by totalling the col sizer, HACK to get slightly better result on last col</SourceLine>
+   <SourceLine>end if  // has col sizer</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// now draw background so we can draw dividing lines on top</SourceLine>
+   <SourceLine>if headerHeight &gt; 0 then</SourceLine>
+   <SourceLine>dim underlineY as integer = mY + headerHeight</SourceLine>
+   <SourceLine>dim saveC as Color = rbrwCurrentDraw.ForeColor</SourceLine>
+   <SourceLine>rbrwCurrentDraw.ForeColor = &amp;cE6E6E6</SourceLine>
+   <SourceLine>rbrwCurrentDraw.FillRect mX, mY, width, headerHeight</SourceLine>
+   <SourceLine>rbrwCurrentDraw.ForeColor = saveC</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawLine mX, underlineY, mRight, underlineY  // Underline header</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if not(colSizer is nil) then</SourceLine>
+   <SourceLine>dim lastCol as integer = colSizer.count - 2  // skip last col</SourceLine>
+   <SourceLine>dim offsetX as integer = mX - colSepWidth/2</SourceLine>
+   <SourceLine>for i as Integer = 0 to lastCol</SourceLine>
+   <SourceLine>dim colWidth as integer = colSizer.width(i) </SourceLine>
+   <SourceLine>offsetX = offsetX + colWidth + colSepWidth</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawLine offsetX, mY, offsetX, mBottom</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>end if  // has col sizer</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawLine mX, mY, mRight, mY  // top</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawLine mX, mY, mX, mBottom  // left</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawLine mRight, mY, mRight, mBottom  // right</SourceLine>
+   <SourceLine>rbrwCurrentDraw.DrawLine mX, mBottom, mRight, mBottom  // bottom</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>recordElement</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine> Shared Sub recordElement(x as double, y as double, right as double=-1, bottom as double=-1)</SourceLine>
+   <SourceLine>if right = -1 then right = x // so can increment width</SourceLine>
+   <SourceLine>if bottom = -1 then bottom = y // so can increment height</SourceLine>
+   <SourceLine>dim el as new rbrwGraphicsBorderDE(x, y, right, bottom) </SourceLine>
+   <SourceLine>appendElement el</SourceLine>
+   <SourceLine>#if LoggingRBRWDrawing</SourceLine>
+   <SourceLine>dim v as Variant = el</SourceLine>
+   <SourceLine>system.DebugLog "rbrwGraphicsBorderDE.recordElement ('" +Hex(v.hash) + ") " +  str(x) + ", " + str(y) + " to " + str(right) + ", " + str(bottom) + EndOfLine</SourceLine>
+   <SourceLine>#endif</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>1</Shared>
+  <ItemParams>x as double, y as double, right as double=-1, bottom as double=-1</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>incHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub incHeight(incBy as double)</SourceLine>
+   <SourceLine>mBottom = mBottom + incBy</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>incBy as double</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Property>
+  <ItemName>headerHeight</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>headerHeight As double</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>headerHeight As double</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>colSizer</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>colSizer As rbrwColSizer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>colSizer As rbrwColSizer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>colSepWidth</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>colSepWidth As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>colSepWidth As Integer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>width</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+   <InheritsFrom>rbrwSizedDE</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>height</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+   <InheritsFrom>rbrwSizedDE</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>headerHeight</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>double</ItemType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>colSepWidth</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>

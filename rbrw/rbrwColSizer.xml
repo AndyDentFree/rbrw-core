@@ -358,6 +358,37 @@
   <ItemParams>colNum as integer, assigns value as scn</ItemParams>
   <ItemResult></ItemResult>
  </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(fixedWidths() as integer)</SourceLine>
+   <SourceLine>dim lastIndex as integer = UBound(fixedWidths)</SourceLine>
+   <SourceLine>mNumCols = lastIndex + 1</SourceLine>
+   <SourceLine>redim mColAlignments( lastIndex ) </SourceLine>
+   <SourceLine>redim mColCalcWidths( lastIndex )</SourceLine>
+   <SourceLine>redim mColFixedWidths( lastIndex )</SourceLine>
+   <SourceLine>redim mColPercentages( lastIndex )</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for i as integer = 0 to lastIndex</SourceLine>
+   <SourceLine>mColAlignments(i) = colAlignT.alignNatural</SourceLine>
+   <SourceLine>mColCalcWidths(i) =  fixedWidths(i)</SourceLine>
+   <SourceLine>mColFixedWidths(i) = fixedWidths(i)</SourceLine>
+   <SourceLine>mColPercentages(i) = kNotSet</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>mHaveCalculatedWidth = true</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>fixedWidths() as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
  <Note>
   <ItemName>about</ItemName>
   <Compatibility></Compatibility>
@@ -459,6 +490,32 @@
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>
+ <Property>
+  <ItemName>count</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>count As Integer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>count As Integer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mNumCols</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
  <ViewBehavior>
   <ViewProperty>
    <ObjName>Name</ObjName>
@@ -493,6 +550,12 @@
    <PropertyValue>0</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
+  <ViewProperty>
+   <ObjName>count</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
+  </ViewProperty>
  </ViewBehavior>
  <Constant>
   <ItemName>kNotSet</ItemName>
@@ -515,7 +578,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>alignLeft</SourceLine>
-   <SourceLine>alignCentre</SourceLine>
+   <SourceLine>alignCenter</SourceLine>
    <SourceLine>alignRight</SourceLine>
    <SourceLine>alignJust</SourceLine>
    <SourceLine>alignNatural</SourceLine>

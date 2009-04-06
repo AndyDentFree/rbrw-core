@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <RBProject version="2009r2">
-<block type="Module" ID="1708822910">
- <ObjName>rbrwSizedDE</ObjName>
- <ObjContainerID>-1069075618</ObjContainerID>
+<block type="Module" ID="1405713838">
+ <ObjName>rbrwBorder</ObjName>
+ <ObjContainerID>-1075892825</ObjContainerID>
  <IsClass>1</IsClass>
- <Superclass>rbrwPositionedDE</Superclass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
@@ -14,121 +13,100 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(x as double, y as double, right as double, bottom as double)</SourceLine>
-   <SourceLine>// don't bother calling super, just init its members</SourceLine>
-   <SourceLine>mX = x</SourceLine>
-   <SourceLine>mY = y</SourceLine>
-   <SourceLine>mRight = right</SourceLine>
-   <SourceLine>mBottom = bottom</SourceLine>
+   <SourceLine>Sub Constructor(inThickness as integer, inStyle as rbrw.lineStyleT = rbrw.lineStyleT.solid)</SourceLine>
+   <SourceLine>thickness = inThickness</SourceLine>
+   <SourceLine>style = inStyle</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>x as double, y as double, right as double, bottom as double</ItemParams>
+  <ItemParams>inThickness as integer, inStyle as rbrw.lineStyleT = rbrw.lineStyleT.solid</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>Constructor</ItemName>
+  <ItemName>operator_convert</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(r as rbrwRect)</SourceLine>
-   <SourceLine>// don't bother calling super, just init its members</SourceLine>
-   <SourceLine>mX = r.Left</SourceLine>
-   <SourceLine>mY = r.Top</SourceLine>
-   <SourceLine>mRight = r.Right</SourceLine>
-   <SourceLine>mBottom = r.Bottom</SourceLine>
+   <SourceLine>Sub operator_convert(rhs as integer)</SourceLine>
+   <SourceLine>thickness = rhs</SourceLine>
+   <SourceLine>style = rbrw.lineStyleT.solid</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>r as rbrwRect</ItemParams>
+  <ItemParams>rhs as integer</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>operator_convert</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub operator_convert(rhs as Boolean)</SourceLine>
+   <SourceLine>// convenience converter so people can say aBand.border = true</SourceLine>
+   <SourceLine>thickness = 1</SourceLine>
+   <SourceLine>if rhs then</SourceLine>
+   <SourceLine>style = rbrw.lineStyleT.solid</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>style =  rbrw.lineStyleT.none  // in here for symmetry but people could also just choose not to assign a border</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>rhs as Boolean</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Property>
-  <ItemName>mRight</ItemName>
+  <ItemName>style</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mRight As double</SourceLine>
+   <SourceLine>style As rbrw.lineStyleT</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mRight As double</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>0</Shared>
- </Property>
- <Property>
-  <ItemName>mBottom</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mBottom As double</SourceLine>
-   <SourceLine></SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mBottom As double</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>0</Shared>
- </Property>
- <Property>
-  <ItemName>width</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>width As double</SourceLine>
-   <SourceLine></SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>width As double</ItemDeclaration>
+  <ItemDeclaration>style As rbrw.lineStyleT</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <SetAccessor>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Set</SourceLine>
-   <SourceLine>mRight = mX + value</SourceLine>
-   <SourceLine>End Set</SourceLine>
-  </SetAccessor>
-  <GetAccessor>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Get</SourceLine>
-   <SourceLine>return mRight - mX</SourceLine>
-   <SourceLine>End Get</SourceLine>
-  </GetAccessor>
  </Property>
  <Property>
-  <ItemName>height</ItemName>
+  <ItemName>thickness</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>height As double</SourceLine>
+   <SourceLine>thickness As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>height As double</ItemDeclaration>
+  <ItemDeclaration>thickness As Integer</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <SetAccessor>
+ </Property>
+ <Property>
+  <ItemName>colSizer</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Set</SourceLine>
-   <SourceLine>mBottom = mY + value</SourceLine>
-   <SourceLine>End Set</SourceLine>
-  </SetAccessor>
-  <GetAccessor>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Get</SourceLine>
-   <SourceLine>return mBottom - mY</SourceLine>
-   <SourceLine>End Get</SourceLine>
-  </GetAccessor>
+   <SourceLine>colSizer As rbrwColSizer</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>colSizer As rbrwColSizer</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
  </Property>
  <ViewBehavior>
   <ViewProperty>
@@ -141,7 +119,7 @@
    <ObjName>Index</ObjName>
    <Visible>1</Visible>
    <PropertyGroup>ID</PropertyGroup>
-   <PropertyValue>2147483648</PropertyValue>
+   <PropertyValue>-2147483648</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
   <ViewProperty>
@@ -165,16 +143,10 @@
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
   <ViewProperty>
-   <ObjName>width</ObjName>
+   <ObjName>thickness</ObjName>
    <PropertyGroup>Behavior</PropertyGroup>
    <PropertyValue>0</PropertyValue>
-   <ItemType>double</ItemType>
-  </ViewProperty>
-  <ViewProperty>
-   <ObjName>height</ObjName>
-   <PropertyGroup>Behavior</PropertyGroup>
-   <PropertyValue>0</PropertyValue>
-   <ItemType>double</ItemType>
+   <ItemType>Integer</ItemType>
   </ViewProperty>
  </ViewBehavior>
 </block>

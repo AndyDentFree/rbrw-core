@@ -213,12 +213,12 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>DrawObjectCentred</ItemName>
+  <ItemName>DrawObjectCentered</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub DrawObjectCentred(extends g as Graphics, draws as Object2D)</SourceLine>
+   <SourceLine>Sub DrawObjectCentered(extends g as Graphics, draws as Object2D)</SourceLine>
    <SourceLine>g.DrawObject draws, g.Width/2, g.Height/2</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>

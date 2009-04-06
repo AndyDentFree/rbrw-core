@@ -26,153 +26,6 @@
   <ItemResult>rbrwRender</ItemResult>
  </Method>
  <Method>
-  <ItemName>draw</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub draw()</SourceLine>
-   <SourceLine>// Draw is called one PER RECORD in the data source but we don't know about that, we only know </SourceLine>
-   <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
-   <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
-   <SourceLine>dim bandIndenting as double = currSettings.bandIndenting</SourceLine>
-   <SourceLine>dim colSepWidth as double = currSettings.colSepWidth</SourceLine>
-   <SourceLine>dim currentVerticalPos as double = curRep.currentVerticalPos</SourceLine>
-   <SourceLine>dim leftMargin as double =  currSettings.leftMargin</SourceLine>
-   <SourceLine>dim bodyWidth as double = curRep.bodyWidth</SourceLine>
-   <SourceLine>dim bodyEnd as double = curRep.bodyEnd</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>dim style as rbrwTextStyle = mOwner.textStyle</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>curRep.changeTextStyle style  // ESSENTIAL PREREQ FOR CalculateWrapping before </SourceLine>
-   <SourceLine>//    int charHeight = style-&gt;calcCharHeight();</SourceLine>
-   <SourceLine>//    int charHeight = style-&gt;fixedHeight();</SourceLine>
-   <SourceLine>//    int descent    = style-&gt;calcDescent();</SourceLine>
-   <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
-   <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
-   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>// Get the field text and calculate the wrapping and height</SourceLine>
-   <SourceLine>dim sizedBody as new rbrwSizedTextArray(lastFieldIndex+1)</SourceLine>
-   <SourceLine>dim hasCustomDrawers as Boolean</SourceLine>
-   <SourceLine>'unsigned long maxCustomDrawerHeight = 0;</SourceLine>
-   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
-   <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i);</SourceLine>
-   <SourceLine>'if (theDrawer) {</SourceLine>
-   <SourceLine>'hasCustomDrawers = true;</SourceLine>
-   <SourceLine>'unsigned long wrappedHeight;</SourceLine>
-   <SourceLine>'theDrawer-&gt;calculateWrapping(&amp;view-&gt;field(i), mColSizer-&gt;width(i), wrappedHeight);</SourceLine>
-   <SourceLine>'if (wrappedHeight&gt;maxCustomDrawerHeight)</SourceLine>
-   <SourceLine>'maxCustomDrawerHeight = wrappedHeight;</SourceLine>
-   <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'else {</SourceLine>
-   <SourceLine>sizedBody.text(i) = fields.fieldValue(i)</SourceLine>
-   <SourceLine>sizedBody.CalculateWrapping i, mColSizer.width(i)</SourceLine>
-   <SourceLine>next</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>dim colHeaderHeight as integer</SourceLine>
-   <SourceLine>if not mDrawnColHeadersThisPage then</SourceLine>
-   <SourceLine>colHeaderHeight = mColHeaders.maxRows()*lineHeight    // add in col headers when deciding if room on page</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>dim rowDrawHeight as double = sizedBody.maxRows * lineHeight</SourceLine>
-   <SourceLine>'if maxCustomDrawerHeight&gt;rowDrawHeight then</SourceLine>
-   <SourceLine>'rowDrawHeight = maxCustomDrawerHeight</SourceLine>
-   <SourceLine>'end if</SourceLine>
-   <SourceLine>dim DrawHeight as double = rowDrawHeight + colHeaderHeight</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>// Render the Fields</SourceLine>
-   <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>if (DrawHeight + curRep.currentVerticalPos) &gt; bodyEnd then</SourceLine>
-   <SourceLine>// We don't fit, and we'll need to cope with this!</SourceLine>
-   <SourceLine>DrawContinuingOverPage 0, DrawHeight, sizedBody, hasCustomDrawers</SourceLine>
-   <SourceLine>else </SourceLine>
-   <SourceLine>if not mDrawnColHeadersThisPage then</SourceLine>
-   <SourceLine>drawColumnHeaders</SourceLine>
-   <SourceLine>// restore the style - col headers may have changed this</SourceLine>
-   <SourceLine>curRep.changeTextStyle mOwner.textStyle</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
-   <SourceLine>dim alignment as rbrwColSizer.colAlignT = mColSizer.alignment(i)</SourceLine>
-   <SourceLine>// Cope with natural alignment</SourceLine>
-   <SourceLine>'if (alignment==oofColSizer::alignNatural) then</SourceLine>
-   <SourceLine>'alignment = oofColSizer::naturalAlignmentForField(view-&gt;field(i).fieldType());</SourceLine>
-   <SourceLine>'end if</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>dim ybase as double = curRep.currentVerticalPos - style.leading</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>// draw the contents of the cell</SourceLine>
-   <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i)</SourceLine>
-   <SourceLine>'if (theDrawer) {</SourceLine>
-   <SourceLine>'oofDE::appendElement(theDrawer-&gt;makeDrawDE(xPos, ybase));</SourceLine>
-   <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed style</SourceLine>
-   <SourceLine>'}</SourceLine>
-   <SourceLine>'else {  // draw normal text</SourceLine>
-   <SourceLine>dim numrows as integer =sizedBody.GetNumRows(i)</SourceLine>
-   <SourceLine>dim lines() as integer = sizedBody.GetLineStarts(i)</SourceLine>
-   <SourceLine>dim lengths() as integer = sizedBody.GetLineLengths(i)</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>dim bytes as integer</SourceLine>
-   <SourceLine>for rownum as integer = 0 to numRows - 1</SourceLine>
-   <SourceLine>if lengths(rownum) &gt; 0 then</SourceLine>
-   <SourceLine>dim drawPos as double</SourceLine>
-   <SourceLine>if alignment = rbrwColSizer.colAlignT.alignRight then</SourceLine>
-   <SourceLine>drawPos=xPos+mColSizer.width(i)-lengths(rownum)</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCentre then</SourceLine>
-   <SourceLine>drawPos=xPos+ ( mColSizer.width(i)-lengths(rownum) )/2.0</SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine> drawPos=xPos</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>if rownum = (numrows-1)    then</SourceLine>
-   <SourceLine>// all the bytes in the string minus the start of the last line</SourceLine>
-   <SourceLine>bytes=sizedBody.text(i).Len-lines(rownum)</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine>bytes=lines(rownum+1) - lines(rownum)</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>// bit of a hack to avoid CRLF at end of line</SourceLine>
-   <SourceLine>'dim lastLine as string = lines(rownum) + sizedBody.text(i)</SourceLine>
-   <SourceLine>'if (bytes&gt;0)  then</SourceLine>
-   <SourceLine>'dim lastCharAt as integer = bytes - 1</SourceLine>
-   <SourceLine>'char lastChar = lastLine[lastCharAt];</SourceLine>
-   <SourceLine>'while(lastCharAt &gt;0 &amp;&amp; (lastChar=='\r' || lastChar=='\n')) {</SourceLine>
-   <SourceLine>'lastCharAt--;</SourceLine>
-   <SourceLine>'lastChar = lastLine[lastCharAt];</SourceLine>
-   <SourceLine>'wend</SourceLine>
-   <SourceLine>'bytes = lastCharAt+1;</SourceLine>
-   <SourceLine>'end if</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>if bytes &gt; 0 then</SourceLine>
-   <SourceLine>rbrwGraphicsTextDE.recordElement drawPos, ybase+rownum * lineHeight, sizedBody.text(i).mid( lines(rownum)+1, bytes)</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>end if  // if any length in this row</SourceLine>
-   <SourceLine>next  // loop through rows of report</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
-   <SourceLine>next</SourceLine>
-   <SourceLine>curRep.incVerticalPos  rowDrawHeight</SourceLine>
-   <SourceLine>end if  // had to call DrawContinuingOverPage or draw here because it fitted</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>mRowZB = mRowZB + 1  // increment effective record number</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
   <ItemName>finishConstruction</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
@@ -180,7 +33,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub finishConstruction()</SourceLine>
    <SourceLine>super.finishConstruction</SourceLine>
-   <SourceLine>if not mDrawnColHeadersThisPage then // indicates will be drawing them</SourceLine>
+   <SourceLine>if rbrwReport.currentReport.shouldDrawViewColumnHeaders then </SourceLine>
    <SourceLine>dim numCols as integer = mOwner.fields.count</SourceLine>
    <SourceLine>if mColHeaders is nil then mColHeaders = new rbrwSizedTextArray(numCols)</SourceLine>
    <SourceLine>mColHeaders.initSizers numCols</SourceLine>
@@ -200,8 +53,8 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub DrawContinuingOverPage(startRow as integer,  heightLeft as double, sizedBody as rbrwSizedTextArray,  hasCustomDrawers as boolean)</SourceLine>
-   <SourceLine>// NOTE heightLeft will include the height of the column headers if they are still to be printed</SourceLine>
+   <SourceLine>Sub DrawContinuingOverPage(startRow as integer, heightLeftToDraw as double, sizedBody as rbrwSizedTextArray, hasCustomDrawers as boolean)</SourceLine>
+   <SourceLine>// NOTE heightLeftToDraw will include the height of the column headers if they are still to be printed</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
    <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
@@ -229,36 +82,38 @@
    <SourceLine>roomLeftOnPage = 0     // even one line won't fit, so force to next page</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>if heightLeft &gt; roomLeftOnPage then</SourceLine>
+   <SourceLine>if heightLeftToDraw &gt; roomLeftOnPage then</SourceLine>
    <SourceLine>DrawHeight = roomLeftOnPage        // WARNING may be less than one line room left!!!</SourceLine>
    <SourceLine> else </SourceLine>
-   <SourceLine>DrawHeight=heightLeft</SourceLine>
+   <SourceLine>DrawHeight=heightLeftToDraw</SourceLine>
    <SourceLine>lastpage=true</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>curRep.changeTextStyle style  // ESSENTIAL PREREQ FOR CalculateWrapping before</SourceLine>
    <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>dim colHeaderHeight as integer</SourceLine>
    <SourceLine>dim possiblerows as integer</SourceLine>
-   <SourceLine>if Not(mDrawnColHeadersThisPage) then</SourceLine>
-   <SourceLine>dim  colHeaderHeight as double = mColHeaders.maxRows * lineHeight</SourceLine>
+   <SourceLine>if not mStartedAreaThisPage then</SourceLine>
+   <SourceLine>dim heightPriorFirstRow as integer</SourceLine>
+   <SourceLine>if curRep.shouldDrawViewColumnHeaders then</SourceLine>
+   <SourceLine>colHeaderHeight = mColHeaders.maxRows()*lineHeight    // add in col headers when deciding if room on page</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>// colHeaderHeight will only be non-zero if we are drawing headers and haven't yet drawn them</SourceLine>
-   <SourceLine>rowDrawHeight = DrawHeight-colHeaderHeight</SourceLine>
-   <SourceLine>if DrawHeight &gt; colHeaderHeight then</SourceLine>
-   <SourceLine>possiblerows = rowDrawHeight/lineHeight    // must be truncation divide - don't draw half rows</SourceLine>
+   <SourceLine>heightPriorFirstRow = colHeaderHeight</SourceLine>
+   <SourceLine>// TODO SOON - ADD IN MARGINS HERE</SourceLine>
+   <SourceLine>if DrawHeight &gt; heightPriorFirstRow then</SourceLine>
+   <SourceLine>possiblerows = (DrawHeight - heightPriorFirstRow) / lineHeight    // must be truncation divide - don't draw half rows</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>possiblerows = 0</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>else </SourceLine>
-   <SourceLine>possiblerows=DrawHeight/lineHeight    // could be zero rows if a single line too tall</SourceLine>
-   <SourceLine>rowDrawHeight = DrawHeight</SourceLine>
+   <SourceLine>rowDrawHeight = DrawHeight - heightPriorFirstRow</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>'dim maxCustomDrawerHeight as double  // largest chunk drawn by a custom drawer</SourceLine>
    <SourceLine>// helps define total height drawn if a custom drawer is a few pixels higher than adjacent rows of uniform text</SourceLine>
-   <SourceLine>'dim maxCustomDrawerHeightLeft as double  // our total left - allows for custom drawers to take more room</SourceLine>
-   <SourceLine>// drawing in chunks than in the original estimate of a single chunk, so our incoming heightLeft may be too low</SourceLine>
+   <SourceLine>'dim maxCustomDrawerheightLeftToDraw as double  // our total left - allows for custom drawers to take more room</SourceLine>
+   <SourceLine>// drawing in chunks than in the original estimate of a single chunk, so our incoming heightLeftToDraw may be too low</SourceLine>
    <SourceLine>// if we have a page break this page - see the correction before recursing below</SourceLine>
    <SourceLine>'</SourceLine>
    <SourceLine>'if hasCustomDrawers then</SourceLine>
@@ -271,16 +126,16 @@
    <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i);</SourceLine>
    <SourceLine>'if (theDrawer) {</SourceLine>
    <SourceLine>'unsigned long drawnHeight;</SourceLine>
-   <SourceLine>'const unsigned long heightLeftToDraw = theDrawer-&gt;calcNextDrawHeight(rowDrawHeight, drawnHeight);</SourceLine>
+   <SourceLine>'const unsigned long heightLeftToDrawToDraw = theDrawer-&gt;calcNextDrawHeight(rowDrawHeight, drawnHeight);</SourceLine>
    <SourceLine>'if (drawnHeight &gt; maxCustomDrawerHeight)</SourceLine>
    <SourceLine>'maxCustomDrawerHeight = drawnHeight;</SourceLine>
    <SourceLine>'assert(drawnHeight&lt;=rowDrawHeight);</SourceLine>
-   <SourceLine>'if (heightLeftToDraw&gt;0) {</SourceLine>
+   <SourceLine>'if (heightLeftToDrawToDraw&gt;0) {</SourceLine>
    <SourceLine>'lastpage=false;  // correction to calc above, in case the custom draw broke in a way</SourceLine>
    <SourceLine>'// that changed the remaining height we've been passing through. We might have thought</SourceLine>
    <SourceLine>'// this is the last page because other columns fit, but this could correct that.</SourceLine>
-   <SourceLine>'if (heightLeftToDraw &gt; maxCustomDrawerHeightLeft)</SourceLine>
-   <SourceLine>'maxCustomDrawerHeightLeft = heightLeftToDraw;</SourceLine>
+   <SourceLine>'if (heightLeftToDrawToDraw &gt; maxCustomDrawerheightLeftToDraw)</SourceLine>
+   <SourceLine>'maxCustomDrawerheightLeftToDraw = heightLeftToDrawToDraw;</SourceLine>
    <SourceLine>'}  // height to draw</SourceLine>
    <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed</SourceLine>
    <SourceLine>'}  // custom drawer</SourceLine>
@@ -293,10 +148,19 @@
    <SourceLine>if lastpage or possiblerows &gt; 1 then // don't allow a widow left on page if more than one row to draw</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// we know we have made room for the col headers if not drawn on this page</SourceLine>
-   <SourceLine>if Not(mDrawnColHeadersThisPage) then</SourceLine>
+   <SourceLine>if not mStartedAreaThisPage then</SourceLine>
+   <SourceLine>if not (mOwner.border is nil) then // fancier check later, hack to just get solid borders for statements</SourceLine>
+   <SourceLine>rbrwGraphicsBorderDE.recordElement xPos, curRep.currentVerticalPos - 2  // HACK - START 2 PIXELS EARLY</SourceLine>
+   <SourceLine>mCurrentBorder = rbrwGraphicsBorderDE( rbrwDrawingElement.lastElement )</SourceLine>
+   <SourceLine>mCurrentBorder.width = bodyWidth + 2  // HACK TO GET RHS SPACING</SourceLine>
+   <SourceLine>mCurrentBorder.colSizer = mColSizer</SourceLine>
+   <SourceLine>mCurrentBorder.headerHeight = colHeaderHeight </SourceLine>
+   <SourceLine>mCurrentBorder.colSepWidth = colSepWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>drawColumnHeaders</SourceLine>
-   <SourceLine>// restore the style - headers may have changed</SourceLine>
-   <SourceLine>curRep.changeTextStyle(style)</SourceLine>
+   <SourceLine>// restore the style - col headers may have changed this</SourceLine>
+   <SourceLine>curRep.changeTextStyle mOwner.textStyle</SourceLine>
+   <SourceLine>mStartedAreaThisPage = true</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>&#32;&#32;&#32;&#32;</SourceLine>
    <SourceLine>dim lastFld as integer = numFlds-1</SourceLine>
@@ -309,7 +173,6 @@
    <SourceLine>'alignment = oofColSizer::naturalAlignmentForField(view-&gt;field(i).fieldType());</SourceLine>
    <SourceLine>'end if</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>// Windows different vertical motion!</SourceLine>
    <SourceLine>dim ybase as double = curRep.currentVerticalPos - style.leading</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>'            oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i);</SourceLine>
@@ -349,7 +212,7 @@
    <SourceLine>if alignment = rbrwColSizer.colAlignT.alignRight then</SourceLine>
    <SourceLine>drawPos=xPos+mColSizer.width(i)-lengths(actualRow)</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCentre then</SourceLine>
+   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCenter then</SourceLine>
    <SourceLine>drawPos=xPos+ ( mColSizer.width(i)-lengths(actualRow) )/2.0</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>drawPos=xPos</SourceLine>
@@ -398,13 +261,13 @@
    <SourceLine>'heightDrawn = maxCustomDrawerHeight  // may have custom draw go a few pixels past the rows</SourceLine>
    <SourceLine>'end if</SourceLine>
    <SourceLine>'assert (heightDrawn &lt;= DrawHeight);    // difference is fractional row that didn't fit</SourceLine>
-   <SourceLine>heightLeft = heightLeft - heightDrawn</SourceLine>
-   <SourceLine>'if maxCustomDrawerHeightLeft &gt; heightLeft then</SourceLine>
-   <SourceLine>'heightLeft = maxCustomDrawerHeightLeft  // may have custom draw extend the earlier total</SourceLine>
+   <SourceLine>heightLeftToDraw = heightLeftToDraw - heightDrawn</SourceLine>
+   <SourceLine>'if maxCustomDrawerheightLeftToDraw &gt; heightLeftToDraw then</SourceLine>
+   <SourceLine>'heightLeftToDraw = maxCustomDrawerheightLeftToDraw  // may have custom draw extend the earlier total</SourceLine>
    <SourceLine>'end if</SourceLine>
    <SourceLine>// fitted at least 2 rows</SourceLine>
    <SourceLine>else </SourceLine>
-   <SourceLine>// heightLeft stays the same as on entry - ie: we've called overrun from draw because row didn't fit entirely on original page</SourceLine>
+   <SourceLine>// heightLeftToDraw stays the same as on entry - ie: we've called overrun from draw because row didn't fit entirely on original page</SourceLine>
    <SourceLine>rowsDrawn = 0</SourceLine>
    <SourceLine>end if </SourceLine>
    <SourceLine></SourceLine>
@@ -414,14 +277,17 @@
    <SourceLine>dim theEnv as rbrwEnvironment = curRep.environment</SourceLine>
    <SourceLine>theEnv.splitBandOverPage</SourceLine>
    <SourceLine>curRep.drawPageBreak</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>mStartedAreaThisPage = false</SourceLine>
    <SourceLine>// unconditionally draw headers - we KNOW we haven't drawn them</SourceLine>
-   <SourceLine>drawColumnHeaders  // NOT YET IMPLEMENTED - setting to say that we don't draw these on subsequent pages</SourceLine>
+   <SourceLine>//drawColumnHeaders  // NOT YET IMPLEMENTED - setting to say that we don't draw these on subsequent pages</SourceLine>
    <SourceLine>theEnv.resumeBandOverPage</SourceLine>
    <SourceLine>curRep.changeTextStyle mOwner.textStyle  // In case the page break or col headers changed styles</SourceLine>
-   <SourceLine>DrawContinuingOverPage(startRow+rowsDrawn, heightLeft, sizedBody, hasCustomDrawers)</SourceLine>
+   <SourceLine>DrawContinuingOverPage(startRow+rowsDrawn, heightLeftToDraw, sizedBody, hasCustomDrawers)</SourceLine>
    <SourceLine> else</SourceLine>
-   <SourceLine>curRep.incVerticalPos DrawHeight</SourceLine>
+   <SourceLine>curRep.incVerticalPos rowDrawHeight</SourceLine>
+   <SourceLine>if not(mCurrentBorder is nil) then</SourceLine>
+   <SourceLine>mCurrentBorder.incHeight rowDrawHeight  </SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine></SourceLine>
@@ -432,7 +298,7 @@
   <AliasName></AliasName>
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>startRow as integer,  heightLeft as double, sizedBody as rbrwSizedTextArray,  hasCustomDrawers as boolean</ItemParams>
+  <ItemParams>startRow as integer, heightLeftToDraw as double, sizedBody as rbrwSizedTextArray, hasCustomDrawers as boolean</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -449,7 +315,6 @@
    <SourceLine>dim leftMargin as double =  currSettings.leftMargin</SourceLine>
    <SourceLine>dim bodyWidth as double = curRep.bodyWidth</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>mDrawnColHeadersThisPage = true   // not conditional! we want to avoid calling this method again this page</SourceLine>
    <SourceLine>if not curRep.shouldDrawViewColumnHeaders then</SourceLine>
    <SourceLine>return</SourceLine>
    <SourceLine>end if</SourceLine>
@@ -489,7 +354,7 @@
    <SourceLine>if alignment = rbrwColSizer.colAlignT.alignRight then</SourceLine>
    <SourceLine>drawPos=xPos+mColSizer.width(i)-lengths(rownum)</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCentre then</SourceLine>
+   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCenter then</SourceLine>
    <SourceLine>drawPos=xPos+ ( mColSizer.width(i)-lengths(rownum) )/2.0</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>drawPos=xPos</SourceLine>
@@ -510,9 +375,10 @@
    <SourceLine></SourceLine>
    <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
    <SourceLine>next</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine></SourceLine>
    <SourceLine>curRep.incVerticalPos  rowDrawHeight</SourceLine>
+   <SourceLine>if not(mCurrentBorder is nil) then</SourceLine>
+   <SourceLine>mCurrentBorder.incHeight rowDrawHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -532,13 +398,11 @@
    <SourceLine>// reset here in case we redraw a Windows render once constructed,</SourceLine>
    <SourceLine>// eg: if printing after generating a preview</SourceLine>
    <SourceLine>if rbrwReport.currentReport.shouldDrawViewColumnHeaders then</SourceLine>
-   <SourceLine>mDrawnColHeadersThisPage = false</SourceLine>
    <SourceLine>if headersHaveChanged then</SourceLine>
    <SourceLine>CalcColHeaderWrapping</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine>mDrawnColHeadersThisPage = true</SourceLine>
    <SourceLine>end if</SourceLine>
+   <SourceLine>mStartedAreaThisPage = false</SourceLine>
    <SourceLine>mRowZB = 0</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -563,6 +427,7 @@
    <SourceLine>dim ownerStyle as rbrwTextStyle = mOwner.textStyle</SourceLine>
    <SourceLine>dim style as new rbrwTextStyle( ownerStyle )</SourceLine>
    <SourceLine>style.Bold = true</SourceLine>
+   <SourceLine>rbrwReport.currentReport.changeTextStyle style</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim fieldNames() as string = fields.listFields</SourceLine>
    <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
@@ -577,6 +442,166 @@
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>draw</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub draw()</SourceLine>
+   <SourceLine>// Draw is called one PER RECORD in the data source but we don't know about that, we only know </SourceLine>
+   <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
+   <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
+   <SourceLine>dim bandIndenting as double = currSettings.bandIndenting</SourceLine>
+   <SourceLine>dim colSepWidth as double = currSettings.colSepWidth</SourceLine>
+   <SourceLine>dim currentVerticalPos as double = curRep.currentVerticalPos</SourceLine>
+   <SourceLine>dim leftMargin as double =  currSettings.leftMargin</SourceLine>
+   <SourceLine>dim bodyWidth as double = curRep.bodyWidth</SourceLine>
+   <SourceLine>dim bodyEnd as double = curRep.bodyEnd</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim style as rbrwTextStyle = mOwner.textStyle</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>curRep.changeTextStyle style  // ESSENTIAL PREREQ FOR CalculateWrapping before </SourceLine>
+   <SourceLine>//    int charHeight = style-&gt;calcCharHeight();</SourceLine>
+   <SourceLine>//    int charHeight = style-&gt;fixedHeight();</SourceLine>
+   <SourceLine>//    int descent    = style-&gt;calcDescent();</SourceLine>
+   <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
+   <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Get the field text and calculate the wrapping and height</SourceLine>
+   <SourceLine>dim sizedBody as new rbrwSizedTextArray(lastFieldIndex+1)</SourceLine>
+   <SourceLine>dim hasCustomDrawers as Boolean</SourceLine>
+   <SourceLine>'unsigned long maxCustomDrawerHeight = 0;</SourceLine>
+   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
+   <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i);</SourceLine>
+   <SourceLine>'if (theDrawer) {</SourceLine>
+   <SourceLine>'hasCustomDrawers = true;</SourceLine>
+   <SourceLine>'unsigned long wrappedHeight;</SourceLine>
+   <SourceLine>'theDrawer-&gt;calculateWrapping(&amp;view-&gt;field(i), mColSizer-&gt;width(i), wrappedHeight);</SourceLine>
+   <SourceLine>'if (wrappedHeight&gt;maxCustomDrawerHeight)</SourceLine>
+   <SourceLine>'maxCustomDrawerHeight = wrappedHeight;</SourceLine>
+   <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else {</SourceLine>
+   <SourceLine>sizedBody.text(i) = fields.fieldValue(i)</SourceLine>
+   <SourceLine>sizedBody.CalculateWrapping i, mColSizer.width(i)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim heightPriorFirstRow as integer</SourceLine>
+   <SourceLine>dim colHeaderHeight as integer</SourceLine>
+   <SourceLine>if not mStartedAreaThisPage then</SourceLine>
+   <SourceLine>if curRep.shouldDrawViewColumnHeaders then</SourceLine>
+   <SourceLine>colHeaderHeight = mColHeaders.maxRows()*lineHeight    // add in col headers when deciding if room on page</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>heightPriorFirstRow = colHeaderHeight</SourceLine>
+   <SourceLine>// TODO SOON - ADD IN MARGINS HERE</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim rowDrawHeight as double = sizedBody.maxRows * lineHeight</SourceLine>
+   <SourceLine>'if maxCustomDrawerHeight&gt;rowDrawHeight then</SourceLine>
+   <SourceLine>'rowDrawHeight = maxCustomDrawerHeight</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>dim DrawHeight as double = rowDrawHeight + heightPriorFirstRow</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// Render the Fields</SourceLine>
+   <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if (DrawHeight + curRep.currentVerticalPos) &gt; bodyEnd then</SourceLine>
+   <SourceLine>// We don't fit, and we'll need to cope with this!</SourceLine>
+   <SourceLine>DrawContinuingOverPage 0, DrawHeight, sizedBody, hasCustomDrawers</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>if not mStartedAreaThisPage then</SourceLine>
+   <SourceLine>if not (mOwner.border is nil) then // fancier check later, hack to just get solid borders for statements</SourceLine>
+   <SourceLine>rbrwGraphicsBorderDE.recordElement xPos, curRep.currentVerticalPos - 2  // HACK - START 2 PIXELS EARLY</SourceLine>
+   <SourceLine>mCurrentBorder = rbrwGraphicsBorderDE( rbrwDrawingElement.lastElement )</SourceLine>
+   <SourceLine>mCurrentBorder.width = bodyWidth + 2  // HACK TO GET RHS SPACING</SourceLine>
+   <SourceLine>mCurrentBorder.colSizer = mColSizer</SourceLine>
+   <SourceLine>mCurrentBorder.headerHeight = colHeaderHeight </SourceLine>
+   <SourceLine>mCurrentBorder.colSepWidth = colSepWidth</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>drawColumnHeaders</SourceLine>
+   <SourceLine>// restore the style - col headers may have changed this</SourceLine>
+   <SourceLine>curRep.changeTextStyle mOwner.textStyle</SourceLine>
+   <SourceLine>mStartedAreaThisPage = true</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
+   <SourceLine>dim alignment as rbrwColSizer.colAlignT = mColSizer.alignment(i)</SourceLine>
+   <SourceLine>// Cope with natural alignment</SourceLine>
+   <SourceLine>'if (alignment==oofColSizer::alignNatural) then</SourceLine>
+   <SourceLine>'alignment = oofColSizer::naturalAlignmentForField(view-&gt;field(i).fieldType());</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim ybase as double = curRep.currentVerticalPos - style.leading</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// draw the contents of the cell</SourceLine>
+   <SourceLine>'oofRepCustomViewDrawer* theDrawer = mOwner-&gt;customDrawer(i)</SourceLine>
+   <SourceLine>'if (theDrawer) {</SourceLine>
+   <SourceLine>'oofDE::appendElement(theDrawer-&gt;makeDrawDE(xPos, ybase));</SourceLine>
+   <SourceLine>'curRep-&gt;changeTextStyle(style);  // in case custom drawer changed style</SourceLine>
+   <SourceLine>'}</SourceLine>
+   <SourceLine>'else {  // draw normal text</SourceLine>
+   <SourceLine>dim numrows as integer =sizedBody.GetNumRows(i)</SourceLine>
+   <SourceLine>dim lines() as integer = sizedBody.GetLineStarts(i)</SourceLine>
+   <SourceLine>dim lengths() as integer = sizedBody.GetLineLengths(i)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim bytes as integer</SourceLine>
+   <SourceLine>for rownum as integer = 0 to numRows - 1</SourceLine>
+   <SourceLine>if lengths(rownum) &gt; 0 then</SourceLine>
+   <SourceLine>dim drawPos as double</SourceLine>
+   <SourceLine>if alignment = rbrwColSizer.colAlignT.alignRight then</SourceLine>
+   <SourceLine>drawPos=xPos+mColSizer.width(i)-lengths(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif alignment = rbrwColSizer.colAlignT.alignCenter then</SourceLine>
+   <SourceLine>drawPos=xPos+ ( mColSizer.width(i)-lengths(rownum) )/2.0</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine> drawPos=xPos</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if rownum = (numrows-1)    then</SourceLine>
+   <SourceLine>// all the bytes in the string minus the start of the last line</SourceLine>
+   <SourceLine>bytes=sizedBody.text(i).Len-lines(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>bytes=lines(rownum+1) - lines(rownum)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// bit of a hack to avoid CRLF at end of line</SourceLine>
+   <SourceLine>'dim lastLine as string = lines(rownum) + sizedBody.text(i)</SourceLine>
+   <SourceLine>'if (bytes&gt;0)  then</SourceLine>
+   <SourceLine>'dim lastCharAt as integer = bytes - 1</SourceLine>
+   <SourceLine>'char lastChar = lastLine[lastCharAt];</SourceLine>
+   <SourceLine>'while(lastCharAt &gt;0 &amp;&amp; (lastChar=='\r' || lastChar=='\n')) {</SourceLine>
+   <SourceLine>'lastCharAt--;</SourceLine>
+   <SourceLine>'lastChar = lastLine[lastCharAt];</SourceLine>
+   <SourceLine>'wend</SourceLine>
+   <SourceLine>'bytes = lastCharAt+1;</SourceLine>
+   <SourceLine>'end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if bytes &gt; 0 then</SourceLine>
+   <SourceLine>rbrwGraphicsTextDE.recordElement drawPos, ybase+rownum * lineHeight, sizedBody.text(i).mid( lines(rownum)+1, bytes)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if  // if any length in this row</SourceLine>
+   <SourceLine>next  // loop through rows of report</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>curRep.incVerticalPos  rowDrawHeight</SourceLine>
+   <SourceLine>if not(mCurrentBorder is nil) then</SourceLine>
+   <SourceLine>mCurrentBorder.incHeight rowDrawHeight</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if  // had to call DrawContinuingOverPage or draw here because it fitted</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mRowZB = mRowZB + 1  // increment effective record number</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <ItemParams></ItemParams>
   <ItemResult></ItemResult>
@@ -635,6 +660,20 @@
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <ItemDeclaration>mRowZB As Integer</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>mCurrentBorder</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mCurrentBorder As rbrwGraphicsBorderDE</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mCurrentBorder As rbrwGraphicsBorderDE</ItemDeclaration>
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>

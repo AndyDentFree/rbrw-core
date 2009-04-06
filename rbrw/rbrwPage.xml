@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="1195413247">
  <ObjName>rbrwPage</ObjName>
- <ObjContainerID>2137650948</ObjContainerID>
+ <ObjContainerID>883155139</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -79,6 +79,25 @@
   <Shared>0</Shared>
   <ItemParams>inRect as rbrwRect</ItemParams>
   <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>lastElement</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function lastElement() As rbrwDrawingElement</SourceLine>
+   <SourceLine>dim lastIX as integer = UBound(mElements)</SourceLine>
+   <SourceLine>if lastIX = -1 then return nil</SourceLine>
+   <SourceLine>return mElements(lastIX)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>rbrwDrawingElement</ItemResult>
  </Method>
  <Note>
   <ItemName>About</ItemName>

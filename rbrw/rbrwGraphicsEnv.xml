@@ -15,7 +15,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function heightOfTextStyle(ts as rbrwTextStyle) As double</SourceLine>
-   <SourceLine>return ts.TextHeight(rbrwCurrentDraw.CurrentGraphics)</SourceLine>
+   <SourceLine>return ts.TextHeight(rbrwCurrentDraw.CurrentGraphics) + ts.leading</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>

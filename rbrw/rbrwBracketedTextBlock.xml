@@ -1,29 +1,40 @@
 <?xml version="1.0"?>
 <RBProject version="2009r2">
-<block type="Module" ID="-1073040895">
- <ObjName>rbrwPictureBlock</ObjName>
+<block type="Module" ID="142168904">
+ <ObjName>rbrwBracketedTextBlock</ObjName>
  <ObjContainerID>-1074030850</ObjContainerID>
  <IsClass>1</IsClass>
- <Superclass>rbrwBlock</Superclass>
+ <Superclass>rbrwTextBlock</Superclass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
  <Method>
-  <ItemName>fixedHeight</ItemName>
+  <ItemName>Constructor</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function fixedHeight() As double</SourceLine>
-   <SourceLine>dim ret as double = mPicture.Height</SourceLine>
-   <SourceLine>if mFixedWidth &gt; 0 then  // scale the height to ratio of widths as user constrained</SourceLine>
-   <SourceLine>dim actualWidth as double = mPicture.Width</SourceLine>
-   <SourceLine>if mFixedWidth &lt; actualWidth then</SourceLine>
-   <SourceLine>ret = ret * mFixedWidth / actualWidth   // scale down</SourceLine>
-   <SourceLine>// if pic smaller than specified width do NOT stretch up</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine>return ret</SourceLine>
+   <SourceLine>Sub Constructor(inLeadingText as string, inTrailingText as string, adoptedStyle as rbrwTextStyle=nil)</SourceLine>
+   <SourceLine>Super.Constructor inLeadingText, adoptedStyle</SourceLine>
+   <SourceLine>mTrailingText = inTrailingText</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inLeadingText as string, inTrailingText as string, adoptedStyle as rbrwTextStyle=nil</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Method>
+  <ItemName>text</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function text() As String</SourceLine>
+   <SourceLine>return super.text + middleText + mTrailingText</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -31,7 +42,25 @@
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <ItemParams></ItemParams>
-  <ItemResult>double</ItemResult>
+  <ItemResult>String</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>middleText</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function middleText() As string</SourceLine>
+   <SourceLine>// in OOFILE this is a pure virtual method</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
  </Method>
  <Method>
   <ItemName>Constructor</ItemName>
@@ -39,60 +68,30 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(inPic as Picture)</SourceLine>
-   <SourceLine>Super.Constructor nil  // no text style on picture blocks</SourceLine>
-   <SourceLine>mPicture = inPic</SourceLine>
+   <SourceLine>Sub Constructor(rhs as rbrwBracketedTextBlock)</SourceLine>
+   <SourceLine>Super.Constructor leadingText</SourceLine>
+   <SourceLine>mTrailingText = rhs.mTrailingText</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>inPic as Picture</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>makeRender</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub makeRender(env as RBRWGraphicsenv)</SourceLine>
-   <SourceLine>mRender = new rbrwPictureBlock_GraphicsRender(self)</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>env as RBRWGraphicsenv</ItemParams>
+  <ItemParams>rhs as rbrwBracketedTextBlock</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Property>
-  <ItemName>mPicture</ItemName>
+  <ItemName>leadingText</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mPicture As Picture</SourceLine>
+   <SourceLine>Property leadingText As String</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mPicture As Picture</ItemDeclaration>
-  <ItemFlags>1</ItemFlags>
-  <Shared>0</Shared>
- </Property>
- <Property>
-  <ItemName>picture</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Property picture As Picture</SourceLine>
-   <SourceLine></SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>picture As Picture</ItemDeclaration>
+  <ItemDeclaration>leadingText As String</ItemDeclaration>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <SetAccessor>
@@ -104,7 +103,47 @@
   <GetAccessor>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Get</SourceLine>
-   <SourceLine>return mPicture</SourceLine>
+   <SourceLine>return rbrwTextBlock.text</SourceLine>
+   <SourceLine>End Get</SourceLine>
+  </GetAccessor>
+ </Property>
+ <Property>
+  <ItemName>mTrailingText</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>mTrailingText As String</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>mTrailingText As String</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
+ <Property>
+  <ItemName>trailingText</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Property trailingText As String</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>trailingText As String</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <SetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Set</SourceLine>
+  </SetAccessor>
+  <GetAccessor>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Get</SourceLine>
+   <SourceLine>return mTrailingText</SourceLine>
    <SourceLine>End Get</SourceLine>
   </GetAccessor>
  </Property>
@@ -169,6 +208,13 @@
    <PropertyGroup>Position</PropertyGroup>
    <PropertyValue>0</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>text</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <ItemType>string</ItemType>
+   <EditorType>MultiLineEditor</EditorType>
+   <InheritsFrom>rbrwTextBlock</InheritsFrom>
   </ViewProperty>
  </ViewBehavior>
 </block>

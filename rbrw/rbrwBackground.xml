@@ -1,70 +1,80 @@
 <?xml version="1.0"?>
 <RBProject version="2009r2">
-<block type="Module" ID="-1069075743">
- <ObjName>rbrwDrawingElement</ObjName>
- <ObjContainerID>-1069075618</ObjContainerID>
+<block type="Module" ID="1364891425">
+ <ObjName>rbrwBackground</ObjName>
+ <ObjContainerID>-1075892825</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
  <Method>
-  <ItemName>appendElement</ItemName>
+  <ItemName>operator_convert</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Sub appendElement(adoptedDE as rbrwDrawingElement)</SourceLine>
-   <SourceLine>// factory that records elements with current page</SourceLine>
-   <SourceLine>dim currentPage as rbrwPage = rbrwPage.CurrentlyConstructing</SourceLine>
-   <SourceLine>assert not(currentPage is nil)</SourceLine>
-   <SourceLine>currentPage.appendElement adoptedDE</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
-  <ItemParams>adoptedDE as rbrwDrawingElement</ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>draw</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub draw()</SourceLine>
-   <SourceLine>break  // pure virtual</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>Sub operator_convert(rhs as double)</SourceLine>
+   <SourceLine>// for assigning a gray value</SourceLine>
+   <SourceLine>dim c as Color </SourceLine>
+   <SourceLine>assert rhs &lt;= 1.0</SourceLine>
+   <SourceLine>ShadingColor = HSV(0, 0, rhs)</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams></ItemParams>
+  <ItemParams>rhs as double</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>lastElement</ItemName>
+  <ItemName>operator_convert</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine> Shared Function lastElement() As rbrwDrawingElement</SourceLine>
-   <SourceLine>// factory that records elements with current page</SourceLine>
-   <SourceLine>dim currentPage as rbrwPage = rbrwPage.CurrentlyConstructing</SourceLine>
-   <SourceLine>if currentPage is nil then return nil</SourceLine>
-   <SourceLine>return currentPage.lastElement</SourceLine>
-   <SourceLine>End Function</SourceLine>
+   <SourceLine>Sub operator_convert(rhs as Color)</SourceLine>
+   <SourceLine>ShadingColor = rhs</SourceLine>
+   <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
-  <Shared>1</Shared>
-  <ItemParams></ItemParams>
-  <ItemResult>rbrwDrawingElement</ItemResult>
+  <Shared>0</Shared>
+  <ItemParams>rhs as Color</ItemParams>
+  <ItemResult></ItemResult>
  </Method>
+ <Method>
+  <ItemName>Constructor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(inShade as Color)</SourceLine>
+   <SourceLine>ShadingColor = inShade</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>inShade as Color</ItemParams>
+  <ItemResult></ItemResult>
+ </Method>
+ <Property>
+  <ItemName>ShadingColor</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>ShadingColor As Color</SourceLine>
+   <SourceLine></SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemDeclaration>ShadingColor As Color</ItemDeclaration>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+ </Property>
  <ViewBehavior>
   <ViewProperty>
    <ObjName>Name</ObjName>

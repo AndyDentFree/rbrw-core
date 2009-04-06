@@ -2,7 +2,7 @@
 <RBProject version="2009r2">
 <block type="Module" ID="1935762619">
  <ObjName>rbrwGraphicsPrint</ObjName>
- <ObjContainerID>795249001</ObjContainerID>
+ <ObjContainerID>128126478</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwPagedGraphicsEnv</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -37,7 +37,7 @@
    <SourceLine>rbrwCurrentDraw.setOffset ps.pageLeft, ps.pageTop</SourceLine>
    <SourceLine>rbrwCurrentDraw.ScalingFactor = ps.HorizontalResolution / 72.0</SourceLine>
    <SourceLine>printEnv.renderPagesToPrinter</SourceLine>
-   <SourceLine>rbrwCurrentDraw.CurrentGraphics = nil  // to close the printer</SourceLine>
+   <SourceLine>rbrwCurrentDraw.CurrentGraphics = nil  // to close the printer when printG goes out of scope and is nil</SourceLine>
    <SourceLine>rbrwCurrentDraw.ScalingFactor = 1.0</SourceLine>
    <SourceLine>rbrwCurrentDraw.setOffset 0.0, 0.0</SourceLine>
    <SourceLine>End Sub</SourceLine>

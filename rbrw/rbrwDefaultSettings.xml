@@ -58,7 +58,7 @@
    <SourceLine>s.rightMargin = 36.0</SourceLine>
    <SourceLine>s.lineThickness = 2.0</SourceLine>
    <SourceLine>s.borderType = 0</SourceLine>
-   <SourceLine>s.colSepWidth = 20.0</SourceLine>
+   <SourceLine>s.colSepWidth = 10.0</SourceLine>
    <SourceLine>s.blockVertSep = 20.0</SourceLine>
    <SourceLine>s.bandIndenting = 0.0</SourceLine>
    <SourceLine>s.drawHeadingsDownToLevel = 1</SourceLine>
