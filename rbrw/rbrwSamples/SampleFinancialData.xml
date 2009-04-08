@@ -121,7 +121,7 @@
    <SourceLine>arDetails.Append "INV#103739-1 Automotive"</SourceLine>
    <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1 Chocolate"</SourceLine>
    <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103744-1 Car reconstruction after a fire, "+EndOfLine+"wings rebuilt and new chrome fins, lots of time in the workshop so the job details can wordwrap as well as demontrating an ability to cope with an embedded endofline"</SourceLine>
    <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
@@ -131,7 +131,7 @@
    <SourceLine>arDetails.Append "INV#103748-1 Pancakes"</SourceLine>
    <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103739-1 Murgles"</SourceLine>
    <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103740-1 Widgets, 3 boxes of"</SourceLine>
    <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
@@ -139,19 +139,19 @@
    <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1 Chocolate"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103747-1 Sprinkles"</SourceLine>
    <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103737-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103739-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103740-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103744-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
-   <SourceLine>arDetails.Append "INV#103745-1"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103740-1 actual soloism"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1 Milk"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103744-1 Cookies"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1 Microscopic"</SourceLine>
+   <SourceLine>arDetails.Append "INV#103745-1 Filamentia"</SourceLine>
    <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103747-1"</SourceLine>
    <SourceLine>arDetails.Append "INV#103748-1"</SourceLine>

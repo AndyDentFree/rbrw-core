@@ -208,7 +208,7 @@ Inherits Application
 		  r.pageHeaders.Add aBand
 		  //break
 		  r.pageHeaders.startNewRow
-		  dim midblock as new rbrwTextBlock(" A centerd line of text followed by a gap & line across page")
+		  dim midblock as new rbrwTextBlock(" A centered line of text followed by a gap & line across page")
 		  midblock.uniqueTextStyle.Bold = true
 		  midblock.uniqueTextStyle.TextSize = 14
 		  r.pageHeaders.Add midblock, blockAlignT.alignCenter

@@ -82,32 +82,40 @@
    <SourceLine>roomLeftOnPage = 0     // even one line won't fit, so force to next page</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>if heightLeftToDraw &gt; roomLeftOnPage then</SourceLine>
-   <SourceLine>DrawHeight = roomLeftOnPage        // WARNING may be less than one line room left!!!</SourceLine>
-   <SourceLine> else </SourceLine>
-   <SourceLine>DrawHeight=heightLeftToDraw</SourceLine>
-   <SourceLine>lastpage=true</SourceLine>
-   <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>curRep.changeTextStyle style  // ESSENTIAL PREREQ FOR CalculateWrapping before</SourceLine>
    <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim colHeaderHeight as integer</SourceLine>
-   <SourceLine>dim possiblerows as integer</SourceLine>
-   <SourceLine>if not mStartedAreaThisPage then</SourceLine>
    <SourceLine>dim heightPriorFirstRow as integer</SourceLine>
+   <SourceLine>if not mStartedAreaThisPage then</SourceLine>
    <SourceLine>if curRep.shouldDrawViewColumnHeaders then</SourceLine>
    <SourceLine>colHeaderHeight = mColHeaders.maxRows()*lineHeight    // add in col headers when deciding if room on page</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>// colHeaderHeight will only be non-zero if we are drawing headers and haven't yet drawn them</SourceLine>
    <SourceLine>heightPriorFirstRow = colHeaderHeight</SourceLine>
    <SourceLine>// TODO SOON - ADD IN MARGINS HERE</SourceLine>
-   <SourceLine>if DrawHeight &gt; heightPriorFirstRow then</SourceLine>
-   <SourceLine>possiblerows = (DrawHeight - heightPriorFirstRow) / lineHeight    // must be truncation divide - don't draw half rows</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if heightLeftToDraw &gt; roomLeftOnPage then</SourceLine>
+   <SourceLine>DrawHeight = roomLeftOnPage        // WARNING may be less than one line room left!!!</SourceLine>
+   <SourceLine> else </SourceLine>
+   <SourceLine>DrawHeight = heightLeftToDraw + heightPriorFirstRow  // basically height requested</SourceLine>
+   <SourceLine>lastpage=true</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim possiblerows as integer</SourceLine>
+   <SourceLine>if not mStartedAreaThisPage then</SourceLine>
+   <SourceLine>rowDrawHeight = DrawHeight - heightPriorFirstRow</SourceLine>
+   <SourceLine>if rowDrawHeight &gt; 0 then</SourceLine>
+   <SourceLine>possiblerows = rowDrawHeight/ lineHeight    // must be truncation divide - don't draw half rows</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>possiblerows = 0</SourceLine>
+   <SourceLine>rowDrawHeight = 0</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine>rowDrawHeight = DrawHeight - heightPriorFirstRow</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>possiblerows = DrawHeight/ lineHeight</SourceLine>
+   <SourceLine>rowDrawHeight = DrawHeight</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>'dim maxCustomDrawerHeight as double  // largest chunk drawn by a custom drawer</SourceLine>
@@ -253,6 +261,7 @@
    <SourceLine></SourceLine>
    <SourceLine>'end if   // draw custom or normal</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>xPos = xPos + mColSizer.width(i) + colSepWidth</SourceLine>
    <SourceLine>next i</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>rowsDrawn = possiblerows</SourceLine>
@@ -278,15 +287,13 @@
    <SourceLine>theEnv.splitBandOverPage</SourceLine>
    <SourceLine>curRep.drawPageBreak</SourceLine>
    <SourceLine>mStartedAreaThisPage = false</SourceLine>
-   <SourceLine>// unconditionally draw headers - we KNOW we haven't drawn them</SourceLine>
-   <SourceLine>//drawColumnHeaders  // NOT YET IMPLEMENTED - setting to say that we don't draw these on subsequent pages</SourceLine>
    <SourceLine>theEnv.resumeBandOverPage</SourceLine>
    <SourceLine>curRep.changeTextStyle mOwner.textStyle  // In case the page break or col headers changed styles</SourceLine>
    <SourceLine>DrawContinuingOverPage(startRow+rowsDrawn, heightLeftToDraw, sizedBody, hasCustomDrawers)</SourceLine>
    <SourceLine> else</SourceLine>
    <SourceLine>curRep.incVerticalPos rowDrawHeight</SourceLine>
    <SourceLine>if not(mCurrentBorder is nil) then</SourceLine>
-   <SourceLine>mCurrentBorder.incHeight rowDrawHeight  </SourceLine>
+   <SourceLine>mCurrentBorder.incHeight rowDrawHeight</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
