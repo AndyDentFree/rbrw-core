@@ -65,10 +65,10 @@
    <SourceLine></SourceLine>
    <SourceLine>dim firstPageIndex as integer</SourceLine>
    <SourceLine>dim lastPageIndex as integer</SourceLine>
-   <SourceLine>if PrintG.LastPage = 214783647 then  // all pages, there is no neat flag</SourceLine>
+   <SourceLine>if PrintG.LastPage = 214783647 or PrintG.LastPage = 65535 then  // all pages, there is no neat flag (65535 value on Windows XP and 2000)</SourceLine>
    <SourceLine>lastPageIndex  = pages.count - 1</SourceLine>
    <SourceLine>else</SourceLine>
-   <SourceLine>firstPageIndex = printG.FirstPage - 1</SourceLine>
+   <SourceLine>firstPageIndex = Min(0, printG.FirstPage - 1)</SourceLine>
    <SourceLine>lastPageIndex = Min( pages.count, printG.LastPage ) - 1  // min of what user specifies and is real</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>dim isFirst as Boolean = true</SourceLine>

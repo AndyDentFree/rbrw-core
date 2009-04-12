@@ -268,3 +268,42 @@ ALTERNATIVES
 2) record the lowest and highest values for the coords on a given page
 - doesn't really provide the flexibility we need 
 
+DECISION - 1
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/08 Wed
+RIGHT-JUSTIFICATION, PAGE COUNTS AND ABSTRACTIONS
+The design of rbrw basically follows that of the OOFILE report-writer, specifically the Windows environment:
+		specify a report layout using a few classes pointing to data sources
+		choose an appropriate environment that acts as a factory to create renderer classes that mirror each of the layout classes
+		renderers generate output as a series of Drawing Elements, collected into pages
+		draw a single page on a preview window, or multiple pages to a printer.
+
+The current task is to create a right-aligned page count eg: Page 1 of 3 for a report.
+
+This poses two large and one small problems:
+	1.	The page count is only available when you finish rendering all the pages, so the text needs updating on each page, after the main rendering phase
+	2.	Drawing elements currently donￕt align text as they render - the alignment is calculated in advance and the drawing element positioned to simply draw. If we canￕt measure the text because it has yet to be drawn, then positions will vary.
+	3.	Composition for a Page Number block rbrwPageNoBlock allows for a single static leading and trailing text string. The renderers for layout bands assume a single centered and single right-aligned block (which is probably why we hacked in the leading and trailing strings in the first place).
+Forces
+		A major consideration in the following design discussions is trying to keep the abstract model so it can easily map onto RTF, PDF and HTML/CSS layout. Whilst this doesnￕt affect much, it may have an impact on Drawing Element (DE) implementation - I was hoping to adapt them pretty simply to write out PDF.
+		As another general trend, Iￕm leaning towards abstracting block composition a little more to make it possible to place blocks arbitrarily on the page.
+		Any solution adopted in the near term should fit into the current layout and rendering code with minimal change - the graphics rendering level is complex code and we donￕt want some extended debugging time. (Yes, Iￕm a pragmatist.)
+Page Count Calculation and Retrieval
+The calculation is trivial, being the number of Pages saved by the end of the report. To retrieve this count I could use a Push or Pull model.
+A Push model assumes some update occurs at end of the page construction phase.
+		Push Visitor pattern would visit every element in a page to possibly apply the update.
+		Push Observer pattern requires interested objects to subscribe as observers to be notified when the report page construction is complete.
+A Pull model, with caching, would have each object that is interested in the page count defer pulling the count until the last possible instant, when it needs to render. It can then cache the result for redisplay (such as a user flipping back and forth in preview). In a previewed report, or printing only a subset of pages, many of the objects would never pull.
+Right-alignment of Drawing Elements
+The Drawing Element approach is a direct copy of the Macintosh PICT recording which records compact opcodes for draw operations. It was created because we started using Windows Metafiles only to find with Windows NT Workstation 4 that there were huge bugs in their playback - literally ends didnￕt meet!
+Either DEￕs get smarter and handle right-alignment, for a composed block of DEￕs or some fixup occurs, again for the composed block.
+Looking at PDF - thereￕs no inherent specification of text as being left or right-aligned, just positioned absolutely. That matches the current DE design.
+Recalling the rbrwLayoutBand restriction on a single right-aligned block, say we allowed multiple blocks to be right-aligned. If that occurs and there is dynamic content in a block, the others need adjusting at rendering time also.
+At the very least, fixing up right-alignment in combination with a page number requires some kind of composite block. Thereￕs an opportunity to drop a relatively smart object in here which pulls any values it needs as well as doing the alignment calculation when it has finished pulling. Behaviour at that point can revert to normal rbrwTextDE rendering.
+Decision
+Based on the above discussion of alternatives and a little inspiration, use a Pull model:
+	1.	use a single rbrwComposedBlock to handle the entire right-aligned page number
+	2.	Create new rbrwSource objects to supply page number and page count using delegates, to minimise the subclassing. These will delegate to an rbrwReport method.
+	3.	An rbrwComposedBlock_Render will cache its result of pulling the page and page number as an rbrwGraphicsTextDE. If the block is aligned right, it will use that information to calculate the DE position.

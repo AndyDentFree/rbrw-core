@@ -969,3 +969,20 @@ rbrw.PrintNotCancelled
 rbrwException
 rbrwMeasureErrorException
 - added
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/08 Wed
+FIX FAILURE TO DRAW TOP LINE OF SUBSEQUENT PAGES - Mantis Issue 8
+
+rbrwTreeBand_GraphicsRender.DrawContinuingOverPage
+- fix calculation of possibleRows as the way it was allowing for leading col headers made it skip row
+- add xPos increment at end of loop, copied from Draw (obviously this method had NEVER drawn anything)
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/08 Wed
+FIX CRASH PRINTING ON WINDOWS 2000 (AND XP)
+
+rbrwGraphicsPrint.renderPagesToPrinter
+- also check for upper value of 65535 indicating print all pages on Windows
+- enforce min page number of 0
