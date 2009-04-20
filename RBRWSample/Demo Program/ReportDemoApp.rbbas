@@ -130,6 +130,14 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function HelpReportTesterHelp() As Boolean Handles HelpReportTesterHelp.Action
+			LaunchWikiHelp
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Method, Flags = &h0
 		Function ReportFixedHeaderWithAlignedText() As rbrwReport
@@ -592,6 +600,12 @@ Inherits Application
 		  dim r as new rbrwReport( new rbrwRecordSetSource(rs) )
 		  return r
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub LaunchWikiHelp()
+		  ShowURL "http://code.google.com/p/rbrw-core/w/list"
+		End Sub
 	#tag EndMethod
 
 

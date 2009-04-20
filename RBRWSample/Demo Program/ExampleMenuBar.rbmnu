@@ -355,5 +355,17 @@ Begin Menu ExampleMenuBar
          AutoEnable = True
       End
    End
+   Begin MenuItem HelpMenu
+      SpecialMenu = 0
+      Text = "Help"
+      Index = -2147483648
+      AutoEnable = True
+      Begin MenuItem HelpReportTesterHelp
+         SpecialMenu = 0
+         Text = "ReportTester Help"
+         Index = -2147483648
+         AutoEnable = True
+      End
+   End
 End
 #tag EndMenu

@@ -981,8 +981,24 @@ rbrwTreeBand_GraphicsRender.DrawContinuingOverPage
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 2009/04/08 Wed
-FIX CRASH PRINTING ON WINDOWS 2000 (AND XP)
+FIX CRASH PRINTING ON WINDOWS 2000 (AND XP) - rbrw-core Issue 40
 
 rbrwGraphicsPrint.renderPagesToPrinter
 - also check for upper value of 65535 indicating print all pages on Windows
 - enforce min page number of 0
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/20 Mon
+MAKE HELP ACCESSIBLE
+
+ReportExampleWindow
+- added more text referring to wiki
+
+ReportExampleWindow.LaunchWikiHelpText
+- added
+
+ReportDemoApp.LaunchWikiHelp
+ReportDemoApp.HelpReportTesterHelp
+- added

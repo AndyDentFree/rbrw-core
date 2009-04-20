@@ -5,7 +5,13 @@ under the Mozilla Public License 1.1 which allows unrestricted use including com
 
 See http://www.aussiedesignedsoftware.com/ for more details on any commercial releases.
 
-User documentation on the Wiki http://code.google.com/p/rbrw-core/w/list
+
+     ****************************  
+     
+User documentation is being composed on the Wiki http://code.google.com/p/rbrw-core/w/list
+
+     ****************************  
+     
 
 Philosophically, this report-writer is driven by program code rather than requiring visual layout.
 This approach scales well to producing hundreds of related reports. The XML-based report serialisation

@@ -30,7 +30,7 @@ Begin Window ReportExampleWindow
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   237
+      Height          =   67
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -55,6 +55,68 @@ Begin Window ReportExampleWindow
       Visible         =   True
       Width           =   694
    End
+   Begin StaticText StaticText2
+      AutoDeactivate  =   True
+      Bold            =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   20
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   ""
+      LockRight       =   ""
+      LockTop         =   ""
+      Multiline       =   ""
+      Scope           =   0
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      Text            =   "Help is available online at the "
+      TextAlign       =   0
+      TextColor       =   &h000000
+      TextFont        =   "System"
+      TextSize        =   0
+      Top             =   93
+      Underline       =   ""
+      Visible         =   True
+      Width           =   193
+   End
+   Begin StaticText LaunchWikiHelpText
+      AutoDeactivate  =   True
+      Bold            =   True
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   209
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   ""
+      LockRight       =   ""
+      LockTop         =   ""
+      Multiline       =   True
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      Text            =   "rbrw-core wiki"
+      TextAlign       =   0
+      TextColor       =   &h000099
+      TextFont        =   "System"
+      TextSize        =   0
+      Top             =   94
+      Underline       =   True
+      Visible         =   True
+      Width           =   116
+   End
 End
 #tag EndWindow
 
@@ -77,3 +139,25 @@ End
 
 #tag EndWindowCode
 
+#tag Events LaunchWikiHelpText
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  App.LaunchWikiHelp
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  return true
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  App.MouseCursor = System.Cursors.FingerPointer
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  App.MouseCursor = System.Cursors.StandardPointer
+		End Sub
+	#tag EndEvent
+#tag EndEvents
