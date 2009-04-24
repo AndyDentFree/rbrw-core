@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<RBProject version="2009r2">
+<RBProject version="2009r2.1">
 <block type="Module" ID="1937925681">
  <ObjName>rbrwMultiArraySource</ObjName>
  <ObjContainerID>450275996</ObjContainerID>
  <IsClass>1</IsClass>
- <Interfaces> rbrwIterableSource, rbrwFieldFacadeWithIterator, rbrwFieldFacade</Interfaces>
+ <Interfaces>rbrwDataset</Interfaces>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
@@ -72,7 +72,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function iterator() As rbrwIterableSource</SourceLine>
-   <SourceLine>// Part of the rbrwFieldFacadeWithIterator interface.</SourceLine>
+   <SourceLine>// Part of the rbrwDataset interface.</SourceLine>
    <SourceLine>return self</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
@@ -90,7 +90,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function facade() As rbrwFieldFacade</SourceLine>
-   <SourceLine>// Part of the rbrwFieldFacadeWithIterator interface.</SourceLine>
+   <SourceLine>// Part of the rbrwDataset interface.</SourceLine>
    <SourceLine>return self</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
@@ -180,12 +180,12 @@
   <ItemResult>string</ItemResult>
  </Method>
  <Method>
-  <ItemName>count</ItemName>
+  <ItemName>fieldCount</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function count() As integer</SourceLine>
+   <SourceLine>Function fieldCount() As integer</SourceLine>
    <SourceLine>// Part of the rbrwFieldFacade interface.</SourceLine>
    <SourceLine>return mFieldCount</SourceLine>
    <SourceLine></SourceLine>

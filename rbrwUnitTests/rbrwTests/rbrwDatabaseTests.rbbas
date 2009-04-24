@@ -1,5 +1,5 @@
 #tag Class
-Protected Class tbrwDatabaseTests
+Protected Class rbrwDatabaseTests
 Inherits RBUnit.TestFixture
 	#tag Event
 		Sub Setup()
@@ -68,7 +68,7 @@ Inherits RBUnit.TestFixture
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub CanUseDBasSourceTest()
+		Sub RecordSetAsSourceTest()
 		  // validate that a RecordSet can be trivially wrapped, as it is by a report
 		  dim rs as RecordSet = testDB.SQLSelect("SELECT * FROM Customers ORDER BY Name")
 		  dim source as new rbrwRecordSetSource( rs )
@@ -121,12 +121,83 @@ Inherits RBUnit.TestFixture
 		  dim rs as RecordSet = testDB.SQLSelect("SELECT * FROM Customers ORDER BY Name")
 		  dim source as new rbrwRecordSetSource( rs )
 		  
-		  Assert.AreEqual 3, source.Count
+		  Assert.AreEqual 3, source.fieldCount
 		  
 		  dim fieldStrs() as string = source.listFields
 		  Assert.AreEqual  "ID", fieldStrs(0)
 		  Assert.AreEqual  "Name", fieldStrs(1)
 		  Assert.AreEqual  "Balance", fieldStrs(2)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SQLSourceTest()
+		  // validate that a RecordSet can be trivially wrapped, as it is by a report
+		  dim source as new rbrwSQLSource( testDB, "customers", "*", "ORDER BY Name")
+		  
+		  source.start
+		  
+		  Assert.AreEqual "5", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Beeblerocks", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "0", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  Assert.IsTrue source.more, "more than 5 records"
+		  
+		  Assert.AreEqual "1", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Dent", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "99.3", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  Assert.IsTrue source.more
+		  
+		  Assert.AreEqual "6", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Jones", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "10258", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  Assert.IsTrue source.more
+		  
+		  Assert.AreEqual "4", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Miro", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "1", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  Assert.IsTrue source.more
+		  
+		  Assert.AreEqual "3", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Podkarnilov", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "12.5", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  Assert.IsTrue source.more
+		  
+		  Assert.AreEqual "2", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Smith", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "9.3", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  Assert.IsFalse source.more, "last is 6th record"
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SQLSourceFilteringTest()
+		  // validate that a RecordSet can be trivially wrapped, as it is by a report
+		  dim source as new rbrwSQLSource( testDB, "customers", "*", "WHERE Balance > 90 ORDER BY Name")
+		  
+		  source.start
+		  
+		  Assert.AreEqual "1", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Dent", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "99.3", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  Assert.IsTrue source.more
+		  
+		  Assert.AreEqual "6", source.fieldValue(0), "ID matches"
+		  Assert.AreEqual "Jones", source.fieldValue("Name"), "Name matches"
+		  Assert.AreEqual "10258", source.fieldValue(2), "Balance matches"
+		  source.inc
+		  
+		  Assert.IsFalse source.more, "last is 3rd record"
+		  
 		  
 		End Sub
 	#tag EndMethod

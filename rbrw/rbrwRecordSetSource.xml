@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<RBProject version="2009r1">
+<RBProject version="2009r2.1">
 <block type="Module" ID="1506809501">
  <ObjName>rbrwRecordSetSource</ObjName>
- <ObjContainerID>-1075899805</ObjContainerID>
+ <ObjContainerID>450275996</ObjContainerID>
  <IsClass>1</IsClass>
- <Interfaces> rbrwIterableSource, rbrwFieldFacadeWithIterator, rbrwFieldFacade</Interfaces>
+ <Interfaces>rbrwDataset</Interfaces>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
@@ -86,7 +86,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function iterator() As rbrwIterableSource</SourceLine>
-   <SourceLine>// part of  rbrwFieldFacadeWithIterator interface, allowing a single class to provide data set iteration and fields across the data set</SourceLine>
+   <SourceLine>// part of  rbrwDataset interface, allowing a single class to provide data set iteration and fields across the data set</SourceLine>
    <SourceLine>return self</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
@@ -104,7 +104,7 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function facade() As rbrwFieldFacade</SourceLine>
-   <SourceLine>// part of  rbrwFieldFacadeWithIterator interface, allowing a single class to provide data set iteration and fields across the data set</SourceLine>
+   <SourceLine>// part of  rbrwDataset interface, allowing a single class to provide data set iteration and fields across the data set</SourceLine>
    <SourceLine>return self</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
@@ -152,12 +152,12 @@
   <ItemResult>string</ItemResult>
  </Method>
  <Method>
-  <ItemName>count</ItemName>
+  <ItemName>fieldCount</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function count() As integer</SourceLine>
+   <SourceLine>Function fieldCount() As integer</SourceLine>
    <SourceLine>// part of rbrwFieldFacade interface</SourceLine>
    <SourceLine>return rs.FieldCount</SourceLine>
    <SourceLine>End Function</SourceLine>

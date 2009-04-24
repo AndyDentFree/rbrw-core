@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r2">
+<RBProject version="2009r2.1">
 <block type="Module" ID="1890519234">
  <ObjName>rbrwIterableTreeBand</ObjName>
- <ObjContainerID>-1074031412</ObjContainerID>
+ <ObjContainerID>239920752</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwBand</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -71,7 +71,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(inIterFields as rbrwFieldFacadeWithIterator, inStyle as rbrwTextStyle=nil)</SourceLine>
+   <SourceLine>Sub Constructor(inIterFields as rbrwDataset, inStyle as rbrwTextStyle = nil)</SourceLine>
    <SourceLine>CommonConstructor inStyle</SourceLine>
    <SourceLine>mSourceIterator = inIterFields.iterator</SourceLine>
    <SourceLine>mFields = inIterFields.facade</SourceLine>
@@ -82,7 +82,7 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>inIterFields as rbrwFieldFacadeWithIterator, inStyle as rbrwTextStyle=nil</ItemParams>
+  <ItemParams>inIterFields as rbrwDataset, inStyle as rbrwTextStyle = nil</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -407,7 +407,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Get</SourceLine>
    <SourceLine>if mColSizer is nil then</SourceLine>
-   <SourceLine>mColSizer = new rbrwColSizer( mFields.count )</SourceLine>
+   <SourceLine>mColSizer = new rbrwColSizer( mFields.fieldCount )</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>return mColSizer  // maybe nil, set by setColWidth</SourceLine>
    <SourceLine>End Get</SourceLine>

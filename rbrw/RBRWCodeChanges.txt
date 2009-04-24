@@ -991,7 +991,7 @@ rbrwGraphicsPrint.renderPagesToPrinter
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 2009/04/20 Mon
-MAKE HELP ACCESSIBLE
+MAKE HELP ACCESSIBLE IN SAMPLE APPLICATION
 
 ReportExampleWindow
 - added more text referring to wiki
@@ -1001,4 +1001,41 @@ ReportExampleWindow.LaunchWikiHelpText
 
 ReportDemoApp.LaunchWikiHelp
 ReportDemoApp.HelpReportTesterHelp
+- added
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/24 Fri
+SIMPLIFY THE SOURCE INTERFACES
+
+rbrwFieldFacadeWithIterator
+- renamed rbrwDataset
+- made aggregate of rbrwIterableSource and rbrwFieldFacade
+
+rbrwRecordSetSource
+rbrwMultiArraySource
+Sample2DUserArray
+- simplified interfaces to just rbrwDataset
+
+rbrwFieldFacade.count
+- renamed to FieldCount (because when it's part of DataSet causes confusion about being record count)
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/04/24 Fri
+PROVIDING A DATABASE DATA SOURCE 
+
+rbrwSQLSource
+- added
+
+
+tbrwDatabaseTests
+- fixed typo and renamed rbrwDatabaseTests
+
+rbrwDatabaseTests.CanUseDBasSourceTest
+- renamed RecordSetAsSourceTest
+
+rbrwDatabaseTests.SQLSourceTest
+rbrwDatabaseTests.SQLSourceFilteringTest
 - added

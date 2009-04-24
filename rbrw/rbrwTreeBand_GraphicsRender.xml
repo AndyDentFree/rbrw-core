@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r2">
+<RBProject version="2009r2.1">
 <block type="Module" ID="50483742">
  <ObjName>rbrwTreeBand_GraphicsRender</ObjName>
- <ObjContainerID>1963759756</ObjContainerID>
+ <ObjContainerID>205822145</ObjContainerID>
  <IsClass>1</IsClass>
  <Superclass>rbrwTreeBand_Render</Superclass>
  <ItemFlags>1</ItemFlags>
@@ -34,7 +34,7 @@
    <SourceLine>Sub finishConstruction()</SourceLine>
    <SourceLine>super.finishConstruction</SourceLine>
    <SourceLine>if rbrwReport.currentReport.shouldDrawViewColumnHeaders then </SourceLine>
-   <SourceLine>dim numCols as integer = mOwner.fields.count</SourceLine>
+   <SourceLine>dim numCols as integer = mOwner.fields.fieldCount</SourceLine>
    <SourceLine>if mColHeaders is nil then mColHeaders = new rbrwSizedTextArray(numCols)</SourceLine>
    <SourceLine>mColHeaders.initSizers numCols</SourceLine>
    <SourceLine>end if</SourceLine>
@@ -68,9 +68,9 @@
    <SourceLine>dim style as rbrwTextStyle = mOwner.textStyle</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
-   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.fieldCount</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.fieldCount - 1</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
    <SourceLine>dim   lastpage as Boolean</SourceLine>
@@ -334,10 +334,10 @@
    <SourceLine>curRep.changeTextStyle style</SourceLine>
    <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
    <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
-   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.fieldCount</SourceLine>
    <SourceLine>dim rowDrawHeight as double = mColHeaders.maxRows * lineHeight</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.fieldCount - 1</SourceLine>
    <SourceLine>// Render the Headers</SourceLine>
    <SourceLine>dim xPos as double = leftMargin + bandIndenting</SourceLine>
    <SourceLine></SourceLine>
@@ -428,7 +428,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub CalcColHeaderWrapping()</SourceLine>
    <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
-   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.fieldCount</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// HACK - force column headers to bold, NOT YET IMPLEMENTED - need a global setting for this</SourceLine>
    <SourceLine>dim ownerStyle as rbrwTextStyle = mOwner.textStyle</SourceLine>
@@ -437,7 +437,7 @@
    <SourceLine>rbrwReport.currentReport.changeTextStyle style</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim fieldNames() as string = fields.listFields</SourceLine>
-   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.fieldCount - 1</SourceLine>
    <SourceLine>for i as integer=0 to lastFieldIndex</SourceLine>
    <SourceLine>// see http://code.google.com/p/rbrw-core/issues/detail?id=18</SourceLine>
    <SourceLine>mColHeaders.text(i) = fieldNames(i)  // this is not the same as the OOFILE view-&gt;getHeading(i) but will do for now</SourceLine>
@@ -478,9 +478,9 @@
    <SourceLine>//    int descent    = style-&gt;calcDescent();</SourceLine>
    <SourceLine>dim lineHeight as double =  curRep.environment.heightOfTextStyle( style ) + style.leading</SourceLine>
    <SourceLine>dim fields as rbrwFieldFacade = mOwner.fields</SourceLine>
-   <SourceLine>dim numFlds as integer = fields.count</SourceLine>
+   <SourceLine>dim numFlds as integer = fields.fieldCount</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>dim lastFieldIndex as integer = fields.count - 1</SourceLine>
+   <SourceLine>dim lastFieldIndex as integer = fields.fieldCount - 1</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>// Get the field text and calculate the wrapping and height</SourceLine>
    <SourceLine>dim sizedBody as new rbrwSizedTextArray(lastFieldIndex+1)</SourceLine>
@@ -622,7 +622,7 @@
    <NoteLine>about - column sizing</NoteLine>
    <NoteLine>rbrwTreeBand_GraphicsRender descends from rbrwTreeBand_Render which provides mOwner as rbrwIterableTreeBand </NoteLine>
    <NoteLine></NoteLine>
-   <NoteLine>mOwner.view.count in the original should be replaced by mOwner.fields.count</NoteLine>
+   <NoteLine>mOwner.view.count in the original should be replaced by mOwner.fields.fieldCount</NoteLine>
    <NoteLine>instead of expecting a dbView to provide an oofColSizer, we keep that down at this level, having an rbrwColSizer member</NoteLine>
   </ItemSource>
   <ItemFlags>0</ItemFlags>

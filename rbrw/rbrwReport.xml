@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r2">
+<RBProject version="2009r2.1">
 <block type="Module" ID="-1075898055">
  <ObjName>rbrwReport</ObjName>
- <ObjContainerID>-1075892825</ObjContainerID>
+ <ObjContainerID>1620433600</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -684,7 +684,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(inIterFields as rbrwFieldFacadeWithIterator, startingPageNumber as integer = 1)</SourceLine>
+   <SourceLine>Sub Constructor(inIterFields as rbrwDataset, startingPageNumber as integer = 1)</SourceLine>
    <SourceLine>mTopBand = new rbrwIterableTreeBand(inIterFields)</SourceLine>
    <SourceLine>mStartingPageNumber = startingPageNumber</SourceLine>
    <SourceLine>CommonConstructor</SourceLine>
@@ -694,7 +694,7 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>inIterFields as rbrwFieldFacadeWithIterator, startingPageNumber as integer = 1</ItemParams>
+  <ItemParams>inIterFields as rbrwDataset, startingPageNumber as integer = 1</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
@@ -1628,7 +1628,7 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Property pageNumber As Integer</SourceLine>
+   <SourceLine>pageNumber As Integer</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -1729,6 +1729,12 @@
    <PropertyGroup>Behavior</PropertyGroup>
    <ItemType>String</ItemType>
    <EditorType>MultiLineEditor</EditorType>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>pageNumber</ObjName>
+   <PropertyGroup>Behavior</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <ItemType>Integer</ItemType>
   </ViewProperty>
  </ViewBehavior>
 </block>

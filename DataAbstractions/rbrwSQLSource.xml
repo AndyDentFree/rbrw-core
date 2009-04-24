@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <RBProject version="2009r2.1">
-<block type="Module" ID="46791268">
- <ObjName>rbrwTreeBand_Render</ObjName>
- <ObjContainerID>205822145</ObjContainerID>
+<block type="Module" ID="1885227892">
+ <ObjName>rbrwSQLSource</ObjName>
+ <ObjContainerID>450275996</ObjContainerID>
  <IsClass>1</IsClass>
- <Superclass>rbrwRender</Superclass>
+ <Superclass>rbrwRecordSetSource</Superclass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
  <Compatibility></Compatibility>
@@ -14,8 +14,14 @@
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Constructor(b as rbrwIterableTreeBand)</SourceLine>
-   <SourceLine>mOwner = b</SourceLine>
+   <SourceLine>Sub Constructor(inDB as Database, inTable as string, inFromFields as string, inRest as string="")</SourceLine>
+   <SourceLine>super.Constructor nil  // see LoadRecordSet for lazy loading</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>mDatabase = inDB</SourceLine>
+   <SourceLine>mTable = inTable</SourceLine>
+   <SourceLine>mFromFields = inFromFields</SourceLine>
+   <SourceLine>mRestOfExpression = inRest</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -23,18 +29,35 @@
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
-  <ItemParams>b as rbrwIterableTreeBand</ItemParams>
+  <ItemParams>inDB as Database, inTable as string, inFromFields as string, inRest as string=""</ItemParams>
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>finishConstruction</ItemName>
+  <ItemName>MakeSQL</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub finishConstruction()</SourceLine>
-   <SourceLine>CalcColWidths</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>Function MakeSQL() As string</SourceLine>
+   <SourceLine>return "SELECT " + mFromFields + " FROM " + mTable + " " + mRestOfExpression</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>start</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub start()</SourceLine>
+   <SourceLine>LoadRecordSet</SourceLine>
+   <SourceLine>super.start</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -45,31 +68,16 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>CalcColWidths</ItemName>
+  <ItemName>LoadRecordSet</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub CalcColWidths()</SourceLine>
-   <SourceLine>if mColSizer is nil then </SourceLine>
-   <SourceLine>if mOwner.hasColSizer then</SourceLine>
-   <SourceLine>mColSizer = mOwner.colSizer</SourceLine>
-   <SourceLine>else</SourceLine>
-   <SourceLine>mColSizer = new rbrwColSizer( mOwner.fields.fieldCount )</SourceLine>
+   <SourceLine>Sub LoadRecordSet()</SourceLine>
+   <SourceLine>if rs is nil then</SourceLine>
+   <SourceLine>dim sqlString as string = MakeSQL</SourceLine>
+   <SourceLine>rs = mDatabase.SQLSelect( sqlString )</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine>end if</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>dim curRep as rbrwReport = rbrwReport.currentReport</SourceLine>
-   <SourceLine>dim currSettings as rbrwSettings = curRep.settings</SourceLine>
-   <SourceLine>dim bandIndenting as double =  currSettings.bandIndenting</SourceLine>
-   <SourceLine>dim colSepWidth as double = currSettings.colSepWidth</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>curRep.changeTextStyle mOwner.textStyle</SourceLine>
-   <SourceLine>dim widthToDivide as double = curRep.bodyWidth - (2*bandIndenting)</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>mColSizer.calculateWidths widthToDivide, colSepWidth</SourceLine>
-   <SourceLine></SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
@@ -80,126 +88,94 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>drawColumnHeaders</ItemName>
+  <ItemName>fieldCount</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub drawColumnHeaders()</SourceLine>
-   <SourceLine>// empty method most will override</SourceLine>
-   <SourceLine>// OOFILE  goes through a convoluted call to mOwner.drawColumnHeaders which then</SourceLine>
-   <SourceLine>// goes oofRepViewRedirectingRender::drawColumnHeaders to call drawColumnHeaders</SourceLine>
-   <SourceLine>// on the actual renderer</SourceLine>
-   <SourceLine>// we don't do that because editing in preview is not (yet?) implemented in rbrw and even</SourceLine>
-   <SourceLine>// that may not require such a design - it had more to do with evolution and C++ quirks, I suspect</SourceLine>
-   <SourceLine>End Sub</SourceLine>
+   <SourceLine>Function fieldCount() As integer</SourceLine>
+   <SourceLine>LoadRecordSet</SourceLine>
+   <SourceLine>return super.fieldCount</SourceLine>
+   <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <ItemParams></ItemParams>
-  <ItemResult></ItemResult>
+  <ItemResult>integer</ItemResult>
  </Method>
  <Method>
-  <ItemName>endTableBody</ItemName>
+  <ItemName>listFields</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub endTableBody()</SourceLine>
-   <SourceLine>// blank parent method</SourceLine>
-   <SourceLine>End Sub</SourceLine>
+   <SourceLine>Function listFields() As string()</SourceLine>
+   <SourceLine>LoadRecordSet</SourceLine>
+   <SourceLine>return super.listFields</SourceLine>
+   <SourceLine>End Function</SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
   <AliasName></AliasName>
   <ItemFlags>0</ItemFlags>
   <Shared>0</Shared>
   <ItemParams></ItemParams>
-  <ItemResult></ItemResult>
- </Method>
- <Method>
-  <ItemName>startTableBody</ItemName>
-  <Compatibility></Compatibility>
-  <Visible>1</Visible>
-  <ItemSource>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub startTableBody(headersHaveChanged as Boolean)</SourceLine>
-   <SourceLine>// blank parent method</SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
-  <TextEncoding>134217984</TextEncoding>
-  <AliasName></AliasName>
-  <ItemFlags>0</ItemFlags>
-  <Shared>0</Shared>
-  <ItemParams>headersHaveChanged as Boolean</ItemParams>
-  <ItemResult></ItemResult>
+  <ItemResult>string()</ItemResult>
  </Method>
  <Property>
-  <ItemName>mOwner</ItemName>
+  <ItemName>mDatabase</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mOwner As rbrwIterableTreeBand</SourceLine>
+   <SourceLine>mDatabase As Database</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mOwner As rbrwIterableTreeBand</ItemDeclaration>
+  <ItemDeclaration>mDatabase As Database</ItemDeclaration>
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>
  <Property>
-  <ItemName>mStartedAreaThisPage</ItemName>
+  <ItemName>mTable</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mStartedAreaThisPage As boolean</SourceLine>
+   <SourceLine>mTable As string</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mStartedAreaThisPage As boolean</ItemDeclaration>
+  <ItemDeclaration>mTable As string</ItemDeclaration>
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>
  <Property>
-  <ItemName>treeBand</ItemName>
+  <ItemName>mFromFields</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>treeBand As rbrwIterableTreeBand</SourceLine>
+   <SourceLine>mFromFields As string</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>treeBand As rbrwIterableTreeBand</ItemDeclaration>
-  <ItemFlags>0</ItemFlags>
+  <ItemDeclaration>mFromFields As string</ItemDeclaration>
+  <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
-  <SetAccessor>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Set</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>End Set</SourceLine>
-  </SetAccessor>
-  <GetAccessor>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Get</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>End Get</SourceLine>
-  </GetAccessor>
  </Property>
  <Property>
-  <ItemName>mColSizer</ItemName>
+  <ItemName>mRestOfExpression</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>mColSizer As rbrwColSizer</SourceLine>
+   <SourceLine>mRestOfExpression As string</SourceLine>
    <SourceLine></SourceLine>
   </ItemSource>
   <TextEncoding>134217984</TextEncoding>
-  <ItemDeclaration>mColSizer As rbrwColSizer</ItemDeclaration>
+  <ItemDeclaration>mRestOfExpression As string</ItemDeclaration>
   <ItemFlags>1</ItemFlags>
   <Shared>0</Shared>
  </Property>
@@ -214,7 +190,7 @@
    <ObjName>Index</ObjName>
    <Visible>1</Visible>
    <PropertyGroup>ID</PropertyGroup>
-   <PropertyValue>2147483648</PropertyValue>
+   <PropertyValue>-2147483648</PropertyValue>
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
   <ViewProperty>

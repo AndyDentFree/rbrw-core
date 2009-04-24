@@ -41,7 +41,7 @@ Inherits RBUnit.TestFixture
 		  dim fields as rbrwFieldFacade = arraySource.facade
 		  Assert.IsNotNil fields
 		  Assert.AreEqual arraySource, fields, " in this case, the source is itself the horizontally iterable fields supplier"
-		  Assert.AreEqual fields.count, 2
+		  Assert.AreEqual fields.fieldCount, 2
 		  
 		  dim fieldStrs() as string = fields.listFields
 		  Assert.AreEqual  "Surname", fieldStrs(0)
@@ -73,7 +73,7 @@ Inherits RBUnit.TestFixture
 		  dim fields as rbrwFieldFacade = multiArraySource.facade
 		  Assert.IsNotNil fields
 		  Assert.AreEqual multiArraySource, fields, " in this case, the source is itself the horizontally iterable fields supplier"
-		  Assert.AreEqual 3, fields.count, "3 fields expected"
+		  Assert.AreEqual 3, fields.fieldCount, "3 fields expected"
 		  
 		  dim fieldStrs() as string = fields.listFields
 		  Assert.AreEqual  "Date", fieldStrs(0)
@@ -118,7 +118,7 @@ Inherits RBUnit.TestFixture
 
 
 	#tag Property, Flags = &h1
-		Protected arraySource As rbrwFieldFacadeWithIterator
+		Protected arraySource As rbrwDataset
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -126,7 +126,7 @@ Inherits RBUnit.TestFixture
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
-		Protected multiArraySource As rbrwFieldFacadeWithIterator
+		Protected multiArraySource As rbrwDataset
 	#tag EndProperty
 
 

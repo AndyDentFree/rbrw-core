@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-<RBProject version="2008r4.1">
+<RBProject version="2009r2.1">
 <block type="Module" ID="-1071674661">
- <ObjName>rbrwFieldFacadeWithIterator</ObjName>
- <ObjContainerID>-1075899805</ObjContainerID>
+ <ObjName>rbrwDataset</ObjName>
+ <ObjContainerID>450275996</ObjContainerID>
  <IsClass>1</IsClass>
+ <Interfaces> rbrwIterableSource, rbrwFieldFacade</Interfaces>
  <ItemFlags>1</ItemFlags>
  <IsInterface>1</IsInterface>
  <Compatibility></Compatibility>

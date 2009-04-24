@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2008r4.1">
+<RBProject version="2009r2.1">
 <block type="Module" ID="-1075465275">
  <ObjName>rbrwFieldFacade</ObjName>
- <ObjContainerID>-1075899805</ObjContainerID>
+ <ObjContainerID>450275996</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>1</IsInterface>
@@ -59,12 +59,12 @@
   <ItemResult>string</ItemResult>
  </Method>
  <Method>
-  <ItemName>count</ItemName>
+  <ItemName>fieldCount</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Function count() As integer</SourceLine>
+   <SourceLine>Function fieldCount() As integer</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
