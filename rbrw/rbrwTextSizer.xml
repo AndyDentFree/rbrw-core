@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r2.1">
+<RBProject version="2009r4">
 <block type="Module" ID="371684813">
  <ObjName>rbrwTextSizer</ObjName>
- <ObjContainerID>-1075463008</ObjContainerID>
+ <ObjContainerID>2056555002</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -199,6 +199,7 @@
    <SourceLine>redim mMeasureArray(mMeasureLen)</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>// loop at line level, lines defined by terminators or needing to wrap</SourceLine>
    <SourceLine>while charsLeftInString &gt; 0</SourceLine>
    <SourceLine>// check if line starts with CR, CRLF etc. - is blank line</SourceLine>
    <SourceLine>dim truncAtChar, termLen as integer</SourceLine>
@@ -264,7 +265,7 @@
    <SourceLine>if cumLen &gt; inColWidth then</SourceLine>
    <SourceLine>maxCharsToMeasure = cumChar  // optimisation - shorten comparison loop below</SourceLine>
    <SourceLine>truncAtChar = cumChar</SourceLine>
-   <SourceLine>exit  for cumChar  // EXIT LOOP - WE JUST EXCEEDED COL WIDTH</SourceLine>
+   <SourceLine>exit  for cumChar  // EXIT LOOP - WE JUST EXCEEDED COL WIDTH SO DON'T BOTHER TO MEASURE THE REST</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>next // loop string measuring cumulatively</SourceLine>
    <SourceLine></SourceLine>
@@ -306,7 +307,7 @@
    <SourceLine>end if</SourceLine>
    <SourceLine>measureFrom = measureFrom + nextWordStart  // saves time skipping whitespace later</SourceLine>
    <SourceLine>StoreLineLength mMeasureArray(truncAtChar)</SourceLine>
-   <SourceLine>charsLeftInString = charsLeftInString - (truncAtChar+1)</SourceLine>
+   <SourceLine>charsLeftInString = charsLeftInString - nextWordStart  </SourceLine>
    <SourceLine>end if  // inWillTruncWords so had to find word boundary</SourceLine>
    <SourceLine>SkipWhiteForward(inValue, measureFrom, charsLeftInString) // skip leading white space before next line</SourceLine>
    <SourceLine></SourceLine>

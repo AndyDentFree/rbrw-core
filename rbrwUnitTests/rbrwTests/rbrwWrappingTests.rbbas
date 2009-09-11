@@ -7,12 +7,17 @@ Inherits testsNeedingGraphicsEnv
 		  dim nasty as string = "Compressor  1ph 37 900 Btu's  Copeland Notes  Requires 35MFD/440V motor run capacitor."
 		  
 		  dim g as Graphics = rbrwCurrentDraw.CurrentGraphics
+		  // need these font settings and run on Mac (possibly) to replicate crash - doesn't happen with System default font
+		  dim saveFont as String = g.TextFont
+		  dim saveSize as integer = g.TextSize
 		  g.TextFont = "Helvetica"
 		  g.TextSize = 10
 		  
 		  dim sizer as new rbrwTextSizer
-		  sizer.calculateWrapping nasty, 251
+		  sizer.calculateWrapping nasty, 251  // wrap width from Bob's report definition inspected at point of crash as inColWidth param
 		  
+		  g.TextFont = saveFont
+		  g.TextSize = saveSize
 		End Sub
 	#tag EndMethod
 
