@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2009r2">
+<RBProject version="2009r4">
 <block type="Module" ID="-1120693376">
  <ObjName>scn</ObjName>
  <ObjContainerID>-1075940329</ObjContainerID>
@@ -114,7 +114,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function cm() As double</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gDPI &gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gDPI &gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>return mFineRes * 2.54 / scnStatics.gDPI</SourceLine>
    <SourceLine>End Function</SourceLine>
@@ -134,7 +134,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function inch() As double</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gDPI &gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gDPI &gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>return mFineRes / scnStatics.gDPI</SourceLine>
    <SourceLine>End Function</SourceLine>
@@ -154,7 +154,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function points() As double</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gPoints72Mul &gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gPoints72Mul &gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>return mFineRes / scnStatics.gPoints72Mul</SourceLine>
    <SourceLine>End Function</SourceLine>
@@ -191,7 +191,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function mm() As double</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gDPI &gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gDPI &gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>return mFineRes * 25.4 / scnStatics.gDPI</SourceLine>
    <SourceLine>End Function</SourceLine>
@@ -322,8 +322,8 @@
    <SourceLine>' convention of assuming clicks travel towards bottom right, so positive delta</SourceLine>
    <SourceLine>' same as mFineRes = mFineRes + scnStatics.scaled2FineRes(dPoints)</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gScaling &lt;&gt; 0</SourceLine>
-   <SourceLine>assert scnStatics.gPoints72Mul &gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gScaling &lt;&gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
+   <SourceLine>assert scnStatics.gPoints72Mul &gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>mFineRes = mFineRes + dPoints / scnStatics.gScaling * scnStatics.gPoints72Mul</SourceLine>
    <SourceLine>End Sub</SourceLine>
@@ -470,7 +470,7 @@
    <SourceLine>system.DebugLog "scn.setScaled from "+str(mFineRes) +" to "+str(inScaledPoints)+" on scn: "+DebugName</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gScaling &lt;&gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gScaling &lt;&gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>' same as setPoints (inScaled/gScaling)</SourceLine>
    <SourceLine>mFineRes = inScaledPoints / scnStatics.gScaling * scnStatics.gPoints72Mul</SourceLine>
@@ -493,8 +493,8 @@
    <SourceLine>' scale up for the outside world if it is zoomed in</SourceLine>
    <SourceLine>' same as return points() * gScaling</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gPoints72Mul &gt; 0</SourceLine>
-   <SourceLine>assert scnStatics.gScaling &lt;&gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gPoints72Mul &gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
+   <SourceLine>assert scnStatics.gScaling &lt;&gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>return mFineRes / scnStatics.gPoints72Mul * scnStatics.gScaling</SourceLine>
@@ -532,7 +532,7 @@
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function inches() As double</SourceLine>
    <SourceLine>#if DebugBuild</SourceLine>
-   <SourceLine>assert scnStatics.gDPI &gt; 0</SourceLine>
+   <SourceLine>assert scnStatics.gDPI &gt; 0, "ensure scnStatics.SetupStatics has been called"</SourceLine>
    <SourceLine>#endif</SourceLine>
    <SourceLine>return mFineRes / scnStatics.gDPI</SourceLine>
    <SourceLine>End Function</SourceLine>
