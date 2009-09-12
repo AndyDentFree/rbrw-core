@@ -110,7 +110,7 @@
    <SourceLine>Function listFields() As string()</SourceLine>
    <SourceLine>// Part of the rbrwFieldFacade interface.</SourceLine>
    <SourceLine>if mColNames2Index is nil then</SourceLine>
-   <SourceLine>InitDefaulColNames</SourceLine>
+   <SourceLine>InitDefaultColNames</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>return mNames</SourceLine>
    <SourceLine></SourceLine>
@@ -285,12 +285,12 @@
   <ItemResult></ItemResult>
  </Method>
  <Method>
-  <ItemName>InitDefaulColNames</ItemName>
+  <ItemName>InitDefaultColNames</ItemName>
   <Compatibility></Compatibility>
   <Visible>1</Visible>
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub InitDefaulColNames()</SourceLine>
+   <SourceLine>Sub InitDefaultColNames()</SourceLine>
    <SourceLine>mColNames2Index = new Dictionary</SourceLine>
    <SourceLine>dim fieldsUB as integer = mFieldCount - 1</SourceLine>
    <SourceLine>redim mNames( fieldsUB )</SourceLine>
@@ -423,8 +423,12 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function fieldIndex(name as String) As Integer</SourceLine>
+   <SourceLine>// raises KeyNotFoundException if no match for name</SourceLine>
+   <SourceLine>// modifies state of source - setting mNames if not already set</SourceLine>
+   <SourceLine>// WARNING using setColNames needs to set an array of the correct length to avoid errors</SourceLine>
+   <SourceLine>// as default names will NOT be generated for other columns</SourceLine>
    <SourceLine>if mColNames2Index is nil then</SourceLine>
-   <SourceLine>InitDefaulColNames</SourceLine>
+   <SourceLine>InitDefaultColNames</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>dim col as integer = mColNames2Index.Value( name )  // generates key error i</SourceLine>
    <SourceLine>return col</SourceLine>

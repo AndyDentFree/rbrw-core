@@ -9,6 +9,8 @@ Inherits Application
 		    
 		    HelpRBUnitHelp.CommandKey = "F1"
 		  #Endif
+		  
+		  RBUnitTestRunner.Show // added this line to work around very longstanding bug 4633 losing external default window property
 		  RBUnitTestRunner.testSuite = new rbrwTestSuite
 		End Sub
 	#tag EndEvent

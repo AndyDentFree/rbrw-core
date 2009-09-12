@@ -1039,3 +1039,11 @@ rbrwDatabaseTests.CanUseDBasSourceTest
 rbrwDatabaseTests.SQLSourceTest
 rbrwDatabaseTests.SQLSourceFilteringTest
 - added
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2009/06/01 Mon
+MINOR FIXES
+
+rbrwMultiArraySource.InitDefaulColNames
+- renamed to correct typo InitDefaultColNames

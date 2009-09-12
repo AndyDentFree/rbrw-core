@@ -5,6 +5,7 @@ Inherits RBUnit.TestController
 		Sub StartTestFixtures()
 		  Dim unitTests As RBUnit.TestFixture
 		  // put new test suites at the top so most visible
+		  unitTests = new rbrwXMLSourceTests(self, "Test XML data sources access")
 		  unitTests = new rbrwDatabaseTests(self, "Test local database data sources access")
 		  unitTests = new rbrwStringTests(self, "string utility tests for core utilities used in rbrw")
 		  unitTests = new rbrwWrappingTests(self, "Text wrapping tests for columnar word-wrapping")

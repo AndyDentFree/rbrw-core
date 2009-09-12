@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2008r5">
+<RBProject version="2009r2.1">
 <block type="Module" ID="-1078691053">
  <ObjName>MoreStringUtils</ObjName>
  <ObjContainerID>-1075940245</ObjContainerID>
@@ -40,6 +40,9 @@
   <ItemSource>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function isspace(aChar as string) As Boolean</SourceLine>
+   <SourceLine>// contrary to common wisdom, RB strings can be nil, eg: if they come from an empty variant</SourceLine>
+   <SourceLine>// see http://aussiedesignedsoftware.com/blog/?p=117</SourceLine>
+   <SourceLine></SourceLine>
    <SourceLine>if aChar is nil or aChar.Len &lt;&gt; 1 then return False</SourceLine>
    <SourceLine>return isspace(aChar.asc)</SourceLine>
    <SourceLine>End Function</SourceLine>
