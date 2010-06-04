@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2009.04
+RBProjectVersion=2010.021
 FileTypeSet=FileTypes;FileTypes.rbbas;&h74AAB3EA;&h0;false
 Folder=rbrw;rbrw;&hBFDE7428;&h0;false
 Folder=Scaled Measurements;rbrw/Scaled Measurements;&hBFDE7417;&hBFDE7428;false
@@ -151,3 +151,4 @@ AppIcon=ReportTester.rbres;&h0
 OSXBundleID=
 DebuggerCommandLine=
 UseGDIPlus=False
+UseBuildsFolder=True

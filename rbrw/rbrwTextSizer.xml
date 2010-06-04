@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<RBProject version="2009r4">
+<RBProject version="2010r2.1">
 <block type="Module" ID="371684813">
  <ObjName>rbrwTextSizer</ObjName>
- <ObjContainerID>2056555002</ObjContainerID>
+ <ObjContainerID>-1075463008</ObjContainerID>
  <IsClass>1</IsClass>
  <ItemFlags>1</ItemFlags>
  <IsInterface>0</IsInterface>
@@ -172,7 +172,7 @@
    <SourceLine>// ASSUMES CALLER HAS SET CORRECT TEXT STYLE IN rbrwCurrentDraw.CurrentGraphics</SourceLine>
    <SourceLine>const  kMaxCharsInSingleLine = 500  // limit to avoid too much remeasuring</SourceLine>
    <SourceLine>mNumRows = 0</SourceLine>
-   <SourceLine>if inValueStr is nil or inValueStr.LenB=0 then</SourceLine>
+   <SourceLine>if  inValueStr.LenB=0 then</SourceLine>
    <SourceLine>return  // trivial case - 0 rows as set above</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>

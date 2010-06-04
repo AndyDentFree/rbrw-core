@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+<RBProject version="2009r4">
+<block type="Module" ID="101337261">
+ <ObjName>rbrwDBUtils</ObjName>
+ <ObjContainerID>1906120907</ObjContainerID>
+ <IsClass>0</IsClass>
+ <ItemFlags>1</ItemFlags>
+ <IsInterface>0</IsInterface>
+ <Compatibility></Compatibility>
+ <Method>
+  <ItemName>AsTextBlock</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AsTextBlock(extends rs as RecordSet, sep as string) As string</SourceLine>
+   <SourceLine>dim ret() as string = rs.asStringArray</SourceLine>
+   <SourceLine>return Join(ret, sep)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet, sep as string</ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AsTextBlock</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AsTextBlock(extends rs as RecordSet) As string</SourceLine>
+   <SourceLine>return rs.AsTextBlock(EndOfLine)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet</ItemParams>
+  <ItemResult>string</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AsStringArray</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AsStringArray(extends rs as RecordSet) As string()</SourceLine>
+   <SourceLine>dim ret() as string</SourceLine>
+   <SourceLine>dim lastFieldIx as integer = rs.FieldCount </SourceLine>
+   <SourceLine>// tempting to rs.MoveFirst but that actually clears the EOF condition on empty sets</SourceLine>
+   <SourceLine>while not rs.EOF</SourceLine>
+   <SourceLine>for i as integer = 1 to lastFieldIx  // snarl, fields are 1-indexed</SourceLine>
+   <SourceLine>ret.Append rs.IdxField(i)</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>rs.MoveNext</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet</ItemParams>
+  <ItemResult>string()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Tables</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Tables(extends db as Database) As string()</SourceLine>
+   <SourceLine>dim rs as RecordSet</SourceLine>
+   <SourceLine>if db isa MySQLCommunityServer then</SourceLine>
+   <SourceLine>rs = db.SQLSelect("SHOW TABLES")</SourceLine>
+   <SourceLine>elseif db isa REALSQLDatabase then</SourceLine>
+   <SourceLine>rs = db.SQLSelect("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if rs is nil then</SourceLine>
+   <SourceLine>dim ret() as string</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return rs.asStringArray</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends db as Database</ItemParams>
+  <ItemResult>string()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Fields</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Fields(extends db as Database, tableName as string) As string()</SourceLine>
+   <SourceLine>dim selectStr as string = "SELECT * FROM " + tableName + " LIMIT 1"</SourceLine>
+   <SourceLine>dim rs as RecordSet = db.SQLSelect( selectStr )</SourceLine>
+   <SourceLine>if rs is nil then</SourceLine>
+   <SourceLine>dim ret() as string</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return rs.Fields</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends db as Database, tableName as string</ItemParams>
+  <ItemResult>string()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Fields</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Fields(extends rs as RecordSet) As string()</SourceLine>
+   <SourceLine>dim ret() as string</SourceLine>
+   <SourceLine>dim lastFieldIx as integer = rs.FieldCount</SourceLine>
+   <SourceLine>for i as integer = 1 to lastFieldIx  // snarl, fields are 1-indexed</SourceLine>
+   <SourceLine>ret.Append rs.IdxField(i).Name</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet</ItemParams>
+  <ItemResult>string()</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HasField</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HasField(extends rs as RecordSet, matchName as string) As Boolean</SourceLine>
+   <SourceLine>dim lastFieldIx as integer = rs.FieldCount</SourceLine>
+   <SourceLine>for i as integer = 1 to lastFieldIx  // snarl, fields are 1-indexed</SourceLine>
+   <SourceLine>if StrComp( rs.IdxField(i).Name,  matchName, 0 ) = 0 then</SourceLine>
+   <SourceLine>return true</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>return false</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet, matchName as string</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HasField</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HasField(extends db as Database, tableName as string, matchField as String) As Boolean</SourceLine>
+   <SourceLine>dim selectStr as string = "SELECT * FROM " + tableName + " LIMIT 1"</SourceLine>
+   <SourceLine>dim rs as RecordSet = db.SQLSelect( selectStr )</SourceLine>
+   <SourceLine>if rs is nil then</SourceLine>
+   <SourceLine>return False</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return rs.HasField(matchField)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends db as Database, tableName as string, matchField as String</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>Contains</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Contains(extends rs as RecordSet, matches as string) As Boolean</SourceLine>
+   <SourceLine>dim lastFieldIx as integer = rs.FieldCount </SourceLine>
+   <SourceLine>rs.MoveFirst</SourceLine>
+   <SourceLine>while not rs.EOF</SourceLine>
+   <SourceLine>for i as integer = 1 to lastFieldIx  // snarl, fields are 1-indexed</SourceLine>
+   <SourceLine>if rs.IdxField(i).StringValue = matches then</SourceLine>
+   <SourceLine>return true</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>rs.MoveNext</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine>return false</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet, matches as string</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>HasTable</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function HasTable(extends db as Database, matchTable as String) As Boolean</SourceLine>
+   <SourceLine>dim rs as RecordSet</SourceLine>
+   <SourceLine>if db isa MySQLCommunityServer then</SourceLine>
+   <SourceLine>rs = db.SQLSelect("SHOW TABLES")</SourceLine>
+   <SourceLine>elseif db isa REALSQLDatabase then</SourceLine>
+   <SourceLine>rs = db.SQLSelect("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if rs is nil then</SourceLine>
+   <SourceLine>return False</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>return rs.ContainsCaseSensitive(matchTable)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends db as Database, matchTable as String</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>AsDictionary</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AsDictionary(extends rs as RecordSet) As Dictionary</SourceLine>
+   <SourceLine>// up to the caller to ensure recordset has at least 2 fields</SourceLine>
+   <SourceLine>dim ret as new Dictionary</SourceLine>
+   <SourceLine>if rs.EOF and rs.BOF then return ret  // special exit for empty set</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>rs.MoveFirst</SourceLine>
+   <SourceLine>while not rs.EOF</SourceLine>
+   <SourceLine>ret.Value( rs.IdxField(1).StringValue ) = rs.IdxField(2).StringValue</SourceLine>
+   <SourceLine>rs.MoveNext</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine>return ret</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet</ItemParams>
+  <ItemResult>Dictionary</ItemResult>
+ </Method>
+ <Method>
+  <ItemName>ContainsCaseSensitive</ItemName>
+  <Compatibility></Compatibility>
+  <Visible>1</Visible>
+  <ItemSource>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ContainsCaseSensitive(extends rs as RecordSet, matches as string) As Boolean</SourceLine>
+   <SourceLine>dim lastFieldIx as integer = rs.FieldCount </SourceLine>
+   <SourceLine>rs.MoveFirst</SourceLine>
+   <SourceLine>while not rs.EOF</SourceLine>
+   <SourceLine>for i as integer = 1 to lastFieldIx  // snarl, fields are 1-indexed</SourceLine>
+   <SourceLine>if StrComp( rs.IdxField(i).StringValue, matches, 0) = 0 then</SourceLine>
+   <SourceLine>return true</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next i</SourceLine>
+   <SourceLine>rs.MoveNext</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine>return false</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+  <TextEncoding>134217984</TextEncoding>
+  <AliasName></AliasName>
+  <ItemFlags>0</ItemFlags>
+  <Shared>0</Shared>
+  <ItemParams>extends rs as RecordSet, matches as string</ItemParams>
+  <ItemResult>Boolean</ItemResult>
+ </Method>
+ <ViewBehavior>
+  <ViewProperty>
+   <ObjName>Name</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Index</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <PropertyValue>2147483648</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Super</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>ID</PropertyGroup>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Left</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+  <ViewProperty>
+   <ObjName>Top</ObjName>
+   <Visible>1</Visible>
+   <PropertyGroup>Position</PropertyGroup>
+   <PropertyValue>0</PropertyValue>
+   <InheritsFrom>Object</InheritsFrom>
+  </ViewProperty>
+ </ViewBehavior>
+</block>
+</RBProject>
