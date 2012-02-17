@@ -10,52 +10,19 @@ Inherits Application
 
 
 	#tag MenuHandler
-		Function TestFixedHeaderwithAlignedText() As Boolean Handles TestFixedHeaderwithAlignedText.Action
-			PreviewReport ReportFixedHeaderWithAlignedText
-			Return True
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function TestSimpleColumnsonelevel() As Boolean Handles TestSimpleColumnsonelevel.Action
-			PreviewReport ReportSimpleColumnsOneLevel
-			Return True
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function TestSimpleFixedHeader() As Boolean Handles TestSimpleFixedHeader.Action
-			PreviewReport ReportSimpleFixedHeader
-			Return True
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function TestSingleLineHeader() As Boolean Handles TestSingleLineHeader.Action
-			PreviewReport ReportSingleLineHeader
-			Return True
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function TestColumnsWithHeaderAndFooter() As Boolean Handles TestColumnsWithHeaderAndFooter.Action
-			PreviewReport ReportColumnsOneLevelWithHeaderAndFooter
+		Function FilePageSetup() As Boolean Handles FilePageSetup.Action
+			if commonPrinterSetup is nil then
+			rbrwGraphicsPrint.initDefaultPageSetup(commonPrinterSetup)
+			end if
+			call commonPrinterSetup.PageSetupDialog
 			Return True
 			
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function TestQuickbooksstyleStatement() As Boolean Handles TestQuickbooksstyleStatement.Action
-			PreviewReport ReportQuickbooksStyleStatement
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function ViewQuickbooksStyleStatementDesign() As Boolean Handles ViewQuickbooksStyleStatementDesign.Action
-			dim pictDisplay as new ShowImages( rbrwQuickbooksStyleStatementDesign, "Quickbooks report screenshot with overlaid description of corresponding rbrw bands" )
+		Function HelpReportTesterHelp() As Boolean Handles HelpReportTesterHelp.Action
+			LaunchWikiHelp
 			Return True
 			
 		End Function
@@ -85,8 +52,22 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function PrtTestSimpleColumnsDB() As Boolean Handles PrtTestSimpleColumnsDB.Action
+			JustPrint ReportSimpleColumnsOneLevelDB
+			Return True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function PrtTestSimpleColumnsonelevel() As Boolean Handles PrtTestSimpleColumnsonelevel.Action
 			JustPrint ReportSimpleColumnsOneLevel
+			Return True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function PrtTestSimpleFixedHeader() As Boolean Handles PrtTestSimpleFixedHeader.Action
+			JustPrint ReportSimpleFixedHeader
 			Return True
 		End Function
 	#tag EndMenuHandler
@@ -99,16 +80,25 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function PrtTestSimpleFixedHeader() As Boolean Handles PrtTestSimpleFixedHeader.Action
-			JustPrint ReportSimpleFixedHeader
+		Function TestColumnsWithHeaderAndFooter() As Boolean Handles TestColumnsWithHeaderAndFooter.Action
+			PreviewReport ReportColumnsOneLevelWithHeaderAndFooter
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function TestFixedHeaderwithAlignedText() As Boolean Handles TestFixedHeaderwithAlignedText.Action
+			PreviewReport ReportFixedHeaderWithAlignedText
 			Return True
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function PrtTestSimpleColumnsDB() As Boolean Handles PrtTestSimpleColumnsDB.Action
-			JustPrint ReportSimpleColumnsOneLevelDB
+		Function TestQuickbooksstyleStatement() As Boolean Handles TestQuickbooksstyleStatement.Action
+			PreviewReport ReportQuickbooksStyleStatement
 			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -120,111 +110,34 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function FilePageSetup() As Boolean Handles FilePageSetup.Action
-			if commonPrinterSetup is nil then
-			rbrwGraphicsPrint.initDefaultPageSetup(commonPrinterSetup)
-			end if
-			call commonPrinterSetup.PageSetupDialog
+		Function TestSimpleColumnsonelevel() As Boolean Handles TestSimpleColumnsonelevel.Action
+			PreviewReport ReportSimpleColumnsOneLevel
 			Return True
-			
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function HelpReportTesterHelp() As Boolean Handles HelpReportTesterHelp.Action
-			LaunchWikiHelp
+		Function TestSimpleFixedHeader() As Boolean Handles TestSimpleFixedHeader.Action
+			PreviewReport ReportSimpleFixedHeader
+			Return True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function TestSingleLineHeader() As Boolean Handles TestSingleLineHeader.Action
+			PreviewReport ReportSingleLineHeader
+			Return True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ViewQuickbooksStyleStatementDesign() As Boolean Handles ViewQuickbooksStyleStatementDesign.Action
+			dim pictDisplay as new ShowImages( rbrwQuickbooksStyleStatementDesign, "Quickbooks report screenshot with overlaid description of corresponding rbrw bands" )
 			Return True
 			
 		End Function
 	#tag EndMenuHandler
 
-
-	#tag Method, Flags = &h0
-		Function ReportFixedHeaderWithAlignedText() As rbrwReport
-		  ' layout left and right plus different font styles
-		  ' doesn't display any data inside the band
-		  dim r as new rbrwReport ()
-		  AddFancyHeader(r)
-		  
-		  return r
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function ReportSingleLineHeader() As rbrwReport
-		  dim r as new rbrwReport
-		  r.defaultTextStyle.TextFont = "Courier"
-		  r.pageHeaders.Add "This is just a single literal line of text", blockAlignT.alignCenter
-		  
-		  return r
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function ReportSimpleFixedHeader() As rbrwReport
-		  ' displays simple concatenation model - strings appended to band
-		  dim r as new rbrwReport
-		  r.pageHeaders.Add "This is just "  // note the trailing space
-		  r.pageHeaders.Add "a single literal line of text "
-		  r.pageHeaders.Add "composed by appending multiple items "
-		  r.pageHeaders.Add new rbrwLineBand(1.5, points)
-		  
-		  //r.pageHeaders.StartNewRow
-		  ' r.pageHeaders.Add new rbrwTextBlock("Another Line ") .MoveDownAfter  // different way to add lines
-		  'r.pageHeaders.Add "and yet another", rbrw.layRight
-		  
-		  return r
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function ReportSimpleColumnsOneLevel() As rbrwReport
-		  dim r as new rbrwReport( new Sample2DUserArray(mSampleUsers) )
-		  r.body.colSizer.alignment(1) = rbrwColSizer.colAlignT.alignRight
-		  return r
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub SetupSampleData()
-		  SampleUserClass.FillSampleUsers mSampleUsers
-		  CreateTestDB
-		  SampleFinancialData.CreateSampleData
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function ReportColumnsOneLevelWithHeaderAndFooter() As rbrwReport
-		  dim r as new rbrwReport( new Sample2DUserArray(mSampleUsers) )
-		  AddFancyHeader(r)
-		  AddFancyFooter(r)
-		  return r
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub AddFancyHeader(r as rbrwReport)
-		  dim aBand as new rbrwLayoutBand
-		  //aBand.uniqueTextStyle.TextSize = 9
-		  dim aStyle as rbrwTextStyle = aBand.uniqueTextStyle
-		  aStyle.TextSize = 9
-		  aBand.Add "Text on the left"
-		  aBand.Add "and the right", blockAlignT.alignRight
-		  r.pageHeaders.Add aBand
-		  //break
-		  r.pageHeaders.startNewRow
-		  dim midblock as new rbrwTextBlock(" A centered line of text followed by a gap & line across page")
-		  midblock.uniqueTextStyle.Bold = true
-		  midblock.uniqueTextStyle.TextSize = 14
-		  r.pageHeaders.Add midblock, blockAlignT.alignCenter
-		  r.pageHeaders.Add new rbrwSpaceBand(12, mm)
-		  r.pageHeaders.Add new rbrwLineBand(1.5, points)
-		  
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub AddFancyFooter(r as rbrwReport)
@@ -247,141 +160,24 @@ Inherits Application
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Function ReportQuickbooksStyleStatement() As rbrwReport
-		  ' a complex report similar to that from QuickBooks, see rbrwQuickbooksStyleStatementDesign.png
-		  
-		  const DESIGN_WIDTH = 540  // points at 72dpi, body width to fit on US 11 with 0.5" margins
-		  // conveniently allows for 6 cols of 90 across the bottom
-		  CONST AMT_COL_WIDTH = 85
-		  CONST COL_SEP_WIDTH = 4
-		  
-		  dim mas as new rbrwMultiArraySource( _
-		  SampleFinancialData.arDates, _
-		  SampleFinancialData.arDetails, _
-		  SampleFinancialData.arAmounts,  _
-		  SampleFinancialData.arBalance)
-		  mas.setColNames( Array("Date", "Details", "Amount", "Balance" ) )
-		  
-		  dim r as new rbrwReport( mas  )
-		  r.settings.defaultTextStyle.leading = 2
-		  r.settings.colSepWidth = COL_SEP_WIDTH
-		  
-		  // specify fixed widths for columns because we also align the blocks before and after
-		  r.body.colSizer.fixedWidth(0) = AMT_COL_WIDTH - COL_SEP_WIDTH
-		  r.body.colSizer.fixedWidth(1) = AMT_COL_WIDTH * 3 - COL_SEP_WIDTH
-		  r.body.colSizer.fixedWidth(2) = AMT_COL_WIDTH - COL_SEP_WIDTH
-		  r.body.colSizer.fixedWidth(3) = AMT_COL_WIDTH - COL_SEP_WIDTH
-		  r.body.colSizer.alignment(0) = rbrwColSizer.colAlignT.alignCenter
-		  r.body.colSizer.alignment(2) = rbrwColSizer.colAlignT.alignRight
-		  r.body.colSizer.alignment(3) = rbrwColSizer.colAlignT.alignRight
-		  r.body.border = true
-		  
-		  dim bandBorder as rbrwBorder
-		  
+	#tag Method, Flags = &h1
+		Protected Sub AddFancyHeader(r as rbrwReport)
 		  dim aBand as new rbrwLayoutBand
+		  //aBand.uniqueTextStyle.TextSize = 9
+		  dim aStyle as rbrwTextStyle = aBand.uniqueTextStyle
+		  aStyle.TextSize = 9
+		  aBand.Add "Text on the left"
+		  aBand.Add "and the right", blockAlignT.alignRight
+		  r.pageHeaders.Add aBand
+		  //break
+		  r.pageHeaders.startNewRow
+		  dim midblock as new rbrwTextBlock(" A centered line of text followed by a gap & line across page")
+		  midblock.uniqueTextStyle.Bold = true
+		  midblock.uniqueTextStyle.TextSize = 14
+		  r.pageHeaders.Add midblock, blockAlignT.alignCenter
+		  r.pageHeaders.Add new rbrwSpaceBand(12, mm)
+		  r.pageHeaders.Add new rbrwLineBand(1.5, points)
 		  
-		  // Guff at top of page
-		  dim rightblock as new rbrwTextBlock("Statement")
-		  rightblock.uniqueTextStyle.Bold = true
-		  rightblock.uniqueTextStyle.TextSize = 18
-		  aBand.Add rightblock, blockAlignT.alignRight
-		  
-		  dim logoBlock as new rbrwPictureBlock(sisyphus_sign)
-		  logoBlock.fixedWidth = 120
-		  aBand.Add  logoBlock, blockAlignT.alignCenter
-		  
-		  // start address on left so the moveDownAfter is not after the tall Statement
-		  aBand.Add  "MockMe Widgets, INC"
-		  aBand.startNewRow
-		  aBand.Add  "123 Stub Street"
-		  aBand.startNewRow
-		  aBand.Add  "Fowlerville WI 53999"
-		  r.PageHeaders.Add aBand
-		  
-		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
-		  
-		  // Bill to - Customer Details Block
-		  aBand = new rbrwLayoutBand
-		  aBand.Add "Bill To:"
-		  aBand.LastBlock.uniqueTextStyle.Bold = true
-		  aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
-		  
-		  aBand.startNewRow
-		  aBand.AddRows Array( _
-		  "Bill's Repairs", _
-		  "97 Back Alley", _
-		  "Fowlerville WI 53999" )
-		  // want to somehow indent band here aBand.sett
-		  r.PageHeaders.Add aBand
-		  aBand.border = true
-		  
-		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
-		  
-		  // fake the aligned financial summary
-		  aBand = new rbrwLayoutBand
-		  for each s as string in Array("Date", "Amount Due", "Enclosed")
-		    aBand.Add s, blockAlignT.alignTextCenter
-		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
-		    aBand.blocks.LastBlock.uniqueTextStyle.Bold = true
-		    aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
-		  next
-		  aBand.startNewRow
-		  // fake total details
-		  for each s as string in Array("09/16/08",  "$1,520.00")
-		    aBand.Add s, blockAlignT.alignTextCenter
-		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
-		  next
-		  r.PageHeaders.Add aBand
-		  bandBorder = new rbrwBorder(1)
-		  bandBorder.colSizer = new rbrwColSizer( Array(AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH) )
-		  aBand.border = bandBorder
-		  
-		  
-		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
-		  
-		  
-		  // space band to ensure page footer height isn't encroached on by columns
-		  r.PageFooters.Add new rbrwSpaceBand(0.5, inches)
-		  
-		  aBand = new rbrwLayoutBand
-		  for each s as string in Array("Current", "1-15", "16-30", "31-60", "61-90", "Over 90")
-		    aBand.Add s, blockAlignT.alignTextCenter
-		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
-		    aBand.blocks.LastBlock.uniqueTextStyle.Bold = true
-		    aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
-		  next
-		  aBand.startNewRow
-		  // fake array of formatted numbers
-		  for each s as string in Array("$7.00", "$17,890.11", "$1,290.45", "$0.00", "$0.00", "$0.00")
-		    aBand.Add s, blockAlignT.alignTextCenter
-		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
-		  next
-		  r.PageFooters.Add aBand
-		  bandBorder = new rbrwBorder(1)
-		  bandBorder.colSizer = new rbrwColSizer( Array(AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH) )
-		  aBand.border = bandBorder
-		  
-		  r.PageFooters.Add new rbrwSpaceBand(5, mm)
-		  aBand = new rbrwLayoutBand
-		  aBand.Add new rbrwPageNoBlock("Page ", "   ")
-		  r.PageFooters.Add aBand
-		  
-		  return r
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub JustPrint(r as rbrwReport)
-		  rbrwGraphicsPrint.PrintReport r, commonPrinterSetup
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub PreviewReport(r as rbrwReport)
-		  dim w as new rbrwPreviewWindow(r)
-		  w.Show
 		End Sub
 	#tag EndMethod
 
@@ -592,6 +388,179 @@ Inherits Application
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub JustPrint(r as rbrwReport)
+		  rbrwGraphicsPrint.PrintReport r, commonPrinterSetup
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub LaunchWikiHelp()
+		  ShowURL "http://code.google.com/p/rbrw-core/w/list"
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub PreviewReport(r as rbrwReport)
+		  dim w as new rbrwPreviewWindow(r)
+		  w.Show
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ReportColumnsOneLevelWithHeaderAndFooter() As rbrwReport
+		  dim r as new rbrwReport( new Sample2DUserArray(mSampleUsers) )
+		  AddFancyHeader(r)
+		  AddFancyFooter(r)
+		  return r
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ReportFixedHeaderWithAlignedText() As rbrwReport
+		  ' layout left and right plus different font styles
+		  ' doesn't display any data inside the band
+		  dim r as new rbrwReport ()
+		  AddFancyHeader(r)
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ReportQuickbooksStyleStatement() As rbrwReport
+		  ' a complex report similar to that from QuickBooks, see rbrwQuickbooksStyleStatementDesign.png
+		  
+		  const DESIGN_WIDTH = 540  // points at 72dpi, body width to fit on US 11 with 0.5" margins
+		  // conveniently allows for 6 cols of 90 across the bottom
+		  CONST AMT_COL_WIDTH = 85
+		  CONST COL_SEP_WIDTH = 4
+		  
+		  dim mas as new rbrwMultiArraySource( _
+		  SampleFinancialData.arDates, _
+		  SampleFinancialData.arDetails, _
+		  SampleFinancialData.arAmounts,  _
+		  SampleFinancialData.arBalance)
+		  mas.setColNames( Array("Date", "Details", "Amount", "Balance" ) )
+		  
+		  dim r as new rbrwReport( mas  )
+		  r.settings.defaultTextStyle.leading = 2
+		  r.settings.colSepWidth = COL_SEP_WIDTH
+		  
+		  // specify fixed widths for columns because we also align the blocks before and after
+		  r.body.colSizer.fixedWidth(0) = AMT_COL_WIDTH - COL_SEP_WIDTH
+		  r.body.colSizer.fixedWidth(1) = AMT_COL_WIDTH * 3 - COL_SEP_WIDTH
+		  r.body.colSizer.fixedWidth(2) = AMT_COL_WIDTH - COL_SEP_WIDTH
+		  r.body.colSizer.fixedWidth(3) = AMT_COL_WIDTH - COL_SEP_WIDTH
+		  r.body.colSizer.alignment(0) = rbrwColSizer.colAlignT.alignCenter
+		  r.body.colSizer.alignment(2) = rbrwColSizer.colAlignT.alignRight
+		  r.body.colSizer.alignment(3) = rbrwColSizer.colAlignT.alignRight
+		  r.body.border = true
+		  
+		  dim bandBorder as rbrwBorder
+		  
+		  dim aBand as new rbrwLayoutBand
+		  
+		  // Guff at top of page
+		  dim rightblock as new rbrwTextBlock("Statement")
+		  rightblock.uniqueTextStyle.Bold = true
+		  rightblock.uniqueTextStyle.TextSize = 18
+		  aBand.Add rightblock, blockAlignT.alignRight
+		  
+		  dim logoBlock as new rbrwPictureBlock(sisyphus_sign)
+		  logoBlock.fixedWidth = 120
+		  aBand.Add  logoBlock, blockAlignT.alignCenter
+		  
+		  // start address on left so the moveDownAfter is not after the tall Statement
+		  aBand.Add  "MockMe Widgets, INC"
+		  aBand.startNewRow
+		  aBand.Add  "123 Stub Street"
+		  aBand.startNewRow
+		  aBand.Add  "Fowlerville WI 53999"
+		  r.PageHeaders.Add aBand
+		  
+		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
+		  
+		  // Bill to - Customer Details Block
+		  aBand = new rbrwLayoutBand
+		  aBand.Add "Bill To:"
+		  aBand.LastBlock.uniqueTextStyle.Bold = true
+		  aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
+		  
+		  aBand.startNewRow
+		  aBand.AddRows Array( _
+		  "Bill's Repairs", _
+		  "97 Back Alley", _
+		  "Fowlerville WI 53999" )
+		  // want to somehow indent band here aBand.sett
+		  r.PageHeaders.Add aBand
+		  aBand.border = true
+		  
+		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
+		  
+		  // fake the aligned financial summary
+		  aBand = new rbrwLayoutBand
+		  for each s as string in Array("Date", "Amount Due", "Enclosed")
+		    aBand.Add s, blockAlignT.alignTextCenter
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		    aBand.blocks.LastBlock.uniqueTextStyle.Bold = true
+		    aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
+		  next
+		  aBand.startNewRow
+		  // fake total details
+		  for each s as string in Array("09/16/08",  "$1,520.00")
+		    aBand.Add s, blockAlignT.alignTextCenter
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		  next
+		  r.PageHeaders.Add aBand
+		  bandBorder = new rbrwBorder(1)
+		  bandBorder.colSizer = new rbrwColSizer( Array(AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH) )
+		  aBand.border = bandBorder
+		  
+		  
+		  r.pageHeaders.Add new rbrwSpaceBand(20, mm)
+		  
+		  
+		  // space band to ensure page footer height isn't encroached on by columns
+		  r.PageFooters.Add new rbrwSpaceBand(0.5, inches)
+		  
+		  aBand = new rbrwLayoutBand
+		  for each s as string in Array("Current", "1-15", "16-30", "31-60", "61-90", "Over 90")
+		    aBand.Add s, blockAlignT.alignTextCenter
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		    aBand.blocks.LastBlock.uniqueTextStyle.Bold = true
+		    aBand.blocks.LastBlock.uniqueTextStyle.leading = 4
+		  next
+		  aBand.startNewRow
+		  // fake array of formatted numbers
+		  for each s as string in Array("$7.00", "$17,890.11", "$1,290.45", "$0.00", "$0.00", "$0.00")
+		    aBand.Add s, blockAlignT.alignTextCenter
+		    aBand.blocks.LastBlock.fixedWidth = AMT_COL_WIDTH
+		  next
+		  r.PageFooters.Add aBand
+		  bandBorder = new rbrwBorder(1)
+		  bandBorder.colSizer = new rbrwColSizer( Array(AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH, AMT_COL_WIDTH) )
+		  aBand.border = bandBorder
+		  
+		  r.PageFooters.Add new rbrwSpaceBand(5, mm)
+		  aBand = new rbrwLayoutBand
+		  aBand.Add new rbrwPageNoBlock("Page ", "   ")
+		  r.PageFooters.Add aBand
+		  
+		  return r
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ReportSimpleColumnsOneLevel() As rbrwReport
+		  dim r as new rbrwReport( new Sample2DUserArray(mSampleUsers) )
+		  r.body.colSizer.alignment(1) = rbrwColSizer.colAlignT.alignRight
+		  return r
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function ReportSimpleColumnsOneLevelDB() As rbrwReport
 		  dim rs as RecordSet = testDB.SQLSelect("SELECT * FROM users ORDER BY Surname")
@@ -603,8 +572,39 @@ Inherits Application
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub LaunchWikiHelp()
-		  ShowURL "http://code.google.com/p/rbrw-core/w/list"
+		Function ReportSimpleFixedHeader() As rbrwReport
+		  ' displays simple concatenation model - strings appended to band
+		  dim r as new rbrwReport
+		  r.pageHeaders.Add "This is just "  // note the trailing space
+		  r.pageHeaders.Add "a single literal line of text "
+		  r.pageHeaders.Add "composed by appending multiple items "
+		  r.pageHeaders.Add new rbrwLineBand(1.5, points)
+		  
+		  //r.pageHeaders.StartNewRow
+		  ' r.pageHeaders.Add new rbrwTextBlock("Another Line ") .MoveDownAfter  // different way to add lines
+		  'r.pageHeaders.Add "and yet another", rbrw.layRight
+		  
+		  return r
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ReportSingleLineHeader() As rbrwReport
+		  dim r as new rbrwReport
+		  r.defaultTextStyle.TextFont = "Courier"
+		  r.pageHeaders.Add "This is just a single literal line of text", blockAlignT.alignCenter
+		  
+		  return r
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub SetupSampleData()
+		  SampleUserClass.FillSampleUsers mSampleUsers
+		  CreateTestDB
+		  SampleFinancialData.CreateSampleData
+		  
 		End Sub
 	#tag EndMethod
 
@@ -618,15 +618,15 @@ Inherits Application
 
 
 	#tag Property, Flags = &h1
+		Protected commonPrinterSetup As PrinterSetup
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
 		Protected mSampleUsers() As SampleUserClass
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private testDB As REALSQLDatabase
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected commonPrinterSetup As PrinterSetup
 	#tag EndProperty
 
 

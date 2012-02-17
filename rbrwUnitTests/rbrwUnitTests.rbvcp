@@ -1,5 +1,6 @@
 Type=Desktop
-RBProjectVersion=2009.04
+RBProjectVersion=2011.041
+MinIDEVersion=20070100
 FileTypeSet=FileTypes;FileTypes.rbbas;&h757D2FFF;&h0;false
 MenuBar=MenuBar1;MenuBar1.rbmnu;&hBC74A64F;&h0;false
 Class=App;App.rbbas;&hBC74A64E;&h0;false
@@ -158,3 +159,5 @@ AppIcon=rbrwUnitTests.rbres;&h0
 OSXBundleID=com.LogicalVue.RBUnit
 DebuggerCommandLine=
 UseGDIPlus=False
+UseBuildsFolder=True
+IsWebProject=False

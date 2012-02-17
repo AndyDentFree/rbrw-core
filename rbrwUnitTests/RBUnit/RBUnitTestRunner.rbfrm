@@ -53,7 +53,6 @@ Begin Window RBUnitTestRunner
       Underline       =   False
       Visible         =   True
       Width           =   85
-      BehaviorIndex   =   0
    End
    Begin TabPanel TabPanel1
       AutoDeactivate  =   True
@@ -85,8 +84,7 @@ Begin Window RBUnitTestRunner
       Value           =   1
       Visible         =   True
       Width           =   603
-      BehaviorIndex   =   1
-      Begin EditField efTestResults
+      Begin TextArea efTestResults
          AcceptTabs      =   False
          Alignment       =   0
          AutoDeactivate  =   True
@@ -130,7 +128,6 @@ Begin Window RBUnitTestRunner
          UseFocusRing    =   True
          Visible         =   True
          Width           =   552
-         BehaviorIndex   =   2
       End
       Begin ListBox TestResultTree
          AutoDeactivate  =   True
@@ -181,7 +178,6 @@ Begin Window RBUnitTestRunner
          Width           =   552
          _ScrollOffset   =   0
          _ScrollWidth    =   -1
-         BehaviorIndex   =   3
       End
       Begin ListBox lbDurationList
          AutoDeactivate  =   True
@@ -232,7 +228,6 @@ Begin Window RBUnitTestRunner
          Width           =   547
          _ScrollOffset   =   0
          _ScrollWidth    =   -1
-         BehaviorIndex   =   4
       End
       Begin GroupBox GroupBox1
          AutoDeactivate  =   True
@@ -261,8 +256,7 @@ Begin Window RBUnitTestRunner
          Underline       =   False
          Visible         =   True
          Width           =   547
-         BehaviorIndex   =   5
-         Begin StaticText StaticText1
+         Begin Label StaticText1
             AutoDeactivate  =   True
             BehaviorIndex   =   6
             Bold            =   False
@@ -294,9 +288,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   6
          End
-         Begin StaticText StaticText2
+         Begin Label StaticText2
             AutoDeactivate  =   True
             BehaviorIndex   =   7
             Bold            =   False
@@ -328,9 +321,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   7
          End
-         Begin StaticText StaticText3
+         Begin Label StaticText3
             AutoDeactivate  =   True
             BehaviorIndex   =   8
             Bold            =   False
@@ -362,9 +354,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   8
          End
-         Begin StaticText stPassedTests
+         Begin Label stPassedTests
             AutoDeactivate  =   True
             BehaviorIndex   =   9
             Bold            =   False
@@ -396,9 +387,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   9
          End
-         Begin StaticText stFailedTests
+         Begin Label stFailedTests
             AutoDeactivate  =   True
             BehaviorIndex   =   10
             Bold            =   False
@@ -430,9 +420,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   10
          End
-         Begin StaticText stSkippedTests
+         Begin Label stSkippedTests
             AutoDeactivate  =   True
             BehaviorIndex   =   11
             Bold            =   False
@@ -464,9 +453,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   11
          End
-         Begin StaticText StaticText7
+         Begin Label StaticText7
             AutoDeactivate  =   True
             BehaviorIndex   =   12
             Bold            =   False
@@ -498,9 +486,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   12
          End
-         Begin StaticText StaticText8
+         Begin Label StaticText8
             AutoDeactivate  =   True
             BehaviorIndex   =   13
             Bold            =   False
@@ -532,9 +519,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   122
-            BehaviorIndex   =   13
          End
-         Begin StaticText stDuration
+         Begin Label stDuration
             AutoDeactivate  =   True
             BehaviorIndex   =   14
             Bold            =   False
@@ -566,9 +552,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   172
-            BehaviorIndex   =   14
          End
-         Begin StaticText stCompletionTime
+         Begin Label stCompletionTime
             AutoDeactivate  =   True
             BehaviorIndex   =   15
             Bold            =   False
@@ -600,9 +585,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   172
-            BehaviorIndex   =   15
          End
-         Begin StaticText StaticText4
+         Begin Label StaticText4
             AutoDeactivate  =   True
             BehaviorIndex   =   16
             Bold            =   False
@@ -634,9 +618,8 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   16
          End
-         Begin StaticText stTotalTests
+         Begin Label stTotalTests
             AutoDeactivate  =   True
             BehaviorIndex   =   17
             Bold            =   False
@@ -668,7 +651,6 @@ Begin Window RBUnitTestRunner
             Underline       =   False
             Visible         =   True
             Width           =   100
-            BehaviorIndex   =   17
          End
       End
       Begin BevelButton CopyButton
@@ -711,7 +693,6 @@ Begin Window RBUnitTestRunner
          Value           =   False
          Visible         =   True
          Width           =   60
-         BehaviorIndex   =   18
       End
    End
    Begin PushButton pbAbout
@@ -743,7 +724,6 @@ Begin Window RBUnitTestRunner
       Underline       =   False
       Visible         =   True
       Width           =   85
-      BehaviorIndex   =   19
    End
    Begin ProgressWheel RunningProgress
       AutoDeactivate  =   True
@@ -766,36 +746,14 @@ Begin Window RBUnitTestRunner
       Top             =   468
       Visible         =   False
       Width           =   16
-      BehaviorIndex   =   20
    End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag MenuHandler
-		Function TestRunAllTests() As Boolean Handles TestRunAllTests.Action
-			RunAllTests
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function FileSaveAs() As Boolean Handles FileSaveAs.Action
-			SaveAs
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function FileSave() As Boolean Handles FileSave.Action
-			Dim XmlOutput As TextOutputStream
-			
-			If mXmlFile = Nil Then
-			SaveAs
-			Else
-			XmlOutput = mXmlFile.CreateTextFile
-			XmlOutput.WriteLine(efTestResults.Text)
-			XmlOutput.Close
-			End if
-			
+		Function AppleAboutRBUnit() As Boolean Handles AppleAboutRBUnit.Action
+			About
 		End Function
 	#tag EndMenuHandler
 
@@ -838,8 +796,23 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function AppleAboutRBUnit() As Boolean Handles AppleAboutRBUnit.Action
-			About
+		Function FileSave() As Boolean Handles FileSave.Action
+			Dim XmlOutput As TextOutputStream
+			
+			If mXmlFile = Nil Then
+			SaveAs
+			Else
+			XmlOutput = mXmlFile.CreateTextFile
+			XmlOutput.WriteLine(efTestResults.Text)
+			XmlOutput.Close
+			End if
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileSaveAs() As Boolean Handles FileSaveAs.Action
+			SaveAs
 		End Function
 	#tag EndMenuHandler
 
@@ -849,21 +822,96 @@ End
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function TestRunAllTests() As Boolean Handles TestRunAllTests.Action
+			RunAllTests
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Method, Flags = &h21
-		Private Sub ParseStartTree(Xml As XmlDocument)
-		  ParseNodeId = 0
+		Private Sub About()
+		  Dim aboutDialog As New MessageDialog
+		  Dim button As MessageDialogButton
 		  
-		  If ParseNodeStorage = Nil Then
-		    ParseNodeStorage = New Dictionary
+		  aboutDialog.Message = "RBUnit " + RBUNIT_VERSION + EndOfLine + EndOfLine + "Copyright 2004-2008 LogicalVue Software, Inc."
+		  aboutDialog.Title = "About RBUnit " + RBUNIT_VERSION
+		  aboutDialog.Icon = 0
+		  aboutDialog.CancelButton.Caption = "Visit RBDevZone.com"
+		  aboutDialog.CancelButton.Visible = True
+		  
+		  button = aboutDialog.ShowModalWithin(Self)
+		  
+		  If button = aboutDialog.CancelButton Then
+		    ShowURL("http://www.rbdevzone.com/free-software/rbunit")
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function Circle(circleColor As Color) As Picture
+		  Dim circle As Picture
+		  
+		  circle = NewPicture(16, 16, 32)
+		  
+		  circle.Graphics.ForeColor = circleColor
+		  circle.Graphics.FillOval(1, 1, 15, 15)
+		  
+		  Return circle
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub OutputResults(myTestSuite As RBUnit.TestController)
+		  Dim Results As XmlDocument
+		  Dim i As Integer
+		  
+		  Results = myTestSuite.Results
+		  
+		  myTestSuite.FillDurationList(lbDurationList)
+		  
+		  efTestResults.Text = ReplaceAll(Results.ToString, "><", ">" + EndOfLine + "<")
+		  
+		  ParseStartTree(Results)
+		  
+		  If TestResultTree.ListCount <= 0 Then
+		    TestResultTree.AddRow("No tests to run")
+		    Return
+		  End If
+		  
+		  For i = 0 To TestResultTree.ListCount-1
+		    TestResultTree.Expanded(i) = True
+		  Next
+		  
+		  If mSuiteFailed Then
+		    TestResultTree.RowPicture(mSuiteRow) = Circle(&cff0000)
 		  Else
-		    ParseNodeStorage.Clear
-		  End if
+		    TestResultTree.RowPicture(mSuiteRow) = Circle(&c00ff00)
+		  End If
 		  
-		  TestResultTree.DeleteAllRows
+		  stTotalTests.Text = Str(myTestSuite.TotalTests)
+		  stPassedTests.Text = Str(myTestSuite.TotalPassedTests)
+		  stFailedTests.Text = Str(myTestSuite.TotalTests - myTestSuite.TotalPassedTests)
+		  stDuration.Text = mDuration + " seconds"
+		  stCompletionTime.Text = mCompleted
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub ParseAddChildren(ParentId As String)
+		  Dim Node As XmlNode
+		  Dim i As Integer
 		  
-		  ParseAddNode(Xml.DocumentElement)
-		  
+		  Try
+		    Node = XmlNode(ParseNodeStorage.Value(ParentId))
+		    
+		    For i = 0 To Node.ChildCount-1
+		      ParseAddNode(Node.Child(i))
+		    Next
+		    
+		  Catch
+		    Return
+		  End Try
 		End Sub
 	#tag EndMethod
 
@@ -942,20 +990,19 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub ParseAddChildren(ParentId As String)
-		  Dim Node As XmlNode
-		  Dim i As Integer
+		Private Sub ParseStartTree(Xml As XmlDocument)
+		  ParseNodeId = 0
 		  
-		  Try
-		    Node = XmlNode(ParseNodeStorage.Value(ParentId))
-		    
-		    For i = 0 To Node.ChildCount-1
-		      ParseAddNode(Node.Child(i))
-		    Next
-		    
-		  Catch
-		    Return
-		  End Try
+		  If ParseNodeStorage = Nil Then
+		    ParseNodeStorage = New Dictionary
+		  Else
+		    ParseNodeStorage.Clear
+		  End if
+		  
+		  TestResultTree.DeleteAllRows
+		  
+		  ParseAddNode(Xml.DocumentElement)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -991,81 +1038,9 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub OutputResults(myTestSuite As RBUnit.TestController)
-		  Dim Results As XmlDocument
-		  Dim i As Integer
-		  
-		  Results = myTestSuite.Results
-		  
-		  myTestSuite.FillDurationList(lbDurationList)
-		  
-		  efTestResults.Text = ReplaceAll(Results.ToString, "><", ">" + EndOfLine + "<")
-		  
-		  ParseStartTree(Results)
-		  
-		  If TestResultTree.ListCount <= 0 Then
-		    TestResultTree.AddRow("No tests to run")
-		    Return
-		  End If
-		  
-		  For i = 0 To TestResultTree.ListCount-1
-		    TestResultTree.Expanded(i) = True
-		  Next
-		  
-		  If mSuiteFailed Then
-		    TestResultTree.RowPicture(mSuiteRow) = Circle(&cff0000)
-		  Else
-		    TestResultTree.RowPicture(mSuiteRow) = Circle(&c00ff00)
-		  End If
-		  
-		  stTotalTests.Text = Str(myTestSuite.TotalTests)
-		  stPassedTests.Text = Str(myTestSuite.TotalPassedTests)
-		  stFailedTests.Text = Str(myTestSuite.TotalTests - myTestSuite.TotalPassedTests)
-		  stDuration.Text = mDuration + " seconds"
-		  stCompletionTime.Text = mCompleted
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function Circle(circleColor As Color) As Picture
-		  Dim circle As Picture
-		  
-		  circle = NewPicture(16, 16, 32)
-		  
-		  circle.Graphics.ForeColor = circleColor
-		  circle.Graphics.FillOval(1, 1, 15, 15)
-		  
-		  Return circle
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub About()
-		  Dim aboutDialog As New MessageDialog
-		  Dim button As MessageDialogButton
-		  
-		  aboutDialog.Message = "RBUnit " + RBUNIT_VERSION + EndOfLine + EndOfLine + "Copyright 2004-2008 LogicalVue Software, Inc."
-		  aboutDialog.Title = "About RBUnit " + RBUNIT_VERSION
-		  aboutDialog.Icon = 0
-		  aboutDialog.CancelButton.Caption = "Visit RBDevZone.com"
-		  aboutDialog.CancelButton.Visible = True
-		  
-		  button = aboutDialog.ShowModalWithin(Self)
-		  
-		  If button = aboutDialog.CancelButton Then
-		    ShowURL("http://www.rbdevzone.com/free-software/rbunit")
-		  End If
-		End Sub
-	#tag EndMethod
-
 
 	#tag Property, Flags = &h21
-		Private ParseNodeStorage As Dictionary
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private ParseNodeId As Integer
+		Private mCompleted As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -1073,15 +1048,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private mCompleted As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private mXmlFile As FolderItem
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private mSuiteRow As Integer
+		Private mGroupRow As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -1089,26 +1056,38 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private mGroupRow As Integer
+		Private mSuiteRow As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
 		Protected Shared mUserTestController As RBUnit.TestController
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private mXmlFile As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private ParseNodeId As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private ParseNodeStorage As Dictionary
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			if mUserTestController is nil then
-			// default to the included original class
-			return New RBUnit.StartTests
-			end if
-			return mUserTestController  // user override pointing to some class they have created elsewhere
+			  if mUserTestController is nil then
+			    // default to the included original class
+			    return New RBUnit.StartTests
+			  end if
+			  return mUserTestController  // user override pointing to some class they have created elsewhere
 			End Get
 		#tag EndGetter
 		#tag Setter
 			Set
-			mUserTestController = value
+			  mUserTestController = value
 			End Set
 		#tag EndSetter
 		Shared testSuite As RBUnit.TestController

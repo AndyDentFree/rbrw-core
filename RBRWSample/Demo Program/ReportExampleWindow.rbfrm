@@ -24,7 +24,7 @@ Begin Window ReportExampleWindow
    Title           =   "Sample Reports"
    Visible         =   True
    Width           =   733
-   Begin StaticText StaticText1
+   Begin Label StaticText1
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -45,6 +45,7 @@ Begin Window ReportExampleWindow
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Choose different reports from the Preview or Print  menus.\r\rAll these reports are created by methods in the App class, such as:\rReportDemoApp.ReportSimpleFixedHeader"
       TextAlign       =   0
       TextColor       =   0
@@ -55,7 +56,7 @@ Begin Window ReportExampleWindow
       Visible         =   True
       Width           =   694
    End
-   Begin StaticText StaticText2
+   Begin Label StaticText2
       AutoDeactivate  =   True
       Bold            =   ""
       DataField       =   ""
@@ -76,6 +77,7 @@ Begin Window ReportExampleWindow
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Help is available online at the "
       TextAlign       =   0
       TextColor       =   &h000000
@@ -86,7 +88,7 @@ Begin Window ReportExampleWindow
       Visible         =   True
       Width           =   193
    End
-   Begin StaticText LaunchWikiHelpText
+   Begin Label LaunchWikiHelpText
       AutoDeactivate  =   True
       Bold            =   True
       DataField       =   ""
@@ -107,6 +109,7 @@ Begin Window ReportExampleWindow
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "rbrw-core wiki"
       TextAlign       =   0
       TextColor       =   &h000099

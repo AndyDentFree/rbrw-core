@@ -20,13 +20,6 @@ Inherits Application
 		PageSettings As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		#tag Note
-			added so code from aeon that uses App.propSystemDB can be used directly
-		#tag EndNote
-		propSystemDB As mySQLDatabase
-	#tag EndProperty
-
 
 	#tag ViewBehavior
 		#tag ViewProperty

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<RBProject version="2009r3">
+<RBProject version="2011r4.1" FormatVersion="2" MinIDEVersion="20070100">
 <block type="Module" ID="1441950825">
  <ObjName>rbrwXMLSource</ObjName>
  <ObjContainerID>450275996</ObjContainerID>
@@ -243,7 +243,7 @@
    <SourceLine>Sub LazyLoad()</SourceLine>
    <SourceLine>if mIter = mLastLoadedIter then return</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>if mLoaded is false then </SourceLine>
+   <SourceLine>if not mLoaded  then </SourceLine>
    <SourceLine>mLoaded = true</SourceLine>
    <SourceLine>mElements = mDoc.Xql( mBasePath )</SourceLine>
    <SourceLine>if mElements is nil then</SourceLine>
@@ -474,9 +474,8 @@
    <InheritsFrom>Object</InheritsFrom>
   </ViewProperty>
   <ViewProperty>
-   <ObjName>mFieldCount</ObjName>
+   <ObjName>mLastLoadedIter</ObjName>
    <PropertyGroup>Behavior</PropertyGroup>
-   <PropertyValue>0</PropertyValue>
    <ItemType>Integer</ItemType>
   </ViewProperty>
  </ViewBehavior>
