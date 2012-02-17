@@ -200,6 +200,7 @@ Inherits Application
 		    dim created as Boolean = testDB.CreateDatabaseFile
 		  end if
 		  // mimic the SampleUsers class
+		  
 		  testDB.SQLExecute "create table users (Surname varchar, Othername varchar, Rank integer) "
 		  assert not testDB.Error, "Creating test database table: " + testDB.ErrorMessage
 		  
@@ -384,7 +385,7 @@ Inherits Application
 		  testDB.SQLExecute "INSERT INTO users VALUES ('Zona', 'Pearlie', '18')"
 		  
 		  assert not testDB.Error, "FILLING test database table: " + testDB.ErrorMessage
-		  
+		  testDB.Commit
 		End Sub
 	#tag EndMethod
 
